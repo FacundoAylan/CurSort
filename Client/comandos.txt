@@ -1,0 +1,21 @@
+1- me muevo a la rama develop
+    git checkout develop
+2- crear nuestra rama
+    git checkout -b nombre_rama
+3- desde la rama recien creada ==> realicen cambios en el repositorio
+    codear
+4- agregamos los archivos a la rama 
+    git add .
+5- realizamos el commit
+    git commit -m "mensaje(colocar las iniciales del nombre)"
+6- controlamos el estado
+    git status
+7- pusheamos los cambios
+    git push -u origin nombre_rama
+-----------------------------------------------------
+una vez subido, realizar las pull request
+
+
+
+
+En cada paso controlar si estas en la rama correcta con git branch
