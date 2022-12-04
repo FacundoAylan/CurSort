@@ -9,31 +9,3 @@ const userRoutes = require('./users');
 
 router.use('/course', courseRoutes);
 router.use('/users', userRoutes);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
