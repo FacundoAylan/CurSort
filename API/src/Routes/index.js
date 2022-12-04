@@ -1,9 +1,8 @@
 const express = require("express");
-const { Router } = require('express');
-const home = require('./home.js');
-const router = Router();
+const router = express.Router();
+const courseRoutes = require('./courses.js');
 
 router.use(express.json())
-router.use('/home', home)
+router.use('/course', courseRoutes)
 
 module.exports = router;
