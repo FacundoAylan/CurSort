@@ -4,6 +4,7 @@ import Home from './Component/home';
 import { Container, Box} from '@chakra-ui/react';
 
 function App() {
+  
   return (
     <Container maxW='100%' h='100%' border='1px' p='0' >
       <Box background='#4FD1C5'maxW='100%' h='10%' >
