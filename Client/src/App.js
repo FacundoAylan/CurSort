@@ -8,8 +8,6 @@ function App() {
   const {  isAuthenticated  } = useAuth0();
   return (
     <div className="App">
-        <h1>Bienvenidos al proyecto Final</h1>
-       
        {/* los dejo aca en app de prueba, para que lo pasen al home cuando este listo */}
        {!isAuthenticated && <LoginButton />}            
        {isAuthenticated && <LogoutButton/>}

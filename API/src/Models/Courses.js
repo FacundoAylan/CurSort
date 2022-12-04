@@ -22,7 +22,9 @@ module.exports = (sequelize) => {
     },
     rating: {
       type: DataTypes.FLOAT,
+
       defualtValue: 0,
+
     },
     image: {
       type: DataTypes.STRING
@@ -32,7 +34,7 @@ module.exports = (sequelize) => {
       defaultValue: true
     },
     difficulty: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     },
   });
 };
