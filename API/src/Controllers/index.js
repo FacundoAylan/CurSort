@@ -1,6 +1,8 @@
 const data = require('./api.json')
 const { Users, Courses, Categories, Reviews } = require('../db');
 
+//loadCoursesToDB es solo para cargar los cursos del json a la DB
+//la ruta en Postman seria http://localhost:3001/course/load
 const loadCoursesToDB = async (req, res) => {
     try {
         const coursesDB = await Courses.findAll();
@@ -61,23 +63,15 @@ const getCourseById = (req, res) => {
     }
 }
 
+//trae todos los cursos junto con las reviews asociadas
 const getAllCourses = async (req, res) => {
     try {
-        const cursos = data.cursos;
+        const courses = await Courses.findAll({
+            include : Reviews
+        });
 
-        if (cursos.length) {
-            cursos.forEach(a => {
-                let rating;
-                if (a.rating === 0) {
-                    if (a.reviews.length) {
-                        a.reviews.forEach(b => {
-                            rating += b.rating
-                        })
-                        a.rating = rating;
-                    }
-                }
-            })
-            res.status(200).send(cursos)
+        if (courses.length > 0) {
+            return res.status(200).send(courses)
         }
         res.status(404).send({ message: 'No se encontraron cursos' });
     } catch (error) {
@@ -85,6 +79,7 @@ const getAllCourses = async (req, res) => {
     }
 }
 
+//se postea una review y se asocia con el ID del curso
 const postReview = async (req, res) => {
     try {
         let { name, text, rating, courseId } = req.body;
@@ -92,7 +87,7 @@ const postReview = async (req, res) => {
             name,
             text,
             rating,
-            courseId
+            courseId : courseId
         })
         res.status(200).send({ message: "Reseña creada con exito" })
     } catch (error) {
