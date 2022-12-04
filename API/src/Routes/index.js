@@ -11,7 +11,6 @@ router.use('/course', courseRoutes);
 router.use('/users', userRoutes);
 
 
-module.exports = router;
 
 
 
