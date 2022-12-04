@@ -6,3 +6,5 @@ router.use(express.json())
 router.use('/course', courseRoutes)
 
 module.exports = router;
+
+

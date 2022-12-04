@@ -1,7 +1,6 @@
 const { DataTypes, Sequelize } = require('sequelize');
 
 module.exports = (sequelize) => {
-  // defino el modelo
   sequelize.define('courses', {
     name: {
       type: DataTypes.STRING,
@@ -17,12 +16,20 @@ module.exports = (sequelize) => {
     duration: {
       type: DataTypes.INTEGER,
     },
+    price: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     rating: {
       type: DataTypes.FLOAT,
       default: 0,
     },
     image: {
       type: DataTypes.STRING
+    },
+    active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     },
     difficulty: {
       type: DataTypes.STRING,
