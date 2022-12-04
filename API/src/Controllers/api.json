@@ -1,0 +1,446 @@
+{
+    "cursos": [
+        {
+            "id": 1,
+            "nombre": "Curso de Python",
+            "imagen": "https://edteam-media.s3.amazonaws.com/courses/original/5b6b5c0c-1b1f-4c1c-8c1a-6b6b5c0c1b1f.png",
+            "instructor": "Beto Quiroga",
+            "precio": 20,
+            "moneda": "USD",
+            "duracion": 10,
+            "descripcion": "Aprende a programar en Python desde cero, conoce sus fundamentos y crea tus propios proyectos.",
+            "updated_at": "2019-03-25T20:00:00.000Z",
+            "created_at": "2019-03-25T20:00:00.000Z",
+            "rating": 0,
+            "reviews": [],
+            "dificultad": "Intermedio",
+            "categoria": "Back end",
+            "temario": [
+                {
+                    "id": 1,
+                    "titulo": "Introducción",
+                    "duracion": "1 hora"
+                },
+                {
+                    "id": 2,
+                    "titulo": "Fundamentos de Python",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 3,
+                    "titulo": "Estructuras de control",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 4,
+                    "titulo": "Funciones",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 5,
+                    "titulo": "Módulos",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 6,
+                    "titulo": "POO",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 7,
+                    "titulo": "Archivos",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 8,
+                    "titulo": "Excepciones",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 9,
+                    "titulo": "Proyecto",
+                    "duracion": "2 horas"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "nombre": "Curso de JavaScript",
+            "imagen": "https://edteam-media.s3.amazonaws.com/courses/original/5b6b5c0c-1b1f-4c1c-8c1a-6b6b5c0c1b1f.png",
+            "instructor": "Beti Benitez",
+            "precio": 20,
+            "moneda": "USD",
+            "duracion": 10,
+            "descripcion": "Aprende a programar en JavaScript desde cero, conoce sus fundamentos y crea tus propios proyectos.",
+            "updated_at": "2019-03-25T20:00:00.000Z",
+            "created_at": "2019-03-25T20:00:00.000Z",
+            "rating": 0,
+            "reviews": [],
+            "dificultad": "Principiante",
+            "categoria": "Front end",
+            "temario": [
+                {
+                    "id": 1,
+                    "titulo": "Introducción",
+                    "duracion": "1 hora"
+                },
+                {
+                    "id": 2,
+                    "titulo": "Fundamentos de JavaScript",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 3,
+                    "titulo": "Estructuras de control",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 4,
+                    "titulo": "Funciones",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 5,
+                    "titulo": "Módulos",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 6,
+                    "titulo": "POO",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 7,
+                    "titulo": "Archivos",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 8,
+                    "titulo": "Excepciones",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 9,
+                    "titulo": "Proyecto",
+                    "duracion": "2 horas"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "nombre": "Curso de PHP",
+            "imagen": "https://edteam-media.s3.amazonaws.com/courses/original/5b6b5c0c-1b1f-4c1c-8c1a-6b6b5c0c1b1f.png",
+            "instructor": "Pepito Perez",
+            "precio": 20,
+            "moneda": "USD",
+            "duracion": 15,
+            "descripcion": "Aprende a programar en PHP desde cero, conoce sus fundamentos y crea tus propios proyectos.",
+            "updated_at": "2019-03-25T20:00:00.000Z",
+            "created_at": "2019-03-25T20:00:00.000Z",
+            "rating": 0,
+            "reviews": [],
+            "dificultad": "Intermedio",
+            "categoria": "Back end",
+            "temario": [
+                {
+                    "id": 1,
+                    "titulo": "Introducción",
+                    "duracion": "1 hora"
+                },
+                {
+                    "id": 2,
+                    "titulo": "Fundamentos de PHP",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 3,
+                    "titulo": "Estructuras de control",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 4,
+                    "titulo": "Funciones",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 5,
+                    "titulo": "Módulos",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 6,
+                    "titulo": "POO",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 7,
+                    "titulo": "Archivos",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 8,
+                    "titulo": "Excepciones",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 9,
+                    "titulo": "Proyecto",
+                    "duracion": "2 horas"
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "nombre": "Curso de Ruby",
+            "imagen": "https://edteam-media.s3.amazonaws.com/courses/original/5b6b5c0c-1b1f-4c1c-8c1a-6b6b5c0c1b1f.png",
+            "instructor": "Jorgito Ramirez",
+            "precio": 20,
+            "moneda": "USD",
+            "duracion": 10,
+            "descripcion": "Aprende a programar en Ruby desde cero, conoce sus fundamentos y crea tus propios proyectos.",
+            "updated_at": "2019-03-25T20:00:00.000Z",
+            "created_at": "2019-03-25T20:00:00.000Z",
+            "rating": 0,
+            "reviews": [],
+            "dificultad": "Principiante",
+            "categoria": "Back end",
+            "temario": [
+                {
+                    "id": 1,
+                    "titulo": "Introducción",
+                    "duracion": "1 hora"
+                },
+                {
+                    "id": 2,
+                    "titulo": "Fundamentos de Ruby",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 3,
+                    "titulo": "Estructuras de control",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 4,
+                    "titulo": "Funciones",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 5,
+                    "titulo": "Módulos",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 6,
+                    "titulo": "POO",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 7,
+                    "titulo": "Archivos",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 8,
+                    "titulo": "Excepciones",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 9,
+                    "titulo": "Proyecto",
+                    "duracion": "2 horas"
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "nombre": "Curso de PHP",
+            "imagen": "https://edteam-media.s3.amazonaws.com/courses/original/5b6b5c0c-1b1f-4c1c-8c1a-6b6b5c0c1b1f.png",
+            "instructor": "Juan Carrizo",
+            "precio": 20,
+            "moneda": "USD",
+            "duracion": 20,
+            "descripcion": "Aprende a programar en PHP desde cero, conoce sus fundamentos y crea tus propios proyectos.",
+            "updated_at": "2019-03-25T20:00:00.000Z",
+            "created_at": "2019-03-25T20:00:00.000Z",
+            "rating": 0,
+            "reviews": [],
+            "dificultad": "Avanzado",
+            "categoria": "Back end",
+            "temario": [
+                {
+                    "id": 1,
+                    "titulo": "Introducción",
+                    "duracion": "1 hora"
+                },
+                {
+                    "id": 2,
+                    "titulo": "Fundamentos de PHP",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 3,
+                    "titulo": "Estructuras de control",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 4,
+                    "titulo": "Funciones",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 5,
+                    "titulo": "Módulos",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 6,
+                    "titulo": "POO",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 7,
+                    "titulo": "Archivos",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 8,
+                    "titulo": "Excepciones",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 9,
+                    "titulo": "Proyecto",
+                    "duracion": "2 horas"
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "nombre": "Curso de JavaScript",
+            "imagen": "https://edteam-media.s3.amazonaws.com/courses/original/5b6b5c0c-1b1f-4c1c-8c1a-6b6b5c0c1b1f.png",
+            "instructor": "Pedro Piedra",
+            "precio": 20,
+            "moneda": "USD",
+            "duracion": 30,
+            "descripcion": "Aprende a programar en JavaScript desde cero, conoce sus fundamentos y crea tus propios proyectos.",
+            "updated_at": "2019-03-25T20:00:00.000Z",
+            "created_at": "2019-03-25T20:00:00.000Z",
+            "rating": 0,
+            "reviews": [],
+            "dificultad": "Avanzado",
+            "categoria": "Back end",
+            "temario": [
+                {
+                    "id": 1,
+                    "titulo": "Introducción",
+                    "duracion": "1 hora"
+                },
+                {
+                    "id": 2,
+                    "titulo": "Fundamentos de PHP",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 3,
+                    "titulo": "Estructuras de control",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 4,
+                    "titulo": "Funciones",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 5,
+                    "titulo": "Módulos",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 6,
+                    "titulo": "POO",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 7,
+                    "titulo": "Archivos",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 8,
+                    "titulo": "Excepciones",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 9,
+                    "titulo": "Proyecto",
+                    "duracion": "2 horas"
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "nombre": "Curso de Python",
+            "imagen": "https://edteam-media.s3.amazonaws.com/courses/original/5b6b5c0c-1b1f-4c1c-8c1a-6b6b5c0c1b1f.png",
+            "instructor": "Beto Quiroga",
+            "precio": 20,
+            "moneda": "USD",
+            "duracion": 25,
+            "descripcion": "Aprende a programar en Python desde cero, conoce sus fundamentos y crea tus propios proyectos.",
+            "updated_at": "2019-03-25T20:00:00.000Z",
+            "created_at": "2019-03-25T20:00:00.000Z",
+            "rating": 0,
+            "reviews": [],
+            "dificultad": "Avanzado",
+            "categoria": "Back end",
+            "temario": [
+                {
+                    "id": 1,
+                    "titulo": "Introducción",
+                    "duracion": "1 hora"
+                },
+                {
+                    "id": 2,
+                    "titulo": "Fundamentos de Python",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 3,
+                    "titulo": "Estructuras de control",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 4,
+                    "titulo": "Funciones",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 5,
+                    "titulo": "Módulos",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 6,
+                    "titulo": "POO",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 7,
+                    "titulo": "Archivos",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 8,
+                    "titulo": "Excepciones",
+                    "duracion": "2 horas"
+                },
+                {
+                    "id": 9,
+                    "titulo": "Proyecto",
+                    "duracion": "2 horas"
+                }
+            ]
+        }
+    ]
+
+}
