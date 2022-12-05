@@ -7,7 +7,7 @@ function Cards({nombre, imagen, descripcion, precio}){
     <Card maxW='90%' h='100%' border='1px' ml={2}>
       <CardBody maxW='100%' h='40%' background='#4FD1C5'>
         <Image
-          src='https://goncy.netlify.app/static/d52f717f79aca102bdd13af15e455879/23f4e/banner.jpg'
+          src={imagen}
           alt='Green double couch with wooden legs'
           borderRadius='lg'
           border='1px' borderColor='gray.200'

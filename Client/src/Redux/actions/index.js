@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-const getCourses = (name) => {
+const actions = {
+    getCourses : (name) => {
 
         return async (dispatch) => {
-            let response = await axios.get(`http://localhost:3001/course?name=${name}`)
+            let response = await axios.get(`http://localhost:3001/courses?name=${name}`)
 
             dispatch({
                 type: "GET_COURSES",
@@ -13,12 +14,12 @@ const getCourses = (name) => {
         }
 
 
-    }
+    },
 
-const getDetail = (id) => {
+getDetail : (id) => {
 
         return async (dispatch) => {
-            let response = await axios.get(`http://localhost:3001/course/${id}`)
+            let response = await axios.get(`http://localhost:3001/courses/${id}`)
 
             dispatch({
                 type: "GET_DETAIL",
@@ -29,3 +30,7 @@ const getDetail = (id) => {
 
 
     }
+}
+
+
+export default actions;
