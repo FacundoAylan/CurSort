@@ -1,22 +1,18 @@
-import NavBar from './Component/navBar';
-import Home from './Component/home';
-import { Container, Box} from '@chakra-ui/react';
-import Profile from './Component/Profile/Profile';
+import Home from './Component/home/home';
+//import Profile from './Component/Profile/Profile';
+import { Route} from "react-router-dom";
+import Form from './Component/Form/Form'
+import Load from './Component/load/load'
+import Detalle from './Component/detalle/detalle';
 
 function App() {
   return (
-    <Container maxW='100%' h='100%' border='1px' p='0' >
-      <Profile/>
-      <Box background='#4FD1C5'maxW='100%' h='10%' >
-        <NavBar/>
-      </Box>
-      <Box h='100%' maxW='100%'>
-        <Home/>
-      </Box>
-      {/* <Box mt='6%' ml='14%'>
-        <Form/>
-      </Box> */}
-    </Container>
+    <>
+      <Route path="/" component={Load} />
+      <Route path="/home" component={Home} />
+      <Route path="/crear" component={Form} />
+      <Route path="/detalle" component={Detalle} />
+    </>
 )}
 
 export default App;
