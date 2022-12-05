@@ -1,36 +1,31 @@
 import axios from 'axios';
 
-const actions = {
-    getCourses : (name) => {
+export function getCourses(name) {
 
-        return async (dispatch) => {
-            let response = await axios.get(`http://localhost:3001/courses?name=${name}`)
+    return async (dispatch) => {
+        let response = await axios.get(`http://localhost:3001/courses?name=${name}`)
 
-            dispatch({
-                type: "GET_COURSES",
-                payload: response.data
-            })
-
-        }
-
-
-    },
-
-getDetail : (id) => {
-
-        return async (dispatch) => {
-            let response = await axios.get(`http://localhost:3001/courses/${id}`)
-
-            dispatch({
-                type: "GET_DETAIL",
-                payload: response.data
-            })
-
-        }
-
+        dispatch({
+            type: "GET_COURSES",
+            payload: response.data
+        })
 
     }
+
+
 }
 
+export function getDetail(id) {
 
-export default actions;
+    return async (dispatch) => {
+        let response = await axios.get(`http://localhost:3001/courses/${id}`)
+
+        dispatch({
+            type: "GET_DETAIL",
+            payload: response.data
+        })
+
+    }
+
+
+}
