@@ -14,10 +14,10 @@ const basename = path.basename(__filename);
 
 const modelDefiners = [];
 
-fs.readdirSync(path.join(__dirname, '/models'))
+fs.readdirSync(path.join(__dirname, '/Models'))
   .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
   .forEach((file) => {
-    modelDefiners.push(require(path.join(__dirname, '/models', file)));
+    modelDefiners.push(require(path.join(__dirname, '/Models', file)));
   });
 
 modelDefiners.forEach(model => model(sequelize));
@@ -28,11 +28,11 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 const { Users, Courses, Categories, Reviews } = sequelize.models;
 
-Courses.belongsToMany(Users, {through: 'usuarios_cursos', timestamps: false});
-Users.belongsToMany(Courses, {through: 'usuarios_cursos', timestamps: false});
+Courses.belongsToMany(Users, {through: 'users_courses', timestamps: false});
+Users.belongsToMany(Courses, {through: 'users_courses', timestamps: false});
 
-Categories.belongsToMany(Courses, {through: 'cursos_categorias', timestamps: false});
-Courses.belongsToMany(Categories, {through: 'cursos_categorias', timestamps: false});
+Categories.belongsToMany(Courses, {through: 'courses_categories', timestamps: false});
+Courses.belongsToMany(Categories, {through: 'courses_categories', timestamps: false});
 
 Reviews.belongsTo(Courses);
 Courses.hasMany(Reviews);

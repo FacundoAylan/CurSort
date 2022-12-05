@@ -1,8 +1,15 @@
-const express = require("express");
-const router = express.Router();
-const courseRoutes = require('./courses.js');
+const { Router } = require('express');
+const routeCourses = require('./courses.js')
+const userRoutes = require('./users');
+const router = Router();
 
-router.use(express.json())
-router.use('/course', courseRoutes)
+
+
+// router.use(express.json())
+router.use('/courses', routeCourses)
+router.use('/users', userRoutes);
+
 
 module.exports = router;
+
+

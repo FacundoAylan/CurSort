@@ -1,7 +1,6 @@
 const { DataTypes, Sequelize } = require('sequelize');
 
 module.exports = (sequelize) => {
-  // defino el modelo
   sequelize.define('courses', {
     name: {
       type: DataTypes.STRING,
@@ -23,7 +22,9 @@ module.exports = (sequelize) => {
     },
     rating: {
       type: DataTypes.FLOAT,
-      default: 0,
+
+      defualtValue: 0,
+
     },
     image: {
       type: DataTypes.STRING

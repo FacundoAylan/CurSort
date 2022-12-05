@@ -3,11 +3,26 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ChakraProvider } from '@chakra-ui/react';
+import { Auth0Provider } from "@auth0/auth0-react";
+import { BrowserRouter } from "react-router-dom";
 
+const domain = 'dev-m515bc1wpup4y80o.us.auth0.com';
+const client_id = 'Amvptjtg1qjiKP1AzyvqpnzjNsjrOaky';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Auth0Provider
+      domain={domain}
+      clientId={client_id}
+      redirectUri={window.location.origin}
+    >
+      <ChakraProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ChakraProvider>
+    </Auth0Provider>
   </React.StrictMode>
 );
 
