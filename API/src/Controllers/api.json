@@ -3,7 +3,7 @@
         {
             "id": 1,
             "nombre": "Curso de Python",
-            "imagen": "https://edteam-media.s3.amazonaws.com/courses/original/5b6b5c0c-1b1f-4c1c-8c1a-6b6b5c0c1b1f.png",
+            "imagen": "https://i.ytimg.com/vi/tmrz4UuHjyQ/maxresdefault.jpg",
             "instructor": "Beto Quiroga",
             "precio": 20,
             "moneda": "USD",
@@ -66,7 +66,7 @@
         {
             "id": 2,
             "nombre": "Curso de JavaScript",
-            "imagen": "https://edteam-media.s3.amazonaws.com/courses/original/5b6b5c0c-1b1f-4c1c-8c1a-6b6b5c0c1b1f.png",
+            "imagen": "https://i.ytimg.com/vi/k0kT6mwq7mY/maxresdefault.jpg",
             "instructor": "Beti Benitez",
             "precio": 20,
             "moneda": "USD",
@@ -129,7 +129,7 @@
         {
             "id": 3,
             "nombre": "Curso de PHP",
-            "imagen": "https://edteam-media.s3.amazonaws.com/courses/original/5b6b5c0c-1b1f-4c1c-8c1a-6b6b5c0c1b1f.png",
+            "imagen": "https://edteam-media.s3.amazonaws.com/specialities/big/97236bd4-abd1-42d7-ae14-8cc99dbb0ef4.jpg",
             "instructor": "Pepito Perez",
             "precio": 20,
             "moneda": "USD",
@@ -192,7 +192,7 @@
         {
             "id": 4,
             "nombre": "Curso de Ruby",
-            "imagen": "https://edteam-media.s3.amazonaws.com/courses/original/5b6b5c0c-1b1f-4c1c-8c1a-6b6b5c0c1b1f.png",
+            "imagen": "https://edteam-media.s3.amazonaws.com/courses/original/440bf729-4f2b-49a6-a0c7-7cf65a8bd31b.png",
             "instructor": "Jorgito Ramirez",
             "precio": 20,
             "moneda": "USD",
@@ -255,7 +255,7 @@
         {
             "id": 5,
             "nombre": "Curso de PHP",
-            "imagen": "https://edteam-media.s3.amazonaws.com/courses/original/5b6b5c0c-1b1f-4c1c-8c1a-6b6b5c0c1b1f.png",
+            "imagen": "https://www.grupocodesi.com/images/curso-de-php-oo.png",
             "instructor": "Juan Carrizo",
             "precio": 20,
             "moneda": "USD",
@@ -318,7 +318,7 @@
         {
             "id": 6,
             "nombre": "Curso de JavaScript",
-            "imagen": "https://edteam-media.s3.amazonaws.com/courses/original/5b6b5c0c-1b1f-4c1c-8c1a-6b6b5c0c1b1f.png",
+            "imagen": "https://webtraining.zone/img/metadata-courses/curso-profesional-javascript-avanzado-2018.jpg",
             "instructor": "Pedro Piedra",
             "precio": 20,
             "moneda": "USD",
@@ -381,7 +381,7 @@
         {
             "id": 7,
             "nombre": "Curso de Python",
-            "imagen": "https://edteam-media.s3.amazonaws.com/courses/original/5b6b5c0c-1b1f-4c1c-8c1a-6b6b5c0c1b1f.png",
+            "imagen": "https://i.ytimg.com/vi/okHy95wG484/maxresdefault.jpg",
             "instructor": "Beto Quiroga",
             "precio": 20,
             "moneda": "USD",

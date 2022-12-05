@@ -1,13 +1,26 @@
-import React from "react";
+
+import React, { useEffect , useState} from "react";
 import { Grid, GridItem, Container, Box, Center } from "@chakra-ui/react";
+import { useDispatch, useSelector } from 'react-redux';
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
-import Paginado from '../paginado/paginado'
+import Paginado from '../paginado/paginado';
+import {getCourses} from "../../Redux/actions";
 // importo el json desde la api
-var data = require("./api.json");
+// var data = require("./api.json");
 
 function Home() {
-  let info = data.cursos;
+  const dispatch = useDispatch();
+  const [data, setData] = useState({
+    name: "",
+  })
+  let info = useSelector(state => state.courses)
+
+  useEffect(() => {
+    dispatch(getCourses(data.name));
+  }, [])
+
+
   return (
     <Container maxW="100%" h="100%" border="1px" p="0">
       <Box background="#4FD1C5" maxW="100%" h="10%">
@@ -26,10 +39,13 @@ function Home() {
             return (
               <GridItem>
                 <Cards
-                  nombre={value.nombre}
-                  imagen={value.imagen}
-                  descripcion={value.descripcion}
-                  precio={value.precio}
+
+                  nombre={value.name}
+                  imagen={value.image}
+                  descripcion={value.description}
+                  precio={value.price}
+                  id={value.id}
+
                 />
               </GridItem>
             );
