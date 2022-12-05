@@ -3,6 +3,8 @@ import { Grid, GridItem, Container, Box, Center } from "@chakra-ui/react";
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
 import Paginado from '../paginado/paginado'
+import { Link } from "react-router-dom";
+import { Button } from "@chakra-ui/react";
 // importo el json desde la api
 var data = require("./api.json");
 
@@ -11,6 +13,9 @@ function Home() {
   return (
     <Container maxW="100%" h="100%" border="1px" p="0">
       <Box background="#4FD1C5" maxW="100%" h="10%">
+        <Link to='/disable/'>
+          <Button>Profile</Button>
+        </Link>
         <NavBar />
       </Box>
       <Box h="100%" maxW="100%">
