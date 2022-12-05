@@ -1,7 +1,8 @@
 import React from "react";
-import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Divider, ButtonGroup,Button } from '@chakra-ui/react'
-             
-function Cards(){
+import { Link } from "react-router-dom";
+import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Divider, ButtonGroup,Button } from '@chakra-ui/react';
+
+function Cards({nombre, imagen, descripcion, precio}){
   return(
     <Card maxW='90%' h='100%' border='1px' ml={2}>
       <CardBody maxW='100%' h='40%' background='#4FD1C5'>
@@ -12,23 +13,25 @@ function Cards(){
           border='1px' borderColor='gray.200'
         />
         <Stack  spacing='3'>
-          <Heading size='md'>Proyecto Final</Heading>
+          <Heading size='md'>{nombre}</Heading>
           <Text>
-            Esto es una practica de Chakra css de un component Card
+            {descripcion}
           </Text>
           <Text color='blue.600' fontSize='2xl'>
-            $450
+            {precio}
           </Text>
         </Stack>
       </CardBody>
       <Divider />
       <CardFooter background='#158034 '>
         <ButtonGroup spacing='2'>
+        <Link to="/detalle" className="linkStart">
           <Button variant='solid' colorScheme='blue'>
-            Buy now
+            Detalle
           </Button>
+          </Link>
           <Button variant='ghost' colorScheme='blue'>
-            Add to cart
+            Agregar al carro
           </Button>
         </ButtonGroup>
       </CardFooter>

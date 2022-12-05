@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Auth0Provider } from "@auth0/auth0-react";
+import { BrowserRouter } from "react-router-dom";
 
 const domain = 'dev-m515bc1wpup4y80o.us.auth0.com';
 const client_id = 'Amvptjtg1qjiKP1AzyvqpnzjNsjrOaky';
@@ -17,7 +18,9 @@ root.render(
       redirectUri={window.location.origin}
     >
       <ChakraProvider>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </ChakraProvider>
     </Auth0Provider>
   </React.StrictMode>
