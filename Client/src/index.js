@@ -6,8 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Auth0Provider } from "@auth0/auth0-react";
 
-const domain = 'dev-m515bc1wpup4y80o.us.auth0.com';
-const client_id = 'Amvptjtg1qjiKP1AzyvqpnzjNsjrOaky';
+const domain = 'dev-ja3xbcn2aoqj38h2.us.auth0.com';
+const client_id = 'rH1KpoGrrBOmbtYrIch8zMWcksmuyNco';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

@@ -17,7 +17,7 @@ function NavBar() {
           </Button>
           <DrawerHeader borderBottomWidth='1px'>Cursort</DrawerHeader>
           <DrawerBody>
-            <Input placeholder='Basic usage' />
+            <Input placeholder='Basic usage'/>
           </DrawerBody>
         </DrawerContent>
       </Drawer>

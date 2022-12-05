@@ -8,6 +8,7 @@ const Profile = () => {
 
   return (
     <div>     
+      
       {/* <img src={user.picture}alt='imagen' /> */}
       {/* <h2>Nombre: {user.name}</h2>
       {user.email_verified === true ?<h3>Verificado</h3>:<button>actualizar perfil</button>} */}
