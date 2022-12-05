@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Card, Image, Stack, CardBody, Heading, Text, CardFooter, Button, ButtonGroup, Box } from '@chakra-ui/react';
@@ -12,6 +13,7 @@ function Detalle() {
     useEffect(() => {
         dispatch(getDetail(id));
     }, []);
+
 
   return (
     <>
@@ -30,22 +32,28 @@ function Detalle() {
         <Image
           objectFit="cover"
           maxW={{ base: "100%", sm: "200px" }}
+
           src={course.image}
+
           alt="Caffe Latte"
         />
 
         <Stack>
           <CardBody>
+
             <Heading size="md">{course.name}</Heading>
 
             <Text py="2">
               {course.description}
+
             </Text>
           </CardBody>
 
           <CardFooter>
             <Button variant="solid" colorScheme="blue">
+
               {`BUY ${course.price} usd`}
+
             </Button>
           </CardFooter>
         </Stack>

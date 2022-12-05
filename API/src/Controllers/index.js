@@ -1,3 +1,4 @@
+
 const { Op } = require("sequelize");
 const data = require('./api.json');
 const { Users, Courses, Categories, Reviews } = require('../db');
@@ -43,6 +44,7 @@ const postCourse = async (req, res) => {
     }
 }
 
+
 //loadCoursesToDB es solo para cargar los cursos del json a la DB
 //la ruta en Postman seria http://localhost:3001/course/load
 const loadCoursesToDB = async (req, res) => {
@@ -52,6 +54,7 @@ const loadCoursesToDB = async (req, res) => {
         if (coursesDB.length === 0 || coursesDB.length < coursesJSON.length) {
             coursesJSON.forEach(async (e, i) => {
                 let name, description, rating, image, difficulty, price;
+
                 name = e.nombre.toUpperCase(),
                     description = e.descripcion,
                     instructor = e.instructor,
@@ -61,6 +64,7 @@ const loadCoursesToDB = async (req, res) => {
                     image = e.imagen,
                     difficulty = e.dificultad,
                     price = e.precio
+
 
                 if (coursesDB.length > 0) {
                     if (!coursesDB[i] || coursesDB[i].dataValues.id !== e.id) {
@@ -98,6 +102,7 @@ const loadCoursesToDB = async (req, res) => {
     }
 }
 
+
 //funcion para buscar el nombre del curso que recibio por query
 const findByName = async (name) => {
     let courses = await Courses.findAll({
@@ -117,6 +122,7 @@ const getCourseById = async (req, res) => {
         if (id) {
             const course = await Courses.findByPk(id);
             if (course) {
+
                 res.status(200).json(course);
             } else {
                 res.status(404).json({ message: `No se encontró el curso con el número de id ${id}` });
@@ -190,18 +196,24 @@ const disableUser = async (req, res) => {
     const { mail, id } = req.query;
 
     try {
+
         if (id) {
+
             const userId = await Users.findByPk(id);
             userId.active = false;
             await userId.save();
             res.status(200).json({ message: 'Usuario deshabilitado' });
         }
+
         else if (mail) {
+
             const userMail = await Users.findOne({ where: { mail } });
             userMail.active = false;
             await userMail.save();
             res.status(200).json({ message: 'Usuario deshabilitado' });
+
         }
+
         else {
             res.status(404).json({ message: 'Usuario no encontrado' });
         }
@@ -211,5 +223,7 @@ const disableUser = async (req, res) => {
 }
 
 
+
 module.exports = { postCourse, getAllCourses, getCourseById, postReview, loadCoursesToDB, createUser, disableUser }
+
 

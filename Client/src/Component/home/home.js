@@ -1,3 +1,4 @@
+
 import React, { useEffect , useState} from "react";
 import { Grid, GridItem, Container, Box, Center } from "@chakra-ui/react";
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,6 +20,7 @@ function Home() {
     dispatch(getCourses(data.name));
   }, [])
 
+
   return (
     <Container maxW="100%" h="100%" border="1px" p="0">
       <Box background="#4FD1C5" maxW="100%" h="10%">
@@ -37,11 +39,13 @@ function Home() {
             return (
               <GridItem>
                 <Cards
+
                   nombre={value.name}
                   imagen={value.image}
                   descripcion={value.description}
                   precio={value.price}
                   id={value.id}
+
                 />
               </GridItem>
             );

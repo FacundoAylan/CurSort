@@ -8,10 +8,12 @@ import Detalle from './Component/detalle/detalle';
 function App() {
   return (
     <>
+
       <Route exact path="/" component={Load} />
       <Route path="/home" component={Home} />
       <Route path="/crear" component={Form} />
       <Route path="/detalle/:id" component={Detalle} />
+
     </>
 )}
 
