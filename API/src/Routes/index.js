@@ -1,13 +1,11 @@
-
-const { Router  } = require('express');
-const axios = require('axios');
+const { Router } = require('express');
 const routeCourses = require('./courses.js')
 
-const router = express.Router();
+const router = Router();
 
 
 
-router.use(express.json())
+// router.use(express.json())
 router.use('/courses', routeCourses)
 
 

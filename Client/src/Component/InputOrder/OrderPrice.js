@@ -6,7 +6,7 @@ const OrderPrice = () => {
         <Select placeholder='Price'>
   <option value='option1'>Expensive</option>
   <option value='option2'>Cheap</option>
-  
+   
 </Select>
     </div>
   )

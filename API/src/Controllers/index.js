@@ -1,4 +1,5 @@
-const {Courses, Categories} = require('../db.js')
+
+const { Users, Courses, Categories, Reviews } = require('../db');
 
 const postCourse = async (req, res) => {
   const {
@@ -45,7 +46,6 @@ const postCourse = async (req, res) => {
 
 
 const data = require('./api.json')
-const { Users, Courses, Categories, Reviews } = require('../db');
 
 //loadCoursesToDB es solo para cargar los cursos del json a la DB
 //la ruta en Postman seria http://localhost:3001/course/load
