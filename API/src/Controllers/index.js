@@ -1,4 +1,5 @@
-const data = require('./api.json')
+const data = require('./api.json');
+const { Op } = require("sequelize");
 const { Users, Courses, Categories, Reviews } = require('../db');
 
 //loadCoursesToDB es solo para cargar los cursos del json a la DB
@@ -10,7 +11,7 @@ const loadCoursesToDB = async (req, res) => {
         if (coursesDB.length === 0 || coursesDB.length < coursesJSON.length) {
             coursesJSON.forEach(async (e, i) => {
                 let name, description, rating, image, difficulty;
-                name = e.nombre,
+                name = e.nombre.toUpperCase(),
                 description = e.descripcion,
                 instructor = e.instructor,
                 duration = e.duracion,
@@ -23,6 +24,8 @@ const loadCoursesToDB = async (req, res) => {
                         await Courses.create({
                             name,
                             description,
+                            instructor,
+                            duration,
                             rating,
                             image,
                             difficulty
@@ -33,6 +36,8 @@ const loadCoursesToDB = async (req, res) => {
                     await Courses.create({
                         name,
                         description,
+                        instructor,
+                        duration,
                         rating,
                         image,
                         difficulty
@@ -44,6 +49,18 @@ const loadCoursesToDB = async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: error.message })
     }
+}
+
+//funcion para buscar el nombre del curso que recibio por query
+const findByName = async (name) => {
+    let courses = await Courses.findAll({
+                    where: {name:{
+                        [Op.like]:`%${name}%`
+                    }},
+                    include : Reviews
+                });
+                console.log(courses)
+    return courses;
 }
 
 const getCourseById = (req, res) => {
@@ -66,10 +83,18 @@ const getCourseById = (req, res) => {
 //trae todos los cursos junto con las reviews asociadas
 const getAllCourses = async (req, res) => {
     try {
-        const courses = await Courses.findAll({
-            include : Reviews
-        });
-
+        let name = req.query.name;
+        let courses;
+        if(name){
+            name = name.toUpperCase()
+            courses = await findByName(name)
+        } 
+        else{
+            courses = await Courses.findAll({
+                include : Reviews
+            });
+        }
+        console.log(courses)
         if (courses.length > 0) {
             return res.status(200).send(courses)
         }
