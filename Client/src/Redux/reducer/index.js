@@ -22,6 +22,7 @@ const rootReducer = (state = initialState, action) => {
                     name: action.payload.name,
                     instructor: action.payload.instructor,
                     duration: action.payload.duration,
+                    description: action.payload.description,
                     rating: action.payload.rating,
                     image: action.payload.image,
                     difficulty: action.payload.difficulty,

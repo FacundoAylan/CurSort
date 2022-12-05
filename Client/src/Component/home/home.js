@@ -33,7 +33,6 @@ function Home() {
           pl={20}
           m={0}
         >
-          {console.log(info)}
           {info.slice(0, 6).map((value) => {
             return (
               <GridItem>
@@ -42,6 +41,7 @@ function Home() {
                   imagen={value.image}
                   descripcion={value.description}
                   precio={value.price}
+                  id={value.id}
                 />
               </GridItem>
             );
