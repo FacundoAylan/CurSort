@@ -28,11 +28,11 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 const { Users, Courses, Categories, Reviews } = sequelize.models;
 
-Courses.belongsToMany(Users, {through: 'usuarios_cursos', timestamps: false});
-Users.belongsToMany(Courses, {through: 'usuarios_cursos', timestamps: false});
+Courses.belongsToMany(Users, {through: 'users_courses', timestamps: false});
+Users.belongsToMany(Courses, {through: 'users_courses', timestamps: false});
 
-Categories.belongsToMany(Courses, {through: 'cursos_categorias', timestamps: false});
-Courses.belongsToMany(Categories, {through: 'cursos_categorias', timestamps: false});
+Categories.belongsToMany(Courses, {through: 'courses_categories', timestamps: false});
+Courses.belongsToMany(Categories, {through: 'courses_categories', timestamps: false});
 
 Reviews.belongsTo(Courses);
 Courses.hasMany(Reviews);
