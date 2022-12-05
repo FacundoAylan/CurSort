@@ -7,7 +7,6 @@ import Profile from './Component/Profile/Profile';
 import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
-  const {  isAuthenticated  } = useAuth0();
   return (
     <Container maxW='100%' h='100%' border='1px' p='0' >
       {/* los dejo aca en app de prueba, para que lo pasen al home cuando este listo */}
@@ -25,4 +24,5 @@ function App() {
       </Box> */}
     </Container>
 )}
+
 export default App;

@@ -22,7 +22,9 @@ module.exports = (sequelize) => {
     },
     rating: {
       type: DataTypes.FLOAT,
-      default: 0,
+
+      defualtValue: 0,
+
     },
     image: {
       type: DataTypes.STRING
