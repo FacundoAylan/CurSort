@@ -5,19 +5,29 @@ const { Users, Courses, Categories, Reviews } = require('../db');
 
 const postCourse = async (req, res) => {
     const {
-        name,
-        description,
-        instructor,
-        duration,
-        price,
-        image,
-        difficulty,
-        categories
+        nombre ,
+        descripcion ,
+        instuctor ,
+        duracion ,
+        precio ,
+        imagen ,
+        dificultad
+        //categories
     } = req.body;
+
+    let name, description, instructor, duration, price, image, difficulty;
+
+    name =nombre;
+    description = descripcion;
+    instructor = instuctor;
+    duration = duracion;
+    price = precio;
+    image = imagen;
+    difficulty = dificultad;
 
     try {
         // valido que existan los datos obligatorios
-        if (!name || !description || !price)
+        if (!name || !description)
             return res.status(400).send('Faltan datos obligatorios.');
 
         const newcourse = await Courses.create({
@@ -31,12 +41,12 @@ const postCourse = async (req, res) => {
         });
 
         // Busco las categorías que coincidan con los que me trae por body
-        let categoriesDB = await Categories.findAll({
-            where: { name: categories.map(e => e) }
-        })
+        //let categoriesDB = await Categories.findAll({
+          //  where: { name: categories.map(e => e) }
+        //})
 
         // Creo las relaciones con la tabla Categories
-        newcourse.addCategories(categoriesDB);
+        //newcourse.addCategories(categoriesDB);
 
         res.status(200).send("El curso ha sido creado exitosamente!");
     } catch (error) {
@@ -232,7 +242,17 @@ const getCategories = async (req, res) => {
 
 }
 
+const postCategorie = async (req, res) => {
+    
+    try{
+        const categorie   = await Categories.create(req.body);
+        res.send(categorie);
+    }catch(error){
+        res.status(400).send(`ocurrio un error ${error}`);
+    } 
+}
 
-module.exports = {postCourse, getAllCourses, getCourseById, postReview, loadCoursesToDB, createUser, disableUser, getCategories}
+
+module.exports = {postCourse, getAllCourses, getCourseById, postReview, loadCoursesToDB, createUser, disableUser, getCategories,postCategorie}
 
 
