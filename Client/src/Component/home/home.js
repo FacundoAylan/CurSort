@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
 import Paginado from '../paginado/paginado';
-import  {getCourses} from "../../Redux/actions";
+import  {getCourses, getCategory} from "../../Redux/actions";
+
 // importo el json desde la api
 // var data = require("./api.json");
 
@@ -16,9 +17,9 @@ function Home() {
   })
   let info = useSelector(state => state.courses)
 
-  useEffect(() => {
-    
+  useEffect(() => {    
     dispatch(getCourses(data.name));
+    dispatch(getCategory())
   }, [])
 
 

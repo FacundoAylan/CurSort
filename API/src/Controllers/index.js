@@ -218,9 +218,10 @@ const disableUser = async (req, res) => {
 }
 
 const getCategories = async (req, res) => {
+
    try{
      const categories = await Categories.findAll();
-
+     console.log(categories)
      if (categories.length > 0){
         res.status(200).json(categories);
      }else{
