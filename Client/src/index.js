@@ -10,7 +10,7 @@ import { BrowserRouter } from "react-router-dom";
 import store from './Redux/store/index.js';
 import { Provider } from 'react-redux';
 
-//deben ir en .env ===> por cuestiones de falta de practica las dejamos aca
+
 const domain = 'dev-ja3xbcn2aoqj38h2.us.auth0.com';
 const client_id = 'p8fIi6RZqrKmOfH00a8p4nOJRQna4xmJ';
 const root = ReactDOM.createRoot(document.getElementById('root'));
