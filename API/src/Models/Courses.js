@@ -18,7 +18,12 @@ module.exports = (sequelize) => {
     },
     price: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      
+    },
+
+    fecha: {
+      type : DataTypes.DATE,
+      defaultValue: DataTypes.NOW
     },
     rating: {
       type: DataTypes.FLOAT,
