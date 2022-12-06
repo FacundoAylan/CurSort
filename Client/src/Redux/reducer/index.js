@@ -2,7 +2,8 @@ let initialState = {
     courseDetail: {},
     allCourses: [],
     courses: [],
-    // categories: []
+    categories: []
+    
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -29,6 +30,13 @@ const rootReducer = (state = initialState, action) => {
                     price: action.payload.price
                 }
             }
+
+        case 'GET_CATEGORIES':
+            return {
+                ...state,
+                categories: [action.payload]
+            }
+
 
         default: return state
     }
