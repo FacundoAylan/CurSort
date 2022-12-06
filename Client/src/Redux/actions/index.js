@@ -39,7 +39,7 @@ export function posCourses(data){
   return async (dispatch) =>{
       dispatch({
           type: "POST_COURSES",
-          payload:data
+          payload:data,
       })
   }
 }
