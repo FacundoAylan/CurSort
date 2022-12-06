@@ -28,7 +28,7 @@ import OrderPublished  from '../InputOrder/OrderPublished';
 import OrderStar from '../InputOrder/OrderStar'
 import {getCourses} from '../../Redux/actions/index.js'
 
-function NavBar() {
+function NavBar({setPagina}) {
   const [name, setName] = useState("")
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -36,6 +36,7 @@ function NavBar() {
     setName(e.target.value)
   }
   const onClick = () =>{
+    setPagina(1);
     dispatch(getCourses(name));
   }
   const reset = () =>{

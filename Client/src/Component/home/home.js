@@ -30,7 +30,7 @@ function Home() {
   return (
     <Container maxW="100%" h="100%" border="1px" p="0">
       <Box background="#4FD1C5" maxW="100%" h="10%">
-        <NavBar />
+        <NavBar setPagina={setPagina}/>
       </Box>
       <Box h="100%" maxW="100%">
         <Grid
