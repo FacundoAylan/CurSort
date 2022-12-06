@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {postCourses} from '../../Redux/actions'
 import {
   Input,
   Grid,
-  GridItem,
+  GridItem,  
   Button,
   ButtonGroup,
   Textarea,
@@ -22,9 +24,14 @@ import {
   AlertDialogCloseButton,
   Container,
   Box,
+  IconButton
 } from "@chakra-ui/react";
+import { ArrowLeftIcon } from '@chakra-ui/icons'
 
 function Form() {
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const courses = useSelector((state)=> state.courses)
   const [input, setInput] = useState({
     nombre: "",
     instuctor: "",
@@ -36,19 +43,19 @@ function Form() {
   });
   const expresiones = {
     nombre: /^[a-z0-9_-]{3,16}$/,
-    instuctor: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
+    //instuctor: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
     duracion: /^[0-9]+([,][0-9]+)?$/,
     imagen: /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/,
     descripcion: /^[\s\S]{10,100}$/,
   };
-  const handleInputChange = (e) => {
+/*   const handleInputChange = (e) => {
     e.target.id === "duracion"
       ? setInput({ ...input, [e.target.id]: Number(e.target.value) })
       : setInput({ ...input, [e.target.id]: e.target.value });
-  };
+  }; */
   const isError = {
     nombre: expresiones.nombre.test(input.nombre) ? false : true,
-    instuctor: expresiones.instuctor.test(input.instuctor) ? false : true,
+    //instuctor: expresiones.instuctor.test(input.instuctor) ? false : true,
     duracion: expresiones.duracion.test(input.duracion) ? false : true,
     dificultad: input.dificultad === "",
     imagen: expresiones.imagen.test(input.imagen) ? false : true,
@@ -75,14 +82,40 @@ function Form() {
       return false;
     }
   };
+
+  function handleSubmit(e){
+    e.preventDefault()
+    dispatch(postCourses(input))
+    alert("Curso creado con Exito🚀🙌")
+    setInput({
+      nombre: "",
+      instuctor: "",
+      duracion: "",
+      dificultad: "",
+      imagen: "",
+      fecha: "",
+      descripcion: "",
+    })
+    history.push('/home')
+}
+function handleChange(e){
+  setInput({
+      ...input,
+      [e.target.name] : e.target.value
+  })
+}
+
+
   return (
     <Container maxW="100%" h="100vh" border="1px" p="0">
-      <Box>
-      <Link to="/home" className="backCreate">
-        <ButtonGroup variant="outline" spacing="6" p={1}>
-          <Button colorScheme="blue">{"<="}</Button>
-        </ButtonGroup>
-      </Link>
+      <Box p='6px'>
+        <Link to="/" className="backCreate">
+          <IconButton
+            colorScheme="blue"
+            aria-label="Search database"
+            icon={<ArrowLeftIcon />}
+          />
+        </Link>
       </Box>
       <Box mt="6%" ml="14%">
         <Grid
@@ -104,7 +137,9 @@ function Form() {
               <Input
                 placeholder="Basic usage"
                 id="nombre"
-                onChange={handleInputChange}
+                name='nombre'
+                onChange={handleChange}
+                
               />
               {!isError.nombre ? (
                 <FormHelperText color={"green"}>nombre valido</FormHelperText>
@@ -121,7 +156,8 @@ function Form() {
               <Input
                 placeholder="Basic usage"
                 id="instuctor"
-                onChange={handleInputChange}
+                name='instructor'
+                onChange={handleChange}
               />
               {!isError.instuctor ? (
                 <FormHelperText color={"green"}>
@@ -142,7 +178,8 @@ function Form() {
               <Input
                 placeholder="Basic usage"
                 id="duracion"
-                onChange={handleInputChange}
+                name='duracion'
+                onChange={handleChange}
               />
               {!isError.duracion ? (
                 <FormHelperText color={"green"}>duracion valido</FormHelperText>
@@ -161,7 +198,8 @@ function Form() {
               <Select
                 placeholder="DIFICULTAD:"
                 id="dificultad"
-                onChange={handleInputChange}
+                name='dificultad'
+                onChange={handleChange}
               >
                 <option value="option1">Principiante</option>
                 <option value="option2">Intermedio</option>
@@ -184,7 +222,8 @@ function Form() {
               <Input
                 placeholder="jpg o png"
                 id="imagen"
-                onChange={handleInputChange}
+                name='imagen'
+                onChange={handleChange}
               />
               {!isError.imagen ? (
                 <FormHelperText color={"green"}>
@@ -206,7 +245,8 @@ function Form() {
                 placeholder="mm/dd/yyyy"
                 type="date"
                 id="fecha"
-                onChange={handleInputChange}
+                name='fecha'
+                onChange={handleChange}
               />
               {!isError.fecha ? (
                 <FormHelperText color={"green"}>
@@ -227,7 +267,8 @@ function Form() {
               <Textarea
                 placeholder="Here is a sample placeholder"
                 id="descripcion"
-                onChange={handleInputChange}
+                name='descripcion'
+                onChange={handleChange}
               />
               {!isError.descripcion ? (
                 <FormHelperText color={"green"}>
@@ -240,8 +281,12 @@ function Form() {
           </GridItem>
           <GridItem area={"button"}>
             <Center>
-              <ButtonGroup variant="outline" spacing="6" onClick={validacion}>
-                <Button colorScheme="blue">Send</Button>
+              <ButtonGroup variant="outline" spacing="6"
+               onClick={validacion} 
+               onSubmit={(e) => handleSubmit(e)}
+               >
+                <Button 
+                colorScheme="blue">Send</Button>
               </ButtonGroup>
             </Center>
           </GridItem>

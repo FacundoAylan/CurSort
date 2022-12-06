@@ -1,9 +1,10 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { Link, useParams } from "react-router-dom";
-import { Card, Image, Stack, CardBody, Heading, Text, CardFooter, Button, ButtonGroup, Box } from '@chakra-ui/react';
+import { Card, Image, Stack, CardBody, Heading, Text, CardFooter, Button, Box, IconButton, Center } from '@chakra-ui/react';
 import { useDispatch, useSelector } from "react-redux";
 import { getDetail } from "../../Redux/actions";
+import { ArrowLeftIcon } from '@chakra-ui/icons'
 
 function Detalle() {
   let { id } = useParams();
@@ -17,47 +18,52 @@ function Detalle() {
 
   return (
     <>
-          <Box>
-      <Link to="/home" className="backCreate">
-        <ButtonGroup variant="outline" spacing="6" p={1}>
-          <Button colorScheme="blue">{"<="}</Button>
-        </ButtonGroup>
-      </Link>
+      <Box p='6px'>
+        <Link to="/" className="backCreate">
+          <IconButton
+            colorScheme="blue"
+            aria-label="Search database"
+            icon={<ArrowLeftIcon />}
+          />
+        </Link>
       </Box>
-      <Card
-        direction={{ base: "column", sm: "row" }}
-        overflow="hidden"
-        variant="outline"
-      >
-        <Image
-          objectFit="cover"
-          maxW={{ base: "100%", sm: "200px" }}
+      <Center mt='5%'>
 
-          src={course.image}
+        <Card
+          direction={{ base: "column", sm: "row" }}
+          overflow="hidden"
+          variant="outline"
+        >
+          <Image
+            objectFit="cover"
+            maxW={{ base: "100%", sm: "200px" }}
 
-          alt="Caffe Latte"
-        />
+            src={course.image}
 
-        <Stack>
-          <CardBody>
+            alt="Caffe Latte"
+          />
 
-            <Heading size="md">{course.name}</Heading>
+          <Stack>
+            <CardBody>
 
-            <Text py="2">
-              {course.description}
+              <Heading size="md">{course.name}</Heading>
 
-            </Text>
-          </CardBody>
+              <Text py="2">
+                {course.description}
 
-          <CardFooter>
-            <Button variant="solid" colorScheme="blue">
+              </Text>
+            </CardBody>
 
-              {`BUY ${course.price} usd`}
+            <CardFooter>
+              <Button variant="solid" colorScheme="blue">
 
-            </Button>
-          </CardFooter>
-        </Stack>
-      </Card>
+                {`BUY ${course.price} usd`}
+
+              </Button>
+            </CardFooter>
+          </Stack>
+        </Card>
+      </Center>
     </>
   );
 };

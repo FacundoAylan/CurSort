@@ -1,11 +1,10 @@
-
 import React, { useEffect , useState} from "react";
 import { Grid, GridItem, Container, Box, Center } from "@chakra-ui/react";
 import { useDispatch, useSelector } from 'react-redux';
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
 import Paginado from '../paginado/paginado';
-import  {getCourses, getCategory} from "../../Redux/actions";
+import  {getCourses, getCategory, orderByName} from "../../Redux/actions";
 
 // importo el json desde la api
 // var data = require("./api.json");
@@ -15,6 +14,7 @@ function Home() {
   const [data, setData] = useState({
     name: "",
   })
+  const [orden, setOrden] = useState('')
   let info = useSelector(state => state.courses)
 
   useEffect(() => {    
@@ -22,11 +22,19 @@ function Home() {
     dispatch(getCategory())
   }, [])
 
+  function handleFilterName(e){
+    e.preventDefault();
+    dispatch(orderByName(e.target.value))
+    //setCurrentPage(1);
+    setOrden(e.target.value)
+    
+}
+
 
   return (
     <Container maxW="100%" h="100%" border="1px" p="0">
       <Box background="#4FD1C5" maxW="100%" h="10%">
-        <NavBar />
+        <NavBar handleFilterName={handleFilterName}/>
       </Box>
       <Box h="100%" maxW="100%">
         <Grid

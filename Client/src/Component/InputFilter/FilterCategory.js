@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Select } from "@chakra-ui/react";
 import {  useSelector } from "react-redux"
-// import useDispatch from "react-redux"
+import {useDispatch} from "react-redux"
+import { getCategory } from "../../Redux/actions";
 // import filterCategory from '../../Redux/actions/index'
 
 const FilterCategory = () => {
+
    const category = [
     {
       name: "Front-End",
@@ -22,8 +24,16 @@ const FilterCategory = () => {
 
   //const dispatch = useDispatch()
 
-  const categories = useSelector(state => state.categories)
+
+  const dispatch = useDispatch()
   
+  useEffect(() => {
+    dispatch(getCategory());
+  }, [dispatch])
+
+
+  const categories = useSelector(state => state.categories)
+  console.log('Categorias: ', categories)
   // function handleFilterCategory(e) {
   //  dispatch(filterCategory(e.target.value))
   // }
