@@ -23,7 +23,7 @@ import OrderPublished  from '../InputOrder/OrderPublished';
 import OrderStar from '../InputOrder/OrderStar';
 import OrderAZ from '../InputOrder/OrderAZ';
 
-function NavBar({handleOrderByPrice, handleOrderByName, handleOrderByPublished}) {
+function NavBar({handleOrderByPrice, handleOrderByName, handleOrderByPublished, handleOrderByStar}) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -57,7 +57,7 @@ function NavBar({handleOrderByPrice, handleOrderByName, handleOrderByPublished})
                   <OrderPublished handleOrderByPublished={handleOrderByPublished}/>
                 </GridItem>
                 <GridItem>
-                  <OrderStar/>
+                  <OrderStar handleOrderByStar={handleOrderByStar} />
                 </GridItem>
                 <GridItem>
                   <OrderAZ handleOrderByName={handleOrderByName}/>

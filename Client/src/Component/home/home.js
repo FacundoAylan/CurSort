@@ -25,6 +25,7 @@ function Home() {
   }, [])
 
     function handleOrderByName(e){
+        console.log(info)
         e.preventDefault();
         dispatch(orderByName(e.target.value))
         setOrder('order' + e.target.value)
@@ -42,6 +43,12 @@ function Home() {
         setOrder('order' + e.target.value)
     }
 
+    function handleOrderByStar(e){
+      e.preventDefault();
+      dispatch(orderByRating(e.target.value))
+      setOrder('order' + e.target.value)
+  }
+
   return (
     <Container maxW="100%" h="100%" border="1px" p="0">
       <div>
@@ -56,6 +63,7 @@ function Home() {
           handleOrderByPrice={handleOrderByPrice} 
           handleOrderByName={handleOrderByName}
           handleOrderByPublished={handleOrderByPublished}
+          handleOrderByStar={handleOrderByStar}
           />
       </Box>
       <Box h="100%" maxW="100%">
