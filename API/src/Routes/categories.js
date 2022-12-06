@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const {getCategories} = require('../Controllers/index');
 
-router = Router();
+const router = Router();
 
 router.get('/', getCategories);
 
