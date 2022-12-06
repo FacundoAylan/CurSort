@@ -22,7 +22,9 @@ import {
   AlertDialogCloseButton,
   Container,
   Box,
+  IconButton
 } from "@chakra-ui/react";
+import { ArrowLeftIcon } from '@chakra-ui/icons'
 
 function Form() {
   const [input, setInput] = useState({
@@ -77,12 +79,14 @@ function Form() {
   };
   return (
     <Container maxW="100%" h="100vh" border="1px" p="0">
-      <Box>
-      <Link to="/home" className="backCreate">
-        <ButtonGroup variant="outline" spacing="6" p={1}>
-          <Button colorScheme="blue">{"<="}</Button>
-        </ButtonGroup>
-      </Link>
+      <Box p='6px'>
+        <Link to="/" className="backCreate">
+          <IconButton
+            colorScheme="blue"
+            aria-label="Search database"
+            icon={<ArrowLeftIcon />}
+          />
+        </Link>
       </Box>
       <Box mt="6%" ml="14%">
         <Grid
