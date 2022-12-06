@@ -4,15 +4,12 @@ export function getCourses(name) {
 
     return async (dispatch) => {
         let response = await axios.get(`http://localhost:3001/courses?name=${name}`)
-        console.log(response)
         dispatch({
             type: "GET_COURSES",
             payload: response.data
         })
 
     }
-
-
 }
 
 export function getDetail(id) {
@@ -28,4 +25,27 @@ export function getDetail(id) {
     }
 
 
+}
+
+export function orderByName(payload) {
+    return {
+        type: 'ORDER_BY_NAME',
+        payload
+    };
+}
+
+
+export function orderByRating(payload) {
+    return {
+        type: 'ORDER_BY_RATING',
+        payload
+    };
+}
+
+
+export function orderByPrice(payload) {
+    return {
+        type: 'ORDER_BY_PRICE',
+        payload
+    };
 }
