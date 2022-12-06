@@ -5,7 +5,7 @@ export function getCourses() {
 
   return async (dispatch) => {
     let response = await axios.get(
-      `http://localhost:3001/courses?name=${name}`
+      `http://localhost:3001/courses?`
     );
     dispatch({
       type: GET_COURSES,
@@ -45,7 +45,7 @@ export function getCategory(){
 //   }
 
 
-} //esta llave me parece que esta de mas
+ //esta llave me parece que esta de mas
 
 export function orderByName(payload) {
     return {

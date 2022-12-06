@@ -1,4 +1,4 @@
-import Home from './Component/home/home';
+import Home from './Component/Home/home';
 //import Profile from './Component/Profile/Profile';
 import { Route} from "react-router-dom";
 import Form from './Component/Form/Form'
