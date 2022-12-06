@@ -47,8 +47,7 @@ const postCourse = async (req, res) => {
 
 //loadCoursesToDB es solo para cargar los cursos del json a la DB
 //la ruta en Postman seria http://localhost:3001/course/load
-const loadCoursesToDB = async (req, res) => {
-    try {
+const loadCoursesToDB = async () => {
         const coursesDB = await Courses.findAll();
         const coursesJSON = data.cursos;
         if (coursesDB.length === 0 || coursesDB.length < coursesJSON.length) {
@@ -96,10 +95,6 @@ const loadCoursesToDB = async (req, res) => {
                 }
             })
         }
-        res.status(200).send("Los cursos han sido cargados")
-    } catch (error) {
-        res.status(400).json({ message: error.message })
-    }
 }
 
 
@@ -222,8 +217,22 @@ const disableUser = async (req, res) => {
     }
 }
 
+const getCategories = async (req, res) => {
+   try{
+     const categories = await Categories.findAll();
+
+     if (categories.length > 0){
+        res.status(200).json(categories);
+     }else{
+        res.status(404).send("no se encontraron categorias")
+    }
+   }catch (error) {
+     res.status(400).send(`ocurrio un error ${error}`);
+   }
+
+}
 
 
-module.exports = { postCourse, getAllCourses, getCourseById, postReview, loadCoursesToDB, createUser, disableUser }
+module.exports = {postCourse, getAllCourses, getCourseById, postReview, loadCoursesToDB, createUser, disableUser, getCategories}
 
 
