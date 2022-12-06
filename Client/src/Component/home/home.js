@@ -21,7 +21,7 @@ function Home() {
     dispatch(getCourses(data.name));
   }, [])
 
-
+  console.log(info);
   return (
     <Container maxW="100%" h="100%" border="1px" p="0">
       <Box background="#4FD1C5" maxW="100%" h="10%">
@@ -40,7 +40,6 @@ function Home() {
             return (
               <GridItem>
                 <Cards
-
                   nombre={value.name}
                   imagen={value.image}
                   descripcion={value.description}

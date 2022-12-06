@@ -5,7 +5,6 @@ const {postCourse, getAllCourses, getCourseById, postReview, loadCoursesToDB} = 
 
 router.post('/', postCourse)
 router.get('/', getAllCourses)
-router.post('/load', loadCoursesToDB)
 router.get('/:id', getCourseById)
 router.post('/review', postReview)
 

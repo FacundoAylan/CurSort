@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export function getCourses(name) {
+
   return async (dispatch) => {
     let response = await axios.get(
       `http://localhost:3001/courses?name=${name}`
@@ -10,6 +11,7 @@ export function getCourses(name) {
       payload: response.data,
     });
   };
+
 }
 
 export function getDetail(id) {
