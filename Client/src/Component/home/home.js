@@ -18,18 +18,21 @@ function Home() {
   })
   let info = useSelector(state => state.courses, () => false)
 
+  let [ order, setOrder ] = useState('')
+
   useEffect(() => {
     dispatch(getCourses());
   }, [])
 
     function handleOrderByName(e){
-        console.log(info)
+        console.log(e.target.value)
         e.preventDefault();
         dispatch(orderByName(e.target.value))
+        setOrder('order' + e.target.value)
     }
 
     function handleOrderByPrice(e){
-        console.log(info)
+        console.log()
         e.preventDefault();
         dispatch(orderByPrice(e.target.value))
     }
