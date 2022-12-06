@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
 import Paginado from '../paginado/paginado';
-import OrderPrice from "../InputOrder/OrderPrice";
 import {getCourses, orderByName, orderByRating, orderByPrice, orderByPublished} from "../../Redux/actions";
 
 // importo el json desde la api
@@ -22,10 +21,9 @@ function Home() {
 
   useEffect(() => {
     dispatch(getCourses());
-  }, [])
+  }, [dispatch])
 
     function handleOrderByName(e){
-        console.log(info)
         e.preventDefault();
         dispatch(orderByName(e.target.value))
         setOrder('order' + e.target.value)

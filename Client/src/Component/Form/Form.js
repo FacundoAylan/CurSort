@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { getStorage, ref ,uploadBytesResumable,getDownloadURL} from "firebase/storage";
 import {
   Input,
   Grid,
@@ -21,8 +23,11 @@ import {
   useDisclosure,
   AlertDialogCloseButton,
   Container,
+  Image,
   Box,
+  IconButton
 } from "@chakra-ui/react";
+import { ArrowLeftIcon } from '@chakra-ui/icons'
 
 function Form() {
   const [input, setInput] = useState({
@@ -31,29 +36,49 @@ function Form() {
     duracion: "",
     dificultad: "",
     imagen: "",
-    fecha: "",
+    precio: "",
     descripcion: "",
   });
   const expresiones = {
     nombre: /^[a-z0-9_-]{3,16}$/,
     instuctor: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
     duracion: /^[0-9]+([,][0-9]+)?$/,
-    imagen: /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/,
+    imagen: /(?:jpg|gif|png|jfif|jpeg)/,
     descripcion: /^[\s\S]{10,100}$/,
   };
   const handleInputChange = (e) => {
-    e.target.id === "duracion"
+    e.target.id === "duracion" || e.target.id === "precio"
       ? setInput({ ...input, [e.target.id]: Number(e.target.value) })
       : setInput({ ...input, [e.target.id]: e.target.value });
   };
+
+  const handleImagen = (e)=>{
+    const file = e.target.files[0];
+    const storage = getStorage();
+    const referencia = ref(storage, `cursos/${file.name}`)
+
+    const task = uploadBytesResumable(referencia, file);
+
+    task.on('state_changed',null,null,() => {
+        // Upload completed successfully, now we can get the download URL
+        getDownloadURL(task.snapshot.ref).then((downloadURL) => {
+          console.log('File available at', downloadURL);
+          setInput({
+            ...input,
+            [e.target.id]: downloadURL
+          })
+        });
+      })
+
+  }
   const isError = {
     nombre: expresiones.nombre.test(input.nombre) ? false : true,
     instuctor: expresiones.instuctor.test(input.instuctor) ? false : true,
     duracion: expresiones.duracion.test(input.duracion) ? false : true,
     dificultad: input.dificultad === "",
     imagen: expresiones.imagen.test(input.imagen) ? false : true,
-    fecha: input.fecha === "",
-    descripcion: expresiones.descripcion.test(input.descripcion) ? false : true,
+    precio: expresiones.duracion.test(input.precio) ? false : true,
+    descripcion: expresiones.descripcion.test(input.descripcion) ? false : true
   };
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
@@ -66,33 +91,42 @@ function Form() {
       !e.duracion &&
       !e.dificultad &&
       !e.imagen &&
-      !e.fecha &&
+      !e.precio &&
       !e.descripcion
     ) {
-      onOpen();
+      
+      axios.post('http://localhost:3001/courses',input)
+        .then(res => {
+            onOpen();
+            setInput({
+            })
+        })
+        .catch(error=> alert(`hubo un problema al registrar tu receta ${error}`));
       return true;
     } else {
       return false;
     }
   };
   return (
-    <Container maxW="100%" h="100vh" border="1px" p="0">
-      <Box>
-      <Link to="/home" className="backCreate">
-        <ButtonGroup variant="outline" spacing="6" p={1}>
-          <Button colorScheme="blue">{"<="}</Button>
-        </ButtonGroup>
-      </Link>
+    <Container maxW="100%" h="100vh" p="0">
+      <Box p='6px'>
+        <Link to="/" className="backCreate">
+          <IconButton
+            colorScheme="blue"
+            aria-label="Search database"
+            icon={<ArrowLeftIcon />}
+          />
+        </Link>
       </Box>
-      <Box mt="6%" ml="14%">
+      <Box mt="2%" ml="14%">
         <Grid
           templateColumns="repeat(2, 0.4fr)"
           gap={9}
-          templateRows="repeat(3, 70px)"
+          templateRows="repeat(3, 0.1fr)"
           p={0}
           templateAreas={`"1 2 "
                         "4 5 "
-                        "6 7"
+                        "6  7"
                         "d d "
                         "button button "`}
         >
@@ -113,6 +147,7 @@ function Form() {
               )}
             </FormControl>
           </GridItem>
+          
           <GridItem>
             <FormControl isRequired isInvalid={isError.instuctor}>
               <Center>
@@ -180,41 +215,48 @@ function Form() {
             <FormControl isRequired isInvalid={isError.imagen}>
               <Center>
                 <FormLabel>IMAGEN:</FormLabel>
+                {input.imagen && <Image
+                  h ='150px'
+                  w = '300px'
+                  src={input.imagen}
+                  alt='Green double couch with wooden legs'
+                  borderRadius='lg'
+                  border='1px' borderColor='gray.200'
+              />}
               </Center>
               <Input
+                m = "1" 
+                type='file' 
                 placeholder="jpg o png"
                 id="imagen"
-                onChange={handleInputChange}
+                onChange={handleImagen}
               />
               {!isError.imagen ? (
                 <FormHelperText color={"green"}>
-                  imagen valida valido
+                  imagen valida
                 </FormHelperText>
               ) : (
                 <FormErrorMessage>
-                  se requiere la url de la imagen
+                  se requiere una imagen
                 </FormErrorMessage>
               )}
             </FormControl>
           </GridItem>
           <GridItem>
-            <FormControl isRequired isInvalid={isError.fecha}>
+            <FormControl isRequired isInvalid={isError.precio}>
               <Center>
-                <FormLabel>FECHA DE CREACION:</FormLabel>
+                <FormLabel>PRECIO :</FormLabel>
               </Center>
               <Input
-                placeholder="mm/dd/yyyy"
-                type="date"
-                id="fecha"
+                placeholder="Basic usage"
+                id="precio"
                 onChange={handleInputChange}
               />
-              {!isError.fecha ? (
-                <FormHelperText color={"green"}>
-                  imagen valida valido
-                </FormHelperText>
+              {!isError.precio ? (
+                <FormHelperText color={"green"}>precio valido</FormHelperText>
               ) : (
                 <FormErrorMessage>
-                  se requiere la url de la imagen
+                  se requiere precio del curso
                 </FormErrorMessage>
               )}
             </FormControl>
@@ -238,7 +280,7 @@ function Form() {
               )}
             </FormControl>
           </GridItem>
-          <GridItem area={"button"}>
+          <GridItem area={"button"} pb='25px'>
             <Center>
               <ButtonGroup variant="outline" spacing="6" onClick={validacion}>
                 <Button colorScheme="blue">Send</Button>
@@ -258,9 +300,9 @@ function Form() {
           <AlertDialogOverlay />
 
           <AlertDialogContent>
-            <AlertDialogHeader>Discard Changes?</AlertDialogHeader>
+            <AlertDialogHeader>Exitoso</AlertDialogHeader>
             <AlertDialogCloseButton />
-            <AlertDialogBody>formlario enviado</AlertDialogBody>
+            <AlertDialogBody>formulario enviado</AlertDialogBody>
           </AlertDialogContent>
         </AlertDialog>
       </Box>

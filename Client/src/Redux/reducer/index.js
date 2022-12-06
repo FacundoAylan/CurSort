@@ -1,20 +1,24 @@
+import { GET_DETAIL, GET_COURSES, GET_CATEGORIES } from "../action-types";
+
 let initialState = {
     courseDetail: {},
     allCourses: [],
     courses: [],
-    // categories: []
+    warnings: '',
+    categories: []
+    
 }
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "GET_COURSES":
+    case GET_COURSES:
       return {
         ...state,
         allCourses: action.payload,
         courses: action.payload,
       };
 
-    case "GET_DETAIL":
+    case GET_DETAIL:
       return {
         ...state,
         courseDetail: {
@@ -29,6 +33,12 @@ const rootReducer = (state = initialState, action) => {
           price: action.payload.price,
         },
       };
+        case GET_CATEGORIES:
+            return {
+                ...state,
+                categories: action.payload
+            }
+
 
     case "ORDER_BY_NAME":
       let order =
@@ -138,5 +148,7 @@ const rootReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+
 
 export default rootReducer;
