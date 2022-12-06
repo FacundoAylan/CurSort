@@ -35,6 +35,14 @@ export function getCategory(){
     }
 }
 
+export function posCourses(data){
+  return async (dispatch) =>{
+      dispatch({
+          type: "POST_COURSES",
+          payload:data
+      })
+  }
+}
 // export function filterCategory(payload) {
 //     return {
 //       type: "FILTER_CATEGORY",
