@@ -2,7 +2,9 @@ let initialState = {
     courseDetail: {},
     allCourses: [],
     courses: [],
-    // categories: []
+    warnings: '',
+    categories: []
+    
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -29,6 +31,7 @@ const rootReducer = (state = initialState, action) => {
           price: action.payload.price,
         },
       };
+
 
     case "ORDER_BY_NAME":
       let order =
@@ -138,5 +141,17 @@ const rootReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+        case 'GET_CATEGORIES':
+            return {
+                ...state,
+                categories: [action.payload]
+            }
+
+
+        default: return state
+    }
+}
+
 
 export default rootReducer;

@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
 import Paginado from '../paginado/paginado';
+
 import OrderPrice from "../InputOrder/OrderPrice";
 import {getCourses, orderByName, orderByRating, orderByPrice, orderByPublished} from "../../Redux/actions";
+
 
 // importo el json desde la api
 // var data = require("./api.json");
@@ -19,6 +21,7 @@ function Home() {
   let info = useSelector(state => state.courses, () => false)
 
   useEffect(() => {
+
     dispatch(getCourses());
   }, [])
 
@@ -39,6 +42,7 @@ function Home() {
         e.preventDefault();
         dispatch(orderByPublished(e.target.value))
     }
+
 
   return (
     <Container maxW="100%" h="100%" border="1px" p="0">
