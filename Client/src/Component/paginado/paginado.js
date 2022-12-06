@@ -58,6 +58,7 @@ function Paginado({pagina, setPagina, maximo}) {
         <Button colorScheme="blue" onClick={previusPage}>Prev.</Button>
       </ButtonGroup>
       {page.map((value) => {
+        
         return (
           <ButtonGroup variant="outline" spacing="6" p={1}>
             <Button colorScheme="blue" onClick={onChange} value={value}>{value}</Button>
