@@ -60,7 +60,7 @@ function Paginado({pagina, setPagina, maximo}) {
       {page.map((value) => {
         return (
           <ButtonGroup variant="outline" spacing="6" p={1}>
-            <Button colorScheme="blue" onClick={onChange}>{value}</Button>
+            <Button colorScheme="blue" onClick={onChange} value={value}>{value}</Button>
           </ButtonGroup>
         );
       })}
