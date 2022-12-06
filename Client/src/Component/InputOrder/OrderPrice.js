@@ -1,15 +1,16 @@
 import React from 'react'
 import { Select } from '@chakra-ui/react'
-const OrderPrice = () => {
+
+const OrderPrice = ({handleOrderByPrice}) => {
   return (
     <div>
-        <Select placeholder='Price'>
-  <option value='option1'>Expensive</option>
-  <option value='option2'>Cheap</option>
-   
-</Select>
+      <Select onChange={handleOrderByPrice} placeholder="Price">
+        <option value="all">All</option>
+        <option value="desc">Expensive</option>
+        <option value="asc">Cheap</option>
+      </Select>
     </div>
-  )
+  );
 }
 
 export default OrderPrice
