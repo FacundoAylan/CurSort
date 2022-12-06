@@ -25,12 +25,15 @@ import FilterDifficulty from '../InputFilter/FilterDifficulty';
 import FilterDuration from '../InputFilter/FilterDuration';
 import OrderPrice from '../InputOrder/OrderPrice';
 import OrderPublished  from '../InputOrder/OrderPublished';
-import OrderStar from '../InputOrder/OrderStar'
+import OrderStar from '../InputOrder/OrderStar';
+import OrderAZ from '../InputOrder/OrderAZ';
 import {getCourses} from '../../Redux/actions/index.js'
 
-function NavBar() {
+
+function NavBar({handleOrderByPrice, handleOrderByName, handleOrderByPublished}) {
   const [name, setName] = useState("")
   const dispatch = useDispatch();
+
   const { isOpen, onOpen, onClose } = useDisclosure()
   const onChange = (e) => {
     setName(e.target.value)
@@ -74,13 +77,18 @@ function NavBar() {
                   <FilterDuration />
                 </GridItem>
                 <GridItem>
-                  <OrderPrice />
+
+                  <OrderPrice handleOrderByPrice={handleOrderByPrice}/>
                 </GridItem>
                 <GridItem>
-                  <OrderPublished />
+                  <OrderPublished handleOrderByPublished={handleOrderByPublished}/>
+
                 </GridItem>
                 <GridItem>
                   <OrderStar />
+                </GridItem>
+                <GridItem>
+                  <OrderAZ handleOrderByName={handleOrderByName}/>
                 </GridItem>
               </Grid>
             </Container>
