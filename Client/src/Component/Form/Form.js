@@ -43,7 +43,7 @@ function Form() {
     nombre: /^[a-z0-9_-]{3,16}$/,
     instuctor: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
     duracion: /^[0-9]+([,][0-9]+)?$/,
-    imagen: /(?:jpg|gif|png|jfif)/,
+    imagen: /(?:jpg|gif|png|jfif|jpeg)/,
     descripcion: /^[\s\S]{10,100}$/,
   };
   const handleInputChange = (e) => {
@@ -108,7 +108,7 @@ function Form() {
     }
   };
   return (
-    <Container maxW="100%" h="100vh" border="1px" p="0">
+    <Container maxW="100%" h="100vh" p="0">
       <Box p='6px'>
         <Link to="/" className="backCreate">
           <IconButton
@@ -118,15 +118,15 @@ function Form() {
           />
         </Link>
       </Box>
-      <Box mt="6%" ml="14%">
+      <Box mt="2%" ml="14%">
         <Grid
           templateColumns="repeat(2, 0.4fr)"
           gap={9}
-          templateRows="repeat(3, 70px)"
+          templateRows="repeat(3, 0.1fr)"
           p={0}
           templateAreas={`"1 2 "
                         "4 5 "
-                        "6 7"
+                        "6  7"
                         "d d "
                         "button button "`}
         >
@@ -216,7 +216,8 @@ function Form() {
               <Center>
                 <FormLabel>IMAGEN:</FormLabel>
                 {input.imagen && <Image
-
+                  h ='150px'
+                  w = '300px'
                   src={input.imagen}
                   alt='Green double couch with wooden legs'
                   borderRadius='lg'
@@ -232,7 +233,7 @@ function Form() {
               />
               {!isError.imagen ? (
                 <FormHelperText color={"green"}>
-                  imagen valida valido
+                  imagen valida
                 </FormHelperText>
               ) : (
                 <FormErrorMessage>
@@ -279,7 +280,7 @@ function Form() {
               )}
             </FormControl>
           </GridItem>
-          <GridItem area={"button"}>
+          <GridItem area={"button"} pb='25px'>
             <Center>
               <ButtonGroup variant="outline" spacing="6" onClick={validacion}>
                 <Button colorScheme="blue">Send</Button>
