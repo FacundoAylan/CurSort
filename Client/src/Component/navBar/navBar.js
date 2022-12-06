@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import LoginButton from '../LoginButton/LoginButton'
+import LogoutButton from '../LogoutButton/LogoutButton'
+import Profile from '../Profile/Profile'
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   useDisclosure,
   Button,
@@ -25,12 +29,16 @@ import FilterDifficulty from '../InputFilter/FilterDifficulty';
 import FilterDuration from '../InputFilter/FilterDuration';
 import OrderPrice from '../InputOrder/OrderPrice';
 import OrderPublished  from '../InputOrder/OrderPublished';
-import OrderStar from '../InputOrder/OrderStar'
+import OrderStar from '../InputOrder/OrderStar';
+import OrderAZ from '../InputOrder/OrderAZ';
 import {getCourses} from '../../Redux/actions/index.js'
 
-function NavBar({setPagina}) {
+function NavBar({handleOrderByPrice, handleOrderByName, handleOrderByPublished, handleOrderByStar, setPagina}) {
+  const {isAuthenticated, user} = useAuth0()
+
   const [name, setName] = useState("")
   const dispatch = useDispatch();
+
   const { isOpen, onOpen, onClose } = useDisclosure()
   const onChange = (e) => {
     setName(e.target.value)
@@ -44,6 +52,9 @@ function NavBar({setPagina}) {
   }
   return (
     <>
+      {!isAuthenticated && <LoginButton/>}
+      {isAuthenticated && <LogoutButton/>}
+      {isAuthenticated && <Profile/>}
       <Button colorScheme="blue" onClick={onOpen} ml="96%" mt="1%">
         <label>☰</label>
       </Button>
@@ -75,13 +86,18 @@ function NavBar({setPagina}) {
                   <FilterDuration />
                 </GridItem>
                 <GridItem>
-                  <OrderPrice />
+
+                  <OrderPrice handleOrderByPrice={handleOrderByPrice}/>
                 </GridItem>
                 <GridItem>
-                  <OrderPublished />
+                  <OrderPublished handleOrderByPublished={handleOrderByPublished}/>
+
                 </GridItem>
                 <GridItem>
-                  <OrderStar />
+                  <OrderStar handleOrderByStar={handleOrderByStar} />
+                </GridItem>
+                <GridItem>
+                  <OrderAZ handleOrderByName={handleOrderByName}/>
                 </GridItem>
               </Grid>
             </Container>

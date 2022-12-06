@@ -4,10 +4,11 @@ import { Button } from "@chakra-ui/react";
 
 
 const Profile = () => {
-   const {user} = useAuth0()
+   const {user, isAuthenticated} = useAuth0()
 
   return (
-    <div>     
+    <div>    
+      {isAuthenticated && <h2>{user.name}</h2>} 
       {/* <img src={user.picture}alt='imagen' /> */}
       {/* <h2>Nombre: {user.name}</h2>
       {user.email_verified === true ?<h3>Verificado</h3>:<button>actualizar perfil</button>} */}

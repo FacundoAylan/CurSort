@@ -1,15 +1,15 @@
 import React from 'react'
 import { Select } from '@chakra-ui/react'
-const OrderPublished = () => {
+const OrderPublished = ({handleOrderByPublished}) => {
   return (
     <div>
-        <Select placeholder='Published'>
-  <option value='option1'>New</option>
-  <option value='option2'>Old</option>
-
-</Select>
+      <Select onChange={handleOrderByPublished} placeholder="Published">
+        <option value="all">All</option>
+        <option value="desc">New</option>
+        <option value="asc">Old</option>
+      </Select>
     </div>
-  )
+  );
 }
 
 export default OrderPublished
