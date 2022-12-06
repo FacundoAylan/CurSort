@@ -20,9 +20,10 @@ import FilterDifficulty from '../InputFilter/FilterDifficulty';
 import FilterDuration from '../InputFilter/FilterDuration';
 import OrderPrice from '../InputOrder/OrderPrice';
 import OrderPublished  from '../InputOrder/OrderPublished';
-import OrderStar from '../InputOrder/OrderStar'
+import OrderStar from '../InputOrder/OrderStar';
+import OrderAZ from '../InputOrder/OrderAZ';
 
-function NavBar() {
+function NavBar({handleOrderByPrice, handleOrderByName, handleOrderByPublished}) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -50,13 +51,16 @@ function NavBar() {
                   <FilterDuration/>
                 </GridItem>
                 <GridItem>
-                  <OrderPrice/>
+                  <OrderPrice handleOrderByPrice={handleOrderByPrice}/>
                 </GridItem>
                 <GridItem>
-                  <OrderPublished/>
+                  <OrderPublished handleOrderByPublished={handleOrderByPublished}/>
                 </GridItem>
                 <GridItem>
                   <OrderStar/>
+                </GridItem>
+                <GridItem>
+                  <OrderAZ handleOrderByName={handleOrderByName}/>
                 </GridItem>
               </Grid>
             </Container>

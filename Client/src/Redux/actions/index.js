@@ -1,14 +1,13 @@
 import axios from 'axios';
 
-export function getCourses(name) {
+export function getCourses() {
 
     return async (dispatch) => {
-        let response = await axios.get(`http://localhost:3001/courses?name=${name}`)
+        let response = await axios.get('http://localhost:3001/courses/')
         dispatch({
             type: "GET_COURSES",
             payload: response.data
         })
-
     }
 }
 
@@ -46,6 +45,13 @@ export function orderByRating(payload) {
 export function orderByPrice(payload) {
     return {
         type: 'ORDER_BY_PRICE',
+        payload
+    };
+}
+
+export function orderByPublished(payload) {
+    return {
+        type: 'ORDER_BY_PUBLISHED',
         payload
     };
 }

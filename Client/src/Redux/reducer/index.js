@@ -34,7 +34,9 @@ const rootReducer = (state = initialState, action) => {
       let order =
         action.payload === "A-Z"
           ? state.courses.sort((a, b) => {
+
               if (a.name.toLowerCase() > b.name.toLowerCase()) {
+                console.log(a.name)
                 return 1;
               }
               if (b.name.toLowerCase() > a.name.toLowerCase()) {
@@ -106,6 +108,31 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         courses: action.payload === "all" ? state.allCourses : orderPrice,
       };
+    case "ORDER_BY_PUBLISHED":
+        let orderPublished =
+            action.payload === "asc"
+                ? state.courses.sort((a, b) => {
+                    if (a.createdAt > b.createdAt) {
+                        return 1;
+                    }
+                    if (b.createdAt > a.createdAt) {
+                        return -1;
+                    }   
+                    return 0;
+                })
+                : state.courses.sort((a, b) => {
+                    if (a.createdAt > b.createdAt) {
+                        return -1;
+                    }
+                    if (b.createdAt > a.createdAt) {
+                        return 1;
+                    }
+                    return 0;
+                });
+        return {
+            ...state,
+            courses: action.payload === "all" ? state.allCourses : orderPublished,
+        };
 
     default:
       return state;

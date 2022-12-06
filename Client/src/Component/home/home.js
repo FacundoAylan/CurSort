@@ -6,8 +6,8 @@ import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
 import Paginado from '../paginado/paginado';
 import OrderPrice from "../InputOrder/OrderPrice";
-import {getCourses, orderByName, orderByRating, orderByPrice} from "../../Redux/actions";
-// import OrderAZ from "../InputOrder/OrderAZ";
+import {getCourses, orderByName, orderByRating, orderByPrice, orderByPublished} from "../../Redux/actions";
+
 // importo el json desde la api
 // var data = require("./api.json");
 
@@ -19,26 +19,42 @@ function Home() {
   let info = useSelector(state => state.courses, () => false)
 
   useEffect(() => {
-    dispatch(getCourses(data.name));
+    dispatch(getCourses());
   }, [])
 
     function handleOrderByName(e){
-       console.log(info)
+        console.log(info)
         e.preventDefault();
         dispatch(orderByName(e.target.value))
+    }
+
+    function handleOrderByPrice(e){
+        console.log(info)
+        e.preventDefault();
+        dispatch(orderByPrice(e.target.value))
+    }
+    
+    function handleOrderByPublished(e){
+        console.log(info)
+        e.preventDefault();
+        dispatch(orderByPublished(e.target.value))
     }
 
   return (
     <Container maxW="100%" h="100%" border="1px" p="0">
       <div>
-        <select onChange={(e) => handleOrderByName(e)} placeholder="Order">
-          <option value="all">All</option>
-          <option value="asc">A-Z</option>
-          <option value="desc">Z-A</option>
-        </select>
+      {/* filtro order A-Z */}
+        {/* <select onChange={(e) => handleOrderByName(e)} placeholder="Order">
+          <option value="A-Z">A-Z</option>
+          <option value="Z-A">Z-A</option>
+        </select> */}
       </div>
       <Box background="#4FD1C5" maxW="100%" h="10%">
-        <NavBar />
+        <NavBar 
+          handleOrderByPrice={handleOrderByPrice} 
+          handleOrderByName={handleOrderByName}
+          handleOrderByPublished={handleOrderByPublished}
+          />
       </Box>
       <Box h="100%" maxW="100%">
         <Grid
@@ -49,7 +65,7 @@ function Home() {
           pl={20}
           m={0}
         >
-          {info.slice(0, 6).map((value) => {
+          {info && info.slice(0, 6).map((value) => {
             return (
               <GridItem>
                 <Cards

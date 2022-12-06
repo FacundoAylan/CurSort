@@ -6,8 +6,8 @@ const OrderPrice = ({handleOrderByPrice}) => {
     <div>
       <Select onChange={handleOrderByPrice} placeholder="Price">
         <option value="all">All</option>
-        <option value="asc">Expensive</option>
-        <option value="desc">Cheap</option>
+        <option value="desc">Expensive</option>
+        <option value="asc">Cheap</option>
       </Select>
     </div>
   );
