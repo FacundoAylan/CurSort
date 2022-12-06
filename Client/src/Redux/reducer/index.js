@@ -2,10 +2,8 @@ let initialState = {
     courseDetail: {},
     allCourses: [],
     courses: [],
-    warnings: ''
+    warnings: '',
     categories: []
-    
-
 }
 
 const rootReducer = (state = initialState, action) => {
