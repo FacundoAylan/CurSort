@@ -217,8 +217,22 @@ const disableUser = async (req, res) => {
     }
 }
 
+const getCategories = async (req, res) => {
+   try{
+     const categories = await Categories.findAll();
+
+     if (categories.length > 0){
+        res.status(200).json(categories);
+     }else{
+        res.status(404).send("no se encontraron categorias")
+    }
+   }catch (error) {
+     res.status(400).send(`ocurrio un error ${error}`);
+   }
+
+}
 
 
-module.exports = { postCourse, getAllCourses, getCourseById, postReview, loadCoursesToDB, createUser, disableUser }
+module.exports = {postCourse, getAllCourses, getCourseById, postReview, loadCoursesToDB, createUser, disableUser, getCategories}
 
 
