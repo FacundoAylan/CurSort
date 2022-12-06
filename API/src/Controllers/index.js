@@ -1,51 +1,49 @@
 
+const { Op } = require("sequelize");
+const data = require('./api.json');
 const { Users, Courses, Categories, Reviews } = require('../db');
 
 const postCourse = async (req, res) => {
-  const {
-    name, 
-    description,
-    instructor,
-    duration,
-    price,
-    image,
-    difficulty,
-    categories
-  } = req.body;
-  
-  try {
-    // valido que existan los datos obligatorios
-    if (!name || !description || !price)
-      return res.status(400).send('Faltan datos obligatorios.');
-  
-    const newcourse = await Courses.create({
-      name, 
-      description,
-      instructor,
-      duration,
-      price,
-      image,
-      difficulty
-    });
-  
-    // Busco las categorías que coincidan con los que me trae por body
-    let categoriesDB = await Categories.findAll({
-      where: {name: categories.map(e => e)}
-    })
-  
-    // Creo las relaciones con la tabla Categories
-    newcourse.addCategories(categoriesDB);
-  
-    res.status(200).send("El curso ha sido creado exitosamente!");
-  } catch (error) {
-    res.status(400).send(error);
-  }  
+    const {
+        name,
+        description,
+        instructor,
+        duration,
+        price,
+        image,
+        difficulty,
+        categories
+    } = req.body;
+
+    try {
+        // valido que existan los datos obligatorios
+        if (!name || !description || !price)
+            return res.status(400).send('Faltan datos obligatorios.');
+
+        const newcourse = await Courses.create({
+            name,
+            description,
+            instructor,
+            duration,
+            price,
+            image,
+            difficulty
+        });
+
+        // Busco las categorías que coincidan con los que me trae por body
+        let categoriesDB = await Categories.findAll({
+            where: { name: categories.map(e => e) }
+        })
+
+        // Creo las relaciones con la tabla Categories
+        newcourse.addCategories(categoriesDB);
+
+        res.status(200).send("El curso ha sido creado exitosamente!");
+    } catch (error) {
+        res.status(400).send(error);
+    }
 }
 
-
-
-
-const data = require('./api.json')
 
 //loadCoursesToDB es solo para cargar los cursos del json a la DB
 //la ruta en Postman seria http://localhost:3001/course/load
@@ -56,20 +54,26 @@ const loadCoursesToDB = async (req, res) => {
         if (coursesDB.length === 0 || coursesDB.length < coursesJSON.length) {
             coursesJSON.forEach(async (e, i) => {
                 let name, description, rating, image, difficulty, price;
-                name = e.nombre,
-                description = e.descripcion,
-                instructor = e.instructor,
-                duration = e.duracion,
-                rating = e.rating,
-                image = e.imagen,
-                difficulty = e.dificultad,
-                price = e.precio
+
+                name = e.nombre.toUpperCase(),
+                    description = e.descripcion,
+                    instructor = e.instructor,
+                    price = e.precio,
+                    duration = e.duracion,
+                    rating = e.rating,
+                    image = e.imagen,
+                    difficulty = e.dificultad,
+                    price = e.precio
+
 
                 if (coursesDB.length > 0) {
                     if (!coursesDB[i] || coursesDB[i].dataValues.id !== e.id) {
                         await Courses.create({
                             name,
                             description,
+                            instructor,
+                            price,
+                            duration,
                             rating,
                             image,
                             difficulty,
@@ -81,6 +85,9 @@ const loadCoursesToDB = async (req, res) => {
                     await Courses.create({
                         name,
                         description,
+                        instructor,
+                        price,
+                        duration,
                         rating,
                         image,
                         difficulty,
@@ -95,13 +102,27 @@ const loadCoursesToDB = async (req, res) => {
     }
 }
 
-//trae curso por id
+
+//funcion para buscar el nombre del curso que recibio por query
+const findByName = async (name) => {
+    let courses = await Courses.findAll({
+        where: {
+            name: {
+                [Op.like]: `%${name}%`
+            }
+        },
+        include: Reviews
+    });
+    return courses;
+}
+
 const getCourseById = async (req, res) => {
     const { id } = req.params;
-    try{
-        if(id){
+    try {
+        if (id) {
             const course = await Courses.findByPk(id);
-            if(course){
+            if (course) {
+
                 res.status(200).json(course);
             } else {
                 res.status(404).json({ message: `No se encontró el curso con el número de id ${id}` });
@@ -117,10 +138,17 @@ const getCourseById = async (req, res) => {
 //trae todos los cursos junto con las reviews asociadas
 const getAllCourses = async (req, res) => {
     try {
-        const courses = await Courses.findAll({
-            include : Reviews
-        });
-
+        let name = req.query.name;
+        let courses;
+        if (name) {
+            name = name.toUpperCase()
+            courses = await findByName(name)
+        }
+        else {
+            courses = await Courses.findAll({
+                include: Reviews
+            });
+        }
         if (courses.length > 0) {
             return res.status(200).send(courses)
         }
@@ -138,7 +166,7 @@ const postReview = async (req, res) => {
             name,
             text,
             rating,
-            courseId : courseId
+            courseId: courseId
         })
         res.status(200).send({ message: "Reseña creada con exito" })
     } catch (error) {
@@ -168,18 +196,24 @@ const disableUser = async (req, res) => {
     const { mail, id } = req.query;
 
     try {
-        if(id){
+
+        if (id) {
+
             const userId = await Users.findByPk(id);
             userId.active = false;
             await userId.save();
             res.status(200).json({ message: 'Usuario deshabilitado' });
         }
-        else if(mail) {
+
+        else if (mail) {
+
             const userMail = await Users.findOne({ where: { mail } });
             userMail.active = false;
             await userMail.save();
             res.status(200).json({ message: 'Usuario deshabilitado' });
-        } 
+
+        }
+
         else {
             res.status(404).json({ message: 'Usuario no encontrado' });
         }
@@ -205,4 +239,5 @@ const getCategories = async (req, res) => {
 
 
 module.exports = {postCourse, getAllCourses, getCourseById, postReview, loadCoursesToDB, createUser, disableUser, getCategories}
+
 
