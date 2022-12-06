@@ -25,22 +25,21 @@ function Home() {
   }, [])
 
     function handleOrderByName(e){
-        console.log(e.target.value)
         e.preventDefault();
         dispatch(orderByName(e.target.value))
         setOrder('order' + e.target.value)
     }
 
     function handleOrderByPrice(e){
-        console.log()
         e.preventDefault();
         dispatch(orderByPrice(e.target.value))
+        setOrder('order' + e.target.value)
     }
     
     function handleOrderByPublished(e){
-        console.log(info)
         e.preventDefault();
         dispatch(orderByPublished(e.target.value))
+        setOrder('order' + e.target.value)
     }
 
   return (
