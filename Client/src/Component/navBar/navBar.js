@@ -35,8 +35,8 @@ import {getCourses} from '../../Redux/actions/index.js'
 
 
 
-function NavBar({handleOrderByPrice, handleOrderByName, handleOrderByPublished}) {
- const {isAuthenticated, user} = useAuth0()
+function NavBar({handleOrderByPrice, handleOrderByName, handleOrderByPublished, handleOrderByStar}) {
+  const {isAuthenticated, user} = useAuth0()
  
   const [name, setName] = useState("")
   const dispatch = useDispatch();
@@ -95,7 +95,7 @@ function NavBar({handleOrderByPrice, handleOrderByName, handleOrderByPublished})
 
                 </GridItem>
                 <GridItem>
-                  <OrderStar />
+                  <OrderStar handleOrderByStar={handleOrderByStar} />
                 </GridItem>
                 <GridItem>
                   <OrderAZ handleOrderByName={handleOrderByName}/>

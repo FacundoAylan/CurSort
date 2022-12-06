@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
 import Paginado from '../paginado/paginado';
-import  {getCourses} from "../../Redux/actions";
+import {getCourses, orderByName, orderByRating, orderByPrice, orderByPublished} from "../../Redux/actions";
+
 // importo el json desde la api
 // var data = require("./api.json");
 
@@ -14,18 +15,54 @@ function Home() {
   const [data, setData] = useState({
     name: "",
   })
-  let info = useSelector(state => state.courses)
+  let info = useSelector(state => state.courses, () => false)
+
+  let [ order, setOrder ] = useState('')
 
   useEffect(() => {
-    
-    dispatch(getCourses(data.name));
-  }, [])
+    dispatch(getCourses());
+  }, [dispatch])
 
+    function handleOrderByName(e){
+        e.preventDefault();
+        dispatch(orderByName(e.target.value))
+        setOrder('order' + e.target.value)
+    }
+
+    function handleOrderByPrice(e){
+        e.preventDefault();
+        dispatch(orderByPrice(e.target.value))
+        setOrder('order' + e.target.value)
+    }
+    
+    function handleOrderByPublished(e){
+        e.preventDefault();
+        dispatch(orderByPublished(e.target.value))
+        setOrder('order' + e.target.value)
+    }
+
+    function handleOrderByStar(e){
+      e.preventDefault();
+      dispatch(orderByRating(e.target.value))
+      setOrder('order' + e.target.value)
+  }
 
   return (
     <Container maxW="100%" h="100%" border="1px" p="0">
+      <div>
+      {/* filtro order A-Z */}
+        {/* <select onChange={(e) => handleOrderByName(e)} placeholder="Order">
+          <option value="A-Z">A-Z</option>
+          <option value="Z-A">Z-A</option>
+        </select> */}
+      </div>
       <Box background="#4FD1C5" maxW="100%" h="10%">
-        <NavBar />
+        <NavBar 
+          handleOrderByPrice={handleOrderByPrice} 
+          handleOrderByName={handleOrderByName}
+          handleOrderByPublished={handleOrderByPublished}
+          handleOrderByStar={handleOrderByStar}
+          />
       </Box>
       <Box h="100%" maxW="100%">
         <Grid
@@ -36,17 +73,15 @@ function Home() {
           pl={20}
           m={0}
         >
-          {info.slice(0, 6).map((value) => {
+          {info && info.slice(0, 6).map((value) => {
             return (
               <GridItem>
                 <Cards
-
                   nombre={value.name}
                   imagen={value.image}
                   descripcion={value.description}
                   precio={value.price}
                   id={value.id}
-
                 />
               </GridItem>
             );
@@ -54,7 +89,7 @@ function Home() {
         </Grid>
       </Box>
       <Center pt={6}>
-        <Paginado max={info.length}/>
+        <Paginado max={info.length} />
       </Center>
     </Container>
   );
