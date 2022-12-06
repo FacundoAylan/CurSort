@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import LoginButton from '../LoginButton/LoginButton'
+import LogoutButton from '../LogoutButton/LogoutButton'
+import Profile from '../Profile/Profile'
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   useDisclosure,
   Button,
@@ -30,7 +34,10 @@ import OrderAZ from '../InputOrder/OrderAZ';
 import {getCourses} from '../../Redux/actions/index.js'
 
 
+
 function NavBar({handleOrderByPrice, handleOrderByName, handleOrderByPublished}) {
+ const {isAuthenticated, user} = useAuth0()
+ 
   const [name, setName] = useState("")
   const dispatch = useDispatch();
 
@@ -46,6 +53,9 @@ function NavBar({handleOrderByPrice, handleOrderByName, handleOrderByPublished})
   }
   return (
     <>
+      {!isAuthenticated && <LoginButton/>}
+      {isAuthenticated && <LogoutButton/>}
+      {isAuthenticated && <Profile/>}
       <Button colorScheme="blue" onClick={onOpen} ml="96%" mt="1%">
         <label>☰</label>
       </Button>
