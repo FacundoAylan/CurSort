@@ -1,4 +1,5 @@
 import axios from "axios";
+import { GET_DETAIL, GET_COURSES, GET_CATEGORIES } from "../action-types";
 
 export function getCourses(name) {
 
@@ -7,7 +8,7 @@ export function getCourses(name) {
       `http://localhost:3001/courses?name=${name}`
     );
     dispatch({
-      type: "GET_COURSES",
+      type: GET_COURSES,
       payload: response.data,
     });
   };
@@ -19,7 +20,7 @@ export function getDetail(id) {
     let response = await axios.get(`http://localhost:3001/courses/${id}`);
 
     dispatch({
-      type: "GET_DETAIL",
+      type: GET_DETAIL,
       payload: response.data,
     });
   };
@@ -28,8 +29,8 @@ export function getDetail(id) {
 export function getCategory(){
     return async (dispatch) =>{
         let categories = await axios.get('http://localhost:3001/categories')
-        dispatch({
-            type: "GET_CATEGORIES",
+        return dispatch({
+            type: GET_CATEGORIES,
             payload: categories.data
         })
     }

@@ -1,3 +1,5 @@
+import { GET_DETAIL, GET_COURSES, GET_CATEGORIES } from "../action-types";
+
 let initialState = {
     courseDetail: {},
     allCourses: [],
@@ -9,14 +11,14 @@ let initialState = {
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'GET_COURSES':
+        case GET_COURSES:
             return {
                 ...state,
                 allCourses: action.payload,
                 courses: action.payload
             }
 
-        case 'GET_DETAIL':
+        case GET_DETAIL:
             return {
                 ...state,
                 courseDetail: {
@@ -32,10 +34,10 @@ const rootReducer = (state = initialState, action) => {
                 }
             }
 
-        case 'GET_CATEGORIES':
+        case GET_CATEGORIES:
             return {
                 ...state,
-                categories: [action.payload]
+                categories: action.payload
             }
 
 
