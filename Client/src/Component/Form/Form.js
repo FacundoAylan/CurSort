@@ -267,7 +267,7 @@ function Form() {
                 <FormLabel>DESCRIPTION:</FormLabel>
               </Center>
               <Textarea
-                placeholder="Here is a sample placeholder"
+                placeholder="En este curso vamos a trabajar sobre..."
                 id="descripcion"
                 onChange={handleInputChange}
               />
