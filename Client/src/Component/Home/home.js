@@ -29,11 +29,6 @@ function Home() {
     dispatch(getCourses(''));
   }, [dispatch])
 
-    function handleOrderByName(e){
-        e.preventDefault();
-        dispatch(orderByName(e.target.value))
-        setOrder('order' + e.target.value)
-    }
 
     function handleOrderByPrice(e){
         e.preventDefault();
@@ -65,7 +60,6 @@ function Home() {
       <Box background="#4FD1C5" maxW="100%" h="10%">
         <NavBar 
           handleOrderByPrice={handleOrderByPrice} 
-          handleOrderByName={handleOrderByName}
           handleOrderByPublished={handleOrderByPublished}
           handleOrderByStar={handleOrderByStar}
           setPagina={setPagina}

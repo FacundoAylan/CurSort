@@ -40,11 +40,15 @@ function Form() {
     descripcion: "",
   });
   const expresiones = {
-    nombre: /^[a-z0-9_-]{3,16}$/,
-    instuctor: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
+    // ^[A-Za-z\s0-9_-]{3,16}$ codigo anterior
+    // ^[\s\S]{0,25}$
+    // 
+    nombre: /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/,
+    // ^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$ codigo anterior
+    instuctor: /[^\W_]/,    
     duracion: /^[0-9]+([,][0-9]+)?$/,
     imagen: /(?:jpg|gif|png|jfif|jpeg)/,
-    descripcion: /^[\s\S]{10,100}$/,
+    descripcion: /^[\s\S]{10,300}$/,
   };
   const handleInputChange = (e) => {
     e.target.id === "duracion" || e.target.id === "precio"
@@ -136,7 +140,7 @@ function Form() {
                 <FormLabel>NOMBRE DEL CURSO:</FormLabel>
               </Center>
               <Input
-                placeholder="Basic usage"
+                placeholder="Nombre"
                 id="nombre"
                 onChange={handleInputChange}
               />
@@ -154,7 +158,7 @@ function Form() {
                 <FormLabel>INSTRUCTOR:</FormLabel>
               </Center>
               <Input
-                placeholder="Basic usage"
+                placeholder="Instructor"
                 id="instuctor"
                 onChange={handleInputChange}
               />
@@ -175,7 +179,7 @@ function Form() {
                 <FormLabel>DURACION:</FormLabel>
               </Center>
               <Input
-                placeholder="Basic usage"
+                placeholder="Duracion"
                 id="duracion"
                 onChange={handleInputChange}
               />
@@ -248,7 +252,7 @@ function Form() {
                 <FormLabel>PRECIO :</FormLabel>
               </Center>
               <Input
-                placeholder="Basic usage"
+                placeholder="Precio en U$s"
                 id="precio"
                 onChange={handleInputChange}
               />
@@ -267,7 +271,7 @@ function Form() {
                 <FormLabel>DESCRIPTION:</FormLabel>
               </Center>
               <Textarea
-                placeholder="En este curso vamos a trabajar sobre..."
+                placeholder="Descripción del curso"
                 id="descripcion"
                 onChange={handleInputChange}
               />
