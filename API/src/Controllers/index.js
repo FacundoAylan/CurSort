@@ -252,7 +252,121 @@ const postCategorie = async (req, res) => {
     } 
 }
 
+//filtra cursos por categorias
+const getCoursesByCategory = async (id) => {
 
-module.exports = {postCourse, getAllCourses, getCourseById, postReview, loadCoursesToDB, createUser, disableUser, getCategories,postCategorie}
+        if (id) {
+            const courses = await Courses.findAll({
+                include: {
+                    model: Categories,
+                    attributes: ['id', 'name'],
+                    through: {
+                        attributes: []
+                    }
+                }
+            });
+
+            const filterCategory = courses.filter(course => course.categories.find(categorie => categorie.id == id));
+
+            if(filterCategory.length) {
+                return filterCategory;
+            } else {
+                throw new Error('No se encontraron cursos') 
+            }
+            
+        } else {
+            throw new Error('No se ingresó una categoría');
+        }
+}
+
+
+
+
+//filtra cursos por dificultad
+const getCoursesByDifficulty = async (difficulty) => {
+        if (difficulty) {
+
+            const courses = await Courses.findAll();
+            const filterDifficulty = courses.filter(course => course.difficulty.toLowerCase() == difficulty.toLowerCase());
+
+            if(filterDifficulty.length) {
+                return filterDifficulty;
+            } else {
+                throw new Error('No se encontraron cursos') 
+            }
+        } else {
+            throw new Error('No se ingresó una dificultad');
+        }
+}
+
+//filtra cursos por duracion
+const getCoursesByDuration = async (duration) => {
+
+        if (duration) {
+            const courses = await Courses.findAll();
+            if(duration == '1A50'){
+                const filterDuration = courses.filter(course => course.duration >= 1 && course.duration <= 50);
+                if(filterDuration.length) {
+                    return filterDuration;
+                } else {
+                    throw new Error('No se encontraron cursos') 
+                }
+
+            }else if(duration == '51A100'){
+                const filterDuration = courses.filter(course => course.duration > 50 && course.duration <= 100);
+                if(filterDuration.length){
+                    return filterDuration;
+                } else {
+                    throw new Error('No se encontraron cursos') 
+                }
+
+            }else if(duration == '100'){
+                const filterDuration = courses.filter(course => course.duration >= 101);
+                if(filterDuration.length)
+                    return filterDuration;
+                } else {
+                    throw new Error('No se encontraron cursos')
+                }
+        } else {
+            throw new Error('No se ingresó una duración');
+        }
+
+}
+
+const filterCourses = async (req, res) => {
+    const { id, difficulty, duration } = req.query;
+    try {
+       if(id){
+        const courses = await getCoursesByCategory(id);
+        res.status(200).json(courses);
+       }
+         else if(difficulty){
+            const courses = await getCoursesByDifficulty(difficulty);
+            res.status(200).json(courses);
+        }
+        else if(duration){
+            const courses = await getCoursesByDuration(duration);
+            res.status(200).json(courses);
+        }
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+module.exports = {
+  postCourse,
+  getAllCourses,
+  getCourseById,
+  postReview,
+  loadCoursesToDB,
+  createUser,
+  disableUser,
+  getCategories,
+  postCategorie,
+  getCoursesByCategory,
+  getCoursesByDifficulty,
+  getCoursesByDuration,
+  filterCourses
+};
 
 

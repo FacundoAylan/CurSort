@@ -33,6 +33,7 @@ import OrderStar from '../InputOrder/OrderStar';
 import {getCourses} from '../../Redux/actions/index.js'
 
 function NavBar({handleOrderByPrice, handleOrderByPublished, handleOrderByStar, setPagina}) {
+
   const {isAuthenticated, user} = useAuth0()
 
   const [name, setName] = useState("")
