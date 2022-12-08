@@ -1,4 +1,5 @@
 import axios from "axios";
+import {  useSelector } from "react-redux"
 import {
   GET_DETAIL,
   GET_COURSES,
@@ -6,7 +7,9 @@ import {
   ORDER_BY_RATING,
   ORDER_BY_PRICE,
   ORDER_BY_PUBLISHED,
+  ADDFILTER
 } from "../action-types";
+
 
 export function getCourses(name) {
 
@@ -15,7 +18,7 @@ export function getCourses(name) {
       `http://localhost:3001/courses?name=${name}`
     );
     dispatch({
-      type: "GET_COURSES",
+      type: GET_COURSES,
       payload: response.data,
     });
   };
@@ -52,15 +55,7 @@ export function posCourses(data){
       })
   }
 }
-// export function filterCategory(payload) {
-//     return {
-//       type: "FILTER_CATEGORY",
-//       payload: payload,
-//     };
-//   }
 
-
- //esta llave me parece que esta de mas
 
 
 export function orderByRating(payload) {
@@ -69,7 +64,6 @@ export function orderByRating(payload) {
         payload
     };
 }
-
 
 export function orderByPrice(payload) {
     return {
@@ -85,3 +79,37 @@ export function orderByPublished(payload) {
     };
 }
 
+export function AllFilterDuration(payload){ // ==> llega un obj {duration:'1A50'}
+ 
+  return async (dispatch)=>{
+    dispatch({
+    type: ADDFILTER,
+    payload: payload,
+   });
+ }
+}
+
+export function AllFilterDifficulty(payload){ // ==> llega un obj {duration:'1A50'}
+ 
+  return async (dispatch)=>{
+    dispatch({
+    type: 'ADDFILTERDIFICULTY',
+    payload: payload,
+   });
+ }
+}
+
+export function GetFilter (){
+
+  const duration = useSelector(state=> state.filterDuration)
+  const difficulty = useSelector(state=> state.filterDifficulty)
+
+
+  return async (dispatch)=>{
+    const response = await axios.get(`http://localhost:3001/filter?${difficulty}&${duration}`) 
+    dispatch({
+      type: 'GET_FILTER',
+      payload: response.data,
+    });
+  }
+}

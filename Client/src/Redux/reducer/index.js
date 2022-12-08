@@ -1,11 +1,14 @@
-import { GET_DETAIL, GET_COURSES, GET_CATEGORIES } from "../action-types";
+import { filter } from "@chakra-ui/react";
+import { GET_DETAIL, GET_COURSES, GET_CATEGORIES ,ADDFILTER } from "../action-types";
 
 let initialState = {
     courseDetail: {},
     allCourses: [],
-    courses: [],
+    courses: [], //este se renderiza
     warnings: '',
-    categories: []
+    categories: [],
+    filterDuration : {},
+    filterDifficulty: {}
     
 }
 
@@ -115,6 +118,23 @@ const rootReducer = (state = initialState, action) => {
             courses: action.payload === "all" ? state.allCourses : orderPublished,
         };
 
+        case ADDFILTER:              
+          return{
+            ...state,
+            filterDuration : action.payload       
+          }
+
+          case 'ADDFILTERDIFICULTY':              
+          return{
+            ...state,
+            filterDifficulty : action.payload       
+          }
+
+          case 'GET_FILTER':
+      return {
+        ...state,
+        courses: action.payload,
+      };
     default:
       return state;
   }
