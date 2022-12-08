@@ -252,7 +252,47 @@ const postCategorie = async (req, res) => {
     } 
 }
 
+//filtra cursos por categorias
+const getCoursesByCategory = async (req, res) => {
+    const { id } = req.params;
+    try {
+        if (id) {
+            const courses = await Courses.findAll({
+                include: {
+                    model: Categories,
+                    attributes: ['id', 'name'],
+                    through: {
+                        attributes: []
+                    }
+                }
+            });
 
-module.exports = {postCourse, getAllCourses, getCourseById, postReview, loadCoursesToDB, createUser, disableUser, getCategories,postCategorie}
+            const filterCategory = courses.filter(course => course.categories.find(categorie => categorie.id == id));
+
+            if (filterCategory.length > 0) {
+                res.status(200).json(filterCategory);
+            } else {
+                res.status(404).json({ message: 'No se encontraron cursos' });
+            }
+        } else {
+            res.status(400).json({ message: 'No se ingresó un id' });
+        }
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+module.exports = {
+  postCourse,
+  getAllCourses,
+  getCourseById,
+  postReview,
+  loadCoursesToDB,
+  createUser,
+  disableUser,
+  getCategories,
+  postCategorie,
+  getCoursesByCategory,
+};
 
 

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
 import Paginado from '../paginado/paginado';
-import {getCourses, orderByName, orderByRating, orderByPrice, orderByPublished} from "../../Redux/actions";
+import {getCourses, orderByRating, orderByPrice, orderByPublished} from "../../Redux/actions";
 
 // importo el json desde la api
 // var data = require("./api.json");
@@ -23,11 +23,6 @@ function Home() {
     dispatch(getCourses());
   }, [dispatch])
 
-    function handleOrderByName(e){
-        e.preventDefault();
-        dispatch(orderByName(e.target.value))
-        setOrder('order' + e.target.value)
-    }
 
     function handleOrderByPrice(e){
         e.preventDefault();
@@ -59,7 +54,6 @@ function Home() {
       <Box background="#4FD1C5" maxW="100%" h="10%">
         <NavBar 
           handleOrderByPrice={handleOrderByPrice} 
-          handleOrderByName={handleOrderByName}
           handleOrderByPublished={handleOrderByPublished}
           handleOrderByStar={handleOrderByStar}
           />

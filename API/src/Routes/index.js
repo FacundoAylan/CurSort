@@ -7,9 +7,10 @@ const router = Router();
 
 
 // router.use(express.json())
-router.use('/courses', routeCourses)
-router.use('/users', userRoutes);
-router.use('/categories', categories);
+router
+    .use('/courses', routeCourses)
+    .use('/users', userRoutes)
+    .use('/categories', categories)
 
 
 module.exports = router;

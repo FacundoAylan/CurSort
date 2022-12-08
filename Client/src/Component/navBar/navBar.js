@@ -30,12 +30,11 @@ import FilterDuration from '../InputFilter/FilterDuration';
 import OrderPrice from '../InputOrder/OrderPrice';
 import OrderPublished  from '../InputOrder/OrderPublished';
 import OrderStar from '../InputOrder/OrderStar';
-import OrderAZ from '../InputOrder/OrderAZ';
 import {getCourses} from '../../Redux/actions/index.js'
 
 
 
-function NavBar({handleOrderByPrice, handleOrderByName, handleOrderByPublished, handleOrderByStar}) {
+function NavBar({handleOrderByPrice, handleOrderByPublished, handleOrderByStar}) {
   const {isAuthenticated, user} = useAuth0()
  
   const [name, setName] = useState("")
@@ -96,9 +95,6 @@ function NavBar({handleOrderByPrice, handleOrderByName, handleOrderByPublished, 
                 </GridItem>
                 <GridItem>
                   <OrderStar handleOrderByStar={handleOrderByStar} />
-                </GridItem>
-                <GridItem>
-                  <OrderAZ handleOrderByName={handleOrderByName}/>
                 </GridItem>
               </Grid>
             </Container>
