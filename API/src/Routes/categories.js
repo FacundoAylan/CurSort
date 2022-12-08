@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const {getCategories, postCategorie, getCoursesByCategory} = require('../Controllers/index');
+const {getCategories, postCategorie} = require('../Controllers/index');
 
 router = Router();
 
