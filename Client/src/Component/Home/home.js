@@ -15,12 +15,18 @@ function Home() {
   const [data, setData] = useState({
     name: "",
   })
-  let info = useSelector(state => state.courses, () => false)
+  let info = useSelector(state => state.courses, () => false);
+  const [pagina, setPagina] = useState(1);
+  const porPagina = 6;
+
+  const maximo = Math.ceil(info.length / porPagina);
+
+
 
   let [ order, setOrder ] = useState('')
 
   useEffect(() => {
-    dispatch(getCourses());
+    dispatch(getCourses(''));
   }, [dispatch])
 
 
@@ -56,6 +62,7 @@ function Home() {
           handleOrderByPrice={handleOrderByPrice} 
           handleOrderByPublished={handleOrderByPublished}
           handleOrderByStar={handleOrderByStar}
+          setPagina={setPagina}
           />
       </Box>
       <Box h="100%" maxW="100%">
@@ -67,7 +74,10 @@ function Home() {
           pl={20}
           m={0}
         >
-          {info && info.slice(0, 6).map((value) => {
+          {info && info.slice(
+              (pagina - 1) * porPagina,
+              (pagina - 1) * porPagina + porPagina
+            ).map((value) => {
             return (
               <GridItem>
                 <Cards
@@ -83,7 +93,7 @@ function Home() {
         </Grid>
       </Box>
       <Center pt={6}>
-        <Paginado max={info.length} />
+        <Paginado pagina={pagina} setPagina={setPagina} maximo={maximo} />
       </Center>
     </Container>
   );

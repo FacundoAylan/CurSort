@@ -32,11 +32,10 @@ import OrderPublished  from '../InputOrder/OrderPublished';
 import OrderStar from '../InputOrder/OrderStar';
 import {getCourses} from '../../Redux/actions/index.js'
 
+function NavBar({handleOrderByPrice, handleOrderByPublished, handleOrderByStar, setPagina}) {
 
-
-function NavBar({handleOrderByPrice, handleOrderByPublished, handleOrderByStar}) {
   const {isAuthenticated, user} = useAuth0()
- 
+
   const [name, setName] = useState("")
   const dispatch = useDispatch();
 
@@ -45,6 +44,7 @@ function NavBar({handleOrderByPrice, handleOrderByPublished, handleOrderByStar})
     setName(e.target.value)
   }
   const onClick = () =>{
+    setPagina(1);
     dispatch(getCourses(name));
   }
   const reset = () =>{
