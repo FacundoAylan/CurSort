@@ -5,7 +5,7 @@ const {postCourse, getAllCourses, getCourseById, postReview, loadCoursesToDB} = 
 
 router
     .post('/', postCourse)
-    .get('/', getAllCourses) //
+    .get('/', getAllCourses)
     .get('/:id', getCourseById)
     .post('/review', postReview)
 

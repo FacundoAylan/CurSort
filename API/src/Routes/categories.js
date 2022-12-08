@@ -5,7 +5,6 @@ router = Router();
 
 router
     .get('/', getCategories)
-    .get('/:id', getCoursesByCategory)
     .post('/create', postCategorie)
 
 module.exports = router;
