@@ -1,18 +1,21 @@
 //no esta conectado
 
-import React from 'react'
-import { Select } from '@chakra-ui/react'
+import React from "react";
+import { Grid, GridItem, Button } from '@chakra-ui/react'
 
-const OrderAZ = ({handleOrderByName}) => {
+const OrderAZ = ({ handleOrderByName }) => {
+  return (
+    <div>
+      <Grid gridTemplateRows="repeat(3, 45px)" p={0}>
+        <GridItem p={0}>
+          <Button value="A-Z">A-Z</Button>
+        </GridItem>
+        <GridItem>
+          <Button value="Z-A">Z-A</Button>
+        </GridItem>
+      </Grid>
+    </div>
+  );
+};
 
-    return (
-      <div>
-        <Select onChange={handleOrderByName} placeholder="Order">
-          <option value="A-Z">A-Z</option>
-          <option value="Z-A">Z-A</option>
-        </Select>
-      </div>
-    );
-}
-
-export default OrderAZ
+export default OrderAZ;

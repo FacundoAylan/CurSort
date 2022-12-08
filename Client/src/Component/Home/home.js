@@ -5,69 +5,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
 import Paginado from '../paginado/paginado';
-import {getCourses, orderByName, orderByRating, orderByPrice, orderByPublished} from "../../Redux/actions";
+import {getCourses} from "../../Redux/actions";
 
 // importo el json desde la api
 // var data = require("./api.json");
 
 function Home() {
-  const dispatch = useDispatch();
-  const [data, setData] = useState({
-    name: "",
-  })
+
   let info = useSelector(state => state.courses, () => false);
+  const dispatch = useDispatch();
   const [pagina, setPagina] = useState(1);
   const porPagina = 6;
-
   const maximo = Math.ceil(info.length / porPagina);
-
-
-
-  let [ order, setOrder ] = useState('')
 
   useEffect(() => {
     dispatch(getCourses(''));
   }, [dispatch])
 
-    function handleOrderByName(e){
-        e.preventDefault();
-        dispatch(orderByName(e.target.value))
-        setOrder('order' + e.target.value)
-    }
-
-    function handleOrderByPrice(e){
-        e.preventDefault();
-        dispatch(orderByPrice(e.target.value))
-        setOrder('order' + e.target.value)
-    }
-    
-    function handleOrderByPublished(e){
-        e.preventDefault();
-        dispatch(orderByPublished(e.target.value))
-        setOrder('order' + e.target.value)
-    }
-
-    function handleOrderByStar(e){
-      e.preventDefault();
-      dispatch(orderByRating(e.target.value))
-      setOrder('order' + e.target.value)
-  }
-
   return (
-    <Container maxW="100%" h="100%" border="1px" p="0">
-      <div>
-      {/* filtro order A-Z */}
-        {/* <select onChange={(e) => handleOrderByName(e)} placeholder="Order">
-          <option value="A-Z">A-Z</option>
-          <option value="Z-A">Z-A</option>
-        </select> */}
-      </div>
+    <Container maxW="100%" h="100%"  p="0">
       <Box background="#4FD1C5" maxW="100%" h="10%">
         <NavBar 
-          handleOrderByPrice={handleOrderByPrice} 
-          handleOrderByName={handleOrderByName}
-          handleOrderByPublished={handleOrderByPublished}
-          handleOrderByStar={handleOrderByStar}
           setPagina={setPagina}
           />
       </Box>
