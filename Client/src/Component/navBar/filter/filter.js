@@ -3,29 +3,19 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   Grid,
-  GridItem,
   Tabs,
   TabList,
-  TabPanels,
   Tab,
-  TabPanel,
   Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
   Button,
-  ButtonGroup,
   Popover,
   PopoverTrigger,
   Portal,
   PopoverContent,
   PopoverArrow,
-  PopoverHeader,
   PopoverCloseButton,
   PopoverBody,
-  PopoverFooter
 } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import FilterCategory from "../../InputFilter/FilterCategory";
 import FilterDifficulty from "../../InputFilter/FilterDifficulty";
 import FilterDuration from "../../InputFilter/FilterDuration";
@@ -80,12 +70,10 @@ function Filter() {
                   <Portal>
                     <PopoverContent>
                       <PopoverArrow />
-                      <PopoverHeader>Header</PopoverHeader>
                       <PopoverCloseButton />
                       <PopoverBody>
-                        <FilterCategory />
+                        <FilterCategory handleOrderByName={handleOrderByName}/>
                       </PopoverBody>
-                      <PopoverFooter>This is the footer</PopoverFooter>
                     </PopoverContent>
                   </Portal>
                 </Popover>
@@ -100,12 +88,10 @@ function Filter() {
                   <Portal>
                     <PopoverContent>
                       <PopoverArrow />
-                      <PopoverHeader>Header</PopoverHeader>
                       <PopoverCloseButton />
                       <PopoverBody>
                         <FilterDifficulty />
                       </PopoverBody>
-                      <PopoverFooter>This is the footer</PopoverFooter>
                     </PopoverContent>
                   </Portal>
                 </Popover>
@@ -121,12 +107,10 @@ function Filter() {
                   <Portal>
                     <PopoverContent>
                       <PopoverArrow />
-                      <PopoverHeader>Header</PopoverHeader>
                       <PopoverCloseButton />
                       <PopoverBody>
                         <FilterDuration />
                       </PopoverBody>
-                      <PopoverFooter>This is the footer</PopoverFooter>
                     </PopoverContent>
                   </Portal>
                 </Popover>
@@ -142,12 +126,10 @@ function Filter() {
                   <Portal>
                     <PopoverContent>
                       <PopoverArrow />
-                      <PopoverHeader>Header</PopoverHeader>
                       <PopoverCloseButton />
                       <PopoverBody>
                         <OrderPrice handleOrderByPrice={handleOrderByPrice} />
                       </PopoverBody>
-                      <PopoverFooter>This is the footer</PopoverFooter>
                     </PopoverContent>
                   </Portal>
                 </Popover>
@@ -162,12 +144,10 @@ function Filter() {
                   <Portal>
                     <PopoverContent>
                       <PopoverArrow />
-                      <PopoverHeader>Header</PopoverHeader>
                       <PopoverCloseButton />
                       <PopoverBody>
                         <OrderPublished handleOrderByPublished={handleOrderByPublished} />
                       </PopoverBody>
-                      <PopoverFooter>This is the footer</PopoverFooter>
                     </PopoverContent>
                   </Portal>
                 </Popover>
@@ -182,12 +162,10 @@ function Filter() {
                   <Portal>
                     <PopoverContent>
                       <PopoverArrow />
-                      <PopoverHeader>Header</PopoverHeader>
                       <PopoverCloseButton />
                       <PopoverBody>
                         <OrderStar handleOrderByStar={handleOrderByStar} />
                       </PopoverBody>
-                      <PopoverFooter>This is the footer</PopoverFooter>
                     </PopoverContent>
                   </Portal>
                 </Popover>
