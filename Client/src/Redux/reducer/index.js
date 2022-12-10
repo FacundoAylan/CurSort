@@ -1,11 +1,14 @@
-import { GET_DETAIL, GET_COURSES, GET_CATEGORIES } from "../action-types";
+import { filter } from "@chakra-ui/react";
+import { GET_DETAIL, GET_COURSES, GET_CATEGORIES ,ADDFILTER } from "../action-types";
 
 let initialState = {
     courseDetail: {},
     allCourses: [],
-    courses: [],
+    courses: [], //este se renderiza
     warnings: '',
-    categories: []
+    categories: [],
+    filterDuration : {},
+    filterDifficulty: {}
     
 }
 
@@ -38,36 +41,7 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 categories: action.payload
             }
-
-
-    case "ORDER_BY_NAME":
-      let order =
-        action.payload === "A-Z"
-          ? state.courses.sort((a, b) => {
-
-              if (a.name.toLowerCase() > b.name.toLowerCase()) {
-                console.log(a.name)
-                return 1;
-              }
-              if (b.name.toLowerCase() > a.name.toLowerCase()) {
-                return -1;
-              }
-              return 0;
-            })
-          : state.courses.sort((a, b) => {
-              if (a.name.toLowerCase() > b.name.toLowerCase()) {
-                return -1;
-              }
-              if (b.name.toLowerCase() > a.name.toLowerCase()) {
-                return 1;
-              }
-              return 0;
-            });
-      return {
-        ...state,
-        courses: order,
-      };
-
+            
     case "ORDER_BY_RATING":
       let orderRating =
         action.payload === "asc"
@@ -144,6 +118,23 @@ const rootReducer = (state = initialState, action) => {
             courses: action.payload === "all" ? state.allCourses : orderPublished,
         };
 
+        case ADDFILTER:              
+          return{
+            ...state,
+            filterDuration : action.payload       
+          }
+
+          case 'ADDFILTERDIFICULTY':              
+          return{
+            ...state,
+            filterDifficulty : action.payload       
+          }
+
+          case 'GET_FILTER':
+      return {
+        ...state,
+        courses: action.payload,
+      };
     default:
       return state;
   }

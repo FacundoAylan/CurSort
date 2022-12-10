@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, IconButton,  Flex} from '@chakra-ui/react';
+import { Card, CardBody, CardFooter, Image, Stack, Text, IconButton,  Flex} from '@chakra-ui/react';
 import { PhoneIcon} from '@chakra-ui/icons'
 
 function Cards({nombre, imagen, descripcion, precio, id}){
@@ -17,7 +17,7 @@ function Cards({nombre, imagen, descripcion, precio, id}){
           border='1px' borderColor='gray.200'
           p={0}
           w='100%'
-          h='130%'
+          h='115%'
         />
         <Stack h='100%'>
           <h1>{nombre}</h1>

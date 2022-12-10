@@ -7,7 +7,7 @@ import{Container} from "@chakra-ui/react";
 
 function App() {
   return (
-    <Container background='black' maxW='100%'h='150vh' p={0}>
+    <Container background='black' maxH='200vh' maxW='100%' p={0}>
       <Route exact path="/" component={Home} />
       <Route path="/crear" component={Form} />
       <Route path="/detalle/:id" component={Detalle} />

@@ -23,7 +23,7 @@ import OrderPrice from "../../InputOrder/OrderPrice";
 import OrderPublished from "../../InputOrder/OrderPublished";
 import OrderStar from "../../InputOrder/OrderStar";
 import {
-  orderByName,
+  getCourses,
   orderByRating,
   orderByPrice,
   orderByPublished,
@@ -35,7 +35,7 @@ function Filter() {
   const dispatch = useDispatch();
   function handleOrderByName(e) {
     e.preventDefault();
-    dispatch(orderByName(e.target.value));
+    dispatch(getCourses(e.target.value));
     setOrder("order" + e.target.value);
   }
 
@@ -164,7 +164,7 @@ function Filter() {
                       <PopoverArrow />
                       <PopoverCloseButton />
                       <PopoverBody>
-                        <OrderStar handleOrderByStar={handleOrderByStar} />
+                         <OrderStar handleOrderByStar={handleOrderByStar} />
                       </PopoverBody>
                     </PopoverContent>
                   </Portal>
