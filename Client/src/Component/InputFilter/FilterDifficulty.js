@@ -1,40 +1,37 @@
-import React from 'react'
-import { useState } from 'react'
+
+import React from "react";
+import { useDispatch } from "react-redux";
+import { filterDifficulty} from "../../Redux/actions/index";
 import { Grid, GridItem, Button } from '@chakra-ui/react'
-import { useDispatch} from "react-redux";
-import {AllFilterDifficulty} from '../../Redux/actions/index'
 
 const FilterDifficulty = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  
+  const handleDifficulty = (e) => {
+   dispatch(filterDifficulty(e.target.value));
+    
+  };
 
-  const [filter, setFilter] = useState({
-    difficulty : ''
-  })
-
-  const handleSelect = (e)=>{
-    setFilter({
-      difficulty: e.target.value
-    })
-  }
-  dispatch(AllFilterDifficulty(filter))
   return (
+
 
     <Grid
       gridTemplateRows='repeat(3, 45px)' 
       p={0}
     >
       <GridItem p={0}>
-        <Button value='principiante'>Beginner</Button>
+        <Button onClick={(e) => handleDifficulty(e)} value='Principiante'>Beginner</Button>
       </GridItem>
       <GridItem>
-        <Button value='intermedio'>Middle</Button>
+        <Button onClick={(e) => handleDifficulty(e)} value='Intermedio'>Middle</Button>
       </GridItem>
       <GridItem>
-        <Button value='avanzado'>Advanced</Button>
+        <Button onClick={(e) => handleDifficulty(e)} value='Avanzado'>Advanced</Button>
       </GridItem>
     </Grid>
 
   )
 }
 
-export default FilterDifficulty
+
+export default FilterDifficulty;

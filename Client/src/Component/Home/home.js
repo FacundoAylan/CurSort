@@ -23,14 +23,20 @@ function Home() {
   const porPagina = 6;
   const maximo = Math.ceil(info.length / porPagina);
 
+
   useEffect(() => {
     dispatch(getCourses(''));
   }, [dispatch])
 
-
+  if(info <=1){
+    alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
+    dispatch(getCourses(''))
+  }
+  
   // const flickityOptions = {
   //     initialIndex: 2
   //   }
+
 
     return (
       <Container maxW="100%"  p="0"     heightMode="min">
@@ -69,6 +75,7 @@ function Home() {
         </Center>
       </Container>
     );
+
 
 }
 

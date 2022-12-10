@@ -1,21 +1,24 @@
 import React, { useEffect } from "react";
-import {  useSelector , useDispatch} from "react-redux"
-import { getCategory,filterCategory  } from '../../Redux/actions/index';
+
 import { Grid, GridItem, Button } from '@chakra-ui/react'
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getCategory, filterCategory } from "../../Redux/actions";
+
 
 const FilterCategory = () => {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-  
   useEffect(() => {
     dispatch(getCategory());
-  }, [dispatch])
+  }, [dispatch]);
+
 
   const categories = useSelector(state => state.categories)
 
-  // function handleFilterCategory(e) {
-  //  dispatch(filterCategory(e.target.value))
-  // }
+    const handleCategory = (e) => {    
+    dispatch(filterCategory(e.target.value)); 
+  };
 
   return (
       //deberia hacer un map de las categorias presentes en base de datos 
@@ -24,13 +27,15 @@ const FilterCategory = () => {
       p={0}
       >
       <GridItem>
+      <Button onClic {(e) => handleCategory(e)} key='all' value='all'>All</Button>
         {categories &&
             categories.map((e) => {
-              return <Button value='option1'>Beginner</Button>;
+              return <Button onClic {(e) => handleCategory(e)} key={e.id} value={e.name}>{e.name}</Button>
             })}
       </GridItem>
 
     </Grid>
+
   );
 };
 

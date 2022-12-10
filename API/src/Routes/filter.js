@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const {filterCourses} = require('../Controllers/index');
+const {filterCourses,getCoursesByCategory} = require('../Controllers/index');
 
 router
     .get('/', filterCourses)
-
+    .get('/category', getCoursesByCategory)
 module.exports = router;
