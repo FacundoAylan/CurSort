@@ -23,20 +23,27 @@ function Home() {
   const porPagina = 6;
   const maximo = Math.ceil(info.length / porPagina);
 
+
   useEffect(() => {
     dispatch(getCourses(''));
   }, [dispatch])
 
-
+  if(info <=1){
+    alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
+    dispatch(getCourses(''))
+  }
+  
   // const flickityOptions = {
   //     initialIndex: 2
   //   }
+
 
     return (
       <Container maxW="100%"  p="0" heightMode="min">
         <Box background="#3E4AB8" maxW="100%" maxH="50%">
           <NavBar setPagina={setPagina} />
         </Box>
+
         <Box h="40%" maxW="100%">
           <Grid templateColumns="repeat(6, 0.5fr)" gap={1} pt={4} pl={20} m={0}>
             {info &&
@@ -65,6 +72,7 @@ function Home() {
         </Center>
       </Container>
     );
+
 
 }
 

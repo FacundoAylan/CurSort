@@ -1,5 +1,6 @@
 import axios from "axios";
 import {  useSelector } from "react-redux"
+import { bindActionCreators } from "redux";
 import {
   GET_DETAIL,
   GET_COURSES,
@@ -7,7 +8,11 @@ import {
   ORDER_BY_RATING,
   ORDER_BY_PRICE,
   ORDER_BY_PUBLISHED,
-  ADDFILTER
+  ADDFILTER,
+  GET_FILTER_CATEGORY,
+  FILTER_DIFFICULTY,
+  FILTER_DURATION,
+  FILTER_CATEGORY
 } from "../action-types";
 
 
@@ -45,6 +50,27 @@ export function getCategory(){
             payload: categories.data
         })
     }
+}
+
+export function getFilterCategory(id){
+  
+  if(id=== 'all'){
+    return async (dispatch)=>{
+      const response = await axios.get(`http://localhost:3001/filter/category`)
+      dispatch({
+        type:GET_FILTER_CATEGORY,
+        payload : response.data //array de cursos
+      })
+    }
+  }
+
+  return async (dispatch)=>{
+    const response = await axios.get(`http://localhost:3001/filter/category/?id=${id}`)
+    dispatch({
+      type:GET_FILTER_CATEGORY,
+      payload : response.data //array de cursos
+    })
+  }
 }
 
 export function posCourses(data){
@@ -99,17 +125,39 @@ export function AllFilterDifficulty(payload){ // ==> llega un obj {duration:'1A5
  }
 }
 
-export function GetFilter (){
+// export function GetFilter (){
 
-  const duration = useSelector(state=> state.filterDuration)
-  const difficulty = useSelector(state=> state.filterDifficulty)
+//   const duration = useSelector(state=> state.filterDuration)
+//   const difficulty = useSelector(state=> state.filterDifficulty)
 
+//   // console.log(difficulty.difficulty)
+//   console.log(duration.duration)
 
-  return async (dispatch)=>{
-    const response = await axios.get(`http://localhost:3001/filter?${difficulty}&${duration}`) 
-    dispatch({
-      type: 'GET_FILTER',
-      payload: response.data,
-    });
+//   return async (dispatch)=>{
+//     const response = await axios.get(`http://localhost:3001/filter/?duration${duration.duration}`) // ==>no se como conseguir todos los query juntos 
+//     console.log('data', response.data)
+//     dispatch({
+//       type: 'GET_FILTER',
+//       payload: response.data,
+//     });
+//   }
+// }
+
+export function filterDifficulty(difficulty){
+  return {
+    type: FILTER_DIFFICULTY,
+    payload: difficulty
+  }
+}
+export function filterDuration(duration){
+  return {
+    type: FILTER_DURATION,
+    payload : duration
+  }
+}
+export function filterCategory(category){
+  return {
+    type: FILTER_CATEGORY,
+    payload : category
   }
 }
