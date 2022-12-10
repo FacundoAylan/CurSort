@@ -27,10 +27,10 @@ const FilterCategory = () => {
       p={0}
       >
       <GridItem>
-      <Button onClic {(e) => handleCategory(e)} key='all' value='all'>All</Button>
+      <Button onClick={(e) => handleCategory(e)} key='all' value='all'>All</Button>
         {categories &&
             categories.map((e) => {
-              return <Button onClic {(e) => handleCategory(e)} key={e.id} value={e.name}>{e.name}</Button>
+              return <Button onClick={(e) => handleCategory(e)} key={e.id} value={e.name}>{e.name}</Button>
             })}
       </GridItem>
 
