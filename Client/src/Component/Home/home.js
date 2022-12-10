@@ -43,10 +43,7 @@ function Home() {
         <Box background="#3E4AB8" maxW="100%" maxH="50%">
           <NavBar setPagina={setPagina} />
         </Box>
-        <Box>
-          {/* carruce */}
-          <Carrucel />
-        </Box>
+       
         <Box h="40%" maxW="100%">
           <Grid templateColumns="repeat(6, 0.5fr)" gap={1} pt={4} pl={20} m={0}>
             {info &&
