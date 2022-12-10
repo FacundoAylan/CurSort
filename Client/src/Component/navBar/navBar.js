@@ -12,12 +12,14 @@ import {
   GridItem,
   Center
 } from "@chakra-ui/react";
+
 import {getCourses} from '../../Redux/actions/index';
 import Title from './title.js/title';
 import Search from './search/search'
 
 function NavBar({ setPagina}) {
   // const {isAuthenticated, user} = useAuth0()
+
   const {isAuthenticated, user} = useAuth0()
 
   const [name, setName] = useState("")
@@ -27,6 +29,7 @@ function NavBar({ setPagina}) {
   }
   return (
     <>
+
       <Grid templateColumns="repeat(3,1fr)">
         <GridItem mt='2%'>
           {/* componente del titulo */}
@@ -48,6 +51,7 @@ function NavBar({ setPagina}) {
               {!isAuthenticated && <LoginButton/>}
               {isAuthenticated && <LogoutButton/>}
               {isAuthenticated && <Profile/>}
+
             </Center>
           </GridItem>
       </Grid> 

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Grid, GridItem, Button } from '@chakra-ui/react'
 import { useState } from 'react'
+import { Grid, GridItem, Button } from '@chakra-ui/react'
 import { useDispatch} from "react-redux";
 import {AllFilterDifficulty} from '../../Redux/actions/index'
 
@@ -18,6 +18,7 @@ const FilterDifficulty = () => {
   }
   dispatch(AllFilterDifficulty(filter))
   return (
+
     <Grid
       gridTemplateRows='repeat(3, 45px)' 
       p={0}
@@ -32,6 +33,7 @@ const FilterDifficulty = () => {
         <Button value='avanzado'>Advanced</Button>
       </GridItem>
     </Grid>
+
   )
 }
 

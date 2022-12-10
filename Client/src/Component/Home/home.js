@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
 import Paginado from '../paginado/paginado';
+
 import {getCourses} from "../../Redux/actions";
 import Carrucel from "../carrucel/carrucel";
+
 
 
 
@@ -24,6 +26,7 @@ function Home() {
   useEffect(() => {
     dispatch(getCourses(''));
   }, [dispatch])
+
 
   // const flickityOptions = {
   //     initialIndex: 2
@@ -66,6 +69,7 @@ function Home() {
         </Center>
       </Container>
     );
+
 }
 
 export default Home;
