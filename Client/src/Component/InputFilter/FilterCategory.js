@@ -1,33 +1,33 @@
 import React, { useEffect } from "react";
 import { Select } from "@chakra-ui/react";
-import {  useSelector } from "react-redux"
-import {useDispatch} from "react-redux"
-import { getCategory } from "../../Redux/actions";
-// import filterCategory from '../../Redux/actions/index'
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getCategory, filterCategory } from "../../Redux/actions";
 
 const FilterCategory = () => {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-  
   useEffect(() => {
     dispatch(getCategory());
-  }, [dispatch])
+  }, [dispatch]);
 
-  const categories = useSelector(state => state.categories)
-  console.log('Categorias: ', categories)
-  // function handleFilterCategory(e) {
-  //  dispatch(filterCategory(e.target.value))
-  // }
+  const categories = useSelector((state) => state.categories);
+
+  const handleCategory = (e) => {
+    
+    dispatch(filterCategory(e.target.value)); 
+  };
 
   return (
     <div>
-      {/* deberia hacer un map de las categorias presentes en base de datos */}
-      <Select placeholder="Category">
+      <Select onChange={(e) => handleCategory(e)} placeholder="Category">
+      <option key='all' value='all'>All</option>
         {categories &&
           categories.map((e) => {
-            return <option key={e.id} value={e.name}>{e.name}</option>;
+            return (
+              <option key={e.id} value={e.name}>{e.name}</option>
+            );
           })}
-
       </Select>
     </div>
   );

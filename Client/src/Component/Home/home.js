@@ -21,15 +21,19 @@ function Home() {
 
   const maximo = Math.ceil(info.length / porPagina);
 
-
-
   let [ order, setOrder ] = useState('')
+
+
 
   useEffect(() => {
     dispatch(getCourses(''));
   }, [dispatch])
 
-
+  if(info <=1){
+    alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
+    dispatch(getCourses(''))
+  }
+  
     function handleOrderByPrice(e){
         e.preventDefault();
         dispatch(orderByPrice(e.target.value))
@@ -81,6 +85,7 @@ function Home() {
             return (
               <GridItem>
                 <Cards
+                key={value.id}
                   nombre={value.name}
                   imagen={value.image}
                   descripcion={value.description}
