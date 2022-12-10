@@ -6,7 +6,7 @@ import NavBar from "../navBar/navBar";
 import Paginado from '../paginado/paginado';
 
 import {getCourses} from "../../Redux/actions";
-import Carrucel from "../carrucel/carrucel";
+
 
 
 
@@ -33,13 +33,9 @@ function Home() {
   //   }
 
     return (
-      <Container maxW="100%"  p="0"     heightMode="min">
+      <Container maxW="100%"  p="0" heightMode="min">
         <Box background="#3E4AB8" maxW="100%" maxH="50%">
           <NavBar setPagina={setPagina} />
-        </Box>
-        <Box>
-          {/* carruce */}
-          <Carrucel />
         </Box>
         <Box h="40%" maxW="100%">
           <Grid templateColumns="repeat(6, 0.5fr)" gap={1} pt={4} pl={20} m={0}>
@@ -64,7 +60,7 @@ function Home() {
                 })}
           </Grid>
         </Box>
-        <Center pt={5}>
+        <Center mt='120px'>
           <Paginado pagina={pagina} setPagina={setPagina} maximo={maximo} />
         </Center>
       </Container>

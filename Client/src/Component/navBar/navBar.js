@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 
 import {getCourses} from '../../Redux/actions/index';
-import Title from './title.js/title';
+import Title from './title/title';
 import Search from './search/search'
 
 function NavBar({ setPagina}) {
@@ -36,7 +36,7 @@ function NavBar({ setPagina}) {
           <Title/>
         </GridItem>
         <GridItem mt='2%'>
-           componente del search
+           {/* componente del search */}
           <Search setPagina={setPagina}/>
         </GridItem>
 
