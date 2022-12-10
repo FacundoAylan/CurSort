@@ -1,13 +1,24 @@
-import { GET_DETAIL, GET_COURSES, GET_CATEGORIES } from "../action-types";
+import { filter } from "@chakra-ui/react";
+import {
+  GET_DETAIL,
+  GET_COURSES,
+  GET_CATEGORIES,
+  ADDFILTER,
+  GET_FILTER_CATEGORY,
+  FILTER_DIFFICULTY,
+  FILTER_DURATION,
+  FILTER_CATEGORY,
+
+} from "../action-types";
 
 let initialState = {
-    courseDetail: {},
-    allCourses: [],
-    courses: [],
-    warnings: '',
-    categories: []
-    
-}
+  courseDetail: {},
+  allCourses: [],
+  courses: [], //este se renderiza
+  warnings: "",
+  categories: [],
+  filterCurses: [], //en teoria no sirve
+};
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -17,7 +28,6 @@ const rootReducer = (state = initialState, action) => {
         allCourses: action.payload,
         courses: action.payload,
       };
-
     case GET_DETAIL:
       return {
         ...state,
@@ -33,41 +43,11 @@ const rootReducer = (state = initialState, action) => {
           price: action.payload.price,
         },
       };
-        case GET_CATEGORIES:
-            return {
-                ...state,
-                categories: action.payload
-            }
-
-
-    case "ORDER_BY_NAME":
-      let order =
-        action.payload === "A-Z"
-          ? state.courses.sort((a, b) => {
-
-              if (a.name.toLowerCase() > b.name.toLowerCase()) {
-                console.log(a.name)
-                return 1;
-              }
-              if (b.name.toLowerCase() > a.name.toLowerCase()) {
-                return -1;
-              }
-              return 0;
-            })
-          : state.courses.sort((a, b) => {
-              if (a.name.toLowerCase() > b.name.toLowerCase()) {
-                return -1;
-              }
-              if (b.name.toLowerCase() > a.name.toLowerCase()) {
-                return 1;
-              }
-              return 0;
-            });
+    case GET_CATEGORIES:
       return {
         ...state,
-        courses: order,
+        categories: action.payload,
       };
-
     case "ORDER_BY_RATING":
       let orderRating =
         action.payload === "asc"
@@ -119,36 +99,113 @@ const rootReducer = (state = initialState, action) => {
         courses: action.payload === "all" ? state.allCourses : orderPrice,
       };
     case "ORDER_BY_PUBLISHED":
-        let orderPublished =
-            action.payload === "asc"
-                ? state.courses.sort((a, b) => {
-                    if (a.createdAt > b.createdAt) {
-                        return 1;
-                    }
-                    if (b.createdAt > a.createdAt) {
-                        return -1;
-                    }   
-                    return 0;
-                })
-                : state.courses.sort((a, b) => {
-                    if (a.createdAt > b.createdAt) {
-                        return -1;
-                    }
-                    if (b.createdAt > a.createdAt) {
-                        return 1;
-                    }
-                    return 0;
-                });
-        return {
-            ...state,
-            courses: action.payload === "all" ? state.allCourses : orderPublished,
-        };
+      let orderPublished =
+        action.payload === "asc"
+          ? state.courses.sort((a, b) => {
+              if (a.createdAt > b.createdAt) {
+                return 1;
+              }
+              if (b.createdAt > a.createdAt) {
+                return -1;
+              }
+              return 0;
+            })
+          : state.courses.sort((a, b) => {
+              if (a.createdAt > b.createdAt) {
+                return -1;
+              }
+              if (b.createdAt > a.createdAt) {
+                return 1;
+              }
+              return 0;
+            });
+      return {
+        ...state,
+        courses: action.payload === "all" ? state.allCourses : orderPublished,
+      };
+    case ADDFILTER:
+      return {
+        ...state,
+        filterDuration: action.payload,
+      };
+    case "ADDFILTERDIFICULTY":
+      return {
+        ...state,
+        filterDifficulty: action.payload,
+      };
+    case "GET_FILTER":
+      return {
+        ...state,
+        courses: action.payload,
+      };
+    case GET_FILTER_CATEGORY:
+      return {
+        ...state,
+        courses: action.payload,
+      };
+ 
+    case FILTER_DIFFICULTY:
+      const FilteredDifficulty =
+        action.payload === "all"
+          ? state.allCourses
+          : state.courses.filter(
+              (curse) => action.payload === curse.difficulty
+            );
+      return {
+        ...state,
+        courses: FilteredDifficulty,
+      };
 
+    case FILTER_DURATION:
+      if (action.payload === "all") {
+        return {
+          type: FILTER_DURATION,
+          courses: state.allCourses,
+        };
+      } else if (action.payload === "1A50") {
+        return {
+          ...state,
+          courses: state.courses.filter(
+            (course) => course.duration >= 1 && course.duration <= 50
+          ),
+        };
+      } else if (action.payload === "51A100") {
+        return {
+          ...state,
+          courses: state.courses.filter(
+            (course) => course.duration >= 51 && course.duration <= 100
+          ),
+        };
+      } else if (action.payload === "100") {
+        return {
+          ...state,
+          courses: state.courses.filter((course) => course.duration >= 100),
+        };
+      }
+      //este return creo que esta demas, pero me tira un warning
+      return{
+        ...state,
+        courses: state.courses
+      }
+
+      case FILTER_CATEGORY:
+        let filteredCategory = 
+        action.payload === "all"
+        ? state.allCourses 
+        : state.courses.filter((course) => course.categories.includes(action.payload))     
+        return{
+          ...state,
+          courses : filteredCategory
+        }
+
+         
+        
+     
+
+   
     default:
       return state;
   }
 };
-
-
 
 export default rootReducer;
