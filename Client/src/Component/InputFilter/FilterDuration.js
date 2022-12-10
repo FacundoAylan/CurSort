@@ -1,9 +1,8 @@
-import React from 'react'
-import { useState } from 'react'
+
+import React, { useState } from "react";
+import { Grid, GridItem, Button } from '@chakra-ui/react';
 import { useDispatch} from "react-redux";
 import {AllFilterDuration,GetFilter} from '../../Redux/actions/index'
-import { Select } from '@chakra-ui/react'
-
 
 
 //este filtro tiene que mandar por query los valores del select
@@ -27,14 +26,18 @@ const FilterDuration = () => {
   
   return (
     <div>
-        <Select onChange={(e)=>handleSelect(e)} placeholder='Duration'>
-  <option value='1A50'>1hs - 50hs</option>
-  <option value='51A100'>51hs - 100hs</option>
-  <option value='100'> + 100hs</option>
-  
-        </Select>
-    </div>
-  )
-}
 
-export default FilterDuration
+      <Grid gridTemplateRows="repeat(3, 45px)" p={0}>
+        <GridItem p={0}>
+          <Button value='1A50'>51hs - 100hs</Button>
+        </GridItem>
+        <GridItem>
+          <Button value='100'>+ 100hs</Button>
+        </GridItem>
+      </Grid>
+
+    </div>
+  );
+};
+
+export default FilterDuration;

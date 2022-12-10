@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
+import { Grid, GridItem, Button } from '@chakra-ui/react'
 import { useDispatch} from "react-redux";
 import {AllFilterDifficulty} from '../../Redux/actions/index'
-import { Select } from '@chakra-ui/react'
 
 const FilterDifficulty = () => {
   const dispatch = useDispatch()
@@ -18,14 +18,22 @@ const FilterDifficulty = () => {
   }
   dispatch(AllFilterDifficulty(filter))
   return (
-    <div>
-        <Select onChange={(e)=>handleSelect(e)} placeholder='Difficulty'>
-  <option value='principiante'>Beginner</option>
-  <option value='intermedio'>Middle</option>
-  <option value='avanzado'>Advanced</option>
- 
-</Select>
-    </div>
+
+    <Grid
+      gridTemplateRows='repeat(3, 45px)' 
+      p={0}
+    >
+      <GridItem p={0}>
+        <Button value='principiante'>Beginner</Button>
+      </GridItem>
+      <GridItem>
+        <Button value='intermedio'>Middle</Button>
+      </GridItem>
+      <GridItem>
+        <Button value='avanzado'>Advanced</Button>
+      </GridItem>
+    </Grid>
+
   )
 }
 

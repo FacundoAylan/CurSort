@@ -1,47 +1,40 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Card, CardBody, CardFooter, Image, Stack, Heading, Text, Divider, ButtonGroup,Button } from '@chakra-ui/react';
-
+import { Card, CardBody, CardFooter, Image, Stack, Text, IconButton,  Flex} from '@chakra-ui/react';
+import { PhoneIcon} from '@chakra-ui/icons'
 
 function Cards({nombre, imagen, descripcion, precio, id}){
 
 
   return(
-    <Card maxW='90%' h='100%' border='1px' ml={2}>
-      <CardBody maxW='100%' h='40%' background='#4FD1C5'>
+    <Card maxW='90%' h='150%' border='1px' ml={2} background='#3E4AB8'>
+      <Link to={`/detalle/${id}`} className="linkStart">
+      <CardBody maxW='100%' h='90%'  p={0}>
         <Image
-
           src={imagen}
-
-          alt='Green double couch with wooden legs'
+          alt=''
           borderRadius='lg'
           border='1px' borderColor='gray.200'
+          p={0}
+          w='100%'
+          h='115%'
         />
-        <Stack  spacing='3'>
-          <Heading size='md'>{nombre}</Heading>
-          <Text>
-            {descripcion}
-          </Text>
-          <Text color='blue.600' fontSize='2xl'>
-            {precio}
-          </Text>
+        <Stack h='100%'>
+          <h1>{nombre}</h1>
+          <Flex>
+            <Text color='blue.600' fontSize='40px'>
+              {`$${precio}`}
+            </Text>
+            <CardFooter background='#3E4AB8' w='10%' h='10%'>
+              <IconButton
+                size='1%'
+                icon={<PhoneIcon />}
+              />
+            </CardFooter>
+          </Flex>
         </Stack>
       </CardBody>
-      <Divider />
-      <CardFooter background='#158034 '>
-        <ButtonGroup spacing='2'>
-
-        <Link to={`/detalle/${id}`} className="linkStart">
-
-          <Button variant='solid' colorScheme='blue'>
-            Detalle
-          </Button>
-          </Link>
-          <Button variant='ghost' colorScheme='blue'>
-            Agregar al carro
-          </Button>
-        </ButtonGroup>
-      </CardFooter>
+      </Link>
     </Card>
   );
 };
