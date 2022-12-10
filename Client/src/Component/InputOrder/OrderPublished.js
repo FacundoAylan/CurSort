@@ -1,13 +1,20 @@
 import React from 'react'
-import { Select } from '@chakra-ui/react'
+import { Grid, GridItem, Button } from '@chakra-ui/react'
+
 const OrderPublished = ({handleOrderByPublished}) => {
   return (
     <div>
-      <Select onChange={handleOrderByPublished} placeholder="Published">
-        <option value="all">All</option>
-        <option value="desc">New</option>
-        <option value="asc">Old</option>
-      </Select>
+      <Grid gridTemplateRows="repeat(3, 45px)" p={0}>
+        <GridItem p={0}>
+          <Button  value="all">All</Button>
+        </GridItem>
+        <GridItem>
+          <Button value="desc">New</Button>
+        </GridItem>
+        <GridItem>
+          <Button value="asc">Old</Button>
+        </GridItem>
+      </Grid>
     </div>
   );
 }

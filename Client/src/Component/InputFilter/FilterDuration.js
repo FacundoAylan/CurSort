@@ -1,11 +1,9 @@
+
 import React from "react";
 import { useDispatch } from "react-redux";
 import { filterDuration } from "../../Redux/actions/index";
-import { Select } from "@chakra-ui/react";
+import { Grid, GridItem, Button } from '@chakra-ui/react';
 
-//este filtro tiene que mandar por query los valores del select
-// http://localhost:3001/filter?duration='1A50'&difficulty=middle&categoryId=23
-//se tienen que sumar a los filtros de categoria y dificultad
 const FilterDuration = () => {
   const dispatch = useDispatch();
 
@@ -13,15 +11,20 @@ const FilterDuration = () => {
     dispatch(filterDuration(e.target.value));
   };
   
-
   return (
     <div>
-      <Select onChange={(e) => handleDuration(e)} placeholder="Duration">
-        <option value="all">All</option>
-        <option value="1A50">1hs - 50hs</option>
-        <option value="51A100">51hs - 100hs</option>
-        <option value="100"> + 100hs</option>
-      </Select>
+      <Grid gridTemplateRows="repeat(3, 45px)" p={0}>
+        <GridItem p={0}>
+          <Button onClick={(e) => handleDuration(e)} value='1A50'>51hs - 100hs</Button>
+        </GridItem>
+        <GridItem>
+          <Button onClick={(e) => handleDuration(e)} value='51A100'>51hs - 100hs</Button>
+        </GridItem>
+         <GridItem>
+          <Button onClick={(e) => handleDuration(e)} value='100'>+ 100hs</Button>
+        </GridItem>
+      </Grid>
+
     </div>
   );
 };

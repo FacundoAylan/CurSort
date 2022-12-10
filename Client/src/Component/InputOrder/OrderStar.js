@@ -1,20 +1,20 @@
 import React from "react";
-import { Select } from "@chakra-ui/react";
+import { Grid, GridItem, Button } from '@chakra-ui/react'
 
 const OrderStar = ({handleOrderByStar}) => {
   return (
     <div>
-      
-      <Select onChange={handleOrderByStar} placeholder="Start" maxW='100%'>
-        {/* <option value="option1">⁜</option>
-        <option value="option2">⁜ ⁜ </option>
-        <option value="option3">⁜ ⁜ ⁜ </option>
-        <option value="option4">⁜ ⁜ ⁜ ⁜ </option>
-        <option value="option5">⁜ ⁜ ⁜ ⁜ ⁜</option> */}
-        <option value="all">All</option>
-        <option value="desc">Highest Star</option>
-        <option value="asc">Lowest Star</option>
-      </Select>
+      <Grid gridTemplateRows="repeat(3, 45px)" p={0}>
+        <GridItem p={0}>
+          <Button  value="all" onClick={handleOrderByStar}>All</Button>
+        </GridItem>
+        <GridItem>
+          <Button value="desc" onClick={handleOrderByStar}>Highest Star</Button>
+        </GridItem>
+        <GridItem>
+          <Button value="asc" onClick={handleOrderByStar}>Lowest Star</Button>
+        </GridItem>
+      </Grid>
     </div>
   );
 };
