@@ -11,19 +11,20 @@ const postCourse = async (req, res) => {
         duracion ,
         precio ,
         imagen ,
-        dificultad
-        //categories
+        dificultad,
+        categoria
     } = req.body;
 
-    let name, description, instructor, duration, price, image, difficulty;
+    let name, description, instructor, duration, price, image, difficulty, categoryId;
 
-    name =nombre;
+    name =nombre.toUpperCase();
     description = descripcion;
     instructor = instuctor;
     duration = duracion;
     price = precio;
     image = imagen;
     difficulty = dificultad;
+    categoryId = categoria
 
     try {
         // valido que existan los datos obligatorios
@@ -37,7 +38,8 @@ const postCourse = async (req, res) => {
             duration,
             price,
             image,
-            difficulty
+            difficulty,
+            categoryId
         });
 
         // Busco las categorías que coincidan con los que me trae por body
@@ -46,7 +48,7 @@ const postCourse = async (req, res) => {
         //})
 
         // Creo las relaciones con la tabla Categories
-        //newcourse.addCategories(categoriesDB);
+        //newcourse.addCategories([1]);
 
         res.status(200).send("El curso ha sido creado exitosamente!");
     } catch (error) {
@@ -60,37 +62,34 @@ const postCourse = async (req, res) => {
 const loadCoursesToDB = async () => {
         const coursesDB = await Courses.findAll();
         const coursesJSON = data.cursos;
-        if (coursesDB.length === 0 || coursesDB.length < coursesJSON.length) {
-            coursesJSON.forEach(async (e, i) => {
-                let name, description, rating, image, difficulty, price;
+        const categoriesJSON = data.categorys;
+        const categoriesDB = await Categories.findAll();
 
-                name = e.nombre.toUpperCase(),
-                    description = e.descripcion,
-                    instructor = e.instructor,
-                    price = e.precio,
-                    duration = e.duracion,
-                    rating = e.rating,
-                    image = e.imagen,
-                    difficulty = e.dificultad,
-                    price = e.precio
+        if(categoriesDB.length === 0){
+            categoriesJSON.forEach(async e=>{
+                
+            await Categories.create({
+                name: e.name
+            })
+            })
 
+        }
 
-                if (coursesDB.length > 0) {
-                    if (!coursesDB[i] || coursesDB[i].dataValues.id !== e.id) {
-                        await Courses.create({
-                            name,
-                            description,
-                            instructor,
-                            price,
-                            duration,
-                            rating,
-                            image,
-                            difficulty,
-                            price
-                        })
-                    }
-                }
-                else {
+        if (coursesDB.length === 0 ) {
+            coursesJSON.forEach(async (e) => {
+                let name, description, rating, image, difficulty, price, categoryId;
+
+                    name = e.nombre.toUpperCase();
+                    description = e.descripcion;
+                    instructor = e.instructor;
+                    price = e.precio;
+                    duration = e.duracion;
+                    rating = e.rating;
+                    image = e.imagen;
+                    difficulty = e.dificultad;
+                    price = e.precio;
+                    categoryId = parseInt(e.idCategoria);
+                    
                     await Courses.create({
                         name,
                         description,
@@ -100,11 +99,14 @@ const loadCoursesToDB = async () => {
                         rating,
                         image,
                         difficulty,
-                        price
-                    })
-                }
+                        price,
+                        categoryId
+                        
+                    });            
             })
         }
+
+        
 }
 
 
@@ -116,7 +118,12 @@ const findByName = async (name) => {
                 [Op.like]: `%${name}%`
             }
         },
-        include: Reviews
+        include: [
+            {
+                model: Categories,
+                attributes:['name']
+            }
+        ]
     });
     return courses;
 }
@@ -151,11 +158,23 @@ const getAllCourses = async (req, res) => {
         }
         else {
             courses = await Courses.findAll({
-                include: Reviews
+                include:[
+                    {
+                        model: Categories,
+                        attributes:['name']
+                    }
+                ]
             });
         }
         if (courses.length > 0) {
-            return res.status(200).send(courses)
+
+            let curso = courses.map(el => el.toJSON()).map(el => {
+                el.category = el.category.name
+                return el
+            }
+            );
+
+            return res.status(200).send(curso)
         }
         res.status(404).send({ message: 'No se encontraron cursos' });
     } catch (error) {
