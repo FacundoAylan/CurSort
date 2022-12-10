@@ -3,6 +3,7 @@ const data = require("./api.json");
 const { Users, Courses, Categories, Reviews } = require("../db");
 
 const postCourse = async (req, res) => {
+
   const {
     nombre,
     descripcion,
@@ -11,19 +12,20 @@ const postCourse = async (req, res) => {
     precio,
     imagen,
     dificultad,
-    //categories
+    categoria
   } = req.body;
 
-  let name, description, instructor, duration, price, image, difficulty;
+  let name, description, instructor, duration, price, image, difficulty,categoryId;
 
-  name = nombre;
+  name =nombre.toUpperCase();
   description = descripcion;
   instructor = instuctor;
   duration = duracion;
   price = precio;
   image = imagen;
   difficulty = dificultad;
-
+  categoryId = categoria
+  
   try {
     // valido que existan los datos obligatorios
     if (!name || !description)
@@ -55,6 +57,7 @@ const postCourse = async (req, res) => {
 
 //loadCoursesToDB es solo para cargar los cursos del json a la DB
 //la ruta en Postman seria http://localhost:3001/course/load
+
 const loadCoursesToDB = async () => {
   const coursesDB = await Courses.findAll();
   const coursesJSON = data.cursos;
@@ -83,38 +86,95 @@ const loadCoursesToDB = async () => {
             rating,
             image,
             difficulty,
-            price,
-          });
-        }
-      } else {
-        await Courses.create({
-          name,
-          description,
-          instructor,
-          price,
-          duration,
-          rating,
-          image,
-          difficulty,
-          price,
+            categoryId
         });
-      }
-    });
-  }
-};
+
+        // Busco las categorías que coincidan con los que me trae por body
+        //let categoriesDB = await Categories.findAll({
+          //  where: { name: categories.map(e => e) }
+        //})
+
+        // Creo las relaciones con la tabla Categories
+        //newcourse.addCategories([1]);
+
+        res.status(200).send("El curso ha sido creado exitosamente!");
+    } catch (error) {
+        res.status(400).send(error);
+    }
+}
+
+
+//loadCoursesToDB es solo para cargar los cursos del json a la DB
+//la ruta en Postman seria http://localhost:3001/course/load
+const loadCoursesToDB = async () => {
+        const coursesDB = await Courses.findAll();
+        const coursesJSON = data.cursos;
+        const categoriesJSON = data.categorys;
+        const categoriesDB = await Categories.findAll();
+
+        if(categoriesDB.length === 0){
+            categoriesJSON.forEach(async e=>{
+                
+            await Categories.create({
+                name: e.name
+            })
+            })
+
+        }
+
+        if (coursesDB.length === 0 ) {
+            coursesJSON.forEach(async (e) => {
+                let name, description, rating, image, difficulty, price, categoryId;
+
+                    name = e.nombre.toUpperCase();
+                    description = e.descripcion;
+                    instructor = e.instructor;
+                    price = e.precio;
+                    duration = e.duracion;
+                    rating = e.rating;
+                    image = e.imagen;
+                    difficulty = e.dificultad;
+                    price = e.precio;
+                    categoryId = parseInt(e.idCategoria);
+                    
+                    await Courses.create({
+                        name,
+                        description,
+                        instructor,
+                        price,
+                        duration,
+                        rating,
+                        image,
+                        difficulty,
+                        price,
+                        categoryId
+                        
+                    });            
+            })
+        }
+
+        
+}
+
 
 //funcion para buscar el nombre del curso que recibio por query
 const findByName = async (name) => {
-  let courses = await Courses.findAll({
-    where: {
-      name: {
-        [Op.like]: `%${name}%`,
-      },
-    },
-    include: Reviews,
-  });
-  return courses;
-};
+    let courses = await Courses.findAll({
+        where: {
+            name: {
+                [Op.like]: `%${name}%`
+            }
+        },
+        include: [
+            {
+                model: Categories,
+                attributes:['name']
+            }
+        ]
+    });
+    return courses;
+}
+
 
 const getCourseById = async (req, res) => {
   const { id } = req.params;
@@ -141,49 +201,37 @@ const getCourseById = async (req, res) => {
 //trae todos los cursos junto con las reviews asociadas ==> traía
 //agregue las categorias y saque el review porque no se como poner 2 :P
 const getAllCourses = async (req, res) => {
-  try {
-    let name = req.query.name;
-    let courses;
-    if (name) {
-      name = name.toUpperCase();
-      courses = await findByName(name);
-    } else {
-      courses = await Courses.findAll({
-        include: {
-          model: Categories,
-          attributes: ["id", "name"],
-          through: {
-            attributes: [],
-          },
-        },
-        
-      });
-    }
-    courses = courses.map((c) => {
-      return {
-        id: c.id,
-        name: c.name,
-        description: c.description,
-        instructor: c.instructor,
-        duration: c.duration,
-        price: c.price,
-        fecha: c.fecha,
-        rating: c.rating,
-        image: c.image,
-        active : c.active,
-        difficulty: c.difficulty,
-        createdAt: c.createdAt,
-        updatedAt: c.updatedAt,
-        categories: c.categories.map((c)=>c.name)
-      }
-    })
 
-    if (courses.length > 0) {
-      return res.status(200).send(courses);
-    }
-    res.status(404).send({ message: "No se encontraron cursos" });
-  } catch (error) {
-    res.status(400).send({ message: error.message });
+    try {
+        let name = req.query.name;
+        let courses;
+        if (name) {
+            name = name.toUpperCase()
+            courses = await findByName(name)
+        }
+        else {
+            courses = await Courses.findAll({
+                include:[
+                    {
+                        model: Categories,
+                        attributes:['name']
+                    }
+                ]
+            });
+        }
+        if (courses.length > 0) {
+
+            let curso = courses.map(el => el.toJSON()).map(el => {
+                el.category = el.category.name
+                return el
+            }
+            );
+
+            return res.status(200).send(curso)
+        }
+        res.status(404).send({ message: 'No se encontraron cursos' });
+    } catch (error) {
+        res.status(400).send({ message: error.message });
   }
 };
 
