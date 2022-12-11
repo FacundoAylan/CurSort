@@ -242,17 +242,26 @@ const getCategories = async (req, res) => {
 
 }
 
-const postCategorie = async (req, res) => {
-    
+const postCategory = async (req, res) => {
+    const {name} = req.body
     try{
-        const categorie   = await Categories.create(req.body);
-        res.send(categorie);
+        await Categories.create({name});
+        res.status(200).send('La categoría ha sido creada con éxito.');
     }catch(error){
         res.status(400).send(`ocurrio un error ${error}`);
     } 
 }
 
-
-module.exports = {postCourse, getAllCourses, getCourseById, postReview, loadCoursesToDB, createUser, disableUser, getCategories,postCategorie}
+module.exports = {
+    postCourse, 
+    getAllCourses, 
+    getCourseById, 
+    postReview, 
+    loadCoursesToDB, 
+    createUser, 
+    disableUser, 
+    getCategories,
+    postCategory
+}
 
 

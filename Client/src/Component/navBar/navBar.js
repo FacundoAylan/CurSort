@@ -6,6 +6,11 @@ import LogoutButton from '../LogoutButton/LogoutButton'
 import Profile from '../Profile/Profile'
 import { useAuth0 } from "@auth0/auth0-react";
 import {
+  AlertIcon,
+  Alert,
+  Menu,
+  MenuButton,
+  MenuList,
   useDisclosure,
   Button,
   Drawer,
@@ -21,7 +26,8 @@ import {
   GridItem,
   IconButton,
   InputGroup,
-  InputRightElement
+  InputRightElement,
+  AlertDialog
 } from "@chakra-ui/react";
 import { SearchIcon } from '@chakra-ui/icons';
 import FilterCategory from '../InputFilter/FilterCategory';
@@ -30,17 +36,24 @@ import FilterDuration from '../InputFilter/FilterDuration';
 import OrderPrice from '../InputOrder/OrderPrice';
 import OrderPublished  from '../InputOrder/OrderPublished';
 import OrderStar from '../InputOrder/OrderStar';
-import {getCourses} from '../../Redux/actions/index.js'
+import {getCourses, createNewCategory} from '../../Redux/actions/index.js'
 
 function NavBar({handleOrderByPrice, handleOrderByPublished, handleOrderByStar, setPagina}) {
+  const initialState = {name: ''}
+  let [category, setCategory] = React.useState(initialState);
+
   const {isAuthenticated, user} = useAuth0()
 
   const [name, setName] = useState("")
+  const [alerta, setAlert] = useState(false)
   const dispatch = useDispatch();
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const onChange = (e) => {
-    setName(e.target.value)
+    if (e.target.name === 'categoryname')
+      setCategory({...category, name: e.target.value})
+    else
+      setName(e.target.value)
   }
   const onClick = () =>{
     setPagina(1);
@@ -49,6 +62,13 @@ function NavBar({handleOrderByPrice, handleOrderByPublished, handleOrderByStar, 
   const reset = () =>{
     dispatch(getCourses(''));
   }
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createNewCategory(category))
+    setCategory(initialState)
+    setAlert(true)
+  }
+
   return (
     <>
       {!isAuthenticated && <LoginButton/>}
@@ -122,13 +142,49 @@ function NavBar({handleOrderByPrice, handleOrderByPublished, handleOrderByStar, 
             <Center mt="2">
               <Link to="/crear" className="linkStart">
                 <ButtonGroup variant="outline" spacing="6">
-                  <Button colorScheme="blue">crear</Button>
+                  <Button colorScheme="blue">Create new curse</Button>
                 </ButtonGroup>
               </Link>
                 <ButtonGroup variant="outline" spacing="6" ml={2}>
                   <Button colorScheme="blue" onClick={reset}>Reset</Button>
                 </ButtonGroup>
+
             </Center>
+            <Menu>
+              <Center mt='2'>
+                <ButtonGroup variant="outline" spacing="6" ml={2}>
+                  <MenuButton as={Button} colorScheme='blue'>
+                    New category
+                  </MenuButton>
+                </ButtonGroup>
+              </Center>
+              <MenuList>
+                <InputGroup size='md'>
+                  <Input
+                    id='categoryname'
+                    type='text'
+                    name='categoryname'
+                    value={category.name}
+                    pr='4.5rem'
+                    placeholder='Name...'
+                    onChange={(e) => onChange(e)} 
+                  />
+                  <InputRightElement width='4.5rem'>
+                    <Button colorScheme="blue" size='sm' onClick={(e) => handleOnSubmit(e)} type='submit'>
+                      Create
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>    
+              </MenuList>
+            </Menu>            
+            
+            {alerta && 
+            <Alert status='success'>
+              <AlertIcon />
+                Category created successfully!
+            </Alert>}
+            
+
           </DrawerBody>
         </DrawerContent>
       </Drawer>

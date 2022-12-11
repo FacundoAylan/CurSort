@@ -1,4 +1,11 @@
-import { GET_DETAIL, GET_COURSES, GET_CATEGORIES } from "../action-types";
+import { 
+  GET_DETAIL, 
+  GET_COURSES, 
+  GET_CATEGORIES ,
+  ORDER_BY_PRICE,
+  ORDER_BY_PUBLISHED,
+  ORDER_BY_RATING,
+} from "../action-types";
 
 let initialState = {
     courseDetail: {},
@@ -40,35 +47,35 @@ const rootReducer = (state = initialState, action) => {
             }
 
 
-    case "ORDER_BY_NAME":
-      let order =
-        action.payload === "A-Z"
-          ? state.courses.sort((a, b) => {
+    // case ORDER_BY_NAME:
+    //   let order =
+    //     action.payload === "A-Z"
+    //       ? state.courses.sort((a, b) => {
 
-              if (a.name.toLowerCase() > b.name.toLowerCase()) {
-                console.log(a.name)
-                return 1;
-              }
-              if (b.name.toLowerCase() > a.name.toLowerCase()) {
-                return -1;
-              }
-              return 0;
-            })
-          : state.courses.sort((a, b) => {
-              if (a.name.toLowerCase() > b.name.toLowerCase()) {
-                return -1;
-              }
-              if (b.name.toLowerCase() > a.name.toLowerCase()) {
-                return 1;
-              }
-              return 0;
-            });
-      return {
-        ...state,
-        courses: order,
-      };
+    //           if (a.name.toLowerCase() > b.name.toLowerCase()) {
+    //             console.log(a.name)
+    //             return 1;
+    //           }
+    //           if (b.name.toLowerCase() > a.name.toLowerCase()) {
+    //             return -1;
+    //           }
+    //           return 0;
+    //         })
+    //       : state.courses.sort((a, b) => {
+    //           if (a.name.toLowerCase() > b.name.toLowerCase()) {
+    //             return -1;
+    //           }
+    //           if (b.name.toLowerCase() > a.name.toLowerCase()) {
+    //             return 1;
+    //           }
+    //           return 0;
+    //         });
+    //   return {
+    //     ...state,
+    //     courses: order,
+    //   };
 
-    case "ORDER_BY_RATING":
+    case ORDER_BY_RATING:
       let orderRating =
         action.payload === "asc"
           ? state.courses.sort((a, b) => {
@@ -93,7 +100,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         courses: action.payload === "all" ? state.allCourses : orderRating,
       };
-    case "ORDER_BY_PRICE":
+    case ORDER_BY_PRICE:
       let orderPrice =
         action.payload === "asc"
           ? state.courses.sort((a, b) => {
@@ -118,7 +125,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         courses: action.payload === "all" ? state.allCourses : orderPrice,
       };
-    case "ORDER_BY_PUBLISHED":
+    case ORDER_BY_PUBLISHED:
         let orderPublished =
             action.payload === "asc"
                 ? state.courses.sort((a, b) => {

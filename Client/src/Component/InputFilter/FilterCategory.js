@@ -14,7 +14,6 @@ const FilterCategory = () => {
   }, [dispatch])
 
   const categories = useSelector(state => state.categories)
-  console.log('Categorias: ', categories)
   // function handleFilterCategory(e) {
   //  dispatch(filterCategory(e.target.value))
   // }
