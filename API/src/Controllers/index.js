@@ -144,39 +144,26 @@ const getCourseById = async (req, res) => {
 //trae todos los cursos junto con las reviews asociadas ==> traía
 //agregue las categorias y saque el review porque no se como poner 2 :P
 const getAllCourses = async (req, res) => {
-
-    try {
-        let name = req.query.name;
-        let courses;
-        if (name) {
-            name = name.toUpperCase()
-            courses = await findByName(name)
-        }
-        else {
-            courses = await Courses.findAll({
-                include:[
-                    {
-                        model: Categories,
-                        attributes:['name']
-                    }
-                ]
-            });
-        }
-        if (courses.length > 0) {
-
-            let curso = courses.map(el => el.toJSON()).map(el => {
-                el.category = el.category.name
-                return el
-            }
-            );
-
-            return res.status(200).send(curso)
-        }
-        res.status(404).send({ message: 'No se encontraron cursos' });
-    } catch (error) {
-        res.status(400).send({ message: error.message });
+  try {
+      let name = req.query.name;
+      let courses;
+      if (name) {
+          name = name.toUpperCase()
+          courses = await findByName(name)
+      }
+      else {
+          courses = await Courses.findAll({
+              include: Reviews
+          });
+      }
+      if (courses.length > 0) {
+          return res.status(200).send(courses)
+      }
+      res.status(404).send({ message: 'No se encontraron cursos' });
+  } catch (error) {
+      res.status(400).send({ message: error.message });
   }
-};
+}
 
 //se postea una review y se asocia con el ID del curso
 const postReview = async (req, res) => {

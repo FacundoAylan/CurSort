@@ -4,11 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
 import Paginado from '../paginado/paginado';
-
 import {getCourses} from "../../Redux/actions";
-
-
-
 
 
 // importo el json desde la api
@@ -18,6 +14,7 @@ function Home() {
   
   
   let info = useSelector(state => state.courses, () => false);
+  console.log(info)
   const dispatch = useDispatch();
   const [pagina, setPagina] = useState(1);
   const porPagina = 6;
@@ -28,10 +25,10 @@ function Home() {
     dispatch(getCourses(''));
   }, [dispatch])
 
-  if(info <=1){
-    alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
-    dispatch(getCourses(''))
-  }
+  // if(info <=1){
+  //   alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
+  //   dispatch(getCourses(''))
+  // }
   
   // const flickityOptions = {
   //     initialIndex: 2
@@ -44,8 +41,11 @@ function Home() {
           <NavBar setPagina={setPagina} />
         </Box>
 
+        <Center mt='1%'>
+          <Paginado pagina={pagina} setPagina={setPagina} maximo={maximo} />
+        </Center>
         <Box h="40%" maxW="100%">
-          <Grid templateColumns="repeat(6, 0.5fr)" gap={1} pt={4} pl={20} m={0}>
+          <Grid templateColumns="repeat(6, 0.2fr)" gap={4} pt={4} p={5} m={0}>
             {info &&
               info
                 .slice(
@@ -54,12 +54,11 @@ function Home() {
                 )
                 .map((value) => {
                   return (
-                    <GridItem>
+                    <GridItem >
                       <Cards
-                        nombre={value.name}
-                        imagen={value.image}
-                        descripcion={value.description}
-                        precio={value.price}
+                        name={value.name}
+                        image={value.image}
+                        price={value.price}
                         id={value.id}
                       />
                     </GridItem>
@@ -67,9 +66,6 @@ function Home() {
                 })}
           </Grid>
         </Box>
-        <Center mt='120px'>
-          <Paginado pagina={pagina} setPagina={setPagina} maximo={maximo} />
-        </Center>
       </Container>
     );
 

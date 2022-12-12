@@ -125,7 +125,7 @@ function Form() {
   return (
     <Container maxW="100%" h="100vh" p="0">
       <Box p='6px'>
-        <Link to="/" className="backCreate">
+        <Link to="/home" className="backCreate">
           <IconButton
             colorScheme="blue"
             aria-label="Search database"
