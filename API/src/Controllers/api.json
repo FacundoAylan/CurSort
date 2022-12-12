@@ -14,7 +14,7 @@
             "rating": 2,
             "reviews": [],
             "dificultad": "Intermedio",
-            "categoria": "Back end",
+            "idCategoria": "2",
             "temario": [
                 {
                     "id": 1,
@@ -77,7 +77,7 @@
             "rating": 3,
             "reviews": [],
             "dificultad": "Principiante",
-            "categoria": "Front end",
+            "idCategoria": "1",
             "temario": [
                 {
                     "id": 1,
@@ -140,7 +140,7 @@
             "rating": 6,
             "reviews": [],
             "dificultad": "Intermedio",
-            "categoria": "Back end",
+            "idCategoria": "2",
             "temario": [
                 {
                     "id": 1,
@@ -203,7 +203,7 @@
             "rating": 4,
             "reviews": [],
             "dificultad": "Principiante",
-            "categoria": "Back end",
+            "idCategoria": "2",
             "temario": [
                 {
                     "id": 1,
@@ -266,7 +266,7 @@
             "rating": 1,
             "reviews": [],
             "dificultad": "Avanzado",
-            "categoria": "Back end",
+            "idCategoria": "2",
             "temario": [
                 {
                     "id": 1,
@@ -329,7 +329,7 @@
             "rating": 2,
             "reviews": [],
             "dificultad": "Avanzado",
-            "categoria": "Back end",
+            "idCategoria": "2",
             "temario": [
                 {
                     "id": 1,
@@ -392,7 +392,7 @@
             "rating": 5,
             "reviews": [],
             "dificultad": "Avanzado",
-            "categoria": "Back end",
+            "idCategoria": "2",
             "temario": [
                 {
                     "id": 1,
@@ -455,7 +455,7 @@
           "rating": 0,
           "reviews": [],
           "dificultad": "Intermedio",
-          "categoria": "Back end",
+          "idCategoria": "2",
           "temario": [
               {
                   "id": 1,
@@ -518,7 +518,7 @@
           "rating": 0,
           "reviews": [],
           "dificultad": "Principiante",
-          "categoria": "Front end",
+          "idCategoria": "1",
           "temario": [
               {
                   "id": 1,
@@ -581,7 +581,7 @@
           "rating": 0,
           "reviews": [],
           "dificultad": "Intermedio",
-          "categoria": "Back end",
+          "idCategoria": "2",
           "temario": [
               {
                   "id": 1,
@@ -644,7 +644,7 @@
           "rating": 0,
           "reviews": [],
           "dificultad": "Principiante",
-          "categoria": "Back end",
+          "idCategoria": "2",
           "temario": [
               {
                   "id": 1,
@@ -707,7 +707,7 @@
           "rating": 0,
           "reviews": [],
           "dificultad": "Avanzado",
-          "categoria": "Back end",
+          "idCategoria": "2",
           "temario": [
               {
                   "id": 1,
@@ -770,7 +770,7 @@
           "rating": 0,
           "reviews": [],
           "dificultad": "Avanzado",
-          "categoria": "Back end",
+          "idCategoria": "2",
           "temario": [
               {
                   "id": 1,
@@ -833,7 +833,7 @@
           "rating": 0,
           "reviews": [],
           "dificultad": "Avanzado",
-          "categoria": "Back end",
+          "idCategoria": "2",
           "temario": [
               {
                   "id": 1,
@@ -894,7 +894,7 @@
                 "rating": 0,
                 "reviews": [],
                 "dificultad": "Intermedio",
-                "categoria": "Back end",
+                "idCategoria": "2",
                 "temario": [
                     {
                         "id": 1,
@@ -957,7 +957,7 @@
                 "rating": 0,
                 "reviews": [],
                 "dificultad": "Principiante",
-                "categoria": "Front end",
+                "idCategoria": "1",
                 "temario": [
                     {
                         "id": 1,
@@ -1020,7 +1020,7 @@
                 "rating": 0,
                 "reviews": [],
                 "dificultad": "Intermedio",
-                "categoria": "Back end",
+                "idCategoria": "2",
                 "temario": [
                     {
                         "id": 1,
@@ -1083,7 +1083,7 @@
                 "rating": 0,
                 "reviews": [],
                 "dificultad": "Principiante",
-                "categoria": "Back end",
+                "idCategoria": "2",
                 "temario": [
                     {
                         "id": 1,
@@ -1146,7 +1146,7 @@
                 "rating": 0,
                 "reviews": [],
                 "dificultad": "Avanzado",
-                "categoria": "Back end",
+                "idCategoria": "2",
                 "temario": [
                     {
                         "id": 1,
@@ -1209,7 +1209,7 @@
                 "rating": 0,
                 "reviews": [],
                 "dificultad": "Avanzado",
-                "categoria": "Back end",
+                "idCategoria": "2",
                 "temario": [
                     {
                         "id": 1,
@@ -1272,7 +1272,7 @@
                 "rating": 0,
                 "reviews": [],
                 "dificultad": "Avanzado",
-                "categoria": "Back end",
+                "idCategoria": "2",
                 "temario": [
                     {
                         "id": 1,
@@ -1335,7 +1335,7 @@
               "rating": 0,
               "reviews": [],
               "dificultad": "Intermedio",
-              "categoria": "Back end",
+              "idCategoria": "2",
               "temario": [
                   {
                       "id": 1,
@@ -1398,7 +1398,7 @@
               "rating": 0,
               "reviews": [],
               "dificultad": "Principiante",
-              "categoria": "Front end",
+              "idCategoria": "1",
               "temario": [
                   {
                       "id": 1,
@@ -1461,7 +1461,7 @@
               "rating": 0,
               "reviews": [],
               "dificultad": "Intermedio",
-              "categoria": "Back end",
+              "idCategoria": "2",
               "temario": [
                   {
                       "id": 1,
@@ -1524,7 +1524,7 @@
               "rating": 0,
               "reviews": [],
               "dificultad": "Principiante",
-              "categoria": "Back end",
+              "idCategoria": "2",
               "temario": [
                   {
                       "id": 1,
@@ -1587,7 +1587,7 @@
               "rating": 0,
               "reviews": [],
               "dificultad": "Avanzado",
-              "categoria": "Back end",
+              "idCategoria": "2",
               "temario": [
                   {
                       "id": 1,
@@ -1650,7 +1650,7 @@
               "rating": 0,
               "reviews": [],
               "dificultad": "Avanzado",
-              "categoria": "Back end",
+              "idCategoria": "2",
               "temario": [
                   {
                       "id": 1,
@@ -1713,7 +1713,7 @@
               "rating": 0,
               "reviews": [],
               "dificultad": "Avanzado",
-              "categoria": "Back end",
+              "idCategoria": "2",
               "temario": [
                   {
                       "id": 1,
@@ -1776,7 +1776,7 @@
             "rating": 0,
             "reviews": [],
             "dificultad": "Intermedio",
-            "categoria": "Back end",
+            "idCategoria": "2",
             "temario": [
                 {
                     "id": 1,
@@ -1839,7 +1839,7 @@
             "rating": 0,
             "reviews": [],
             "dificultad": "Principiante",
-            "categoria": "Front end",
+            "idCategoria": "1",
             "temario": [
                 {
                     "id": 1,
@@ -1902,7 +1902,7 @@
             "rating": 0,
             "reviews": [],
             "dificultad": "Intermedio",
-            "categoria": "Back end",
+            "idCategoria": "2",
             "temario": [
                 {
                     "id": 1,
@@ -1965,7 +1965,7 @@
             "rating": 0,
             "reviews": [],
             "dificultad": "Principiante",
-            "categoria": "Back end",
+            "idCategoria": "2",
             "temario": [
                 {
                     "id": 1,
@@ -2028,7 +2028,7 @@
             "rating": 0,
             "reviews": [],
             "dificultad": "Avanzado",
-            "categoria": "Back end",
+            "idCategoria": "2",
             "temario": [
                 {
                     "id": 1,
@@ -2091,7 +2091,7 @@
             "rating": 0,
             "reviews": [],
             "dificultad": "Avanzado",
-            "categoria": "Back end",
+            "idCategoria": "2",
             "temario": [
                 {
                     "id": 1,
@@ -2154,7 +2154,7 @@
             "rating": 0,
             "reviews": [],
             "dificultad": "Avanzado",
-            "categoria": "Back end",
+            "idCategoria": "2",
             "temario": [
                 {
                     "id": 1,
@@ -2205,6 +2205,21 @@
         }
           ]
       }
+    ],
+
+    "categorys":[
+        {
+            "id": 1,
+            "name": "front prueba" 
+        },
+        {
+            "id": 2,
+            "name": "Back prueba" 
+        },
+        {
+            "id":3,
+            "name": "desing prueba"
+        }
     ]
 
 }

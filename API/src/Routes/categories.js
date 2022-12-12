@@ -3,7 +3,8 @@ const {getCategories, postCategory} = require('../Controllers/index');
 
 router = Router();
 
-router.get('/', getCategories);
-router.post('/', postCategory);
+router
+    .get('/', getCategories)
+    .post('/', postCategory)
 
 module.exports = router;
