@@ -12,7 +12,11 @@ import {
   GET_FILTER_CATEGORY,
   FILTER_DIFFICULTY,
   FILTER_DURATION,
-  FILTER_CATEGORY
+  FILTER_CATEGORY,
+  ADD_TO_CART,
+  REMOVE_ONE_FROM_CART,
+  REMOVE_ALL_FROM_CART,
+  CLEAR_CART,
 } from "../action-types";
 
 
@@ -159,5 +163,34 @@ export function filterCategory(category){
   return {
     type: FILTER_CATEGORY,
     payload : category
+  }
+}
+
+export function addToCart(id) {
+  return {
+    type: ADD_TO_CART,
+    payload: id
+  };
+}
+
+export function deleteFromCart(id, all = false){
+  return async (dispatch)=>{
+    if(all) {
+      dispatch({
+          type: REMOVE_ALL_FROM_CART,
+          payload: id
+      })
+    } else {
+     dispatch({
+         type: REMOVE_ONE_FROM_CART,
+         payload: id
+     })
+    }
+  }
+}
+
+export function clearCart(){
+  return {
+    type: CLEAR_CART,
   }
 }

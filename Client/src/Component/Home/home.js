@@ -28,10 +28,10 @@ function Home() {
     dispatch(getCourses(''));
   }, [dispatch])
 
-  if(info <=1){
-    alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
-    dispatch(getCourses(''))
-  }
+  // if(info <=1){
+  //   alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
+  //   dispatch(getCourses(''))
+  // }
   
   // const flickityOptions = {
   //     initialIndex: 2
