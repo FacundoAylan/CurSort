@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { addToCart } from "../../Redux/actions";
+import { useDispatch } from "react-redux";
 import { FiShoppingCart } from 'react-icons/fi';
 import {
   Grid,
@@ -50,6 +52,14 @@ function Rating({ rating}) {
 }
 
 function Cards({name, image, price, id}){
+  
+  const dispatch = useDispatch();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    dispatch(addToCart(id));
+}
+
   return (
     <Link to={`/detalle/${id}`} className="linkStart">
     <Grid
@@ -111,10 +121,9 @@ function Cards({name, image, price, id}){
                 placement={"top"}
                 color={"gray.800"}
                 fontSize={"1.2em"}
+                onClick={handleClick}
               >
-                <Link to='/'>
-                  <Icon as={FiShoppingCart} h={7} w={7} alignSelf={"center"}  color='white'/>
-                </Link>
+               <Icon as={FiShoppingCart} h={7} w={7} alignSelf={"center"}  color='white'/>
               </Tooltip>
             </Center>
             {/* boton de compra */}
