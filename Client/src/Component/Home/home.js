@@ -13,7 +13,7 @@ import {getCourses} from "../../Redux/actions";
 function Home() {
   
   
-  let info = useSelector(state => state.courses, () => false);
+  let info = useSelector(state => state.courses, () => false); // el false, verifica el estado anterior 
   console.log(info)
   const dispatch = useDispatch();
   const [pagina, setPagina] = useState(1);
@@ -25,10 +25,10 @@ function Home() {
     dispatch(getCourses(''));
   }, [dispatch])
 
-  // if(info <=1){
-  //   alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
-  //   dispatch(getCourses(''))
-  // }
+  if(info <=1){
+    //alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
+    dispatch(getCourses(''))
+  }
   
   // const flickityOptions = {
   //     initialIndex: 2
@@ -60,6 +60,7 @@ function Home() {
                         image={value.image}
                         price={value.price}
                         id={value.id}
+                        category={value.categories[0]}
                       />
                     </GridItem>
                   );
