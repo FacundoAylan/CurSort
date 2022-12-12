@@ -19,7 +19,7 @@ function Detalle() {
   return (
     <>
       <Box p='6px'>
-        <Link to="/" className="backCreate">
+        <Link to="/home" className="backCreate">
           <IconButton
             colorScheme="blue"
             aria-label="Search database"

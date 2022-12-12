@@ -1,5 +1,20 @@
 import axios from "axios";
-import { GET_DETAIL, GET_COURSES, GET_CATEGORIES } from "../action-types";
+import {  useSelector } from "react-redux"
+import { bindActionCreators } from "redux";
+import {
+  GET_DETAIL,
+  GET_COURSES,
+  GET_CATEGORIES,
+  ORDER_BY_RATING,
+  ORDER_BY_PRICE,
+  ORDER_BY_PUBLISHED,
+  ADDFILTER,
+  GET_FILTER_CATEGORY,
+  FILTER_DIFFICULTY,
+  FILTER_DURATION,
+  FILTER_CATEGORY
+} from "../action-types";
+
 
 export function getCourses(name) {
 
@@ -8,7 +23,7 @@ export function getCourses(name) {
       `http://localhost:3001/courses?name=${name}`
     );
     dispatch({
-      type: "GET_COURSES",
+      type: GET_COURSES,
       payload: response.data,
     });
   };
@@ -37,6 +52,27 @@ export function getCategory(){
     }
 }
 
+export function getFilterCategory(id){
+  
+  if(id=== 'all'){
+    return async (dispatch)=>{
+      const response = await axios.get(`http://localhost:3001/filter/category`)
+      dispatch({
+        type:GET_FILTER_CATEGORY,
+        payload : response.data //array de cursos
+      })
+    }
+  }
+
+  return async (dispatch)=>{
+    const response = await axios.get(`http://localhost:3001/filter/category/?id=${id}`)
+    dispatch({
+      type:GET_FILTER_CATEGORY,
+      payload : response.data //array de cursos
+    })
+  }
+}
+
 export function posCourses(data){
   return async (dispatch) =>{
       dispatch({
@@ -45,43 +81,83 @@ export function posCourses(data){
       })
   }
 }
-// export function filterCategory(payload) {
-//     return {
-//       type: "FILTER_CATEGORY",
-//       payload: payload,
-//     };
-//   }
 
-
- //esta llave me parece que esta de mas
-
-export function orderByName(payload) {
-    return {
-        type: 'ORDER_BY_NAME',
-        payload
-    };
-}
 
 
 export function orderByRating(payload) {
     return {
-        type: 'ORDER_BY_RATING',
+        type: ORDER_BY_RATING,
         payload
     };
 }
 
-
 export function orderByPrice(payload) {
     return {
-        type: 'ORDER_BY_PRICE',
+        type: ORDER_BY_PRICE,
         payload
     };
 }
 
 export function orderByPublished(payload) {
     return {
-        type: 'ORDER_BY_PUBLISHED',
+        type: ORDER_BY_PUBLISHED,
         payload
     };
 }
 
+export function AllFilterDuration(payload){ // ==> llega un obj {duration:'1A50'}
+ 
+  return async (dispatch)=>{
+    dispatch({
+    type: ADDFILTER,
+    payload: payload,
+   });
+ }
+}
+
+export function AllFilterDifficulty(payload){ // ==> llega un obj {duration:'1A50'}
+ 
+  return async (dispatch)=>{
+    dispatch({
+    type: 'ADDFILTERDIFICULTY',
+    payload: payload,
+   });
+ }
+}
+
+// export function GetFilter (){
+
+//   const duration = useSelector(state=> state.filterDuration)
+//   const difficulty = useSelector(state=> state.filterDifficulty)
+
+//   // console.log(difficulty.difficulty)
+//   console.log(duration.duration)
+
+//   return async (dispatch)=>{
+//     const response = await axios.get(`http://localhost:3001/filter/?duration${duration.duration}`) // ==>no se como conseguir todos los query juntos 
+//     console.log('data', response.data)
+//     dispatch({
+//       type: 'GET_FILTER',
+//       payload: response.data,
+//     });
+//   }
+// }
+
+export function filterDifficulty(difficulty){
+  return {
+    type: FILTER_DIFFICULTY,
+    payload: difficulty
+  }
+}
+export function filterDuration(duration){
+  return {
+    type: FILTER_DURATION,
+    payload : duration
+  }
+}
+export function filterCategory(category){
+  return {
+    type: FILTER_CATEGORY,
+    payload : category
+  }
+}
