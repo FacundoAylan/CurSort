@@ -156,9 +156,29 @@ const getAllCourses = async (req, res) => {
       }
       else {
           courses = await Courses.findAll({
-              include: Reviews
+              include: Categories
           });
       }
+
+      courses = courses.map((c) => {
+        return {
+          id: c.id,
+          name: c.name,
+          description: c.description,
+          instructor: c.instructor,
+          duration: c.duration,
+          price: c.price,
+          fecha: c.fecha,
+          rating: c.rating,
+          image: c.image,
+          active : c.active,
+          difficulty: c.difficulty,
+          createdAt: c.createdAt,
+          updatedAt: c.updatedAt,
+          categories: c.categories.map((c)=>c.name)
+        }
+      })
+
       if (courses.length > 0) {
           return res.status(200).send(courses)
       }

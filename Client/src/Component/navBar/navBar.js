@@ -8,8 +8,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import {
   Grid,
   GridItem,
-  Center,
-  IconButton
+  IconButton,
+  Wrap
 } from "@chakra-ui/react";
 
 import {getCourses} from '../../Redux/actions/index';
@@ -52,6 +52,8 @@ function NavBar({ setPagina}) {
               {!isAuthenticated && <LoginButton/>}
               {isAuthenticated && <LogoutButton/>}
              {/* {isAuthenticated && <Profile/>} */}
+
+             {/* ARREGLAR EL BOTON DE CARRITO */}
               <Wrap>
              <IconButton
                 onClick={handleClick}
@@ -59,7 +61,6 @@ function NavBar({ setPagina}) {
                 icon={<GrCart/>}
               />
             </Wrap>
-            </Center>
           </GridItem>
       </Grid> 
     </>
