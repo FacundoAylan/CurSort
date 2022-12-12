@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import {
   GET_DETAIL,
   GET_COURSES,
+  POST_COURSES,
   GET_CATEGORIES,
   ORDER_BY_RATING,
   ORDER_BY_PRICE,
@@ -18,7 +19,6 @@ import {
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
 } from "../action-types";
-
 
 export function getCourses(name) {
 
@@ -80,12 +80,11 @@ export function getFilterCategory(id){
 export function posCourses(data){
   return async (dispatch) =>{
       dispatch({
-          type: "POST_COURSES",
+          type: POST_COURSES,
           payload:data,
       })
   }
 }
-
 
 
 export function orderByRating(payload) {
@@ -107,6 +106,13 @@ export function orderByPublished(payload) {
         type: ORDER_BY_PUBLISHED,
         payload
     };
+}
+
+export function createNewCategory(payload) {
+  return async function (dispatch) {
+    let json = await axios.post('http://localhost:3001/categories', payload);
+    return json;
+  }
 }
 
 export function AllFilterDuration(payload){ // ==> llega un obj {duration:'1A50'}
