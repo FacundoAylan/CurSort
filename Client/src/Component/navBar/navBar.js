@@ -4,10 +4,8 @@ import LoginButton from '../LoginButton/LoginButton'
 import LogoutButton from '../LogoutButton/LogoutButton'
 import Profile from '../Profile/Profile'
 import { useAuth0 } from "@auth0/auth0-react";
+
 import {
-  Wrap,
-  WrapItem,
-  Avatar,
   Grid,
   GridItem,
   Center
@@ -40,19 +38,10 @@ function NavBar({ setPagina}) {
           <Search setPagina={setPagina}/>
         </GridItem>
 
-          <GridItem>
-            <Center mt='20%' ml='200px'>
-
-            <Wrap>
-              <WrapItem>
-                <Avatar name='Kola Tioluwani' src='https://bit.ly/tioluwani-kolawole' />
-              </WrapItem>
-            </Wrap>
+          <GridItem mt='13%' ml='85%'>
               {!isAuthenticated && <LoginButton/>}
               {isAuthenticated && <LogoutButton/>}
-              {isAuthenticated && <Profile/>}
-
-            </Center>
+              {/* {isAuthenticated && <Profile/>} */}
           </GridItem>
       </Grid> 
     </>
