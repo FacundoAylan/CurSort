@@ -1,8 +1,10 @@
 const {Router} = require('express');
-const {getCategories} = require('../Controllers/index');
+const {getCategories, postCategorie} = require('../Controllers/index');
 
-const router = Router();
+router = Router();
 
-router.get('/', getCategories);
+router
+    .get('/', getCategories)
+    .post('/create', postCategorie)
 
 module.exports = router;

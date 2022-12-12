@@ -14,5 +14,3 @@ const OrderAZ = ({handleOrderByName}) => {
       </div>
     );
 }
-
-export default OrderAZ

@@ -10,10 +10,11 @@ function Detalle() {
   let { id } = useParams();
   const dispatch = useDispatch();
   const course = useSelector(state => state.courseDetail)
+  const users = useSelector(state => state.users)
 
     useEffect(() => {
         dispatch(getDetail(id));
-    }, []);
+    }, [dispatch]);
 
 
   return (
@@ -60,6 +61,15 @@ function Detalle() {
                 {`BUY ${course.price} usd`}
 
               </Button>
+
+              { /* users.admin && *///seteado hasta generar admin
+              <Button variant="solid" colorScheme="yellow">
+                    <Link to='/cursodetail'>
+                        Edit Course
+                    </Link>
+              </Button>
+
+              }
             </CardFooter>
           </Stack>
         </Card>

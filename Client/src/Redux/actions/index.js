@@ -1,5 +1,21 @@
 import axios from "axios";
-import { GET_DETAIL, GET_COURSES, GET_CATEGORIES } from "../action-types";
+import {  useSelector } from "react-redux"
+import { bindActionCreators } from "redux";
+import {
+  GET_DETAIL,
+  GET_COURSES,
+  GET_CATEGORIES,
+  ORDER_BY_RATING,
+  ORDER_BY_PRICE,
+  ORDER_BY_PUBLISHED,
+  ADDFILTER,
+  GET_FILTER_CATEGORY,
+  FILTER_DIFFICULTY,
+  FILTER_DURATION,
+  FILTER_CATEGORY,
+  EDIT_COURSES
+} from "../action-types";
+
 
 export function getCourses(name) {
 
@@ -13,8 +29,15 @@ export function getCourses(name) {
     });
   };
 
-
 }
+
+export function courseEdit(payload){
+    return async function(dispatch){
+      const edit = await axios.put('http://localhost:3001/courses/coursedetail', payload);
+      return edit;
+    }
+}
+
 
 export function getDetail(id) {
   return async (dispatch) => {
@@ -38,49 +61,112 @@ export function getCategory(){
     }
 }
 
-// export function filterCategory(payload) {
-//     return {
-//       type: "FILTER_CATEGORY",
-//       payload: payload,
-//     };
-//   }
+export function getFilterCategory(id){
+  
+  if(id=== 'all'){
+    return async (dispatch)=>{
+      const response = await axios.get(`http://localhost:3001/filter/category`)
+      dispatch({
+        type:GET_FILTER_CATEGORY,
+        payload : response.data //array de cursos
+      })
+    }
+  }
 
-
-
-export function orderByName(payload) {
-    return {
-        type: 'ORDER_BY_NAME',
-        payload
-    };
+  return async (dispatch)=>{
+    const response = await axios.get(`http://localhost:3001/filter/category/?id=${id}`)
+    dispatch({
+      type:GET_FILTER_CATEGORY,
+      payload : response.data //array de cursos
+    })
+  }
 }
+
+export function posCourses(data){
+  return async (dispatch) =>{
+      dispatch({
+          type: "POST_COURSES",
+          payload:data,
+      })
+  }
+}
+
 
 
 export function orderByRating(payload) {
     return {
-        type: 'ORDER_BY_RATING',
+        type: ORDER_BY_RATING,
         payload
     };
 }
 
-
 export function orderByPrice(payload) {
     return {
-        type: 'ORDER_BY_PRICE',
+        type: ORDER_BY_PRICE,
         payload
     };
 }
 
 export function orderByPublished(payload) {
     return {
-        type: 'ORDER_BY_PUBLISHED',
+        type: ORDER_BY_PUBLISHED,
         payload
     };
 }
 
-export function postCourses(payload){
-  return async function (dispatch){
-    const post = await axios.post("http://localhost:3001/courses/", payload);
-    return post;
-  }
+export function AllFilterDuration(payload){ // ==> llega un obj {duration:'1A50'}
+ 
+  return async (dispatch)=>{
+    dispatch({
+    type: ADDFILTER,
+    payload: payload,
+   });
+ }
 }
 
+export function AllFilterDifficulty(payload){ // ==> llega un obj {duration:'1A50'}
+ 
+  return async (dispatch)=>{
+    dispatch({
+    type: 'ADDFILTERDIFICULTY',
+    payload: payload,
+   });
+ }
+}
+
+// export function GetFilter (){
+
+//   const duration = useSelector(state=> state.filterDuration)
+//   const difficulty = useSelector(state=> state.filterDifficulty)
+
+//   // console.log(difficulty.difficulty)
+//   console.log(duration.duration)
+
+//   return async (dispatch)=>{
+//     const response = await axios.get(`http://localhost:3001/filter/?duration${duration.duration}`) // ==>no se como conseguir todos los query juntos 
+//     console.log('data', response.data)
+//     dispatch({
+//       type: 'GET_FILTER',
+//       payload: response.data,
+//     });
+//   }
+// }
+
+export function filterDifficulty(difficulty){
+  return {
+    type: FILTER_DIFFICULTY,
+    payload: difficulty
+  }
+}
+export function filterDuration(duration){
+  return {
+    type: FILTER_DURATION,
+    payload : duration
+  }
+}
+export function filterCategory(category){
+  return {
+    type: FILTER_CATEGORY,
+    payload : category
+  }
+}

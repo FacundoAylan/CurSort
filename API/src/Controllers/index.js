@@ -1,42 +1,101 @@
-
 const { Op } = require("sequelize");
-const data = require('./api.json');
-const { Users, Courses, Categories, Reviews } = require('../db');
+const data = require("./api.json");
+const { Users, Courses, Categories, Reviews } = require("../db");
 
 const postCourse = async (req, res) => {
-    const {
-        name,
-        description,
-        instructor,
-        duration,
-        price,
-        image,
-        difficulty,
-        categories
-    } = req.body;
 
-    try {
-        // valido que existan los datos obligatorios
-        if (!name || !description || !price)
-            return res.status(400).send('Faltan datos obligatorios.');
+  const {
+    nombre,
+    descripcion,
+    instuctor,
+    duracion,
+    precio,
+    imagen,
+    dificultad,
+    categoria
+  } = req.body;
 
-        const newcourse = await Courses.create({
+  let name, description, instructor, duration, price, image, difficulty,categoryId;
+
+  name =nombre.toUpperCase();
+  description = descripcion;
+  instructor = instuctor;
+  duration = duracion;
+  price = precio;
+  image = imagen;
+  difficulty = dificultad;
+  categoryId = categoria
+  
+  try {
+    // valido que existan los datos obligatorios
+    if (!name || !description)
+      return res.status(400).send("Faltan datos obligatorios.");
+
+    const newcourse = await Courses.create({
+      name,
+      description,
+      instructor,
+      duration,
+      price,
+      image,
+      difficulty,
+    });
+
+    // Busco las categorías que coincidan con los que me trae por body
+    //let categoriesDB = await Categories.findAll({
+    //  where: { name: categories.map(e => e) }
+    //})
+
+    // Creo las relaciones con la tabla Categories
+    //newcourse.addCategories(categoriesDB);
+
+    res.status(200).send("El curso ha sido creado exitosamente!");
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+//loadCoursesToDB es solo para cargar los cursos del json a la DB
+//la ruta en Postman seria http://localhost:3001/course/load
+
+const loadCoursesToDB = async () => {
+  const coursesDB = await Courses.findAll();
+  const coursesJSON = data.cursos;
+  if (coursesDB.length === 0 || coursesDB.length < coursesJSON.length) {
+    coursesJSON.forEach(async (e, i) => {
+      let name, description, rating, image, difficulty, price;
+
+      (name = e.nombre.toUpperCase()),
+        (description = e.descripcion),
+        (instructor = e.instructor),
+        (price = e.precio),
+        (duration = e.duracion),
+        (rating = e.rating),
+        (image = e.imagen),
+        (difficulty = e.dificultad),
+        (price = e.precio);
+
+      if (coursesDB.length > 0) {
+        if (!coursesDB[i] || coursesDB[i].dataValues.id !== e.id) {
+          await Courses.create({
             name,
             description,
             instructor,
-            duration,
             price,
+            duration,
+            rating,
             image,
-            difficulty
+            difficulty,
+            categoryId
         });
 
         // Busco las categorías que coincidan con los que me trae por body
-        let categoriesDB = await Categories.findAll({
-            where: { name: categories.map(e => e) }
-        })
+        //let categoriesDB = await Categories.findAll({
+          //  where: { name: categories.map(e => e) }
+        //})
 
         // Creo las relaciones con la tabla Categories
-        newcourse.addCategories(categoriesDB);
+        //newcourse.addCategories([1]);
 
         res.status(200).send("El curso ha sido creado exitosamente!");
     } catch (error) {
@@ -50,37 +109,34 @@ const postCourse = async (req, res) => {
 const loadCoursesToDB = async () => {
         const coursesDB = await Courses.findAll();
         const coursesJSON = data.cursos;
-        if (coursesDB.length === 0 || coursesDB.length < coursesJSON.length) {
-            coursesJSON.forEach(async (e, i) => {
-                let name, description, rating, image, difficulty, price;
+        const categoriesJSON = data.categorys;
+        const categoriesDB = await Categories.findAll();
 
-                name = e.nombre.toUpperCase(),
-                    description = e.descripcion,
-                    instructor = e.instructor,
-                    price = e.precio,
-                    duration = e.duracion,
-                    rating = e.rating,
-                    image = e.imagen,
-                    difficulty = e.dificultad,
-                    price = e.precio
+        if(categoriesDB.length === 0){
+            categoriesJSON.forEach(async e=>{
+                
+            await Categories.create({
+                name: e.name
+            })
+            })
 
+        }
 
-                if (coursesDB.length > 0) {
-                    if (!coursesDB[i] || coursesDB[i].dataValues.id !== e.id) {
-                        await Courses.create({
-                            name,
-                            description,
-                            instructor,
-                            price,
-                            duration,
-                            rating,
-                            image,
-                            difficulty,
-                            price
-                        })
-                    }
-                }
-                else {
+        if (coursesDB.length === 0 ) {
+            coursesJSON.forEach(async (e) => {
+                let name, description, rating, image, difficulty, price, categoryId;
+
+                    name = e.nombre.toUpperCase();
+                    description = e.descripcion;
+                    instructor = e.instructor;
+                    price = e.precio;
+                    duration = e.duracion;
+                    rating = e.rating;
+                    image = e.imagen;
+                    difficulty = e.dificultad;
+                    price = e.precio;
+                    categoryId = parseInt(e.idCategoria);
+                    
                     await Courses.create({
                         name,
                         description,
@@ -90,11 +146,14 @@ const loadCoursesToDB = async () => {
                         rating,
                         image,
                         difficulty,
-                        price
-                    })
-                }
+                        price,
+                        categoryId
+                        
+                    });            
             })
         }
+
+        
 }
 
 
@@ -106,32 +165,43 @@ const findByName = async (name) => {
                 [Op.like]: `%${name}%`
             }
         },
-        include: Reviews
+        include: [
+            {
+                model: Categories,
+                attributes:['name']
+            }
+        ]
     });
     return courses;
 }
 
+
 const getCourseById = async (req, res) => {
-    const { id } = req.params;
-    try {
-        if (id) {
-            const course = await Courses.findByPk(id);
-            if (course) {
-
-                res.status(200).json(course);
-            } else {
-                res.status(404).json({ message: `No se encontró el curso con el número de id ${id}` });
-            }
-        } else {
-            res.status(400).json({ message: 'No se ingresó un id' });
-        }
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+  const { id } = req.params;
+  try {
+    if (id) {
+      const course = await Courses.findByPk(id);
+      if (course) {
+        res.status(200).json(course);
+      } else {
+        res
+          .status(404)
+          .json({
+            message: `No se encontró el curso con el número de id ${id}`,
+          });
+      }
+    } else {
+      res.status(400).json({ message: "No se ingresó un id" });
     }
-}
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 
-//trae todos los cursos junto con las reviews asociadas
+//trae todos los cursos junto con las reviews asociadas ==> traía
+//agregue las categorias y saque el review porque no se como poner 2 :P
 const getAllCourses = async (req, res) => {
+
     try {
         let name = req.query.name;
         let courses;
@@ -141,99 +211,225 @@ const getAllCourses = async (req, res) => {
         }
         else {
             courses = await Courses.findAll({
-                include: Reviews
+                include:[
+                    {
+                        model: Categories,
+                        attributes:['name']
+                    }
+                ]
             });
         }
         if (courses.length > 0) {
-            return res.status(200).send(courses)
+
+            let curso = courses.map(el => el.toJSON()).map(el => {
+                el.category = el.category.name
+                return el
+            }
+            );
+
+            return res.status(200).send(curso)
         }
         res.status(404).send({ message: 'No se encontraron cursos' });
     } catch (error) {
         res.status(400).send({ message: error.message });
-    }
-}
+  }
+};
 
 //se postea una review y se asocia con el ID del curso
 const postReview = async (req, res) => {
-    try {
-        let { name, text, rating, courseId } = req.body;
-        const newReview = await Reviews.create({
-            name,
-            text,
-            rating,
-            courseId: courseId
-        })
-        res.status(200).send({ message: "Reseña creada con exito" })
-    } catch (error) {
-        res.status(400).send({ message: error.message });
-    }
-}
+  try {
+    let { name, text, rating, courseId } = req.body;
+    const newReview = await Reviews.create({
+      name,
+      text,
+      rating,
+      courseId: courseId,
+    });
+    res.status(200).send({ message: "Reseña creada con exito" });
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+};
 
 //Crear un nuevo usuario (ruta de prueba para deshabilitar usuarios)
 const createUser = async (req, res) => {
-    const { name, lastname, password, mail, birthday } = req.body;
-    try {
-        const user = await Users.create({
-            name,
-            lastname,
-            password,
-            mail,
-            birthday
-        });
-        res.status(200).json(user);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-}
+  const { name, lastname, password, mail, birthday } = req.body;
+  try {
+    const user = await Users.create({
+      name,
+      lastname,
+      password,
+      mail,
+      birthday,
+    });
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 
 //Deshabilita el usuario por mail o id
 const disableUser = async (req, res) => {
-    const { mail, id } = req.query;
+  const { mail, id } = req.query;
 
-    try {
-
-        if (id) {
-
-            const userId = await Users.findByPk(id);
-            userId.active = false;
-            await userId.save();
-            res.status(200).json({ message: 'Usuario deshabilitado' });
-        }
-
-        else if (mail) {
-
-            const userMail = await Users.findOne({ where: { mail } });
-            userMail.active = false;
-            await userMail.save();
-            res.status(200).json({ message: 'Usuario deshabilitado' });
-
-        }
-
-        else {
-            res.status(404).json({ message: 'Usuario no encontrado' });
-        }
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+  try {
+    if (id) {
+      const userId = await Users.findByPk(id);
+      userId.active = false;
+      await userId.save();
+      res.status(200).json({ message: "Usuario deshabilitado" });
+    } else if (mail) {
+      const userMail = await Users.findOne({ where: { mail } });
+      userMail.active = false;
+      await userMail.save();
+      res.status(200).json({ message: "Usuario deshabilitado" });
+    } else {
+      res.status(404).json({ message: "Usuario no encontrado" });
     }
-}
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 
 const getCategories = async (req, res) => {
+  try {
+    const categories = await Categories.findAll();
 
-   try{
-     const categories = await Categories.findAll();
-     console.log(categories)
-     if (categories.length > 0){
-        res.status(200).json(categories);
-     }else{
-        res.status(404).send("no se encontraron categorias")
+    if (categories.length > 0) {
+      res.status(200).json(categories);
+    } else {
+      res.status(404).send("no se encontraron categorias");
     }
-   }catch (error) {
-     res.status(400).send(`ocurrio un error ${error}`);
-   }
+  } catch (error) {
+    res.status(400).send(`ocurrio un error ${error}`);
+  }
+};
 
-}
+const postCategorie = async (req, res) => {
+  try {
+    const categorie = await Categories.create(req.body);
+    res.send(categorie);
+  } catch (error) {
+    res.status(400).send(`ocurrio un error ${error}`);
+  }
+};
 
+//filtra cursos por categorias
+const getCoursesByCategory = async (req, res) => {
+  const { id } = req.query;
+  const courses = await Courses.findAll({
+    include: {
+      model: Categories,
+      attributes: ["id", "name"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
+  
+  
+  if (id) {
+    const filterCategory = courses.filter((course) =>
+      course.categories.find((categorie) => categorie.id == id)
+    );
 
-module.exports = {postCourse, getAllCourses, getCourseById, postReview, loadCoursesToDB, createUser, disableUser, getCategories}
+    if (filterCategory.length) {
+      res.send(filterCategory);
+    } else {
+      res.status(404).send("No se encontraron cursos");
+    }
+  } else {
+    res.status(200).send(courses);
+  }
+};
 
+//filtra cursos por dificultad
+const getCoursesByDifficulty = async (difficulty) => {
+  if (difficulty) {
+    const courses = await Courses.findAll();
+    const filterDifficulty = courses.filter(
+      (course) => course.difficulty.toLowerCase() == difficulty.toLowerCase()
+    );
 
+    if (filterDifficulty.length) {
+      return filterDifficulty;
+    } else {
+      throw new Error("No se encontraron cursos");
+    }
+  } else {
+    throw new Error("No se ingresó una dificultad");
+  }
+};
+
+//filtra cursos por duracion
+const getCoursesByDuration = async (duration) => {
+  if (duration) {
+    const courses = await Courses.findAll();
+    if (duration == "1A50") {
+      const filterDuration = courses.filter(
+        (course) => course.duration >= 1 && course.duration <= 50
+      );
+      if (filterDuration.length) {
+        return filterDuration;
+      } else {
+        throw new Error("No se encontraron cursos");
+      }
+    } else if (duration == "51A100") {
+      const filterDuration = courses.filter(
+        (course) => course.duration > 50 && course.duration <= 100
+      );
+      if (filterDuration.length) {
+        return filterDuration;
+      } else {
+        throw new Error("No se encontraron cursos");
+      }
+    } else if (duration == "100") {
+      const filterDuration = courses.filter((course) => course.duration >= 101);
+      if (filterDuration.length) return filterDuration;
+    } else {
+      throw new Error("No se encontraron cursos");
+    }
+  } else {
+    throw new Error("No se ingresó una duración");
+  }
+};
+
+const filterCourses = async (req, res) => {
+  const { id, difficulty, duration } = req.query;
+
+  // console.log('duration', duration)
+  // console.log('difficulty',difficulty)
+
+  try {
+    if (id) {
+      const courses = await getCoursesByCategory(id);
+      res.status(200).json(courses);
+    } else if (difficulty) {
+      const courses = await getCoursesByDifficulty(difficulty);
+      res.status(200).json(courses);
+    } else if (duration) {
+      const courses = await getCoursesByDuration(duration);
+      res.status(200).json(courses);
+    } else {
+      res.status(200).json("no mando ninguna query");
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  postCourse,
+  getAllCourses,
+  getCourseById,
+  postReview,
+  loadCoursesToDB,
+  createUser,
+  disableUser,
+  getCategories,
+  postCategorie,
+  getCoursesByCategory,
+  getCoursesByDifficulty,
+  getCoursesByDuration,
+  filterCourses,
+};
