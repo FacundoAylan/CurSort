@@ -51,7 +51,7 @@ function Rating({ rating}) {
   );
 }
 
-function Cards({name, image, price, id}){
+function Cards({name, image, price, id, category}){
   
   const dispatch = useDispatch();
 
@@ -97,6 +97,9 @@ function Cards({name, image, price, id}){
               pt={2}
             >
               {name}
+            </Center>
+            <Center>
+              {category}
             </Center>
             {/* nombre del course */}
 

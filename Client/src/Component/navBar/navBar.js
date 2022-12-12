@@ -48,9 +48,9 @@ function NavBar({ setPagina}) {
   const history = useHistory();
 
 
-  const reset = () =>{
-    dispatch(getCourses(''));
-  }
+  // const reset = () =>{
+  //   dispatch(getCourses(''));
+  // }
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -66,7 +66,7 @@ function NavBar({ setPagina}) {
 
   return (
     <>
-{/*
+
             <Menu>
               <Center mt='2'>
                 <ButtonGroup variant="outline" spacing="6" ml={2}>
@@ -100,7 +100,7 @@ function NavBar({ setPagina}) {
               <AlertIcon />
                 Category created successfully!
             </Alert>}
-  */}
+  
       <Grid templateColumns="repeat(3,1fr)">
         <GridItem mt='2%'>
           {/* componente del titulo */}
@@ -115,14 +115,14 @@ function NavBar({ setPagina}) {
               {!isAuthenticated && <LoginButton/>}
               {isAuthenticated && <LogoutButton/>}
              {/* {isAuthenticated && <Profile/>} */}
-              <Wrap>
+             
              <IconButton
                 onClick={handleClick}
                 size='1%'
                 icon={<GrCart/>}
               />
-            </Wrap>
-            </Center>
+           
+           
           </GridItem>
       </Grid> 
     </>
