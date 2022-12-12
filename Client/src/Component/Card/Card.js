@@ -1,9 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Card, CardBody, CardFooter, Image, Stack, Text, IconButton,  Flex} from '@chakra-ui/react';
-import { PhoneIcon} from '@chakra-ui/icons'
+
+import { addToCart } from "../../Redux/actions";
+import { GrCart } from "react-icons/gr";
+import { useDispatch } from "react-redux";
+
 
 function Cards({nombre, imagen, descripcion, precio, id}){
+
+  const history = useHistory();
+  
+  const dispatch = useDispatch();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    dispatch(addToCart(id));
+    history.push('/cart');
+}
 
 
   return(
@@ -27,8 +41,9 @@ function Cards({nombre, imagen, descripcion, precio, id}){
             </Text>
             <CardFooter background='#3E4AB8' w='10%' h='10%'>
               <IconButton
+                onClick={handleClick}
                 size='1%'
-                icon={<PhoneIcon />}
+                icon={<GrCart/>}
               />
             </CardFooter>
           </Flex>
