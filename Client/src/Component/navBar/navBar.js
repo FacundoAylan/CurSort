@@ -8,12 +8,15 @@ import { useAuth0 } from "@auth0/auth0-react";
 import {
   Grid,
   GridItem,
-  Center
+  Center,
+  IconButton
 } from "@chakra-ui/react";
 
 import {getCourses} from '../../Redux/actions/index';
 import Title from './title/title';
 import Search from './search/search'
+import { GrCart } from 'react-icons/gr';
+import { useHistory } from 'react-router-dom';
 
 function NavBar({ setPagina}) {
   // const {isAuthenticated, user} = useAuth0()
@@ -22,9 +25,16 @@ function NavBar({ setPagina}) {
 
   const [name, setName] = useState("")
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const reset = () =>{
     dispatch(getCourses(''));
   }
+  
+  const handleClick = (e) => {
+    e.preventDefault();
+    history.push('/cart');
+}
   return (
     <>
 
@@ -41,7 +51,15 @@ function NavBar({ setPagina}) {
           <GridItem mt='13%' ml='85%'>
               {!isAuthenticated && <LoginButton/>}
               {isAuthenticated && <LogoutButton/>}
-              {/* {isAuthenticated && <Profile/>} */}
+             {/* {isAuthenticated && <Profile/>} */}
+              <Wrap>
+             <IconButton
+                onClick={handleClick}
+                size='1%'
+                icon={<GrCart/>}
+              />
+            </Wrap>
+            </Center>
           </GridItem>
       </Grid> 
     </>

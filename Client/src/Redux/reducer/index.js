@@ -8,7 +8,10 @@ import {
   FILTER_DIFFICULTY,
   FILTER_DURATION,
   FILTER_CATEGORY,
-
+  ADD_TO_CART,
+  REMOVE_ONE_FROM_CART,
+  REMOVE_ALL_FROM_CART,
+  CLEAR_CART,
 } from "../action-types";
 
 let initialState = {
@@ -17,7 +20,8 @@ let initialState = {
   courses: [], //este se renderiza
   warnings: "",
   categories: [],
-  filterCurses: [], //en teoria no sirve
+  filterCurses: [],
+  cart: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -143,7 +147,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         courses: action.payload,
       };
- 
+
     case FILTER_DIFFICULTY:
       const FilteredDifficulty =
         action.payload === "all"
@@ -183,26 +187,71 @@ const rootReducer = (state = initialState, action) => {
         };
       }
       //este return creo que esta demas, pero me tira un warning
-      return{
+      return {
         ...state,
-        courses: state.courses
-      }
+        courses: state.courses,
+      };
 
-      case FILTER_CATEGORY:
-        let filteredCategory = 
+    case FILTER_CATEGORY:
+      let filteredCategory =
         action.payload === "all"
-        ? state.allCourses 
-        : state.courses.filter((course) => course.categories.includes(action.payload))     
-        return{
-          ...state,
-          courses : filteredCategory
-        }
+          ? state.allCourses
+          : state.courses.filter((course) =>
+              course.categories.includes(action.payload)
+            );
+      return {
+        ...state,
+        courses: filteredCategory,
+      };
 
-         
-        
-     
+    case ADD_TO_CART:
+      const newItem = state.allCourses.find(
+        (item) => item.id === Number(action.payload)
+      );
 
-   
+      const itemRepeated = state.cart?.find(
+        (item) => item.id === newItem.id
+      );
+
+      return itemRepeated
+        ? {
+            ...state,
+            cart: state.cart.map((item) =>
+              item.id === newItem.id
+                ? { ...item, quantity: item.quantity + 1 }
+                : item
+            ),
+          }
+        : { ...state, cart: [...state.cart, { ...newItem, quantity: 1 }] };
+
+    case "REMOVE_ONE_FROM_CART":
+      const itemToDelete = state.cart.find(
+        (item) => item.id === action.payload
+      );
+      return itemToDelete.quantity > 1
+        ? {
+            ...state,
+            cart: state.cart.map((item) =>
+              item.id === Number(action.payload)
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            ),
+          }
+        : {
+            ...state,
+            cart: state.cart.filter((item) => item.id !== Number(action.payload)),
+          };
+    case "REMOVE_ALL_FROM_CART":
+      return {
+        ...state,
+        cart: state.cart.filter((item) => item.id !== Number(action.payload)),
+      };
+    case "CLEAR_CART":
+      return {
+        ...state,
+        cart: [],
+      };
+
     default:
       return state;
   }

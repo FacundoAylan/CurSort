@@ -49,6 +49,9 @@ const postCourse = async (req, res) => {
   }
 };
 
+//loadCoursesToDB es solo para cargar los cursos del json a la DB
+//la ruta en Postman seria http://localhost:3001/course/load
+
 const loadCoursesToDB = async () => {
         const coursesDB = await Courses.findAll();
         const coursesJSON = data.cursos;
