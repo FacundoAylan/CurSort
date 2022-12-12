@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Card, CardBody, CardFooter, Image, Stack, Text, IconButton,  Flex} from '@chakra-ui/react';
 
 import { addToCart } from "../../Redux/actions";
@@ -8,15 +8,12 @@ import { useDispatch } from "react-redux";
 
 
 function Cards({nombre, imagen, descripcion, precio, id}){
-
-  const history = useHistory();
   
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(addToCart(id));
-    history.push('/cart');
 }
 
 
