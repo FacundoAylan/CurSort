@@ -9,7 +9,7 @@ import HomeCart from './Component/ShoppingCart/HomeCart';
 
 function App() {
   return (
-    <Container background='black' minH='100%' maxW='100%' p={0}>
+    <Container background='rgba(0, 0, 0, 0.774)' minH='100vh' maxW='100%' p={0}>
       <Route exact path="/" component={Landing} />
       <Route  path="/home" component={Home} />
       <Route path="/crear" component={Form} />
