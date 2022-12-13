@@ -159,7 +159,6 @@ const getAllCourses = async (req, res) => {
               include: Categories
           });
       }
-
       courses = courses.map((c) => {
         return {
           id: c.id,
@@ -178,6 +177,7 @@ const getAllCourses = async (req, res) => {
           categories: c.categories.map((c)=>c.name)
         }
       })
+
 
       if (courses.length > 0) {
           return res.status(200).send(courses)
@@ -258,14 +258,15 @@ const getCategories = async (req, res) => {
   }
 };
 
-const postCategorie = async (req, res) => {
-  try {
-    const categorie = await Categories.create(req.body);
-    res.send(categorie);
-  } catch (error) {
-    res.status(400).send(`ocurrio un error ${error}`);
-  }
-};
+const postCategory = async (req, res) => {
+    const {name} = req.body
+    try{
+        await Categories.create({name});
+        res.status(200).send('La categoría ha sido creada con éxito.');
+    }catch(error){
+        res.status(400).send(`ocurrio un error ${error}`);
+    } 
+}
 
 //filtra cursos por categorias
 const getCoursesByCategory = async (req, res) => {
@@ -380,7 +381,7 @@ module.exports = {
   createUser,
   disableUser,
   getCategories,
-  postCategorie,
+  postCategory,
   getCoursesByCategory,
   getCoursesByDifficulty,
   getCoursesByDuration,

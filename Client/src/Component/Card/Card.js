@@ -98,6 +98,9 @@ function Cards({name, image, price, id, category}){
             >
               {name}
             </Center>
+            <Center>
+              {category}
+            </Center>
             {/* nombre del course */}
             <Center>
               {category}

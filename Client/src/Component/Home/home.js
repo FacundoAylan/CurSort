@@ -13,20 +13,21 @@ import {getCourses} from "../../Redux/actions";
 function Home() {
   
   
-  let info = useSelector(state => state.courses, () => false);
+  let info = useSelector(state => state.courses, () => false); // el false, verifica el estado anterior 
   console.log(info)
   const dispatch = useDispatch();
   const [pagina, setPagina] = useState(1);
   const porPagina = 6;
   const maximo = Math.ceil(info.length / porPagina);
-
+  
+  let [order, setOrder] = useState("");
 
   useEffect(() => {
     dispatch(getCourses(''));
   }, [dispatch])
 
   if(info <=1){
-    // alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
+    //alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
     dispatch(getCourses(''))
   }
   
@@ -38,7 +39,7 @@ function Home() {
     return (
       <Container maxW="100%"  p="0" heightMode="min">
         <Box background="#3E4AB8" maxW="100%" maxH="50%">
-          <NavBar setPagina={setPagina} />
+          <NavBar setPagina={setPagina}  setOrder={setOrder}/>
         </Box>
 
         <Center mt='1%'>

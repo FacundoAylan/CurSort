@@ -15,8 +15,7 @@ const FilterCategory = () => {
 
 
   const categories = useSelector(state => state.categories)
-
-    const handleCategory = (e) => {    
+  const handleCategory = (e) => {    
     dispatch(filterCategory(e.target.value)); 
   };
 

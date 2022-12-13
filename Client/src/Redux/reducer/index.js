@@ -8,10 +8,16 @@ import {
   FILTER_DIFFICULTY,
   FILTER_DURATION,
   FILTER_CATEGORY,
+
+  ORDER_BY_PRICE,
+  ORDER_BY_PUBLISHED,
+  ORDER_BY_RATING,
+
   ADD_TO_CART,
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
+
 } from "../action-types";
 
 let initialState = {
@@ -47,12 +53,13 @@ const rootReducer = (state = initialState, action) => {
           price: action.payload.price,
         },
       };
+
     case GET_CATEGORIES:
       return {
         ...state,
         categories: action.payload,
       };
-    case "ORDER_BY_RATING":
+    case ORDER_BY_RATING:
       let orderRating =
         action.payload === "asc"
           ? state.courses.sort((a, b) => {
@@ -77,7 +84,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         courses: action.payload === "all" ? state.allCourses : orderRating,
       };
-    case "ORDER_BY_PRICE":
+    case ORDER_BY_PRICE:
       let orderPrice =
         action.payload === "asc"
           ? state.courses.sort((a, b) => {
@@ -102,7 +109,8 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         courses: action.payload === "all" ? state.allCourses : orderPrice,
       };
-    case "ORDER_BY_PUBLISHED":
+
+    case ORDER_BY_PUBLISHED:
       let orderPublished =
         action.payload === "asc"
           ? state.courses.sort((a, b) => {
