@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Grid, GridItem, Button } from '@chakra-ui/react'
+import { Grid, Button } from '@chakra-ui/react'
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getCategory, filterCategory } from "../../Redux/actions";

@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import ShoppingCart from './ShoppingCart';
 import EmptyCart from './EmptyCart';
-import { Box, Flex, Text, Container, IconButton} from "@chakra-ui/react";
+import { Box, Text, Container} from "@chakra-ui/react";
 import { GrCart } from "react-icons/gr";
 
 function HomeCart() {
