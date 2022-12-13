@@ -1,4 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useState,useEffect} from "react";
+import { useDispatch, useSelector} from 'react-redux'
 import {
   Grid,
   GridItem,
@@ -7,7 +8,6 @@ import {
   Center,
   // Image,
 } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
 import Paginado from "../paginado/paginado";
