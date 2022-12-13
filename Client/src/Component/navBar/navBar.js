@@ -6,6 +6,9 @@ import LogoutButton from '../LogoutButton/LogoutButton'
 import { useAuth0 } from "@auth0/auth0-react";
 
 import {
+  Box,
+  Button,
+  Flex,
   Grid,
   GridItem, 
   IconButton
@@ -50,16 +53,26 @@ function NavBar({setPagina,setOrder}) {
           <Search setOrder={setOrder} setPagina={setPagina}/>
         </GridItem>
 
-          <GridItem mt='13%' ml='85%'>
-              {!isAuthenticated && <LoginButton/>}
-              {isAuthenticated && <LogoutButton/>}
-             {/* {isAuthenticated && <Profile/>} */}
-             
-             <IconButton
-                onClick={handleClick}
-                size='1%'
-                icon={<GrCart/>}
-              />
+          <GridItem mt='15%' ml='62%'>
+            <Flex>
+
+              <Box pt={1}>
+                <Button color='white' border='2px' borderColor='white' borderRadius='12px' >
+                  <IconButton
+                      onClick={handleClick}
+                      size='1%'
+                      icon={<GrCart/>}
+                    />
+                </Button>
+              </Box>
+
+             <Box pl={5}>
+                {!isAuthenticated && <LoginButton/>}
+                {isAuthenticated && <LogoutButton/>}
+              {/* {isAuthenticated && <Profile/>} */}
+             </Box>
+
+            </Flex>
                      
           </GridItem>
       </Grid> 

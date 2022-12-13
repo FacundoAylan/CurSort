@@ -39,13 +39,14 @@ function CreateCategory() {
   return (
     <>
       <Menu>
-        <Center mt="2">
           <ButtonGroup variant="outline" spacing="6" ml={2}>
-            <MenuButton as={Button} colorScheme="blue">
-              New category
+            <MenuButton >
+              <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
+                New category
+              </Button>
             </MenuButton>
           </ButtonGroup>
-        </Center>
+          
         <MenuList>
           <InputGroup size="md">
             <Input

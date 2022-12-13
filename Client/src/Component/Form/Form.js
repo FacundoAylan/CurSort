@@ -123,7 +123,7 @@ function Form() {
     }
   };
   return (
-    <Container overflow='scroll' maxW="100%" h="100vh" p="0">
+    <Container overflow='scroll' maxW="100%" h="100vh" p="0" background="#3E4AB8" color='black'>
       <Box p='6px'>
         <Link to="/home" className="backCreate">
           <IconButton
@@ -241,22 +241,25 @@ function Form() {
                   border='1px' borderColor='gray.200'
               />}
               </Center>
-              <Input
-                m = "1" 
-                type='file' 
-                placeholder="jpg o png"
-                id="imagen"
-                onChange={handleImagen}
-              />
-              {!isError.imagen ? (
-                <FormHelperText color={"green"}>
-                  imagen valida
-                </FormHelperText>
-              ) : (
-                <FormErrorMessage>
-                  se requiere una imagen
-                </FormErrorMessage>
-              )}
+              <Input value={input.id}/>
+              <Box pt={2}>
+                <input
+                  pt={3} 
+                  type='file' 
+                  placeholder="jpg o png"
+                  id="imagen"
+                  onChange={handleImagen}
+                />
+              </Box>
+                {/* {!isError.imagen ? (
+                  <FormHelperText color={"green"}>
+                    imagen valida
+                  </FormHelperText>
+                ) : (
+                  <FormErrorMessage>
+                    se requiere una imagen
+                  </FormErrorMessage>
+                )} */}
             </FormControl>
           </GridItem>
           <GridItem>
@@ -321,7 +324,7 @@ function Form() {
           </GridItem>
           <GridItem area={"button"} pb='25px'>
             <Center>
-              <ButtonGroup variant="outline" spacing="6" onClick={validacion}>
+              <ButtonGroup background='black' color='white' border='2px' borderColor='white' borderRadius='12px' onClick={validacion}>
                 <Button colorScheme="blue">Send</Button>
               </ButtonGroup>
             </Center>
