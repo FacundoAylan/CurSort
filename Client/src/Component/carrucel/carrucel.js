@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Image} from "@chakra-ui/react";
+import {Image} from "@chakra-ui/react";
 import Carousel from 'nuka-carousel';
 
 function Carrucel () {

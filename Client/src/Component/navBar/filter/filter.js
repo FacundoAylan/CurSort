@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+// import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import {
-  Grid,
-  Tabs,
-  TabList,
-  Tab,
+  // Grid,
+  // Tabs,
+  // TabList,
+  // Tab,
   Menu,
   Button,
-  Popover,
-  PopoverTrigger,
-  Portal,
-  PopoverContent,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverBody,
+  // Popover,
+  // PopoverTrigger,
+  // Portal,
+  // PopoverContent,
+  // PopoverArrow,
+  // PopoverCloseButton,
+  // PopoverBody,
   MenuButton,
   MenuList,
   Flex,
@@ -121,7 +122,7 @@ function Filter({ setPagina, setOrder }) {
       <Menu>
         <MenuButton ml={3}>
         <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
-          Start
+          Rating
           </Button>
           </MenuButton>
         <MenuList>
