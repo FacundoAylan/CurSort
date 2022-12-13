@@ -1,6 +1,8 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Button, Center, Grid, GridItem } from "@chakra-ui/react";
+import CreateCategory from "../CreateCategory/CreateCategory";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -14,8 +16,18 @@ const Profile = () => {
         <Button>Compras</Button>
       </GridItem>
       <GridItem>
+        <CreateCategory />
+      </GridItem>
+      <GridItem>
         <Button>Setting</Button>
       </GridItem>
+
+      <GridItem>
+        <Link to="/crear" className="linkStart">
+          crear
+        </Link>
+      </GridItem>
+
       {/* <img src={user.picture}alt='imagen' /> */}
       {/* <h2>Nombre: {user.name}</h2>
         {user.email_verified === true ?<h3>Verificado</h3>:<button>actualizar perfil</button>} */}
