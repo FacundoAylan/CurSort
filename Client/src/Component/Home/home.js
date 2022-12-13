@@ -1,5 +1,5 @@
 import React, { useEffect , useState} from "react";
-import { Grid, GridItem, Container, Box, Center, Image} from "@chakra-ui/react";
+import { Grid, GridItem, Container, Box, Center} from "@chakra-ui/react";
 import { useDispatch, useSelector } from 'react-redux';
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
