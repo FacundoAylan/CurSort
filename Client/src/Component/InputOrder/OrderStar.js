@@ -6,7 +6,7 @@ const OrderStar = ({handleOrderByStar}) => {
     <div>
       <Grid gridTemplateRows="repeat(3, 45px)" p={0}>
         <GridItem p={0}>
-          <Button  value="all" onClick={handleOrderByStar}>All</Button>
+          <Button value="all" onClick={handleOrderByStar}>All</Button>
         </GridItem>
         <GridItem>
           <Button value="desc" onClick={handleOrderByStar}>Highest Star</Button>

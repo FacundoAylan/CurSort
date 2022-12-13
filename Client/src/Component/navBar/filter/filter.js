@@ -29,31 +29,35 @@ import {
   orderByPublished,
 } from "../../../Redux/actions/index";
 
-function Filter() {
-  let [order, setOrder] = useState("");
+function Filter({setPagina, setOrder}) {
+  
 
   const dispatch = useDispatch();
   function handleOrderByName(e) {
     e.preventDefault();
     dispatch(getCourses(e.target.value));
+    setPagina(1)
     setOrder("order" + e.target.value);
   }
 
   function handleOrderByPrice(e) {
     e.preventDefault();
     dispatch(orderByPrice(e.target.value));
+    setPagina(1)
     setOrder("order" + e.target.value);
   }
 
   function handleOrderByPublished(e) {
     e.preventDefault();
     dispatch(orderByPublished(e.target.value));
+    setPagina(1)
     setOrder("order" + e.target.value);
   }
 
   function handleOrderByStar(e) {
     e.preventDefault();
     dispatch(orderByRating(e.target.value));
+    setPagina(1)
     setOrder("order" + e.target.value);
   }
 

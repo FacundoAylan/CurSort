@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
-import { Box, Flex, Text, Container, Divider} from "@chakra-ui/react";
+import { Box, Flex, Text, Container, Divider, GridItem} from "@chakra-ui/react";
 import CartItem from './CartItem';
 import ButtonCart from './ButtonCart';
 import EmptyCart from './EmptyCart';
@@ -41,17 +41,16 @@ function ShoppingCart() {
   return (
     <Container maxW="100%" maxH="-moz-initial" bg="#f1faee">
       <Box display="flex" w="100%" h="100%" backgroundColor="#f1faee">
-        <Flex>
+        <Flex minWidth='max-content' alignItems='center' gap='2' flexDirection="row" flexGrow='100vh'>
         {
           cart.map((course, index) => (
-            <div>
-            <CartItem key={index} data={course}/>
-            <Divider orientation='horizontal' />
-            </div>
+            <GridItem >
+            <CartItem key={index} data={course} w='100%' justifyConten='space-between'/>
+            </GridItem>
           ))
         }
-        </Flex>
       <ButtonCart getTotal={getTotal}/>
+        </Flex>
       </Box>
     </Container>
   );

@@ -102,9 +102,7 @@ function Cards({name, image, price, id, category}){
               {category}
             </Center>
             {/* nombre del course */}
-            <Center>
-              {category}
-            </Center>
+
           {/* puntuacion */}
           <Box>
             <Center ml='1%'>
