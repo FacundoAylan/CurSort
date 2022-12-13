@@ -20,8 +20,9 @@ import Search from './search/search'
 import { GrCart } from 'react-icons/gr';
 import { useHistory } from 'react-router-dom';
 
-function NavBar({setPagina,setOrder}) {
-  
+
+function NavBar({ setPagina, setOrder}) {
+
   // const {isAuthenticated, user} = useAuth0()
 
   const {isAuthenticated, user} = useAuth0()
@@ -50,6 +51,7 @@ function NavBar({setPagina,setOrder}) {
         </GridItem>
         <GridItem mt='2%'>
            {/* componente del search */}
+
           <Search setOrder={setOrder} setPagina={setPagina}/>
         </GridItem>
 

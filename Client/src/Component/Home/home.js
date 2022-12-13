@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Grid,
   GridItem,
@@ -49,7 +49,6 @@ function Home() {
       <Box background="#3E4AB8" maxW="100%" maxH="50%">
         <NavBar setOrder={setOrder} setPagina={setPagina} />
       </Box>
-
       <Center mt="1%">
         <Paginado pagina={pagina} setPagina={setPagina} maximo={maximo} />
       </Center>

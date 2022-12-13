@@ -34,11 +34,13 @@ import {
 } from "../../../Redux/actions/index";
 
 function Filter({ setPagina, setOrder }) {
+
   const dispatch = useDispatch();
   function handleOrderByName(e) {
     e.preventDefault();
     setPagina(1);
     dispatch(getCourses(e.target.value));
+    setPagina(1)
     setOrder("order" + e.target.value);
   }
 
@@ -47,18 +49,21 @@ function Filter({ setPagina, setOrder }) {
     e.preventDefault();
     setPagina(1);
     dispatch(orderByPrice(e.target.value));
+    setPagina(1)
     setOrder("order" + e.target.value);
   }
 
   function handleOrderByPublished(e) {
     e.preventDefault();
     dispatch(orderByPublished(e.target.value));
+    setPagina(1)
     setOrder("order" + e.target.value);
   }
 
   function handleOrderByStar(e) {
     e.preventDefault();
     dispatch(orderByRating(e.target.value));
+    setPagina(1)
     setOrder("order" + e.target.value);
   }
 

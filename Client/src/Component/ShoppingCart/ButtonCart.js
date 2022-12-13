@@ -1,5 +1,5 @@
 import React from 'react'
-import { Stack, Button, Text } from "@chakra-ui/react"
+import { Button, Text, GridItem } from "@chakra-ui/react"
 import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -21,17 +21,17 @@ function ButtonCart({getTotal}) {
 
 
   return (
-    <Stack direction="row" spacing={4} align="center">
-      <Text fontSize="lg" fontWeight="bold">
+    <GridItem>
+      <Text fontSize="lg" fontWeight="bold" color='#f1faee'  m="10px">
         TOTAL             USD  {getTotal()}
       </Text>
-      <Button onClick={handleCheckout} colorScheme="blue" variant="solid">
+      <Button onClick={handleCheckout} colorScheme="blue" variant="solid" m="10px">
         FINALIZAR COMPRA
       </Button>
       <Button colorScheme="blue" variant="outline" onClick={handleClick}>
         CONTINUAR COMPRANDO
       </Button>
-    </Stack>
+    </GridItem>
   );
 }
 
