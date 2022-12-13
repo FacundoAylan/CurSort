@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, {useState,useEffect} from "react";
+import { useDispatch, useSelector} from 'react-redux'
 import {
   Grid,
   GridItem,
   Container,
   Box,
   Center,
-  Image,
+  // Image,
 } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
 import Paginado from "../paginado/paginado";
 import { getCourses } from "../../Redux/actions";
-import CreateCategory from "../CreateCategory/CreateCategory";
+// import CreateCategory from "../CreateCategory/CreateCategory";
 import Footer from "../landing/footer/footer";
 
 // importo el json desde la api
@@ -49,7 +49,6 @@ function Home() {
       <Box background="#3E4AB8" maxW="100%" maxH="50%">
         <NavBar setOrder={setOrder} setPagina={setPagina} />
       </Box>
-
       <Center mt="1%">
         <Paginado pagina={pagina} setPagina={setPagina} maximo={maximo} />
       </Center>

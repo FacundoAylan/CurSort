@@ -12,7 +12,7 @@ function EmptyCart() {
 
   return (
     <Stack direction="row" spacing={4} align="center">
-      <Text fontSize="lg" fontWeight="bold">
+      <Text fontSize="lg" fontWeight="bold" color='#f1faee'>
         No hay cursos en el carrito
       </Text>
       <Button colorScheme="blue" variant="solid" onClick={handleClick}>
