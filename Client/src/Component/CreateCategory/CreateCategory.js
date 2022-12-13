@@ -15,7 +15,7 @@ import {
   AlertIcon,
 } from "@chakra-ui/react";
 
-import { createNewCategory } from "../../Redux/actions/index";
+import { createNewCategory ,getCategory } from "../../Redux/actions/index";
 
 function CreateCategory() {
   const initialState = { name: "" };
@@ -34,6 +34,7 @@ function CreateCategory() {
     dispatch(createNewCategory(category));
     setCategory(initialState);
     setAlert(true);
+    getCategory()
   };
 
   return (
