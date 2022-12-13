@@ -2,7 +2,7 @@
 import React,{useState} from "react";
 import {
   Input,
-  Container,
+  // Container,
   IconButton,
   InputGroup,
   InputRightElement,
@@ -36,6 +36,9 @@ function Search ({setPagina, setOrder}) {
             placeholder='Buscando'
             value={name}
             onChange={onChange}
+            background='white'
+            border='2px'
+            borderColor='black'
           />
           <InputRightElement >
             <IconButton
@@ -48,7 +51,7 @@ function Search ({setPagina, setOrder}) {
         </InputGroup>
       </GridItem>
       <GridItem h='100%'>
-        <Filter setPagina={setPagina} setOrder={setOrder}/>
+        <Filter setOrder={setOrder} setPagina={setPagina}/>
       </GridItem>
 
     </Grid>

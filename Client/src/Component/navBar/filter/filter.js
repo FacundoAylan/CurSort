@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
+// import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import {
-  Grid,
-  Tabs,
-  TabList,
-  Tab,
+  // Grid,
+  // Tabs,
+  // TabList,
+  // Tab,
   Menu,
   Button,
-  Popover,
-  PopoverTrigger,
-  Portal,
-  PopoverContent,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverBody,
+  // Popover,
+  // PopoverTrigger,
+  // Portal,
+  // PopoverContent,
+  // PopoverArrow,
+  // PopoverCloseButton,
+  // PopoverBody,
+  MenuButton,
+  MenuList,
+  Flex,
 } from "@chakra-ui/react";
 import FilterCategory from "../../InputFilter/FilterCategory";
 import FilterDifficulty from "../../InputFilter/FilterDifficulty";
@@ -29,19 +33,21 @@ import {
   orderByPublished,
 } from "../../../Redux/actions/index";
 
-function Filter({setPagina, setOrder}) {
-  
+function Filter({ setPagina, setOrder }) {
 
   const dispatch = useDispatch();
   function handleOrderByName(e) {
     e.preventDefault();
+    setPagina(1);
     dispatch(getCourses(e.target.value));
     setPagina(1)
     setOrder("order" + e.target.value);
   }
 
   function handleOrderByPrice(e) {
+    console.log(e.target.value);
     e.preventDefault();
+    setPagina(1);
     dispatch(orderByPrice(e.target.value));
     setPagina(1)
     setOrder("order" + e.target.value);
@@ -62,131 +68,73 @@ function Filter({setPagina, setOrder}) {
   }
 
   return (
-    <Grid templateColumns="repeat(6, 23%) ">
-      <Tabs>
-        <TabList p={0}>
-          <Tab p={0}>
-            <Menu>
-                <Popover>
-                  <PopoverTrigger >
-                    <Button background='none' p={0}>Category</Button>
-                  </PopoverTrigger>
-                  <Portal>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverBody>
-                        <FilterCategory handleOrderByName={handleOrderByName}/>
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Portal>
-                </Popover>
-            </Menu>
-          </Tab>
-          <Tab p={0}>
-          <Menu>
-                <Popover>
-                  <PopoverTrigger>
-                    <Button background='none'>Difficulty</Button>
-                  </PopoverTrigger>
-                  <Portal>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverBody>
-                        <FilterDifficulty />
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Portal>
-                </Popover>
-            </Menu>
-          </Tab>
+    <Flex mt={3.8}>
+      <Menu>
+        <MenuButton>
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
+            Category  
+          </Button>
+        </MenuButton>
+        <MenuList>
+          <FilterCategory handleOrderByName={handleOrderByName} />
+        </MenuList>
+      </Menu>
 
-          <Tab p={0}>
-          <Menu>
-                <Popover>
-                  <PopoverTrigger>
-                    <Button background='none'>Duration</Button>
-                  </PopoverTrigger>
-                  <Portal>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverBody>
-                        <FilterDuration />
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Portal>
-                </Popover>
-            </Menu>
-          </Tab>
+      <Menu>
+        <MenuButton ml={3}>
+        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
+          Difficulty
+          </Button>
+          </MenuButton>
+        <MenuList>
+          <FilterDifficulty />
+        </MenuList>
+      </Menu>
 
-          <Tab p={0}>
-          <Menu>
-                <Popover>
-                  <PopoverTrigger>
-                    <Button background='none'>Price</Button>
-                  </PopoverTrigger>
-                  <Portal>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverBody>
-                        <OrderPrice handleOrderByPrice={handleOrderByPrice} />
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Portal>
-                </Popover>
-            </Menu>
-          </Tab>
-          <Tab p={0}>
-          <Menu>
-                <Popover>
-                  <PopoverTrigger>
-                    <Button background='none'>Publiced</Button>
-                  </PopoverTrigger>
-                  <Portal>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverBody>
-                        <OrderPublished handleOrderByPublished={handleOrderByPublished} />
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Portal>
-                </Popover>
-            </Menu>
-          </Tab>
-          <Tab p={0}>
-          <Menu>
-                <Popover>
-                  <PopoverTrigger>
-                    <Button background='none'>Start</Button>
-                  </PopoverTrigger>
-                  <Portal>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverBody>
-                         <OrderStar handleOrderByStar={handleOrderByStar} />
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Portal>
-                </Popover>
-            </Menu>
-          </Tab>
-          <Tab p={0}>
-          <Popover>
-                  <PopoverTrigger>
-                      <Link to="/crear" className="linkStart">
-                        crear
-                      </Link>
-                  </PopoverTrigger>
-            </Popover>
-          </Tab>
-        </TabList>
-      </Tabs>
-    </Grid>
+      <Menu>
+        <MenuButton ml={3}>
+        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
+          Duration
+          </Button>
+          </MenuButton>
+        <MenuList>
+          <FilterDuration />
+        </MenuList>
+      </Menu>
+
+      <Menu>
+        <MenuButton ml={3}>
+        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
+          Price
+          </Button>
+        </MenuButton>
+        <MenuList>
+          <OrderPrice handleOrderByPrice={handleOrderByPrice} />
+        </MenuList>
+      </Menu>
+
+      <Menu>
+        <MenuButton ml={3}>
+        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
+          Publiced
+          </Button>
+          </MenuButton>
+        <MenuList>
+          <OrderPublished handleOrderByPublished={handleOrderByPublished} />
+        </MenuList>
+      </Menu>
+
+      <Menu>
+        <MenuButton ml={3}>
+        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
+          Rating
+          </Button>
+          </MenuButton>
+        <MenuList>
+          <OrderStar handleOrderByStar={handleOrderByStar} />
+        </MenuList>
+      </Menu>
+    </Flex>
   );
 }
 

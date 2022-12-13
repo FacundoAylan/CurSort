@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Grid, GridItem, Button } from '@chakra-ui/react'
+import { Grid, Button } from '@chakra-ui/react'
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getCategory, filterCategory } from "../../Redux/actions";
@@ -25,13 +25,11 @@ const FilterCategory = () => {
       gridTemplateRows='repeat(3, 45px)' 
       p={0}
       >
-      <GridItem>
       <Button onClick={(e) => handleCategory(e)} key='all' value='all'>All</Button>
         {categories &&
             categories.map((e) => {
               return <Button onClick={(e) => handleCategory(e)} key={e.id} value={e.name}>{e.name}</Button>
             })}
-      </GridItem>
 
     </Grid>
 
