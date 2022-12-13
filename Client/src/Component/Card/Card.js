@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { addToCart } from "../../Redux/actions";
 import { useDispatch } from "react-redux";
-import { FiShoppingCart } from 'react-icons/fi';
+import { FiShoppingCart } from "react-icons/fi";
 import {
   Grid,
   GridItem,
@@ -14,6 +14,7 @@ import {
   Tooltip,
   Center,
   Flex,
+  Button,
 } from "@chakra-ui/react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 
@@ -27,9 +28,9 @@ const data = {
   numReviews: 34,
 };
 
-function Rating({ rating}) {
+function Rating({ rating }) {
   return (
-    <Flex maxW='100%'>
+    <Flex maxW="100%">
       {Array(5)
         .fill("")
         .map((_, i) => {
@@ -43,44 +44,53 @@ function Rating({ rating}) {
             );
           }
           if (roundedRating - i === 0.5) {
-            return <BsStarHalf background= 'white' key={i} style={{ marginLeft: "1" }} />;
+            return (
+              <BsStarHalf
+                background="white"
+                key={i}
+                style={{ marginLeft: "1" }}
+              />
+            );
           }
-          return <BsStar background='white' key={i} style={{ marginLeft: "1" }} />;
+          return (
+            <BsStar background="white" key={i} style={{ marginLeft: "1" }} />
+          );
         })}
     </Flex>
   );
 }
 
-function Cards({name, image, price, id, category}){
-  
+function Cards({ name, image, price, id, category }) {
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(addToCart(id));
-}
+  };
 
   return (
     <Link to={`/detalle/${id}`} className="linkStart">
-    <Grid
-      p={1}
-      templateRows=' 55% 45%'
-      background="#3E4AB8"
-      h='330px'
-      color='black'
-    >
-      <GridItem >
-      <Image
-          src={image}
-          alt={`Picture of ${name}`}
-          h='100%'
-          w='100%'
-          p={0}
-          m={0}  
-        />
-      </GridItem>
+      <Grid
+        p={0}
+        templateRows=" 55% 45%"
+        background="#3E4AB8"
+        h="330px"
+        color="black"
+        borderRadius={12}
+      >
+        <GridItem>
+          <Image
+            borderTopRadius={12}
+            src={image}
+            alt={`Picture of ${name}`}
+            h="100%"
+            w="100%"
+            p={0}
+            m={0}
+          />
+        </GridItem>
 
-      <GridItem w='100%'>
+        <GridItem w="100%">
           {/* cursos nuevos  */}
           {/* <Box d="flex" alignItems="baseline">
             {data.isNew && (
@@ -91,27 +101,22 @@ function Cards({name, image, price, id, category}){
           </Box> */}
           {/* cursos nuevos   */}
 
-            {/* nombre del course */}
-            <Center
-              fontSize="130%"
-              pt={2}
-            >
-              {name}
-            </Center>
-            <Center>
-              {category}
-            </Center>
-            {/* nombre del course */}
+          {/* nombre del course */}
+          <Center fontSize="100%" pt={2}>
+            {name}
+          </Center>
+          <Center>{category}</Center>
+          {/* nombre del course */}
 
           {/* puntuacion */}
           <Box>
-            <Center ml='1%'>
-              <Rating rating={data.rating}/>
+            <Center ml="1%">
+              <Rating rating={data.rating} />
             </Center>
-          {/* puntuacion */}
+            {/* puntuacion */}
 
-          {/* precio */}
-            <Center fontSize="2xl" color={useColorModeValue("gray.800", "white")} >
+            {/* precio */}
+            <Center fontSize="40px" color="#03C139">
               {`$${price.toFixed(2)}`}
             </Center>
             {/* precio */}
@@ -120,19 +125,29 @@ function Cards({name, image, price, id, category}){
             <Center>
               <Tooltip
                 label="Add to cart"
-                bg="white"
+                bg="#03C139"
                 placement={"top"}
                 color={"gray.800"}
                 fontSize={"1.2em"}
                 onClick={handleClick}
               >
-               <Icon as={FiShoppingCart} h={7} w={7} alignSelf={"center"}  color='white'/>
+                <Link to="/cart">
+                  <Button background="none">
+                    <Icon
+                      as={FiShoppingCart}
+                      h={7}
+                      w={7}
+                      alignSelf={"center"}
+                      color="black"
+                    />
+                  </Button>
+                </Link>
               </Tooltip>
             </Center>
             {/* boton de compra */}
           </Box>
-      </GridItem>
-    </Grid>
+        </GridItem>
+      </Grid>
     </Link>
   );
 }

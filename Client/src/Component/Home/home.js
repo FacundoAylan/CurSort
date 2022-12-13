@@ -13,6 +13,7 @@ import NavBar from "../navBar/navBar";
 import Paginado from "../paginado/paginado";
 import { getCourses } from "../../Redux/actions";
 import CreateCategory from "../CreateCategory/CreateCategory";
+import Footer from "../landing/footer/footer";
 
 // importo el json desde la api
 // var data = require("./api.json");
@@ -74,6 +75,9 @@ function Home() {
                 );
               })}
         </Grid>
+      </Box>
+      <Box mt={7}>
+        <Footer/>
       </Box>
     </Container>
   );

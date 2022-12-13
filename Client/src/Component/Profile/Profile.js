@@ -12,23 +12,28 @@ const Profile = () => {
       <Center>
         <GridItem>{isAuthenticated && <h2>{user.name}</h2>}</GridItem>
       </Center>
+
       <GridItem>
-        <Button>Compras</Button>
+        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' ml='10px'>Compras</Button>
       </GridItem>
+
+      <GridItem>
+        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' ml='10px'>Setting</Button>
+      </GridItem>
+
       <GridItem>
         <CreateCategory />
       </GridItem>
-      <GridItem>
-        <Button>Setting</Button>
-      </GridItem>
 
       <GridItem>
-        <Link to="/crear" className="linkStart">
-          crear
+        <Link to="/crear"  >
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' ml='10px'>
+            crear
+          </Button>
         </Link>
       </GridItem>
 
-      {/* <img src={user.picture}alt='imagen' /> */}
+      {/* <img src=alt='imagen' /> */}
       {/* <h2>Nombre: {user.name}</h2>
         {user.email_verified === true ?<h3>Verificado</h3>:<button>actualizar perfil</button>} */}
     </Grid>

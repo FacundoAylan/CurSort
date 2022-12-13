@@ -36,6 +36,9 @@ function Search ({setPagina, setOrder}) {
             placeholder='Buscando'
             value={name}
             onChange={onChange}
+            background='white'
+            border='2px'
+            borderColor='black'
           />
           <InputRightElement >
             <IconButton
