@@ -14,7 +14,7 @@ import { getCourses } from "../../../Redux/actions";
 import {useDispatch} from 'react-redux'
 import Filter from "../filter/filter";
 
-function Search ({setPagina}) {
+function Search ({setPagina, setOrder}) {
   
   const [name, setName] = useState("");
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ function Search ({setPagina}) {
         </InputGroup>
       </GridItem>
       <GridItem h='100%'>
-        <Filter/>
+        <Filter setOrder={setOrder} setPagina={setPagina}/>
       </GridItem>
 
     </Grid>

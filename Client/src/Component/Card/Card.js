@@ -89,7 +89,7 @@ function Cards({name, image, price, id, category}){
               </Badge>
             )}
           </Box> */}
-          {/* cursos nuevos  */}
+          {/* cursos nuevos   */}
 
             {/* nombre del course */}
             <Center

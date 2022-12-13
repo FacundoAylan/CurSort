@@ -29,18 +29,19 @@ import {
   orderByPublished,
 } from "../../../Redux/actions/index";
 
-function Filter() {
-  let [order, setOrder] = useState("");
-
+function Filter({ setPagina, setOrder }) {
   const dispatch = useDispatch();
   function handleOrderByName(e) {
     e.preventDefault();
+    setPagina(1);
     dispatch(getCourses(e.target.value));
     setOrder("order" + e.target.value);
   }
 
   function handleOrderByPrice(e) {
+    console.log(e.target.value);
     e.preventDefault();
+    setPagina(1);
     dispatch(orderByPrice(e.target.value));
     setOrder("order" + e.target.value);
   }
@@ -63,122 +64,117 @@ function Filter() {
         <TabList p={0}>
           <Tab p={0}>
             <Menu>
-                <Popover>
-                  <PopoverTrigger >
-                    <Button background='none' p={0}>Category</Button>
-                  </PopoverTrigger>
-                  <Portal>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverBody>
-                        <FilterCategory handleOrderByName={handleOrderByName}/>
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Portal>
-                </Popover>
+              <Popover>
+                <PopoverTrigger>
+                  <Button background="none" p={0}>
+                    Category
+                  </Button>
+                </PopoverTrigger>
+                <Portal>
+                  <PopoverContent>
+                    <PopoverArrow />
+                    <PopoverCloseButton />
+                    <PopoverBody>
+                      <FilterCategory handleOrderByName={handleOrderByName} />
+                    </PopoverBody>
+                  </PopoverContent>
+                </Portal>
+              </Popover>
             </Menu>
           </Tab>
           <Tab p={0}>
-          <Menu>
-                <Popover>
-                  <PopoverTrigger>
-                    <Button background='none'>Difficulty</Button>
-                  </PopoverTrigger>
-                  <Portal>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverBody>
-                        <FilterDifficulty />
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Portal>
-                </Popover>
-            </Menu>
-          </Tab>
-
-          <Tab p={0}>
-          <Menu>
-                <Popover>
-                  <PopoverTrigger>
-                    <Button background='none'>Duration</Button>
-                  </PopoverTrigger>
-                  <Portal>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverBody>
-                        <FilterDuration />
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Portal>
-                </Popover>
+            <Menu>
+              <Popover>
+                <PopoverTrigger>
+                  <Button background="none">Difficulty</Button>
+                </PopoverTrigger>
+                <Portal>
+                  <PopoverContent>
+                    <PopoverArrow />
+                    <PopoverCloseButton />
+                    <PopoverBody>
+                      <FilterDifficulty />
+                    </PopoverBody>
+                  </PopoverContent>
+                </Portal>
+              </Popover>
             </Menu>
           </Tab>
 
           <Tab p={0}>
-          <Menu>
-                <Popover>
-                  <PopoverTrigger>
-                    <Button background='none'>Price</Button>
-                  </PopoverTrigger>
-                  <Portal>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverBody>
-                        <OrderPrice handleOrderByPrice={handleOrderByPrice} />
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Portal>
-                </Popover>
+            <Menu>
+              <Popover>
+                <PopoverTrigger>
+                  <Button background="none">Duration</Button>
+                </PopoverTrigger>
+                <Portal>
+                  <PopoverContent>
+                    <PopoverArrow />
+                    <PopoverCloseButton />
+                    <PopoverBody>
+                      <FilterDuration />
+                    </PopoverBody>
+                  </PopoverContent>
+                </Portal>
+              </Popover>
+            </Menu>
+          </Tab>
+
+          <Tab p={0}>
+            <Menu>
+              <Popover>
+                <PopoverTrigger>
+                  <Button background="none">Price</Button>
+                </PopoverTrigger>
+                <Portal>
+                  <PopoverContent>
+                    <PopoverArrow />
+                    <PopoverCloseButton />
+                    <PopoverBody>
+                      <OrderPrice handleOrderByPrice={handleOrderByPrice} />
+                    </PopoverBody>
+                  </PopoverContent>
+                </Portal>
+              </Popover>
             </Menu>
           </Tab>
           <Tab p={0}>
-          <Menu>
-                <Popover>
-                  <PopoverTrigger>
-                    <Button background='none'>Publiced</Button>
-                  </PopoverTrigger>
-                  <Portal>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverBody>
-                        <OrderPublished handleOrderByPublished={handleOrderByPublished} />
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Portal>
-                </Popover>
+            <Menu>
+              <Popover>
+                <PopoverTrigger>
+                  <Button background="none">Publiced</Button>
+                </PopoverTrigger>
+                <Portal>
+                  <PopoverContent>
+                    <PopoverArrow />
+                    <PopoverCloseButton />
+                    <PopoverBody>
+                      <OrderPublished
+                        handleOrderByPublished={handleOrderByPublished}
+                      />
+                    </PopoverBody>
+                  </PopoverContent>
+                </Portal>
+              </Popover>
             </Menu>
           </Tab>
           <Tab p={0}>
-          <Menu>
-                <Popover>
-                  <PopoverTrigger>
-                    <Button background='none'>Start</Button>
-                  </PopoverTrigger>
-                  <Portal>
-                    <PopoverContent>
-                      <PopoverArrow />
-                      <PopoverCloseButton />
-                      <PopoverBody>
-                         <OrderStar handleOrderByStar={handleOrderByStar} />
-                      </PopoverBody>
-                    </PopoverContent>
-                  </Portal>
-                </Popover>
+            <Menu>
+              <Popover>
+                <PopoverTrigger>
+                  <Button background="none">Start</Button>
+                </PopoverTrigger>
+                <Portal>
+                  <PopoverContent>
+                    <PopoverArrow />
+                    <PopoverCloseButton />
+                    <PopoverBody>
+                      <OrderStar handleOrderByStar={handleOrderByStar} />
+                    </PopoverBody>
+                  </PopoverContent>
+                </Portal>
+              </Popover>
             </Menu>
-          </Tab>
-          <Tab p={0}>
-          <Popover>
-                  <PopoverTrigger>
-                      <Link to="/crear" className="linkStart">
-                        crear
-                      </Link>
-                  </PopoverTrigger>
-            </Popover>
           </Tab>
         </TabList>
       </Tabs>

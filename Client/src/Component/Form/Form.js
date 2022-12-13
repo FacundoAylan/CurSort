@@ -123,7 +123,7 @@ function Form() {
     }
   };
   return (
-    <Container maxW="100%" h="100vh" p="0">
+    <Container overflow='scroll' maxW="100%" h="100vh" p="0">
       <Box p='6px'>
         <Link to="/home" className="backCreate">
           <IconButton
