@@ -34,6 +34,9 @@ Users.belongsToMany(Courses, {through: 'users_courses', timestamps: false});
 Categories.belongsToMany(Courses, {through: 'courses_categories', timestamps: false});
 Courses.belongsToMany(Categories, {through: 'courses_categories', timestamps: false});
 
+// Courses.belongsTo(Categories);
+// Categories.hasMany(Courses)
+
 Reviews.belongsTo(Courses);
 Courses.hasMany(Reviews);
 

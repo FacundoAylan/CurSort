@@ -1,15 +1,32 @@
-import React from 'react'
-import { Select } from '@chakra-ui/react'
+
+import React from "react";
+import { useDispatch } from "react-redux";
+import { filterDuration } from "../../Redux/actions/index";
+import { Grid, GridItem, Button } from '@chakra-ui/react';
+
 const FilterDuration = () => {
+  const dispatch = useDispatch();
+
+  const handleDuration = (e) => {
+    dispatch(filterDuration(e.target.value));
+  };
+  
   return (
     <div>
-        <Select placeholder='Duration'>
-  <option value='option1'>+ 40Hs</option>
-  <option value='option2'>- 40Hs</option>
-  
-</Select>
-    </div>
-  )
-}
+      <Grid gridTemplateRows="repeat(3, 45px)" p={0}>
+        <GridItem p={0}>
+          <Button onClick={(e) => handleDuration(e)} value='1A50'>1hs - 50hs</Button>
+        </GridItem>
+        <GridItem>
+          <Button onClick={(e) => handleDuration(e)} value='51A100'>51hs - 100hs</Button>
+        </GridItem>
+         <GridItem>
+          <Button onClick={(e) => handleDuration(e)} value='100'>+ 100hs</Button>
+        </GridItem>
+      </Grid>
 
-export default FilterDuration
+    </div>
+  );
+};
+
+export default FilterDuration;

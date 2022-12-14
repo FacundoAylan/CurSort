@@ -1,106 +1,83 @@
-
-import React, { useEffect , useState} from "react";
-import { Grid, GridItem, Container, Box, Center } from "@chakra-ui/react";
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useState,useEffect} from "react";
+import { useDispatch, useSelector} from 'react-redux'
+import {
+  Grid,
+  GridItem,
+  Container,
+  Box,
+  Center,
+  // Image,
+} from "@chakra-ui/react";
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
-import Paginado from '../paginado/paginado';
-import {getCourses, orderByName, orderByRating, orderByPrice, orderByPublished} from "../../Redux/actions";
+import Paginado from "../paginado/paginado";
+import { getCourses } from "../../Redux/actions";
+// import CreateCategory from "../CreateCategory/CreateCategory";
+import Footer from "../landing/footer/footer";
 
 // importo el json desde la api
 // var data = require("./api.json");
 
 function Home() {
+  let info = useSelector(
+    (state) => state.courses,
+    () => false
+  ); // el false, verifica el estado anterior
+  // console.log(info)
   const dispatch = useDispatch();
-  const [data, setData] = useState({
-    name: "",
-  })
-  let info = useSelector(state => state.courses, () => false);
   const [pagina, setPagina] = useState(1);
   const porPagina = 6;
-
   const maximo = Math.ceil(info.length / porPagina);
 
-
-
-  let [ order, setOrder ] = useState('')
+  let [order, setOrder] = useState("");
 
   useEffect(() => {
-    dispatch(getCourses(''));
-  }, [dispatch])
+    dispatch(getCourses(""));
+  }, [dispatch]);
 
-    function handleOrderByName(e){
-        e.preventDefault();
-        dispatch(orderByName(e.target.value))
-        setOrder('order' + e.target.value)
-    }
-
-    function handleOrderByPrice(e){
-        e.preventDefault();
-        dispatch(orderByPrice(e.target.value))
-        setOrder('order' + e.target.value)
-    }
-    
-    function handleOrderByPublished(e){
-        e.preventDefault();
-        dispatch(orderByPublished(e.target.value))
-        setOrder('order' + e.target.value)
-    }
-
-    function handleOrderByStar(e){
-      e.preventDefault();
-      dispatch(orderByRating(e.target.value))
-      setOrder('order' + e.target.value)
+  if (info <= 1) {
+    //alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
+    dispatch(getCourses(""));
   }
 
+  // const flickityOptions = {
+  //     initialIndex: 2
+  //   }
+
   return (
-    <Container maxW="100%" h="100%" border="1px" p="0">
-      <div>
-      {/* filtro order A-Z */}
-        {/* <select onChange={(e) => handleOrderByName(e)} placeholder="Order">
-          <option value="A-Z">A-Z</option>
-          <option value="Z-A">Z-A</option>
-        </select> */}
-      </div>
-      <Box background="#4FD1C5" maxW="100%" h="10%">
-        <NavBar 
-          handleOrderByPrice={handleOrderByPrice} 
-          handleOrderByName={handleOrderByName}
-          handleOrderByPublished={handleOrderByPublished}
-          handleOrderByStar={handleOrderByStar}
-          setPagina={setPagina}
-          />
+    <Container maxW="100%" p="0" heightMode="min">
+      <Box background="#3E4AB8" maxW="100%" maxH="50%">
+        <NavBar setOrder={setOrder} setPagina={setPagina} />
       </Box>
-      <Box h="100%" maxW="100%">
-        <Grid
-          templateColumns="repeat(3, 0.3fr)"
-          gap={9}
-          templateRows="repeat(2, 0.1fr)"
-          pt={4}
-          pl={20}
-          m={0}
-        >
-          {info && info.slice(
-              (pagina - 1) * porPagina,
-              (pagina - 1) * porPagina + porPagina
-            ).map((value) => {
-            return (
-              <GridItem>
-                <Cards
-                  nombre={value.name}
-                  imagen={value.image}
-                  descripcion={value.description}
-                  precio={value.price}
-                  id={value.id}
-                />
-              </GridItem>
-            );
-          })}
-        </Grid>
-      </Box>
-      <Center pt={6}>
+      <Center mt="1%">
         <Paginado pagina={pagina} setPagina={setPagina} maximo={maximo} />
       </Center>
+      <Box h="40%" maxW="100%">
+        <Grid templateColumns="repeat(6, 0.2fr)" gap={4} pt={4} p={5} m={0}>
+          {info &&
+            info
+              .slice(
+                (pagina - 1) * porPagina,
+                (pagina - 1) * porPagina + porPagina
+              )
+              .map((value) => {
+                return (
+                  <GridItem>
+                    <Cards
+                      name={value.name}
+                      image={value.image}
+                      price={value.price}
+                      id={value.id}
+                      category={value.categories[0]}
+                    />
+                  </GridItem>
+                );
+              })}
+        </Grid>
+      </Box>
+      <Box mt={7}>
+        <Footer/>
+      </Box>
     </Container>
   );
 }

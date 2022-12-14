@@ -1,142 +1,83 @@
-import React, {useState} from 'react';
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import React from 'react';
+
 import LoginButton from '../LoginButton/LoginButton'
 import LogoutButton from '../LogoutButton/LogoutButton'
-import Profile from '../Profile/Profile'
+// import Profile from '../Profile/Profile'
 import { useAuth0 } from "@auth0/auth0-react";
-import {
-  useDisclosure,
-  Button,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
-  Input,
-  ButtonGroup,
-  Center,
-  Container,
-  Grid,
-  GridItem,
-  IconButton,
-  InputGroup,
-  InputRightElement
-} from "@chakra-ui/react";
-import { SearchIcon } from '@chakra-ui/icons';
-import FilterCategory from '../InputFilter/FilterCategory';
-import FilterDifficulty from '../InputFilter/FilterDifficulty';
-import FilterDuration from '../InputFilter/FilterDuration';
-import OrderPrice from '../InputOrder/OrderPrice';
-import OrderPublished  from '../InputOrder/OrderPublished';
-import OrderStar from '../InputOrder/OrderStar';
-import OrderAZ from '../InputOrder/OrderAZ';
-import {getCourses} from '../../Redux/actions/index.js'
 
-function NavBar({handleOrderByPrice, handleOrderByName, handleOrderByPublished, handleOrderByStar, setPagina}) {
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  GridItem, 
+  IconButton
+} from "@chakra-ui/react";
+
+
+import Title from './title/title';
+import Search from './search/search'
+import { GrCart } from 'react-icons/gr';
+import { useHistory } from 'react-router-dom';
+
+
+function NavBar({ setPagina, setOrder}) {
+
+  // const {isAuthenticated, user} = useAuth0()
+
   const {isAuthenticated, user} = useAuth0()
 
-  const [name, setName] = useState("")
-  const dispatch = useDispatch();
+  const history = useHistory();
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const onChange = (e) => {
-    setName(e.target.value)
-  }
-  const onClick = () =>{
-    setPagina(1);
-    dispatch(getCourses(name));
-  }
-  const reset = () =>{
-    dispatch(getCourses(''));
-  }
+
+  // const reset = () =>{
+  //   dispatch(getCourses(''));
+  // }
+
+
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    history.push('/cart');
+}
+
   return (
     <>
-      {!isAuthenticated && <LoginButton/>}
-      {isAuthenticated && <LogoutButton/>}
-      {isAuthenticated && <Profile/>}
-      <Button colorScheme="blue" onClick={onOpen} ml="96%" mt="1%">
-        <label>☰</label>
-      </Button>
-      <Drawer placement="rigth" onClose={onClose} isOpen={isOpen}>
-        <DrawerOverlay />
-        <DrawerContent>
-          <Button
-            colorScheme="teal"
-            variant="outline"
-            h="4%"
-            minW="4%"
-            ml="80%"
-            mt="3%"
-            onClick={onClose}
-          >
-            X
-          </Button>
-          <DrawerHeader borderBottomWidth="1px">Cursort</DrawerHeader>
-          <DrawerBody>
-            <Container maxW="100%">
-              <Grid templateRows="repeat(6, 40px) " gap={2}>
-                <GridItem>
-                  <FilterCategory />
-                </GridItem>
-                <GridItem>
-                  <FilterDifficulty />
-                </GridItem>
-                <GridItem>
-                  <FilterDuration />
-                </GridItem>
-                <GridItem>
 
-                  <OrderPrice handleOrderByPrice={handleOrderByPrice}/>
-                </GridItem>
-                <GridItem>
-                  <OrderPublished handleOrderByPublished={handleOrderByPublished}/>
+        <Grid templateColumns="repeat(3,1fr)">
+        <GridItem mt='2%'>
+          {/* componente del titulo */}
+          <Title/>
+        </GridItem>
+        <GridItem mt='2%'>
+           {/* componente del search */}
 
-                </GridItem>
-                <GridItem>
-                  <OrderStar handleOrderByStar={handleOrderByStar} />
-                </GridItem>
-                <GridItem>
-                  <OrderAZ handleOrderByName={handleOrderByName}/>
-                </GridItem>
-              </Grid>
-            </Container>
+          <Search setOrder={setOrder} setPagina={setPagina}/>
+        </GridItem>
 
-            <Container mt={4}>
-              <InputGroup size='md'>
-                <Input
-                  pr='8rem'
-                  placeholder='Buscando'
-                  value={name}
-                  onChange={onChange}
-                />
-                <InputRightElement >
+          <GridItem mt='15%' ml='62%'>
+            <Flex>
+
+              <Box pt={1}>
+                <Button color='white' border='2px' borderColor='white' borderRadius='12px' >
                   <IconButton
-                      colorScheme="blue"
-                      aria-label="Search database"
-                      icon={<SearchIcon />}
-                      onClick={onClick}
+                      onClick={handleClick}
+                      size='1%'
+                      icon={<GrCart/>}
                     />
-                </InputRightElement>
-              </InputGroup>
-   
+                </Button>
+              </Box>
 
-            </Container>
+             <Box pl={5}>
+                {!isAuthenticated && <LoginButton/>}
+                {isAuthenticated && <LogoutButton/>}
+              {/* {isAuthenticated && <Profile/>} */}
+             </Box>
 
-            <Center mt="2">
-              <Link to="/crear" className="linkStart">
-                <ButtonGroup variant="outline" spacing="6">
-                  <Button colorScheme="blue">crear</Button>
-                </ButtonGroup>
-              </Link>
-                <ButtonGroup variant="outline" spacing="6" ml={2}>
-                  <Button colorScheme="blue" onClick={reset}>Reset</Button>
-                </ButtonGroup>
-            </Center>
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
+            </Flex>
+                     
+          </GridItem>
+      </Grid> 
     </>
-  );
-};
+  )};
 export default NavBar;

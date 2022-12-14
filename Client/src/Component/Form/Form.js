@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
+import { useDispatch, useSelector} from 'react-redux'
 import { Link } from "react-router-dom";
+import { getCategory } from "../../Redux/actions/index"
 import axios from "axios";
 import { getStorage, ref ,uploadBytesResumable,getDownloadURL} from "firebase/storage";
 import {
@@ -30,6 +32,12 @@ import {
 import { ArrowLeftIcon } from '@chakra-ui/icons'
 
 function Form() {
+  const dispatch = useDispatch();
+  const categories = useSelector(state => state.categories);
+
+  useEffect(()=>{
+    dispatch(getCategory);
+  },[dispatch])
   const [input, setInput] = useState({
     nombre: "",
     instuctor: "",
@@ -38,16 +46,21 @@ function Form() {
     imagen: "",
     precio: "",
     descripcion: "",
+    categoria:""
   });
   const expresiones = {
-    nombre: /^[a-z0-9_-]{3,16}$/,
-    instuctor: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$/,
+    // ^[A-Za-z\s0-9_-]{3,16}$ codigo anterior
+    // ^[\s\S]{0,25}$
+    // 
+    nombre: /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/,
+    // ^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$ codigo anterior
+    instuctor: /[^\W_]/,    
     duracion: /^[0-9]+([,][0-9]+)?$/,
     imagen: /(?:jpg|gif|png|jfif|jpeg)/,
-    descripcion: /^[\s\S]{10,100}$/,
+    descripcion: /^[\s\S]{10,300}$/,
   };
   const handleInputChange = (e) => {
-    e.target.id === "duracion" || e.target.id === "precio"
+    e.target.id === "duracion" || e.target.id === "precio" || e.target.id === "categoria"
       ? setInput({ ...input, [e.target.id]: Number(e.target.value) })
       : setInput({ ...input, [e.target.id]: e.target.value });
   };
@@ -76,6 +89,7 @@ function Form() {
     instuctor: expresiones.instuctor.test(input.instuctor) ? false : true,
     duracion: expresiones.duracion.test(input.duracion) ? false : true,
     dificultad: input.dificultad === "",
+    categoria : input.categoria === "",
     imagen: expresiones.imagen.test(input.imagen) ? false : true,
     precio: expresiones.duracion.test(input.precio) ? false : true,
     descripcion: expresiones.descripcion.test(input.descripcion) ? false : true
@@ -90,6 +104,7 @@ function Form() {
       !e.instuctor &&
       !e.duracion &&
       !e.dificultad &&
+      !e.categoria &&
       !e.imagen &&
       !e.precio &&
       !e.descripcion
@@ -108,9 +123,9 @@ function Form() {
     }
   };
   return (
-    <Container maxW="100%" h="100vh" p="0">
+    <Container overflow='scroll' maxW="100%" h="100vh" p="0" background="#3E4AB8" color='black'>
       <Box p='6px'>
-        <Link to="/" className="backCreate">
+        <Link to="/home" className="backCreate">
           <IconButton
             colorScheme="blue"
             aria-label="Search database"
@@ -127,6 +142,7 @@ function Form() {
           templateAreas={`"1 2 "
                         "4 5 "
                         "6  7"
+                        "8  9"
                         "d d "
                         "button button "`}
         >
@@ -136,7 +152,7 @@ function Form() {
                 <FormLabel>NOMBRE DEL CURSO:</FormLabel>
               </Center>
               <Input
-                placeholder="Basic usage"
+                placeholder="Nombre"
                 id="nombre"
                 onChange={handleInputChange}
               />
@@ -154,7 +170,7 @@ function Form() {
                 <FormLabel>INSTRUCTOR:</FormLabel>
               </Center>
               <Input
-                placeholder="Basic usage"
+                placeholder="Instructor"
                 id="instuctor"
                 onChange={handleInputChange}
               />
@@ -175,7 +191,7 @@ function Form() {
                 <FormLabel>DURACION:</FormLabel>
               </Center>
               <Input
-                placeholder="Basic usage"
+                placeholder="Duracion"
                 id="duracion"
                 onChange={handleInputChange}
               />
@@ -198,9 +214,9 @@ function Form() {
                 id="dificultad"
                 onChange={handleInputChange}
               >
-                <option value="option1">Principiante</option>
-                <option value="option2">Intermedio</option>
-                <option value="option3">Dificil</option>
+                <option value="Principiante">Principiante</option>
+                <option value="Intermedio">Intermedio</option>
+                <option value="Avanzado">Avanzado</option>
               </Select>
               {!isError.dificultad ? (
                 <FormHelperText color={"green"}>
@@ -211,6 +227,7 @@ function Form() {
               )}
             </FormControl>
           </GridItem>
+          
           <GridItem>
             <FormControl isRequired isInvalid={isError.imagen}>
               <Center>
@@ -224,22 +241,25 @@ function Form() {
                   border='1px' borderColor='gray.200'
               />}
               </Center>
-              <Input
-                m = "1" 
-                type='file' 
-                placeholder="jpg o png"
-                id="imagen"
-                onChange={handleImagen}
-              />
-              {!isError.imagen ? (
-                <FormHelperText color={"green"}>
-                  imagen valida
-                </FormHelperText>
-              ) : (
-                <FormErrorMessage>
-                  se requiere una imagen
-                </FormErrorMessage>
-              )}
+              <Input value={input.id}/>
+              <Box pt={2}>
+                <input
+                  pt={3} 
+                  type='file' 
+                  placeholder="jpg o png"
+                  id="imagen"
+                  onChange={handleImagen}
+                />
+              </Box>
+                {/* {!isError.imagen ? (
+                  <FormHelperText color={"green"}>
+                    imagen valida
+                  </FormHelperText>
+                ) : (
+                  <FormErrorMessage>
+                    se requiere una imagen
+                  </FormErrorMessage>
+                )} */}
             </FormControl>
           </GridItem>
           <GridItem>
@@ -248,7 +268,7 @@ function Form() {
                 <FormLabel>PRECIO :</FormLabel>
               </Center>
               <Input
-                placeholder="Basic usage"
+                placeholder="Precio en U$s"
                 id="precio"
                 onChange={handleInputChange}
               />
@@ -261,13 +281,37 @@ function Form() {
               )}
             </FormControl>
           </GridItem>
+          <GridItem>
+            <FormControl isRequired isInvalid={isError.categoria}>
+              <Center>
+                <FormLabel>CATEGORIA:</FormLabel>
+              </Center>
+              <Select
+                placeholder="CATEGORIA:"
+                id="categoria"
+                onChange={handleInputChange}
+              >
+                {categories &&  categories.map(el=> <option value={el.id}>{el.name}</option>)}
+
+              </Select>
+              {!isError.categoria ? (
+                <FormHelperText color={"green"}>
+                  categoria valida
+                </FormHelperText>
+              ) : (
+                <FormErrorMessage>se requiere categoria</FormErrorMessage>
+              )}
+            </FormControl>
+          </GridItem>
           <GridItem area={"d"}>
             <FormControl isRequired isInvalid={isError.descripcion}>
               <Center>
                 <FormLabel>DESCRIPTION:</FormLabel>
               </Center>
               <Textarea
+
                 placeholder="En este curso vamos a trabajar sobre... "
+
                 id="descripcion"
                 onChange={handleInputChange}
               />
@@ -282,7 +326,7 @@ function Form() {
           </GridItem>
           <GridItem area={"button"} pb='25px'>
             <Center>
-              <ButtonGroup variant="outline" spacing="6" onClick={validacion}>
+              <ButtonGroup background='black' color='white' border='2px' borderColor='white' borderRadius='12px' onClick={validacion}>
                 <Button colorScheme="blue">Send</Button>
               </ButtonGroup>
             </Center>
