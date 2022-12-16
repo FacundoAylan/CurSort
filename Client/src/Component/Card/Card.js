@@ -66,11 +66,23 @@ function Rating({ rating }) {
 function Cards({ name, image, price, id, category }) {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses);
+  const cart = useSelector((state) => state.cart);
 
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(addToCart(id));
     const course = courses.find((course) => course.id === id);
+    const itemRepeated = cart.find((course) => course.id === id);
+    if (itemRepeated) {
+      return Swal.fire({
+        position: "top-end",
+        icon: "warning",
+        title: `${course.name} ya se encuentra en el carrito`,
+        fontSize: "5px",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
     Swal.fire({
       position: 'top-end',
       icon: 'success',
