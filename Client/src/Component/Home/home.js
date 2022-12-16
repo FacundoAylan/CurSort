@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+
 import {
   Grid,
   GridItem,
@@ -14,6 +14,7 @@ import Paginado from "../paginado/paginado";
 import { getCourses } from "../../Redux/actions";
 // import CreateCategory from "../CreateCategory/CreateCategory";
 import Footer from "../landing/footer/footer";
+import { useEffect, useState } from "react";
 
 // importo el json desde la api
 // var data = require("./api.json");
