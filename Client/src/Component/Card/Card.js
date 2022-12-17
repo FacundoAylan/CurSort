@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { addToCart } from "../../Redux/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FiShoppingCart } from "react-icons/fi";
 import {
   Grid,
@@ -17,6 +17,9 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import Swal from "sweetalert2";
+
+
 
 const data = {
   isNew: true,
@@ -62,10 +65,32 @@ function Rating({ rating }) {
 
 function Cards({ name, image, price, id, category }) {
   const dispatch = useDispatch();
+  const courses = useSelector((state) => state.courses);
+  const cart = useSelector((state) => state.cart);
 
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(addToCart(id));
+    const course = courses.find((course) => course.id === id);
+    const itemRepeated = cart.find((course) => course.id === id);
+    if (itemRepeated) {
+      return Swal.fire({
+        position: "top-end",
+        icon: "warning",
+        title: `${course.name} ya se encuentra en el carrito`,
+        fontSize: "5px",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: `${course.name} se agregó al carrito`,
+      fontSize: '5px',
+      showConfirmButton: false,
+      timer: 1500
+    })
   };
 
   return (
@@ -131,7 +156,7 @@ function Cards({ name, image, price, id, category }) {
                 fontSize={"1.2em"}
                 onClick={handleClick}
               >
-                <Link to="/cart">
+                {/* <Link to="/cart"> */}
                   <Button background="none">
                     <Icon
                       as={FiShoppingCart}
@@ -139,9 +164,10 @@ function Cards({ name, image, price, id, category }) {
                       w={7}
                       alignSelf={"center"}
                       color="black"
+                      onClick={handleClick}
                     />
                   </Button>
-                </Link>
+                {/* </Link> */}
               </Tooltip>
             </Center>
             {/* boton de compra */}
