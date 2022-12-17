@@ -6,6 +6,8 @@ import Detalle from './Component/detalle/detalle';
 import{Container} from "@chakra-ui/react";
 import Landing from './Component/landing/landing';
 import HomeCart from './Component/ShoppingCart/HomeCart';
+import Contact from './Component/contact/contact';
+import Admin from './Component/admin/admin';
 
 function App() {
   return (
@@ -15,7 +17,8 @@ function App() {
       <Route path="/crear" component={Form} />
       <Route path="/detalle/:id" component={Detalle} />
       <Route path="/cart" component={HomeCart} />
-
+      <Route path="/Contact" component={Contact} />
+      <Route path="/Admin" component={Admin} />
     </Container>
 )}
 

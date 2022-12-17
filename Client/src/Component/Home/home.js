@@ -1,3 +1,4 @@
+import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Grid,
@@ -7,7 +8,6 @@ import {
   Center,
   // Image,
 } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
 import Paginado from "../paginado/paginado";
@@ -40,10 +40,6 @@ function Home() {
     dispatch(getCourses(""));
   }
 
-  // const flickityOptions = {
-  //     initialIndex: 2
-  //   }
-
   return (
     <Container maxW="100%" p="0" heightMode="min">
       <Box background="#3E4AB8" maxW="100%" maxH="50%">
@@ -75,6 +71,7 @@ function Home() {
               })}
         </Grid>
       </Box>
+
       <Box mt={7}>
         <Footer/>
       </Box>
