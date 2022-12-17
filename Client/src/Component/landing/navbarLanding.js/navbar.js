@@ -29,7 +29,9 @@ function NavbarLanding({ setPagina}) {
             <Link to='/home'>
               <Button p={4} ml={4}>Cursos</Button>
             </Link>
-            <Button p={4} ml={4}>Estudiantes</Button>
+            <Link to='/Admin'>
+              <Button p={4} ml={4}>Administrador</Button>
+            </Link>
             <Button p={4} ml={4}>Contactanos</Button>
             <Button p={4} ml={4}>¿Quienes Somos?</Button>
         </GridItem>
