@@ -75,7 +75,7 @@ function Cards({ name, image, price, id, category }) {
     const itemRepeated = cart.find((course) => course.id === id);
     if (itemRepeated) {
       return Swal.fire({
-        position: "top-end",
+        position: "top-center",
         icon: "warning",
         title: `${course.name} ya se encuentra en el carrito`,
         fontSize: "5px",
@@ -84,7 +84,7 @@ function Cards({ name, image, price, id, category }) {
       });
     }
     Swal.fire({
-      position: 'top-end',
+      position: 'top-center',
       icon: 'success',
       title: `${course.name} se agregó al carrito`,
       fontSize: '5px',
