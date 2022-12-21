@@ -5,17 +5,20 @@ import Form from './Component/Form/Form'
 import Detalle from './Component/detalle/detalle';
 import{Container} from "@chakra-ui/react";
 import Landing from './Component/landing/landing';
-import cursoDetail from './Component/cursoDetail/cursoDetail';
+import HomeCart from './Component/ShoppingCart/HomeCart';
+import Contact from './Component/contact/contact';
+import Admin from './Component/admin/admin';
 
 function App() {
   return (
-    <Container background='green' minH='100%' maxW='100%' p={0}>
+    <Container background='rgba(0, 0, 0, 0.774)' minH='100vh' maxW='100%' p={0} >
       <Route exact path="/" component={Landing} />
       <Route  path="/home" component={Home} />
-      <Route path="/crear" component={Form} />
+      <Route path="/crear" component={Form}/>
       <Route path="/detalle/:id" component={Detalle} />
-      <Route path='/cursodetail' component={cursoDetail}/>
-
+      <Route path="/cart" component={HomeCart} />
+      <Route path="/Contact" component={Contact} />
+      <Route path="/Admin" component={Admin} />
     </Container>
 )}
 

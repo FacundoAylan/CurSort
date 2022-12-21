@@ -1,27 +1,34 @@
-import React,{useState} from 'react';
-import { useDispatch } from "react-redux";
+import React from 'react';
+import { Link } from 'react-router-dom';
 import LoginButton from '../LoginButton/LoginButton'
 import LogoutButton from '../LogoutButton/LogoutButton'
-import Profile from '../Profile/Profile'
+// import Profile from '../Profile/Profile'
 import { useAuth0 } from "@auth0/auth0-react";
+
 import {
-  Wrap,
-  WrapItem,
-  Avatar,
+  Box,
+  Button,
+  Flex,
   Grid,
-  GridItem,
-  Center
+  GridItem, 
+  IconButton
 } from "@chakra-ui/react";
 
-import {getCourses} from '../../Redux/actions/index';
+
 import Title from './title/title';
 import Search from './search/search'
+import { GrCart } from 'react-icons/gr';
+import { useSelector } from 'react-redux';
+import { BsConeStriped } from 'react-icons/bs';
 
-function NavBar({ setPagina}) {
+
+function NavBar({ setPagina, setOrder}) {
+
   // const {isAuthenticated, user} = useAuth0()
 
   const {isAuthenticated, user} = useAuth0()
 
+<<<<<<< HEAD
   const [name, setName] = useState("")
   const dispatch = useDispatch();
   const reset = () =>{
@@ -37,36 +44,67 @@ function NavBar({ setPagina}) {
     
 } */
 
+=======
+  // const reset = () =>{
+  //   dispatch(getCourses(''));
+  // }
+
+  const cart = useSelector(state => state.cart)
+>>>>>>> 9125ac289a3c1ba46ed437d655d11b2f1850e1cf
 
 
   return (
     <>
-
       <Grid templateColumns="repeat(3,1fr)">
-        <GridItem mt='2%'>
+        <GridItem mt="2%">
           {/* componente del titulo */}
-          <Title/>
+          <Title />
         </GridItem>
-        <GridItem mt='2%'>
-           {/* componente del search */}
-          <Search setPagina={setPagina}/>
+        <GridItem mt="2%">
+          {/* componente del search */}
+
+          <Search setOrder={setOrder} setPagina={setPagina} />
         </GridItem>
 
-          <GridItem>
-            <Center mt='20%' ml='200px'>
+        <GridItem mt="15%" ml="62%">
+          <Flex>
+            <Box pt={1}>
+              <Link to="/cart">
+                <Button
+                  color="white"
+                  border="2px"
+                  borderColor="white"
+                  borderRadius="12px"
+                >
+                  <IconButton size="1%" icon={<GrCart />} />
+                  {cart.length > 0 && (
+                    <div>
+                      <b>
+                        <sub
+                          style={{
+                            fontSize: "10px",
+                            marginLeft: "5px",
+                            color: "#023e8a",
+                            marginRight: "none",
+                          }}
+                        >
+                          {cart.length}
+                        </sub>
+                      </b>
+                    </div>
+                  )}
+                </Button>
+              </Link>
+            </Box>
 
-            <Wrap>
-              <WrapItem>
-                <Avatar name='Kola Tioluwani' src='https://bit.ly/tioluwani-kolawole' />
-              </WrapItem>
-            </Wrap>
-              {!isAuthenticated && <LoginButton/>}
-              {isAuthenticated && <LogoutButton/>}
-              {isAuthenticated && <Profile/>}
-
-            </Center>
-          </GridItem>
-      </Grid> 
+            <Box pl={5}>
+              {!isAuthenticated && <LoginButton />}
+              {isAuthenticated && <LogoutButton />}
+              {/* {isAuthenticated && <Profile/>} */}
+            </Box>
+          </Flex>
+        </GridItem>
+      </Grid>
     </>
-  )};
+  );};
 export default NavBar;
