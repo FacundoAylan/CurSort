@@ -2,7 +2,7 @@
     "cursos": [
         {
             "id": 1,
-            "nombre": "Curso de Python",
+            "nombre": "Pithon",
             "imagen": "https://i.ytimg.com/vi/tmrz4UuHjyQ/maxresdefault.jpg",
             "instructor": "Beto Quiroga",
             "precio": 10,

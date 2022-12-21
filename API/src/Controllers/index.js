@@ -55,17 +55,73 @@ const postCourse = async (req, res) => {
   }
 };
 
+const editCourse = async (req, res) => {
+  const {
+    name,
+    description,
+    instructor,
+    duration,
+    price,
+    image,
+    difficulty,
+    categoryId
+  } = req.body;
+  console.log(name)
+  
+  /* let name, description, instructor, duration, price, image, difficulty,categoryId; */
+/*   console.log(nombre)
+  name =nombre.toUpperCase();
+  description = descripcion;
+  instructor = instuctor;
+  duration = duracion;
+  price = precio;
+  image = imagen;
+  difficulty = dificultad;
+  categoryId = categoria
+   */
+  try {
+  
+    if (!name || !description)
+      return res.status(400).send("Faltan datos obligatorios.");
+    const editcourse = await Courses.findOne({
+      where: { name: name },
+    });
+    
+    const courseEdit = await editcourse.update({
+      name,
+      description,
+      instructor,
+      duration,
+      price,
+      image,
+      difficulty,
+    });
+    res.status(200).send("El curso ha sido modificado exitosamente!");
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+
+
+
+
+
+
+
+
 //loadCoursesToDB es solo para cargar los cursos del json a la DB
 //la ruta en Postman seria http://localhost:3001/course/load
 
-const loadCoursesToDB = async () => {
-  const coursesDB = await Courses.findAll();
-  const coursesJSON = data.cursos;
-  if (coursesDB.length === 0 || coursesDB.length < coursesJSON.length) {
-    coursesJSON.forEach(async (e, i) => {
-      let name, description, rating, image, difficulty, price;
+const loadCoursesToDB2 = async () => {
+  try {
+    const coursesDB = await Courses.findAll();
+    const coursesJSON = data.cursos;
+    if (coursesDB.length === 0 ||coursesDB.length < coursesJSON.length) {
+      coursesJSON.forEach(async (e, i) => {
+        let name, description, rating, image, difficulty, price;
 
-      (name = e.nombre.toUpperCase()),
+        (name = e.nombre.toUpperCase()),
         (description = e.descripcion),
         (instructor = e.instructor),
         (price = e.precio),
@@ -74,7 +130,8 @@ const loadCoursesToDB = async () => {
         (image = e.imagen),
         (difficulty = e.dificultad),
         (price = e.precio);
-
+      });
+    }
       if (coursesDB.length > 0) {
         if (!coursesDB[i] || coursesDB[i].dataValues.id !== e.id) {
           await Courses.create({
@@ -98,12 +155,14 @@ const loadCoursesToDB = async () => {
         //newcourse.addCategories([1]);
 
         res.status(200).send("El curso ha sido creado exitosamente!");
-    } catch (error) {
+    }
+  } 
+  } catch (error) {
         res.status(400).send(error);
     }
 }
 
-
+    
 //loadCoursesToDB es solo para cargar los cursos del json a la DB
 //la ruta en Postman seria http://localhost:3001/course/load
 const loadCoursesToDB = async () => {
@@ -432,4 +491,5 @@ module.exports = {
   getCoursesByDifficulty,
   getCoursesByDuration,
   filterCourses,
+  editCourse,
 };
