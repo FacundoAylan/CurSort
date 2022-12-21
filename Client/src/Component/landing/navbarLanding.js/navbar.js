@@ -25,15 +25,17 @@ function NavbarLanding({ setPagina}) {
           </Box>
         </GridItem>
 
-        <GridItem p={0} mt='4%' pl='59px'>
+        <GridItem p={0} mt='4%'>
             <Link to='/home'>
-              <Button p={4} ml={4}>Cursos</Button>
+              <Button p={4} ml={40}>Cursos</Button>
             </Link>
             <Link to='/Admin'>
               <Button p={4} ml={4}>Administrador</Button>
             </Link>
-            <Button p={4} ml={4}>Contactanos</Button>
-            <Button p={4} ml={4}>¿Quienes Somos?</Button>
+            <Link to='/Contact'>
+              <Button p={4} ml={4}>Contactanos</Button>
+            </Link>
+            <Button p={4} ml={4}>Nosotros</Button>
         </GridItem>
 
       </Grid> 

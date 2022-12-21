@@ -10,15 +10,23 @@ import {
   Link,
   Badge,
   useColorModeValue,
+  IconButton,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  Slider,
+  Switch,
+  FormLabel,
 } from '@chakra-ui/react';
+import {DeleteIcon, EditIcon} from '@chakra-ui/icons';
 
 function Usuarios() {
   return (
-    <Center py={6}>
+    <Center py={6} >
       <Box
         maxW={"320px"}
         w={"full"}
-        bg={useColorModeValue("white", "gray.900")}
+        bg={useColorModeValue("#3E4AB8", "gray.900")}
         boxShadow={"2xl"}
         rounded={"lg"}
         p={6}
@@ -78,21 +86,39 @@ function Usuarios() {
           </Badge>
         </Stack>
 
+        <Box>
+          <Stack pt='8px'>
+              <p htmlFor='isChecked'>On/Off:</p>
+              <Center>
+                <Switch id='isChecked' p={0} colorScheme='blue' bg='black' w='15.7%' borderRadius='30px' border='2px' borderColor='black'/>
+              </Center>
+          </Stack>
+        </Box>
+
         <Center>
-          <Stack mt={8} direction={"row"} spacing={4}>
-            <Button
+          
+          <Stack mt={3} direction={"row"} spacing={4}>
+            <IconButton
               flex={1}
               fontSize={"sm"}
               rounded={"full"}
-              _focus={{
-                bg: "gray.200",
-              }}
               maxW="10px"
-              bg="blue"
-            >
-              M
-            </Button>
-            <Button
+              bg={"blue.400"}
+              color={"white"}
+              boxShadow={
+                "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+              }
+              _hover={{
+                bg: "blue.500",
+              }}
+              _focus={{
+                bg: "blue.500",
+              }}
+              aria-label="Search database"
+              icon={<DeleteIcon/>}
+            />
+
+            <IconButton
               flex={1}
               fontSize={"sm"}
               rounded={"full"}
@@ -108,33 +134,11 @@ function Usuarios() {
                 bg: "blue.500",
               }}
               maxW="10px"
-            >
-              Follow
-            </Button>
+              icon={<EditIcon/>}
+            />
           </Stack>
         </Center>
-        
-        <Box>
-          <Button
-            flex={1}
-            fontSize={"sm"}
-            rounded={"full"}
-            bg={"blue.400"}
-            color={"white"}
-            boxShadow={
-              "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
-            }
-            _hover={{
-              bg: "blue.500",
-            }}
-            _focus={{
-              bg: "blue.500",
-            }}
-            maxW="10px"
-          >
-            Follow
-          </Button>
-        </Box>
+
       </Box>
     </Center>
   );

@@ -34,7 +34,6 @@ function NavBar({ setPagina, setOrder}) {
 
   const cart = useSelector(state => state.cart)
 
-  console.log(cart)
 
   return (
     <>

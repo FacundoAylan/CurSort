@@ -40,7 +40,6 @@ function Carousel() {
       height={'400px'}
       width={'full'}
       p={1}
-      borderRadius='30px'
       overflow={'hidden'}>
       {/* CSS files for react-slick */}
       <link
@@ -84,10 +83,8 @@ function Carousel() {
       <Slider {...settings} ref={(slider) => setSlider(slider)}>
         {cards.map((url, index) => (
           <Image
-          height={'6xl'}
           position="relative"
-          boxSize='600px'
-          objectFit='cover'
+          h={{ base: "100%", sm: "20px", lg: "400px" }}
           src={url}
           alt='Dan Abramov'
         />
