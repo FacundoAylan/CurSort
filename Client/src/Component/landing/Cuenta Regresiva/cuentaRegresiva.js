@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React from 'react';
 import {
   Box,
   Stack,
@@ -11,33 +11,19 @@ import {
   ListItem,
   ListIcon,
   Button,
+  Container,
 } from '@chakra-ui/react';
 import { FaCheckCircle } from 'react-icons/fa';
-
-function PriceWrapper({ children }) {
-  return (
-    <Box
-      mb={4}
-      shadow="base"
-      borderWidth="1px"
-      alignSelf={{ base: 'center', lg: 'flex-start' }}
-      borderColor={useColorModeValue('gray.200', 'gray.500')}
-      borderRadius={'xl'}>
-      {children}
-    </Box>
-  );
-}
 
 function Regresiva() {
   return (
     <Box py={1}>
-      <VStack spacing={2} textAlign="center">
+      <VStack>
         <Heading as="h1" fontSize="4xl" color='white'>
-          Suscripción
+          Elige tu plan
         </Heading>
         <Text fontSize="lg" color={'white'}>
-          Start with 14-day free trial. No credit card needed. Cancel at
-          anytime.
+          Comience con una prueba gratuita de 14 días. No se necesita tarjeta de crédito. Cancelar en cualquier momento..
         </Text>
       </VStack>
       <Stack
@@ -47,50 +33,51 @@ function Regresiva() {
         spacing={{ base: 4, lg: 10 }}
         py={10}
         >
-        <PriceWrapper >
-          <Box py={4} px={12}>
-            <Text fontWeight="500" fontSize="2xl" color='white'>
-              Hobby
+        <Container bg='white' w='20%' p={0} m={0} borderRadius='12px' border='2px' borderColor='#3E4AB8' h='20%'>
+          <Box py={0} px={12}>
+            <Text fontWeight="500" fontSize="2xl" color='black'>
+              Experto
             </Text>
-            <HStack justifyContent="center" color='white'>
+            <HStack justifyContent="center" color='black'>
               <Text fontSize="3xl" fontWeight="600">
                 $
               </Text>
-              <Text fontSize="5xl" fontWeight="900" color='white'>
+              <Text fontSize="5xl" fontWeight="900" color='black'>
                 79
               </Text>
-              <Text fontSize="3xl"  color='white'>
+              <Text fontSize="3xl"  color='black'>
                 /month
               </Text>
             </HStack>
           </Box>
           <VStack
             bg={useColorModeValue('#3E4AB8', 'gray.700')}
-            py={4}
-            borderBottomRadius={'xl'}>
+            py={1}
+          >
             <List spacing={3} textAlign="start" px={12}>
               <ListItem>
                 <ListIcon as={FaCheckCircle} color="green.500" />
-                unlimited build minutes
+                Más de 1000 cursos y 21 escuelas
               </ListItem>
               <ListItem>
                 <ListIcon as={FaCheckCircle} color="green.500" />
-                Lorem, ipsum dolor.
+                Certificado digital de cursos y escuelas
               </ListItem>
               <ListItem>
                 <ListIcon as={FaCheckCircle} color="green.500" />
-                5TB Lorem, ipsum dolor.
+                Clases online en vivo
               </ListItem>
+              
             </List>
-            <Box w="80%" pt={7}>
-              <Button w="full" colorScheme="red" variant="outline">
-                Start trial
+            <Box w="80%" pt={2}>
+              <Button w="full" colorScheme="red" >
+                Suscribete a Experto
               </Button>
             </Box>
           </VStack>
-        </PriceWrapper>
+        </Container>
 
-        <PriceWrapper>
+        <Container bg='white' w='20%' p={0} m={0} borderRadius='12px' border='2px' borderColor='#3E4AB8'>
           <Box position="relative">
             <Box
               position="absolute"
@@ -102,105 +89,102 @@ function Regresiva() {
                 bg={useColorModeValue('#3E4AB8', 'red.700')}
                 px={3}
                 py={1}
-                color='white'
+                color='black'
                 fontSize="sm"
                 fontWeight="600"
                 rounded="xl">
-                Most Popular
+                Mas Popular
               </Text>
             </Box>
-            <Box py={4} px={12}>
-              <Text fontWeight="500" fontSize="2xl" color='white'>
-                Growth
+            <Box py={2} px={12}>
+              <Text fontWeight="500" fontSize="2xl" color='black'>
+                Basico
               </Text>
               <HStack justifyContent="center">
-                <Text fontSize="3xl" fontWeight="600" color='white'>
+                <Text fontSize="3xl" fontWeight="600" color='black'>
                   $
                 </Text>
-                <Text fontSize="5xl" fontWeight="900" color='white'>
+                <Text fontSize="5xl" fontWeight="900" color='black'>
                   149
                 </Text>
-                <Text fontSize="3xl"  color='white'>
+                <Text fontSize="3xl"  color='black'>
                   /month
                 </Text>
               </HStack>
             </Box>
             <VStack
               bg={useColorModeValue('#3E4AB8', 'gray.700')}
-              py={4}
+              py={2}
               borderBottomRadius={'xl'}>
               <List spacing={3} textAlign="start" px={12}>
                 <ListItem>
                   <ListIcon as={FaCheckCircle} color="green.500" />
-                  unlimited build minutes
+                  Clases grabadas.
                 </ListItem>
                 <ListItem>
                   <ListIcon as={FaCheckCircle} color="green.500" />
-                  Lorem, ipsum dolor.
+                  5% de descuento.
                 </ListItem>
                 <ListItem>
                   <ListIcon as={FaCheckCircle} color="green.500" />
-                  5TB Lorem, ipsum dolor.
+                  3 cursos gratis.
                 </ListItem>
                 <ListItem>
                   <ListIcon as={FaCheckCircle} color="green.500" />
-                  5TB Lorem, ipsum dolor.
-                </ListItem>
-                <ListItem>
-                  <ListIcon as={FaCheckCircle} color="green.500" />
-                  5TB Lorem, ipsum dolor.
+                  certificado cursos online.
                 </ListItem>
               </List>
-              <Box w="80%" pt={7}>
+              <Box w="80%" pt={1}>
                 <Button w="full" colorScheme="red">
-                  Start trial
+                  Suscribete a Basico
                 </Button>
               </Box>
             </VStack>
           </Box>
-        </PriceWrapper>
-        <PriceWrapper>
-          <Box py={4} px={12}>
-            <Text fontWeight="500" fontSize="2xl" color='white'>
-              Scale
+        </Container>
+
+        <Container bg='white' w='20%' p={0} m={0} borderRadius='12px' border='2px' borderColor='#3E4AB8' h='20%'>
+          <Box py={0} px={12}>
+            <Text fontWeight="500" fontSize="2xl" color='black'>
+              Premium
             </Text>
             <HStack justifyContent="center">
-              <Text fontSize="3xl" fontWeight="600" color='white'>
+              <Text fontSize="3xl" fontWeight="600" color='black'>
                 $
               </Text>
-              <Text fontSize="5xl" fontWeight="900" color='white'>
+              <Text fontSize="5xl" fontWeight="900" color='black'>
                 349
               </Text>
-              <Text fontSize="3xl" color='white'>
+              <Text fontSize="3xl" color='black'>
                 /month
               </Text>
             </HStack>
           </Box>
           <VStack
             bg={useColorModeValue('#3E4AB8', 'gray.700')}
-            py={4}
+            py={3}
             borderBottomRadius={'xl'}>
             <List spacing={3} textAlign="start" px={12}>
               <ListItem>
                 <ListIcon as={FaCheckCircle} color="green.500" />
-                unlimited build minutes
+                Certificado digital de cursos y escuelas
               </ListItem>
               <ListItem>
                 <ListIcon as={FaCheckCircle} color="green.500" />
-                Lorem, ipsum dolor.
+                Profesores 24 horas.
               </ListItem>
               <ListItem>
                 <ListIcon as={FaCheckCircle} color="green.500" />
-                5TB Lorem, ipsum dolor.
+                clases ilimitadas.
               </ListItem>
             </List>
-            <Box w="80%" pt={7}>
-              <Button w="full" colorScheme="red" variant="outline">
-                Start trial
+            <Box w="80%" pt={5}>
+              <Button w="full" colorScheme="red">
+                Suscribete a Premium
               </Button>
             </Box>
           </VStack>
-        </PriceWrapper>
+        </Container>
       </Stack>
     </Box>
   );

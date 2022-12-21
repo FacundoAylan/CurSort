@@ -40,7 +40,6 @@ function Home() {
     //alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
     dispatch(getCourses(""));
   }
-
   return (
     <Container maxW="100%" p="0" heightMode="min">
       <Box background="#3E4AB8" maxW="100%" maxH="50%">
@@ -65,7 +64,7 @@ function Home() {
                       image={value.image}
                       price={value.price}
                       id={value.id}
-                      category={value.categories[0]}
+                      categories={value.categories}
                     />
                   </GridItem>
                 );

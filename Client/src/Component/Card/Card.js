@@ -63,7 +63,7 @@ function Rating({ rating }) {
   );
 }
 
-function Cards({ name, image, price, id, category }) {
+function Cards({ name, image, price, id, categories }) {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses);
   const cart = useSelector((state) => state.cart);
@@ -92,7 +92,6 @@ function Cards({ name, image, price, id, category }) {
       timer: 1500
     })
   };
-
   return (
     <Link to={`/detalle/${id}`} className="linkStart">
       <Grid
@@ -130,7 +129,7 @@ function Cards({ name, image, price, id, category }) {
           <Center fontSize="100%" pt={2}>
             {name}
           </Center>
-          <Center>{category}</Center>
+          <Center>{categories}</Center>
           {/* nombre del course */}
 
           {/* puntuacion */}

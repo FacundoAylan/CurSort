@@ -14,7 +14,7 @@ function Detalle() {
   const dispatch = useDispatch();
   const course = useSelector(state => state.courseDetail)
   const history = useHistory();
-
+  console.log(course)
     useEffect(() => {
         dispatch(getDetail(id));
     }, [dispatch, id]);
@@ -30,8 +30,8 @@ function Detalle() {
         history.push('/cart');
     }
   return (
-    <Container maxW={"100%"} bg="Black" color="white" m={0} p={2}>
-      <Box pt="30px">
+    <Container maxW={"100%"} bg="Black" color="white" m={0} p={0}>
+      <Box pt="10px">
         <Link to="/home" className="backCreate">
           <IconButton
             colorScheme="blue"
@@ -43,17 +43,15 @@ function Detalle() {
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 1, md: 10 }}
-        py={{ base: 1, md: 24 }}
+        py={{ base: 1, md: 10 }}
       >
         <Flex>
-          <Image
+        <Image
             rounded={"md"}
             alt={"product image"}
             src={course.image}
-            fit={"cover"}
-            align={"center"}
             w={"100%"}
-            h={{ base: "100%", sm: "400px", lg: "500px" }}
+            h={{ base: "100%", sm: "20px", lg: "450px" }}
           />
         </Flex>
         <Stack spacing={{ base: 2, md: 10 }}>
