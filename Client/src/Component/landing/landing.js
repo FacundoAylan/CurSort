@@ -6,6 +6,7 @@ import{Box, Center} from "@chakra-ui/react";
 import Student from './student/student';
 import Footer from "./footer/footer";
 import Promociones from "./Promociones/Promociones";
+import Nosotros from "./nosotros/nosotros";
 
 function Landing () {
   return (
@@ -30,10 +31,16 @@ function Landing () {
         <Student />
       </Box>
       {/* Promociones  */}
-      <Box maxW="100%" bg="rgba(0, 0, 0, 0.774)">
+      <Box maxW="100%" bg='#191E29'>
         <Regresiva />
       </Box>
       {/* Promociones */}
+      <Box p={6}>
+        <Center color='white' fontSize={35} p={4}>
+          ¿Quienes somos?
+        </Center>
+        <Nosotros/>
+      </Box>
 
       <Box mt="2%">
         <Footer />

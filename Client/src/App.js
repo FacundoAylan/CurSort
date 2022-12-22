@@ -11,7 +11,7 @@ import Admin from './Component/admin/admin';
 
 function App() {
   return (
-    <Container background='rgba(0, 0, 0, 0.774)' minH='100vh' maxW='100%' p={0} >
+    <Container background='#191E29' minH='100vh' maxW='100%' p={0} >
       <Route exact path="/" component={Landing} />
       <Route  path="/home" component={Home} />
       <Route path="/crear" component={Form}/>

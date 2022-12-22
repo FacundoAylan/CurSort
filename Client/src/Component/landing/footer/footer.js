@@ -61,12 +61,14 @@ const ListHeader = ({ children }) => {
 
 function Footer() {
   return (
+    <a name='footer'>
+
     <Box
       bg={useColorModeValue('gray.50', 'gray.900')}
       color={useColorModeValue('gray.700', 'gray.200')}
-      background='#3E4AB8'
+      background='#3E4AB8' 
     >
-      <Container as={Stack} maxW={'6xl'} py={10} color='white'>
+      <Container as={Stack} maxW={'6xl'} py={10} color='white'id='footer' >
         <SimpleGrid
           templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 2fr' }}
           spacing={8}>
@@ -131,6 +133,7 @@ function Footer() {
         </SimpleGrid>
       </Container>
     </Box>
+    </a>
   );
 };
 
