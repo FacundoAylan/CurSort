@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const data = require("./api.json");
 const { Users, Courses, Categories, Reviews } = require("../db");
+const nodemailer = require('nodemailer')
 
 const postCourse = async (req, res) => {
 
@@ -372,6 +373,37 @@ const filterCourses = async (req, res) => {
   }
 };
 
+
+const contactMail =  (req,res) =>{
+
+  const {content,to,subject }= req.body
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: 'cursort.2022@gmail.com', // generated ethereal user
+      pass: 'cghynjlxmrlbasyt', // generated ethereal password
+    },
+  });
+  
+let mailOption = {
+  from: '"Cursort contact" ', // sender address
+  to: "swistoniukpablo@gmail.com", // list of receivers
+  subject: "solicitud de contacto Cursosrt", // Subject line
+  text: content, // plain text body 
+}
+transporter.sendMail(mailOption, (error, info)=>{
+  if(error){
+    res.status(500).send(error.message)
+  }else{
+    res.send('mail enviado con exito')
+  }
+
+})
+
+}
+
 module.exports = {
   postCourse,
   getAllCourses,
@@ -386,4 +418,5 @@ module.exports = {
   getCoursesByDifficulty,
   getCoursesByDuration,
   filterCourses,
+  contactMail
 };
