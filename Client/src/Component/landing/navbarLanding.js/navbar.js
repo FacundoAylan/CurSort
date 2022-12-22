@@ -35,7 +35,9 @@ function NavbarLanding({ setPagina}) {
             <Link to='/Contact'>
               <Button p={4} ml={4}>Contactanos</Button>
             </Link>
-            <Button p={4} ml={4}>Nosotros</Button>
+            <Button p={4} ml={4}>
+              <a href='#footer' p={4} ml={4}>Nosotros</a>
+            </Button>
         </GridItem>
 
       </Grid> 
