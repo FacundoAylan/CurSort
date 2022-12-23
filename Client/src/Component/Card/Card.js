@@ -42,7 +42,7 @@ function Rating({ rating }) {
             return (
               <BsStarFill
                 key={i}
-                color={i < rating ? "teal.500" : "gray.300"}
+                color={i < rating ? "yellow" : "gray.300"}
               />
             );
           }
@@ -63,7 +63,7 @@ function Rating({ rating }) {
   );
 }
 
-function Cards({ name, image, price, id, categories }) {
+function Cards({ name, image, price, id, categories, rating }) {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses);
   const cart = useSelector((state) => state.cart);
@@ -135,7 +135,7 @@ function Cards({ name, image, price, id, categories }) {
           {/* puntuacion */}
           <Box>
             <Center ml="1%">
-              <Rating rating={data.rating} />
+              <Rating rating={rating} />
             </Center>
             {/* puntuacion */}
 

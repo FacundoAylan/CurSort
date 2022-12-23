@@ -1,9 +1,9 @@
 const { Op } = require("sequelize");
 const data = require("./api.json");
 const { Users, Courses, Categories, Reviews } = require("../db");
+const nodemailer = require("nodemailer");
 
 const postCourse = async (req, res) => {
-
   const {
     nombre,
     descripcion,
@@ -12,20 +12,27 @@ const postCourse = async (req, res) => {
     precio,
     imagen,
     dificultad,
-    categoria
+    categoria,
   } = req.body;
 
-  let name, description, instructor, duration, price, image, difficulty,categoryId;
+  let name,
+    description,
+    instructor,
+    duration,
+    price,
+    image,
+    difficulty,
+    categoryId;
 
-  name =nombre.toUpperCase();
+  name = nombre.toUpperCase();
   description = descripcion;
   instructor = instuctor;
   duration = duracion;
   price = precio;
   image = imagen;
   difficulty = dificultad;
-  categoryId = categoria
-  
+  categoryId = categoria;
+
   try {
     // valido que existan los datos obligatorios
     if (!name || !description)
@@ -39,8 +46,7 @@ const postCourse = async (req, res) => {
       price,
       image,
       difficulty,
-      categoryId
-      
+      categoryId,
     });
 
     res.status(200).send("El curso ha sido creado exitosamente!");
@@ -108,74 +114,67 @@ const editCourse = async (req, res) => {
 //la ruta en Postman seria http://localhost:3001/course/load
 
 const loadCoursesToDB = async () => {
-        const coursesDB = await Courses.findAll();
-        const coursesJSON = data.cursos;
-        const categoriesJSON = data.categorys;
-        const categoriesDB = await Categories.findAll();
+  const coursesDB = await Courses.findAll();
+  const coursesJSON = data.cursos;
+  const categoriesJSON = data.categorys;
+  const categoriesDB = await Categories.findAll();
 
-        if(categoriesDB.length === 0){
-            categoriesJSON.forEach(async e=>{
-                
-            await Categories.create({
-                name: e.name
-            })
-            })
+  if (categoriesDB.length === 0) {
+    categoriesJSON.forEach(async (e) => {
+      await Categories.create({
+        name: e.name,
+      });
+    });
+  }
 
-        }
+  if (coursesDB.length === 0) {
+    coursesJSON.forEach(async (e) => {
+      let name, description, rating, image, difficulty, price, categoryId;
 
-        if (coursesDB.length === 0 ) {
-            coursesJSON.forEach(async (e) => {
-                let name, description, rating, image, difficulty, price, categoryId;
+      name = e.nombre.toUpperCase();
+      description = e.descripcion;
+      instructor = e.instructor;
+      price = e.precio;
+      duration = e.duracion;
+      rating = e.rating;
+      image = e.imagen;
+      difficulty = e.dificultad;
+      price = e.precio;
+      categoryId = parseInt(e.idCategoria);
 
-                    name = e.nombre.toUpperCase();
-                    description = e.descripcion;
-                    instructor = e.instructor;
-                    price = e.precio;
-                    duration = e.duracion;
-                    rating = e.rating;
-                    image = e.imagen;
-                    difficulty = e.dificultad;
-                    price = e.precio;
-                    categoryId = parseInt(e.idCategoria);
-                    
-                    await Courses.create({
-                        name,
-                        description,
-                        instructor,
-                        price,
-                        duration,
-                        rating,
-                        image,
-                        difficulty,
-                        price,
-                        categoryId
-                        
-                    });            
-            })
-        }
-
-        
-}
-
+      await Courses.create({
+        name,
+        description,
+        instructor,
+        price,
+        duration,
+        rating,
+        image,
+        difficulty,
+        price,
+        categoryId,
+      });
+    });
+  }
+};
 
 //funcion para buscar el nombre del curso que recibio por query
 const findByName = async (name) => {
-    let courses = await Courses.findAll({
-        where: {
-            name: {
-                [Op.like]: `%${name}%`
-            }
-        },
-        include: [
-            {
-                model: Categories,
-                attributes:['name']
-            }
-        ]
-    });
-    return courses;
-}
-
+  let courses = await Courses.findAll({
+    where: {
+      name: {
+        [Op.like]: `%${name}%`,
+      },
+    },
+    include: [
+      {
+        model: Categories,
+        attributes: ["name"],
+      },
+    ],
+  });
+  return courses;
+};
 
 const getCourseById = async (req, res) => {
   const { id } = req.params;
@@ -185,11 +184,9 @@ const getCourseById = async (req, res) => {
       if (course) {
         res.status(200).json(course);
       } else {
-        res
-          .status(404)
-          .json({
-            message: `No se encontró el curso con el número de id ${id}`,
-          });
+        res.status(404).json({
+          message: `No se encontró el curso con el número de id ${id}`,
+        });
       }
     } else {
       res.status(400).json({ message: "No se ingresó un id" });
@@ -203,45 +200,43 @@ const getCourseById = async (req, res) => {
 //agregue las categorias y saque el review porque no se como poner 2 :P
 const getAllCourses = async (req, res) => {
   try {
-      let name = req.query.name;
-      let courses;
-      if (name) {
-          name = name.toUpperCase()
-          courses = await findByName(name)
-      }
-      else {
-          courses = await Courses.findAll({
-              include: Categories
-          });
-      }
-      courses = courses.map((c) => {
-        return {
-          id: c.id,
-          name: c.name,
-          description: c.description,
-          instructor: c.instructor,
-          duration: c.duration,
-          price: c.price,
-          fecha: c.fecha,
-          rating: c.rating,
-          image: c.image,
-          active : c.active,
-          difficulty: c.difficulty,
-          createdAt: c.createdAt,
-          updatedAt: c.updatedAt,
-          categories: c.categories.map((c)=>c.name)
-        }
-      })
+    let name = req.query.name;
+    let courses;
+    if (name) {
+      name = name.toUpperCase();
+      courses = await findByName(name);
+    } else {
+      courses = await Courses.findAll({
+        include: Categories,
+      });
+    }
+    courses = courses.map((c) => {
+      return {
+        id: c.id,
+        name: c.name,
+        description: c.description,
+        instructor: c.instructor,
+        duration: c.duration,
+        price: c.price,
+        fecha: c.fecha,
+        rating: c.rating,
+        image: c.image,
+        active: c.active,
+        difficulty: c.difficulty,
+        createdAt: c.createdAt,
+        updatedAt: c.updatedAt,
+        categories: c.categories.map((c) => c.name),
+      };
+    });
 
-
-      if (courses.length > 0) {
-          return res.status(200).send(courses)
-      }
-      res.status(404).send({ message: 'No se encontraron cursos' });
+    if (courses.length > 0) {
+      return res.status(200).send(courses);
+    }
+    res.status(404).send({ message: "No se encontraron cursos" });
   } catch (error) {
-      res.status(400).send({ message: error.message });
+    res.status(400).send({ message: error.message });
   }
-}
+};
 
 //se postea una review y se asocia con el ID del curso
 const postReview = async (req, res) => {
@@ -314,14 +309,14 @@ const getCategories = async (req, res) => {
 };
 
 const postCategory = async (req, res) => {
-    const {name} = req.body
-    try{
-        await Categories.create({name});
-        res.status(200).send('La categoría ha sido creada con éxito.');
-    }catch(error){
-        res.status(400).send(`ocurrio un error ${error}`);
-    } 
-}
+  const { name } = req.body;
+  try {
+    await Categories.create({ name });
+    res.status(200).send("La categoría ha sido creada con éxito.");
+  } catch (error) {
+    res.status(400).send(`ocurrio un error ${error}`);
+  }
+};
 
 //filtra cursos por categorias
 const getCoursesByCategory = async (req, res) => {
@@ -335,8 +330,7 @@ const getCoursesByCategory = async (req, res) => {
       },
     },
   });
-  
-  
+
   if (id) {
     const filterCategory = courses.filter((course) =>
       course.categories.find((categorie) => categorie.id == id)
@@ -427,6 +421,45 @@ const filterCourses = async (req, res) => {
   }
 };
 
+const contactMail = (req, res) => {
+  const {name, mail, message } = req.body;
+  
+  if(!name)res.status(500).json('Debe incluir el nombre. Vuelva a intenar')
+  
+  // let newText = `${name} - ${email} - ${content}`
+  let html = `<div>
+    <h3> Name - ${name}</h3>
+    <h3> Mail - ${mail}</h3>
+    <h2>Message - ${message}</h2>
+  </div>`
+
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: "cursort.2022@gmail.com", // generated ethereal user
+      pass: "cghynjlxmrlbasyt", // generated ethereal password
+    },
+  });
+
+  let mailOption = {
+    from: 'Cursort contact', // sender address
+    to: "cursort.2022@gmail.com" , // list of receivers
+    subject: 'Cotact Form', // Subject line
+    // text: newText, // plain text body
+    html: html
+  };
+  transporter.sendMail(mailOption, (error, info) => {
+    if (error) {
+      res.status(500).json(error.message);
+    } else {
+     
+      res.status(200).json("Email enviado con exito");
+    }
+  });
+};
+
 module.exports = {
   postCourse,
   getAllCourses,
@@ -441,5 +474,5 @@ module.exports = {
   getCoursesByDifficulty,
   getCoursesByDuration,
   filterCourses,
-  editCourse,
+  contactMail,
 };

@@ -35,7 +35,7 @@ function Home() {
   useEffect(() => {
     dispatch(getCourses(""));
   }, [dispatch]);
-
+  
   if (info <= 1) {
     //alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
     dispatch(getCourses(""));
@@ -65,6 +65,7 @@ function Home() {
                       price={value.price}
                       id={value.id}
                       categories={value.categories}
+                      rating={value.rating}
                     />
                   </GridItem>
                 );

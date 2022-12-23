@@ -22,28 +22,13 @@ import Title from './title/title';
 import Search from './search/search'
 import { GrCart } from 'react-icons/gr';
 import { useSelector } from 'react-redux';
-import { BsConeStriped } from 'react-icons/bs';
 
 
 function NavBar({ setPagina, setOrder}) {
 
   // const {isAuthenticated, user} = useAuth0()
 
-  const {isAuthenticated, user} = useAuth0()
-  const [name, setName] = useState("")
-  const dispatch = useDispatch();
-  const reset = () =>{
-    dispatch(getCourses(''));
-  }
-/* 
-  function handleorderName(e){
-    console.log(handleOrderByName)
-    e.preventDefault();
-    dispatch(handleOrderByName(e.target.value))
-    //setCurrentPage(1);
-    setOrden(e.target.value)
-    
-} */
+  const {isAuthenticated} = useAuth0()
 
   // const reset = () =>{
   //   dispatch(getCourses(''));

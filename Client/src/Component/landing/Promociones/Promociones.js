@@ -1,4 +1,4 @@
-import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, CloseButton, Flex, useDisclosure } from '@chakra-ui/react';
+import { Alert, AlertDescription, Box, Button, CloseButton, Flex, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import { BiRocket } from 'react-icons/bi';
 
@@ -14,11 +14,11 @@ function Promociones() {
       <Box w='100%'>
         <AlertDescription >
           <Flex ml='25%' >
-            <BiRocket color='black' fontSize={25}/>
+            <BiRocket color='#191E29' fontSize={25}/>
             <Box pl={2} pr={2}>
              Semana de Carreras  Aprovechá 35% OFF en carreras + 12 cuotas sin interés  Hasta el 18/12 
             </Box>
-            <BiRocket color='black' fontSize={25}/>
+            <BiRocket color='#191E29' fontSize={25}/>
           </Flex>
         </AlertDescription>
       </Box>

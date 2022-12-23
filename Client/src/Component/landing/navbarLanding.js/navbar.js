@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import {
   Grid,
@@ -11,10 +11,8 @@ import {
 } from "@chakra-ui/react";
 
 
-function NavbarLanding({ setPagina}) {
+function NavbarLanding() {
   // const {isAuthenticated, user} = useAuth0()
-
-  const {isAuthenticated, user} = useAuth0()
 
   return (
     <Flex>
@@ -35,7 +33,9 @@ function NavbarLanding({ setPagina}) {
             <Link to='/Contact'>
               <Button p={4} ml={4}>Contactanos</Button>
             </Link>
-            <Button p={4} ml={4}>Nosotros</Button>
+            <Button p={4} ml={4}>
+              <a href='#footer' p={4} ml={4}>Nosotros</a>
+            </Button>
         </GridItem>
 
       </Grid> 
