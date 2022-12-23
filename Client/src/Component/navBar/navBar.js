@@ -4,6 +4,9 @@ import LoginButton from '../LoginButton/LoginButton'
 import LogoutButton from '../LogoutButton/LogoutButton'
 // import Profile from '../Profile/Profile'
 import { useAuth0 } from "@auth0/auth0-react";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getCourses } from '../../Redux/actions';
 
 import {
   Box,
@@ -27,8 +30,6 @@ function NavBar({ setPagina, setOrder}) {
   // const {isAuthenticated, user} = useAuth0()
 
   const {isAuthenticated, user} = useAuth0()
-
-<<<<<<< HEAD
   const [name, setName] = useState("")
   const dispatch = useDispatch();
   const reset = () =>{
@@ -44,13 +45,12 @@ function NavBar({ setPagina, setOrder}) {
     
 } */
 
-=======
   // const reset = () =>{
   //   dispatch(getCourses(''));
   // }
 
   const cart = useSelector(state => state.cart)
->>>>>>> 9125ac289a3c1ba46ed437d655d11b2f1850e1cf
+
 
 
   return (
