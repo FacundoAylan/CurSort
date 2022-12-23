@@ -19,14 +19,13 @@ import Title from './title/title';
 import Search from './search/search'
 import { GrCart } from 'react-icons/gr';
 import { useSelector } from 'react-redux';
-import { BsConeStriped } from 'react-icons/bs';
 
 
 function NavBar({ setPagina, setOrder}) {
 
   // const {isAuthenticated, user} = useAuth0()
 
-  const {isAuthenticated, user} = useAuth0()
+  const {isAuthenticated} = useAuth0()
 
   // const reset = () =>{
   //   dispatch(getCourses(''));

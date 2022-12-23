@@ -6,13 +6,12 @@ import {
   Heading,
   CardBody,
   Text,
-  Button,
-  CardFooter,
   Center,
 } from "@chakra-ui/react";
 
 function Student() {
   return (
+    <a name='estudiantes' href=''>
     <SimpleGrid
       spacing={2}
       templateColumns="repeat(3,1fr)"
@@ -81,6 +80,7 @@ Valoro enormemente el profesionalismo de los tutores....</Text>
         </CardBody>
       </Card>
     </SimpleGrid>
+    </a>
   );
 }
 

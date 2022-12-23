@@ -1,10 +1,10 @@
 
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
-import { Image, Stack, Heading, Text, Button, Box, ListItem, List, SimpleGrid, StackDivider, VStack, Flex, Container, useColorModeValue, IconButton, HStack} from '@chakra-ui/react';
+import { Image, Stack, Heading, Text, Button, Box, ListItem, List, SimpleGrid, StackDivider, Flex, Container, useColorModeValue, IconButton, HStack, Center} from '@chakra-ui/react';
 import { useDispatch, useSelector } from "react-redux";
 import { getDetail, addToCart, getCourses  } from "../../Redux/actions";
-import { BsGithub} from 'react-icons/bs';
+import { BsGithub, BsStar, BsStarFill, BsStarHalf} from 'react-icons/bs';
 import { ArrowLeftIcon } from '@chakra-ui/icons'
 
 
@@ -13,6 +13,7 @@ function Detalle() {
   let { id } = useParams();
   const dispatch = useDispatch();
   const course = useSelector(state => state.courseDetail)
+  const [rating, setRating] = useState(4);
   const history = useHistory();
   console.log(course)
     useEffect(() => {
@@ -29,10 +30,51 @@ function Detalle() {
         dispatch(addToCart(id));
         history.push('/cart');
     }
+
+    function Rating({ rating }) {
+      return (
+        <Center>
+        <Flex maxW="200%" h='50px'>
+          {Array(5)
+            .fill("")
+            .map((_, i) => {
+              const roundedRating = Math.round(rating * 2) / 2;
+              if (roundedRating - i >= 1) {
+                return (
+                  <Button bg='none'>
+                    <BsStarFill
+                      key={i}
+                      color={i < rating ? "yellow" : "gray.300"}
+                    />
+                  </Button>
+                );
+              }
+              if (roundedRating - i === 0.5) {
+                return (
+                  <Button bg='none'>
+                    <BsStarHalf
+                      background="white"
+                      key={i}
+                      style={{ marginLeft: "1" }}
+                    />
+                  </Button>
+                );
+              }
+              return (
+                <Button bg='none' onClick={setRating(i)}>
+                  <BsStar background="white" key={i} style={{ marginLeft: "1" }} />
+                </Button>
+              );
+            })}
+        </Flex>
+        </Center>
+      );
+    }
+    console.log(rating)
   return (
     <Container maxW={"100%"} bg="Black" color="white" m={0} p={0}>
       <Box pt="10px">
-        <Link to="/home" className="backCreate">
+        <Link to="/home">
           <IconButton
             colorScheme="blue"
             aria-label="Search database"
@@ -63,6 +105,9 @@ function Detalle() {
             >
               {course.name}
             </Heading>
+
+            <Rating rating={rating}/>
+
             <Text fontWeight={300} fontSize={"2xl"} color="white">
               {`$${course.price} USD`}
             </Text>

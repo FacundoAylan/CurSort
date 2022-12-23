@@ -1,4 +1,4 @@
-import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, CloseButton, Flex, useDisclosure } from '@chakra-ui/react';
+import { Alert, AlertDescription, Box, Button, CloseButton, Flex, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import { BiRocket } from 'react-icons/bi';
 

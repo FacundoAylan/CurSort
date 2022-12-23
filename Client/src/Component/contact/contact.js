@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import {contact} from '../../Redux/actions/index';
+import { useDispatch } from "react-redux";
 import {
   Container,
   Flex,
@@ -22,11 +24,37 @@ import { MdPhone, MdEmail, MdLocationOn, MdOutlineEmail } from "react-icons/md";
 import { BsGithub, BsPerson } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
+import Swal from "sweetalert2";
 
 function Contact() {
+  const [user, setUsers] = useState(
+    {
+      "name": '',
+      "email": '',
+      "message": ''
+    });
+    const dispatch = useDispatch();
+  const mensaje = (e) => {
+    setUsers({
+      ...user,
+      [e.target.id]: e.target.value
+    })
+  }
+  const send = () => {
+    dispatch(contact(user))
+    Swal.fire({
+        position: "top-center",
+        icon: 'success',
+        title: `Consulta enviada con exito`,
+        fontSize: "5px",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+  }
+
   return (
     <Container bg="#3E4AB8" maxW="full" mt={0} centerContent overflow="hidden">
-      <Box p="2px" mr="100px">
+      <Box mr='99%' pt='4px'>
         <Link to="/home">
           <IconButton
             colorScheme="blue"
@@ -66,14 +94,14 @@ function Contact() {
                       </Button>
                       <Button
                         size="md"
-                        height="48px"
-                        width="200px"
+                        height="55px"
+                        width="220px"
                         variant="ghost"
                         color="#DCE2FF"
                         _hover={{ border: "2px solid #1C6FEB" }}
                         leftIcon={<MdEmail color="#1970F1" size="20px" />}
                       >
-                        Cursort@gmail.com
+                        cursort.2022@gmail.com
                       </Button>
                       <Button
                         size="md"
@@ -119,7 +147,7 @@ function Contact() {
                             pointerEvents="none"
                             children={<BsPerson color="gray.800" />}
                           />
-                          <Input type="text" size="md" />
+                          <Input type="text" size="md" id='name' onChange={mensaje} />
                         </InputGroup>
                       </FormControl>
                       <FormControl id="name">
@@ -129,7 +157,7 @@ function Contact() {
                             pointerEvents="none"
                             children={<MdOutlineEmail color="gray.800" />}
                           />
-                          <Input type="text" size="md" />
+                          <Input type="text" size="md"  id='email' onChange={mensaje}/>
                         </InputGroup>
                       </FormControl>
                       <FormControl id="name">
@@ -140,6 +168,7 @@ function Contact() {
                             borderRadius: "gray.300",
                           }}
                           placeholder="message"
+                          id='message' onChange={mensaje}
                         />
                       </FormControl>
                       <FormControl id="name" float="right">
@@ -148,6 +177,7 @@ function Contact() {
                           bg="#0D74FF"
                           color="white"
                           _hover={{}}
+                          onClick={send}
                         >
                           Send Message
                         </Button>
