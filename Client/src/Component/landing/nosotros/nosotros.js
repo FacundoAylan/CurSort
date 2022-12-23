@@ -1,9 +1,9 @@
 import { Avatar, AvatarBadge, Box, Button, Center, Stack, Text } from "@chakra-ui/react";
 import React from "react";
-import { Link } from "react-router-dom";
 
 function Nosotros () {
   return (
+    <a name='footer' href=''>
     <Center>
       <Stack direction="row" spacing={3} color='white'>
 
@@ -90,6 +90,7 @@ function Nosotros () {
         </Box>
       </Stack>
     </Center>
+    </a>
   );
 }
 

@@ -6,17 +6,10 @@ import {
   Center,
   Text,
   Stack,
-  Button,
-  Link,
   Badge,
   useColorModeValue,
   IconButton,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-  Slider,
   Switch,
-  FormLabel,
 } from '@chakra-ui/react';
 import {DeleteIcon, EditIcon} from '@chakra-ui/icons';
 

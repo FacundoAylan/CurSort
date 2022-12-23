@@ -1,9 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Box,
   chakra,
   Container,
-  Link,
   SimpleGrid,
   Stack,
   Text,
@@ -61,7 +61,7 @@ const ListHeader = ({ children }) => {
 
 function Footer() {
   return (
-    <a name='footer'>
+    <>
 
     <Box
       bg={useColorModeValue('gray.50', 'gray.900')}
@@ -95,9 +95,9 @@ function Footer() {
             <ListHeader>Company</ListHeader>
             <Link href={'#'}>About us</Link>
             <Link href={'#'}>Blog</Link>
-            <Link href={'#'}>Contact us</Link>
+            <Link to='/Contact'>Contactanos</Link>
             <Link href={'#'}>Pricing</Link>
-            <Link href={'#'}>Testimonials</Link>
+            <a href='#estudiantes' p={4} ml={4}>Estudiantes</a>
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Support</ListHeader>
@@ -133,7 +133,7 @@ function Footer() {
         </SimpleGrid>
       </Container>
     </Box>
-    </a>
+    </>
   );
 };
 

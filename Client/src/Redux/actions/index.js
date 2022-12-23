@@ -199,4 +199,11 @@ export function clearCart(){
   return {
     type: CLEAR_CART,
   }
+};
+
+export function contact(payload) {
+  return async function (dispatch) {
+    let json = await axios.post('http://localhost:3001/contact/send-email', payload);
+    return json;
+  }
 }
