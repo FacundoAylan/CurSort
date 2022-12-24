@@ -291,8 +291,8 @@ function Form() {
   const history = useHistory()
 
   useEffect(() => {
-    dispatch(getCategory);
-  }, [dispatch]);
+    dispatch(getCategory());
+  }, []);
   
   const toast = useToast();
   const [step, setStep] = useState(1);
@@ -430,10 +430,10 @@ function Form() {
                     duration: 3000,
                     isClosable: true,
                   });
-                  history.push('/home')
-                }
-              
-              }
+                  setTimeout(function(){
+                    window.history.back()
+                }, 1000)
+                }}
               >
                 Submit
               </Button>

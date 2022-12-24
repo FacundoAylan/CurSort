@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 
 import { Grid, Button } from '@chakra-ui/react'
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getCategory, filterCategory } from "../../Redux/actions";
 
 
@@ -14,7 +13,7 @@ const FilterCategory = () => {
   }, [dispatch]);
 
 
-  const categories = useSelector(state => state.categories)
+  const categories = useSelector((state) => state.categories)
   const handleCategory = (e) => {    
     dispatch(filterCategory(e.target.value)); 
   };
