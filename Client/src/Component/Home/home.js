@@ -11,7 +11,7 @@ import {
 import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
 import Paginado from "../paginado/paginado";
-import { getCourses } from "../../Redux/actions";
+import { getCategory, getCourses } from "../../Redux/actions";
 // import CreateCategory from "../CreateCategory/CreateCategory";
 import Footer from "../landing/footer/footer";
 
