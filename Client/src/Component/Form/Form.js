@@ -288,8 +288,8 @@ function Form() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getCategory);
-  }, [dispatch]);
+    dispatch(getCategory());
+  }, []);
   
   const toast = useToast();
   const [step, setStep] = useState(1);
@@ -425,6 +425,9 @@ function Form() {
                     duration: 3000,
                     isClosable: true,
                   });
+                  setTimeout(function(){
+                    window.history.back()
+                }, 1000)
                 }}
               >
                 Submit
