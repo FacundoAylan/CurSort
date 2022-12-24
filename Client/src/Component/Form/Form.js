@@ -33,9 +33,9 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
-
+import { useHistory } from "react-router-dom";
 const Form1 = ({ input, setInput, isError }) => {
-
+  
   const handleInputChange = (e) => {
     e.target.id === "duracion" ||
     e.target.id === "precio" ||
@@ -145,6 +145,7 @@ const Form2 = ({ input, setInput, categories, isError }) => {
       ? setInput({ ...input, [e.target.id]: Number(e.target.value) })
       : setInput({ ...input, [e.target.id]: e.target.value });
   };
+  console.log(categories)
 
   return (
     <>
@@ -178,7 +179,7 @@ const Form2 = ({ input, setInput, categories, isError }) => {
             onChange={handleInputChange}
           >
             {categories &&
-              categories.map((el) => <option value={el.id}>{el.name}</option>)}
+              categories.map((d) => (<option value={d.id}>{d.name}</option>))}
           </Select>
           {!isError.categoria ? (
             <FormHelperText color={"green"}>categoria valida</FormHelperText>
@@ -253,6 +254,7 @@ const Form4 = ({ input, setInput, isError }) => {
     e.target.id === "categoria"
       ? setInput({ ...input, [e.target.id]: Number(e.target.value) })
       : setInput({ ...input, [e.target.id]: e.target.value });
+      
   };
   return (
     <>
@@ -286,6 +288,7 @@ function Form() {
   
   const categories = useSelector((state) => state.categories);
   const dispatch = useDispatch();
+  const history = useHistory()
 
   useEffect(() => {
     dispatch(getCategory);
@@ -427,7 +430,10 @@ function Form() {
                     duration: 3000,
                     isClosable: true,
                   });
-                }}
+                  history.push('/home')
+                }
+              
+              }
               >
                 Submit
               </Button>

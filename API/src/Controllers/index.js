@@ -475,4 +475,5 @@ module.exports = {
   getCoursesByDuration,
   filterCourses,
   contactMail,
+  editCourse,
 };

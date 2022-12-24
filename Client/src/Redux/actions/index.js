@@ -34,13 +34,13 @@ export function getCourses(name) {
 
 }
 
-export function courseEdit(payload){
+ export function courseEdit(payload){
     return async function(dispatch){
       const edit = await axios.put('http://localhost:3001/courses/coursedetail', payload);
       return edit;
     }
 }
-
+ 
 
 export function getDetail(id) {
   return async (dispatch) => {
