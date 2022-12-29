@@ -9,9 +9,6 @@ module.exports = (sequelize) => {
     lastname: {
       type: DataTypes.STRING,
     },
-    password: {
-      type: DataTypes.STRING,
-    },
     admin: {
       type: DataTypes.BOOLEAN,
       defualtValue: false
@@ -20,9 +17,13 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN,
       defualtValue: true
     },
-    mail: {
+    email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique:true
+    },
+    email_verified:{
+      type: DataTypes.BOOLEAN
     },
     birthday: {
       type: DataTypes.STRING
