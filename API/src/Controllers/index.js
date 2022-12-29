@@ -201,16 +201,36 @@ const postReview = async (req, res) => {
 
 //Crear un nuevo usuario (ruta de prueba para deshabilitar usuarios)
 const createUser = async (req, res) => {
-  const { name, lastname, password, mail, birthday } = req.body;
+  const user = req.body;
+
+  console.log(user.email);
+
+  let name, lastname, email, email_verified, birthday;
+
+  name = user.given_name || user.name;
+  lastname = user.family_name || "";
+  email = user.email;
+  email_verified = user.email_verified;
+  birthday = "";
+  admin = false,
+  active = true
+
   try {
-    const user = await Users.create({
-      name,
-      lastname,
-      password,
-      mail,
-      birthday,
-    });
-    res.status(200).json(user);
+    const [usuario,craeted] = await Users.findOrCreate(
+      {
+        where : {email: user.email},
+        defaults: {
+          name,
+          lastname,
+          email,
+          email_verified,
+          birthday,
+          admin,
+          active
+        }
+
+      });
+    res.status(200).json({usuario, craeted});
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
