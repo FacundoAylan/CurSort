@@ -6,6 +6,7 @@ import {
   Container,
   Box,
   Center,
+  Text,
   // Image,
 } from "@chakra-ui/react";
 import Cards from "../Card/Card";
@@ -14,42 +15,39 @@ import Paginado from "../paginado/paginado";
 import { getCategory, getCourses } from "../../Redux/actions";
 // import CreateCategory from "../CreateCategory/CreateCategory";
 import Footer from "../landing/footer/footer";
+import CarouselHome from "./currucelHome";
 
 
 // importo el json desde la api
 // var data = require("./api.json");
 
 function Home() {
-  let info = useSelector(
-    (state) => state.courses,
-    () => false
-  ); // el false, verifica el estado anterior
-  // console.log(info)
-  const dispatch = useDispatch();
+  const categories = useSelector(state => state.categories)
+
   const [pagina, setPagina] = useState(1);
   const porPagina = 6;
-  const maximo = Math.ceil(info.length / porPagina);
+  // const maximo = Math.ceil(info.length / porPagina);
 
   let [order, setOrder] = useState("");
 
-  useEffect(() => {
-    dispatch(getCourses(""));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getCourses(""));
+  // }, [dispatch]);
   
-  if (info <= 1) {
-    //alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
-    dispatch(getCourses(""));
-  }
+  // if (info <= 1) {
+  //   //alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
+  //   dispatch(getCourses(""));
+  // }
   return (
     <Container maxW="100%" p="0" heightMode="min">
       <Box background="#3E4AB8" maxW="100%" maxH="50%">
         <NavBar setOrder={setOrder} setPagina={setPagina} />
       </Box>
-      <Center mt="1%">
+      {/* <Center mt="1%">
         <Paginado pagina={pagina} setPagina={setPagina} maximo={maximo} />
-      </Center>
+      </Center> */}
       <Box h="40%" maxW="100%">
-        <Grid templateColumns="repeat(6, 0.2fr)" gap={4} pt={4} p={5} m={0}>
+        {/* <Grid templateColumns="repeat(6, 0.2fr)" gap={4} pt={4} p={5} m={0}>
           {info &&
             info
               .slice(
@@ -70,7 +68,20 @@ function Home() {
                   </GridItem>
                 );
               })}
-        </Grid>
+        </Grid> */}
+        {categories &&
+        categories.slice(0,3).map((value) => {
+          return (
+            <>
+              <Center pt='10px'>
+                  <Text color='white'>{value.name.toUpperCase()}</Text>
+              </Center>
+              <CarouselHome categorie={value.name}/>
+
+            </>
+          )
+        }
+        )}
       </Box>
 
       <Box mt={7}>
