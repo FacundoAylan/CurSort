@@ -28,7 +28,11 @@ const FilterCategory = () => {
       <Button onClick={(e) => handleCategory(e)} key='all' value='all'>All</Button>
         {categories &&
             categories.map((e) => {
-              return <Button onClick={(e) => handleCategory(e)} key={e.id} value={e.name}>{e.name}</Button>
+              return( 
+              <Button>
+                <a href={`#${e.name}`} p={4} ml={4}>{e.name}</a>
+              </Button>
+              )
             })}
 
     </Grid>

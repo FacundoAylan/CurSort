@@ -96,15 +96,15 @@ function Cards({ name, image, price, id, categories, rating }) {
     <Link to={`/detalle/${id}`} className="linkStart">
       <Grid
         p={0}
-        templateRows=" 55% 45%"
+        templateRows=" 45% 55%"
         background="#3E4AB8"
-        h="330px"
+        h="400px"
         color="black"
-        borderRadius={12}
+        // borderRadius={12}
       >
         <GridItem>
           <Image
-            borderTopRadius={12}
+            // borderTopRadius={12}
             src={image}
             alt={`Picture of ${name}`}
             h="100%"
@@ -114,7 +114,7 @@ function Cards({ name, image, price, id, categories, rating }) {
           />
         </GridItem>
 
-        <GridItem w="100%">
+        <GridItem w="100%" >
           {/* cursos nuevos  */}
           {/* <Box d="flex" alignItems="baseline">
             {data.isNew && (
@@ -126,7 +126,7 @@ function Cards({ name, image, price, id, categories, rating }) {
           {/* cursos nuevos   */}
 
           {/* nombre del course */}
-          <Center fontSize="100%" pt={2}>
+          <Center fontSize="100%" p={0}>
             {name}
           </Center>
           <Center>{categories}</Center>
@@ -146,7 +146,7 @@ function Cards({ name, image, price, id, categories, rating }) {
             {/* precio */}
 
             {/* boton de compra */}
-            <Center>
+            <Center >
               <Tooltip
                 label="Add to cart"
                 bg="#03C139"
