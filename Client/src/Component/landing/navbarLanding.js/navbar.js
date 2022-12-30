@@ -18,14 +18,14 @@ function NavbarLanding() {
     <Flex>
       <Grid templateColumns="repeat(2,1fr)">
         <GridItem p={0}  m={0}>
-          <Box ml='2%' mt='1%'>
+          <Box ml='1%' mt='1%'>
             <Image src='https://i.ibb.co/9bwtk3s/Logo2.png' alt='' w='25%' />
           </Box>
         </GridItem>
 
         <GridItem p={0} mt='4%'>
             <Link to='/home'>
-              <Button p={4} ml={40}>Cursos</Button>
+              <Button p={4} ml='120px'>Cursos</Button>
             </Link>
             <Link to='/Admin'>
               <Button p={4} ml={4}>Administrador</Button>

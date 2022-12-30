@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from "react";
 import { useDispatch, useSelector} from 'react-redux'
-import { getCategory, getCourses } from "../../Redux/actions";
+import { filterCategory, getCourses } from "../../Redux/actions";
 import Cards from "../Card/Card";
 import { Box, IconButton, Image, useBreakpointValue } from '@chakra-ui/react';
 // Here we have used react-icons package for the icons
@@ -23,12 +23,16 @@ function CarouselHome({categorie}) {
     (state) => state.courses,
     () => false
   );
+
   // As we have used custom buttons, we need a reference variable to
   // change the state
   const [slider, setSlider] = React.useState(<Slider/>);
-    const dispatch = useDispatch();
+  
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getCourses(""));
+    dispatch(getCourses(''))
+    // descomentar esta linea y comentar la linea de arriba 
+    // dispatch(filterCategory('fronprueba'));
   }, [dispatch]);
 
   // These are the breakpoints which changes the position of the

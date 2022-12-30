@@ -17,7 +17,7 @@ import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 const Logo = () => {
   return (
     <Box ml='10%' pt='5px'>
-      <Image src='https://i.ibb.co/9bwtk3s/Logo2.png' alt='' w='50%' />
+      <Image src='https://i.ibb.co/9bwtk3s/Logo2.png' alt='' w='90%' ml='100px' />
     </Box>
   );
 };
@@ -58,20 +58,21 @@ function Footer() {
       background='#3E4AB8' 
       maxH='250px'
     >
-      <Container maxW={'6xl'}  color='white'id='footer' ml='41%'>
+      <Container maxW={'400px'}  color='white'id='footer' >
         <SimpleGrid
           templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 2fr' }}
-          spacing={1}>
+          spacing={1}
+          >
           <Stack spacing={1}>
             <Box>
               <Logo color={useColorModeValue('gray.700', 'white')} />
             </Box>
-            <Text fontSize={'sm'}>
+            <Text w='500%' pl='55px'>
               © 2022 Cursort. All rights reserved
             </Text>
-            <Stack direction={'row'} spacing={2} pl='70px'>
-              <SocialButton label={'Twitter'} href={'#'}>
-                <FaTwitter/>
+            {/* <Stack direction={'row'} spacing={2} bg='blue' ml='200px'>
+              <SocialButton label={'Twitter'} href={'#'} >
+                <FaTwitter ml='20px'/>
               </SocialButton>
               <SocialButton label={'YouTube'} href={'#'}>
                 <FaYoutube />
@@ -79,7 +80,7 @@ function Footer() {
               <SocialButton label={'Instagram'} href={'#'}>
                 <FaInstagram />
               </SocialButton>
-            </Stack>
+            </Stack> */}
           </Stack>
         </SimpleGrid>
       </Container>
