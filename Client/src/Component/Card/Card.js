@@ -129,7 +129,6 @@ function Cards({ name, image, price, id, categories, rating }) {
           <Center fontSize="100%" p={0}>
             {name}
           </Center>
-          <Center>{categories}</Center>
           {/* nombre del course */}
 
           {/* puntuacion */}
@@ -139,8 +138,10 @@ function Cards({ name, image, price, id, categories, rating }) {
             </Center>
             {/* puntuacion */}
 
+            <Center>{categories}</Center>
+            
             {/* precio */}
-            <Center fontSize="40px" color="#03C139">
+            <Center fontSize="40px" color="#03C139" mt='70px'>
               {`$${price.toFixed(2)}`}
             </Center>
             {/* precio */}
