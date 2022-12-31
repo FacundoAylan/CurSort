@@ -23,7 +23,7 @@ useEffect(()=>{
         <MenuList>
           <Profile />
           <Button
-            onClick={() => logout({ returnTo: window.location.origin })}
+            onClick={() => logout({ returnTo:'http://localhost:3000/home' })} //corregir el harcode
             background="black"
             color="white"
             border="2px"

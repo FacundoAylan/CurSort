@@ -1,12 +1,12 @@
-import React, {useState,useEffect} from "react";
-import { useDispatch, useSelector} from 'react-redux'
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getCategory, getCourses } from "../../Redux/actions";
 import Cards from "../Card/Card";
-import { Box, IconButton, Image, useBreakpointValue } from '@chakra-ui/react';
+import { Box, IconButton, Image, useBreakpointValue } from "@chakra-ui/react";
 // Here we have used react-icons package for the icons
-import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
+import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 // And react-slick as our Carousel Lib
-import Slider from 'react-slick';
+import Slider from "react-slick";
 
 // Settings for the slider
 const settings = {
@@ -14,10 +14,11 @@ const settings = {
   infinite: true,
   speed: 500,
   slidesToShow: 5,
-  slidesToScroll: 1
+  slidesToScroll: 1,
 };
 
-function CarouselHome({categorie}) {
+function CarouselHome({ categorie }) {
+  // console.log('categorie carrucel : ', categorie)
 
   let info = useSelector(
     (state) => state.courses,
@@ -25,24 +26,30 @@ function CarouselHome({categorie}) {
   );
   // As we have used custom buttons, we need a reference variable to
   // change the state
-  const [slider, setSlider] = React.useState(<Slider/>);
-    const dispatch = useDispatch();
+  const [slider, setSlider] = React.useState(<Slider />);
+  const dispatch = useDispatch();
+
+
+  const filterCourse = info.filter((c) => c.categories.includes(categorie));
+ 
+
   useEffect(() => {
     dispatch(getCourses(""));
   }, [dispatch]);
 
   // These are the breakpoints which changes the position of the
   // buttons as the screen size changes
-  const top = useBreakpointValue({ base: '90%', md: '50%' });
-  const side = useBreakpointValue({ base: '30%', md: '10px' });
+  const top = useBreakpointValue({ base: "90%", md: "50%" });
+  const side = useBreakpointValue({ base: "30%", md: "10px" });
 
   return (
     <Box
-      position={'relative'}
-      height={'400px'}
-      width={'100%'}
+      position={"relative"}
+      height={"400px"}
+      width={"100%"}
       p={1}
-      overflow={'hidden'}>
+      overflow={"hidden"}
+    >
       {/* CSS files for react-slick */}
       <link
         rel="stylesheet"
@@ -55,7 +62,7 @@ function CarouselHome({categorie}) {
         type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
       />
-      
+
       {/* Left Icon */}
       <IconButton
         aria-label="left-arrow"
@@ -64,9 +71,10 @@ function CarouselHome({categorie}) {
         position="absolute"
         left={side}
         top={top}
-        transform={'translate(0%, -50%)'}
+        transform={"translate(0%, -50%)"}
         zIndex={2}
-        onClick={() => slider?.slickPrev()}>
+        onClick={() => slider?.slickPrev()}
+      >
         <BiLeftArrowAlt />
       </IconButton>
       {/* Right Icon */}
@@ -77,35 +85,34 @@ function CarouselHome({categorie}) {
         position="absolute"
         right={side}
         top={top}
-        transform={'translate(0%, -50%)'}
+        transform={"translate(0%, -50%)"}
         zIndex={2}
-        onClick={() => slider?.slickNext()}>
+        onClick={() => slider?.slickNext()}
+      >
         <BiRightArrowAlt />
       </IconButton>
       {/* Slider */}
-        <a name={categorie} href=''>
+      <a name={categorie} href="">
         <Slider {...settings} ref={(slider) => setSlider(slider)}>
-            {info &&
-              info.map((value) => {
-                return (
-                    <Box  p='10px' >
-                      <Cards
-                        name={value.name}
-                        image={value.image}
-                        price={value.price}
-                        id={value.id}
-                        categories={value.categories}
-                        rating={value.rating}
-                      />
-                    </Box>
-                  );
-                })}        
-
+          {filterCourse &&
+            filterCourse.map((value) => {
+              return (
+                <Box p="10px">
+                  <Cards
+                    name={value.name}
+                    image={value.image}
+                    price={value.price}
+                    id={value.id}
+                    categories={value.categories}
+                    rating={value.rating}
+                  />
+                </Box>
+              );
+            })}
         </Slider>
-        </a>  
-      
+      </a>
     </Box>
   );
-};
+}
 
 export default CarouselHome;
