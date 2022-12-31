@@ -31,7 +31,7 @@ function Promociones() {
       />
     </Alert>
   ) : (
-    <Button onClick={onOpen}>Show Alert</Button>
+    ""
   )
 };
 
