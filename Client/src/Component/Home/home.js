@@ -1,18 +1,13 @@
-import React, {useState,useEffect} from "react";
-import { useDispatch, useSelector} from 'react-redux'
+import React, {useState} from "react";
+import {useSelector} from 'react-redux'
 import {
-  Grid,
-  GridItem,
   Container,
   Box,
   Center,
   Text,
   // Image,
 } from "@chakra-ui/react";
-import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
-import Paginado from "../paginado/paginado";
-import { getCategory, getCourses } from "../../Redux/actions";
 // import CreateCategory from "../CreateCategory/CreateCategory";
 import Footer from "../landing/footer/footer";
 import CarouselHome from "./currucelHome";
@@ -43,32 +38,7 @@ function Home() {
       <Box background="#3E4AB8" maxW="100%" maxH="50%">
         <NavBar setOrder={setOrder} setPagina={setPagina} />
       </Box>
-      {/* <Center mt="1%">
-        <Paginado pagina={pagina} setPagina={setPagina} maximo={maximo} />
-      </Center> */}
       <Box h="40%" maxW="100%">
-        {/* <Grid templateColumns="repeat(6, 0.2fr)" gap={4} pt={4} p={5} m={0}>
-          {info &&
-            info
-              .slice(
-                (pagina - 1) * porPagina,
-                (pagina - 1) * porPagina + porPagina
-              )
-              .map((value) => {
-                return (
-                  <GridItem>
-                    <Cards
-                      name={value.name}
-                      image={value.image}
-                      price={value.price}
-                      id={value.id}
-                      categories={value.categories}
-                      rating={value.rating}
-                    />
-                  </GridItem>
-                );
-              })}
-        </Grid> */}
         {categories &&
         categories.slice(0,3).map((value) => {
           return (
