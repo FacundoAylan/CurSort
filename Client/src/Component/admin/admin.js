@@ -1,20 +1,27 @@
 import React from 'react';
 import { Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
-import Usuarios from '../usuarios/usuarios';
+import Usuarios from './usuarios/usuarios';
+import SearchAdmin from './searchAdmin/searchAdmin';
+import CoursesAdmin from './coursesAdmin/coursesAdmin'
+import ListCourses from './listUsers/listusers'
+
 
 function Admin () {
   const usuario = [1,2,3,4,5,6];
 
   return (
+    <>
     <Tabs>
-      <TabList>
-        <Tab>Usuarios</Tab>
-        <Tab>Cursos</Tab>
-        <Tab>etsdisticas</Tab>
+      <TabList color='white'>
+        <Tab>Users</Tab>
+        <Tab>ListUsers</Tab>
+        <Tab>Courses</Tab>
+        <Tab>statistics</Tab>
       </TabList>
 
       <TabPanels>
         <TabPanel>
+          <SearchAdmin/>  
           <Flex flexDirection='row' flexWrap='wrap' justifyContent='space-around' maxW='90%' pl='120px'>
             {
             usuario.map(value =>{
@@ -26,13 +33,19 @@ function Admin () {
           </Flex>
         </TabPanel>
         <TabPanel>
-          <p>two!</p>
+          <ListCourses/>
         </TabPanel>
+
+        <TabPanel>
+          <CoursesAdmin/>
+        </TabPanel>
+
         <TabPanel>
           <p>three!</p>
         </TabPanel>
       </TabPanels>
     </Tabs>
+    </>
   )
 }
 

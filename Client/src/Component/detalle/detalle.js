@@ -70,7 +70,6 @@ function Detalle() {
         </Center>
       );
     }
-    console.log(rating)
   return (
     <Container maxW={"100%"} bg="Black" color="white" m={0} p={0}>
       <Box pt="10px">
