@@ -95,8 +95,8 @@ function Checkoutform() {
       <form onSubmit={handleSubmit}>
         {cart.map((cart) => (
           <div key={cart.id}>
-            <h3>{cart.name}</h3>
-            <p>usd {cart.price}</p>
+            <h3 style={{ color: "#f1faee" }}>{cart.name}</h3>
+            <p style={{ color: "#f1faee" }}>usd {cart.price}</p>
             <img
               src={cart.image}
               alt={cart.name}

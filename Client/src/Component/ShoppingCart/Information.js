@@ -75,11 +75,11 @@ function Information() {
         <div className="Information-buttons">
           <div className="Information-back">
             <Link to="/checkout">
-              <p style={{ color: "white" }}>Regresar</p>
+              <p style={{ color: "#f1faee" }}>Regresar</p>
             </Link>
           </div>
           <div className="Information-next">
-            <button type="button" onClick={handleSubmit}>
+            <button type="button" onClick={handleSubmit} style={{ color: "#f1faee" }}>
               Pagar
             </button>
           </div>
@@ -87,7 +87,7 @@ function Information() {
       </div>
       <hr />
       <Flex className="Information-sidebar">
-        <h3 style={{ color: "white" }}>Pedido:</h3>
+        <h3 style={{ color: "#f1faee" }}>Pedido:</h3>
         {cart.map((item) => (
           <div className="Information-element" key={item.id}>
             <h4 style={{ color: "white" }}>{item.name}</h4>
