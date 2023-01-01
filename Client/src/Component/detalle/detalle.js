@@ -28,7 +28,7 @@ function Detalle() {
     const handleClick = (e) => {
         e.preventDefault();
         dispatch(addToCart(id));
-        history.push('/cart');
+        history.push('/checkout');
     }
 
     function Rating({ rating }) {
