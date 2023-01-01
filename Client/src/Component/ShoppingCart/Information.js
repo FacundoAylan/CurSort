@@ -34,7 +34,7 @@ function Information() {
   return (
     <>
       <div className="Information-content">
-        <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
+        <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%" color="#f1faee">
           Información de contacto
         </Heading>
         <Flex>
