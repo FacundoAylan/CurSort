@@ -2,6 +2,9 @@ const { Op } = require("sequelize");
 const data = require("./api.json");
 const { Users, Courses, Categories, Reviews } = require("../db");
 const nodemailer = require("nodemailer");
+const { CLIENT_STRIPE_KEY } = process.env;
+const Stripe = require("stripe");
+const stripe = new Stripe(CLIENT_STRIPE_KEY);
 
 const postCourse = async (req, res) => {
   const {
@@ -425,6 +428,44 @@ const contactMail = (req, res) => {
   });
 };
 
+// // post para realizar pago
+// const postPayment = async (req, res) => {
+//   const { id, email, amount, description } = req.body;
+//   try {
+//     const payment = await Payment.create({
+//       id,
+//       email,
+//       amount,
+//       description,
+//     });
+//     res.status(200).json(payment);
+//   } catch (error) {
+//     res.status(400).json(error.message);
+//   }
+// };
+
+// post para realizar pago
+const postPayment = async (req, res, next) => {
+  const { id, amount } = req.body;
+  try {
+    const payment = await stripe.paymentIntents.create({
+      amount,
+      currency: "usd",
+      payment_method: id,
+      description: "Pago de curso",
+      confirm: true,
+    });
+
+    res.send({message: 'Pago realizado con éxito'})
+
+    next();
+
+}
+  catch (error) {
+    res.json({ message: error.raw.message });
+  }
+};
+
 module.exports = {
   postCourse,
   getAllCourses,
@@ -440,4 +481,5 @@ module.exports = {
   getCoursesByDuration,
   filterCourses,
   contactMail,
+  postPayment
 };
