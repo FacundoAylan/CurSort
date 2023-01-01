@@ -123,7 +123,7 @@ function Checkoutform() {
             },
           }}
         />
-        <button disabled={!stripe || !elements}>Pagar</button>
+        <button disabled={!stripe || !elements} style={{ color: "#f1faee" }}>Pagar</button>
       </form>
     </div>
   );
