@@ -50,7 +50,7 @@ function NavBar({ setPagina, setOrder}) {
         <GridItem mt="15%" ml="62%">
           <Flex>
             <Box pt={1}>
-              <Link to="/cart">
+              <Link to="/checkout">
                 <Button
                   color="white"
                   border="2px"

@@ -4,6 +4,7 @@ const userRoutes = require('./users');
 const categories = require('./categories');
 const filter = require('./filter');
 const contactMail = require('./contactMail')
+const checkout = require('./checkout');
 const router = Router();
 
 
@@ -15,6 +16,7 @@ router
     .use('/categories', categories)
     .use('/filter', filter)
     .use('/contact', contactMail )
+    .use('/checkout', checkout)
 
 module.exports = router;
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Text, GridItem } from "@chakra-ui/react"
 import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -7,7 +7,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 function ButtonCart({getTotal}) {
 
   const history = useHistory();
-  const { loginWithRedirect, isAuthenticated, user } = useAuth0();
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
+
+  useEffect(() => {
+    getTotal()
+  }, [getTotal])
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -16,7 +20,7 @@ function ButtonCart({getTotal}) {
 
   const handleCheckout = (e) => {
     e.preventDefault();
-    !isAuthenticated && loginWithRedirect()
+    !isAuthenticated ? loginWithRedirect() : history.push('/checkout/information');
   }
 
 
