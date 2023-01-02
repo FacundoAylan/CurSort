@@ -62,7 +62,6 @@ function Checkoutform() {
                         showConfirmButton: false,
                         timer: 2000
                       })
-
                         history.push('/home')
                 }
                 else {
@@ -123,6 +122,7 @@ function Checkoutform() {
             },
           }}
         />
+        
         <button disabled={!stripe || !elements} style={{ color: "#f1faee" }}>Pagar</button>
       </form>
     </div>

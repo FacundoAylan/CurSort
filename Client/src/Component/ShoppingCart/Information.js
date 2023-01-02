@@ -5,6 +5,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import {
     Heading,
     Flex,
+    Button,
+    Stack,
   } from "@chakra-ui/react";
 
 function Information() {
@@ -34,7 +36,13 @@ function Information() {
   return (
     <>
       <div className="Information-content">
-        <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%" color="#f1faee">
+        <Heading
+          w="100%"
+          textAlign={"center"}
+          fontWeight="normal"
+          mb="2%"
+          color="#f1faee"
+        >
           Información de contacto
         </Heading>
         <Flex>
@@ -72,19 +80,20 @@ function Information() {
             <input type="text" placeholder="Telefono" name="phone" />
           </form>
         </Flex>
-        <div className="Information-buttons">
-          <div className="Information-back">
-            <Link to="/checkout">
-              <p style={{ color: "#f1faee" }}>Regresar</p>
-            </Link>
-          </div>
-          <div className="Information-next">
-            <button type="button" onClick={handleSubmit} style={{ color: "#f1faee" }}>
-              Pagar
-            </button>
-          </div>
-        </div>
+        <br/>
+        <Stack direction="row" spacing={4} align="center">
+          <Link to="/checkout">
+            <Button colorScheme="teal" variant="outline">
+              Regresar
+            </Button>
+          </Link>
+
+          <Button colorScheme="teal" variant="solid" onClick={handleSubmit}>
+            Pagar
+          </Button>
+        </Stack>
       </div>
+      <br />
       <hr />
       <Flex className="Information-sidebar">
         <h3 style={{ color: "#f1faee" }}>Pedido:</h3>
