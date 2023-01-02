@@ -39,8 +39,11 @@ function Home() {
         <NavBar setOrder={setOrder} setPagina={setPagina} />
       </Box>
       <Box h="40%" maxW="100%">
+       
+       
         {categories &&
         categories.slice(0,3).map((value) => {
+          // console.log( 'Value: ',value)
           return (
             <>
               <Center pt='10px'>

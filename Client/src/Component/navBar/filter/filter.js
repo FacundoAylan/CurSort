@@ -36,13 +36,7 @@ import {
 function Filter({ setPagina, setOrder }) {
 
   const dispatch = useDispatch();
-  function handleOrderByName(e) {
-    e.preventDefault();
-    setPagina(1);
-    dispatch(getCourses(e.target.value));
-    setPagina(1)
-    setOrder("order" + e.target.value);
-  }
+ 
 
   function handleOrderByPrice(e) {
     console.log(e.target.value);
@@ -76,7 +70,7 @@ function Filter({ setPagina, setOrder }) {
           </Button>
         </MenuButton>
         <MenuList>
-          <FilterCategory handleOrderByName={handleOrderByName} />
+          <FilterCategory/>
         </MenuList>
       </Menu>
 
