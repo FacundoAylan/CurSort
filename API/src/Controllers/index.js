@@ -1,9 +1,12 @@
 const { Op } = require("sequelize");
 const data = require("./api.json");
 const { Users, Courses, Categories, Reviews } = require("../db");
+const nodemailer = require("nodemailer");
+const { CLIENT_STRIPE_KEY } = process.env;
+const Stripe = require("stripe");
+const stripe = new Stripe(CLIENT_STRIPE_KEY);
 
 const postCourse = async (req, res) => {
-
   const {
     nombre,
     descripcion,
@@ -12,20 +15,27 @@ const postCourse = async (req, res) => {
     precio,
     imagen,
     dificultad,
-    categoria
+    categoria,
   } = req.body;
 
-  let name, description, instructor, duration, price, image, difficulty,categoryId;
+  let name,
+    description,
+    instructor,
+    duration,
+    price,
+    image,
+    difficulty,
+    categoryId;
 
-  name =nombre.toUpperCase();
+  name = nombre.toUpperCase();
   description = descripcion;
   instructor = instuctor;
   duration = duracion;
   price = precio;
   image = imagen;
   difficulty = dificultad;
-  categoryId = categoria
-  
+  categoryId = categoria;
+
   try {
     // valido que existan los datos obligatorios
     if (!name || !description)
@@ -39,8 +49,7 @@ const postCourse = async (req, res) => {
       price,
       image,
       difficulty,
-      categoryId
-      
+      categoryId,
     });
 
     res.status(200).send("El curso ha sido creado exitosamente!");
@@ -49,75 +58,71 @@ const postCourse = async (req, res) => {
   }
 };
 
+//loadCoursesToDB es solo para cargar los cursos del json a la DB
+//la ruta en Postman seria http://localhost:3001/course/load
+
 const loadCoursesToDB = async () => {
-        const coursesDB = await Courses.findAll();
-        const coursesJSON = data.cursos;
-        const categoriesJSON = data.categorys;
-        const categoriesDB = await Categories.findAll();
+  const coursesDB = await Courses.findAll();
+  const coursesJSON = data.cursos;
+  const categoriesJSON = data.categorys;
+  const categoriesDB = await Categories.findAll();
 
-        if(categoriesDB.length === 0){
-            categoriesJSON.forEach(async e=>{
-                
-            await Categories.create({
-                name: e.name
-            })
-            })
+  if (categoriesDB.length === 0) {
+    categoriesJSON.forEach(async (e) => {
+      await Categories.create({
+        name: e.name,
+      });
+    });
+  }
 
-        }
+  if (coursesDB.length === 0) {
+    coursesJSON.forEach(async (e) => {
+      let name, description, rating, image, difficulty, price, categoryId;
 
-        if (coursesDB.length === 0 ) {
-            coursesJSON.forEach(async (e) => {
-                let name, description, rating, image, difficulty, price, categoryId;
+      name = e.nombre.toUpperCase();
+      description = e.descripcion;
+      instructor = e.instructor;
+      price = e.precio;
+      duration = e.duracion;
+      rating = e.rating;
+      image = e.imagen;
+      difficulty = e.dificultad;
+      price = e.precio;
+      categoryId = parseInt(e.idCategoria);
 
-                    name = e.nombre.toUpperCase();
-                    description = e.descripcion;
-                    instructor = e.instructor;
-                    price = e.precio;
-                    duration = e.duracion;
-                    rating = e.rating;
-                    image = e.imagen;
-                    difficulty = e.dificultad;
-                    price = e.precio;
-                    categoryId = parseInt(e.idCategoria);
-                    
-                    await Courses.create({
-                        name,
-                        description,
-                        instructor,
-                        price,
-                        duration,
-                        rating,
-                        image,
-                        difficulty,
-                        price,
-                        categoryId
-                        
-                    });            
-            })
-        }
-
-        
-}
-
+      await Courses.create({
+        name,
+        description,
+        instructor,
+        price,
+        duration,
+        rating,
+        image,
+        difficulty,
+        price,
+        categoryId,
+      });
+    });
+  }
+};
 
 //funcion para buscar el nombre del curso que recibio por query
 const findByName = async (name) => {
-    let courses = await Courses.findAll({
-        where: {
-            name: {
-                [Op.like]: `%${name}%`
-            }
-        },
-        include: [
-            {
-                model: Categories,
-                attributes:['name']
-            }
-        ]
-    });
-    return courses;
-}
-
+  let courses = await Courses.findAll({
+    where: {
+      name: {
+        [Op.like]: `%${name}%`,
+      },
+    },
+    include: [
+      {
+        model: Categories,
+        attributes: ["name"],
+      },
+    ],
+  });
+  return courses;
+};
 
 const getCourseById = async (req, res) => {
   const { id } = req.params;
@@ -127,11 +132,9 @@ const getCourseById = async (req, res) => {
       if (course) {
         res.status(200).json(course);
       } else {
-        res
-          .status(404)
-          .json({
-            message: `No se encontró el curso con el número de id ${id}`,
-          });
+        res.status(404).json({
+          message: `No se encontró el curso con el número de id ${id}`,
+        });
       }
     } else {
       res.status(400).json({ message: "No se ingresó un id" });
@@ -145,25 +148,43 @@ const getCourseById = async (req, res) => {
 //agregue las categorias y saque el review porque no se como poner 2 :P
 const getAllCourses = async (req, res) => {
   try {
-      let name = req.query.name;
-      let courses;
-      if (name) {
-          name = name.toUpperCase()
-          courses = await findByName(name)
-      }
-      else {
-          courses = await Courses.findAll({
-              include: Reviews
-          });
-      }
-      if (courses.length > 0) {
-          return res.status(200).send(courses)
-      }
-      res.status(404).send({ message: 'No se encontraron cursos' });
+    let name = req.query.name;
+    let courses;
+    if (name) {
+      name = name.toUpperCase();
+      courses = await findByName(name);
+    } else {
+      courses = await Courses.findAll({
+        include: Categories,
+      });
+    }
+    courses = courses.map((c) => {
+      return {
+        id: c.id,
+        name: c.name,
+        description: c.description,
+        instructor: c.instructor,
+        duration: c.duration,
+        price: c.price,
+        fecha: c.fecha,
+        rating: c.rating,
+        image: c.image,
+        active: c.active,
+        difficulty: c.difficulty,
+        createdAt: c.createdAt,
+        updatedAt: c.updatedAt,
+        categories: c.categories.map((c) => c.name),
+      };
+    });
+
+    if (courses.length > 0) {
+      return res.status(200).send(courses);
+    }
+    res.status(404).send({ message: "No se encontraron cursos" });
   } catch (error) {
-      res.status(400).send({ message: error.message });
+    res.status(400).send({ message: error.message });
   }
-}
+};
 
 //se postea una review y se asocia con el ID del curso
 const postReview = async (req, res) => {
@@ -183,16 +204,36 @@ const postReview = async (req, res) => {
 
 //Crear un nuevo usuario (ruta de prueba para deshabilitar usuarios)
 const createUser = async (req, res) => {
-  const { name, lastname, password, mail, birthday } = req.body;
+  const user = req.body;
+
+  console.log(user.email);
+
+  let name, lastname, email, email_verified, birthday;
+
+  name = user.given_name || user.name;
+  lastname = user.family_name || "";
+  email = user.email;
+  email_verified = user.email_verified;
+  birthday = "";
+  admin = false,
+  active = true
+
   try {
-    const user = await Users.create({
-      name,
-      lastname,
-      password,
-      mail,
-      birthday,
-    });
-    res.status(200).json(user);
+    const [usuario,craeted] = await Users.findOrCreate(
+      {
+        where : {email: user.email},
+        defaults: {
+          name,
+          lastname,
+          email,
+          email_verified,
+          birthday,
+          admin,
+          active
+        }
+
+      });
+    res.status(200).json({usuario, craeted});
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -235,10 +276,11 @@ const getCategories = async (req, res) => {
   }
 };
 
-const postCategorie = async (req, res) => {
+const postCategory = async (req, res) => {
+  const { name } = req.body;
   try {
-    const categorie = await Categories.create(req.body);
-    res.send(categorie);
+    await Categories.create({ name });
+    res.status(200).send("La categoría ha sido creada con éxito.");
   } catch (error) {
     res.status(400).send(`ocurrio un error ${error}`);
   }
@@ -256,8 +298,7 @@ const getCoursesByCategory = async (req, res) => {
       },
     },
   });
-  
-  
+
   if (id) {
     const filterCategory = courses.filter((course) =>
       course.categories.find((categorie) => categorie.id == id)
@@ -348,6 +389,83 @@ const filterCourses = async (req, res) => {
   }
 };
 
+const contactMail = (req, res) => {
+  const {name, mail, message } = req.body;
+  
+  if(!name)res.status(500).json('Debe incluir el nombre. Vuelva a intenar')
+  
+  // let newText = `${name} - ${email} - ${content}`
+  let html = `<div>
+    <h3> Name - ${name}</h3>
+    <h3> Mail - ${mail}</h3>
+    <h2>Message - ${message}</h2>
+  </div>`
+
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: "cursort.2022@gmail.com", // generated ethereal user
+      pass: "cghynjlxmrlbasyt", // generated ethereal password
+    },
+  });
+
+  let mailOption = {
+    from: 'Cursort contact', // sender address
+    to: "cursort.2022@gmail.com" , // list of receivers
+    subject: 'Cotact Form', // Subject line
+    // text: newText, // plain text body
+    html: html
+  };
+  transporter.sendMail(mailOption, (error, info) => {
+    if (error) {
+      res.status(500).json(error.message);
+    } else {
+     
+      res.status(200).json("Email enviado con exito");
+    }
+  });
+};
+
+// // post para realizar pago
+// const postPayment = async (req, res) => {
+//   const { id, email, amount, description } = req.body;
+//   try {
+//     const payment = await Payment.create({
+//       id,
+//       email,
+//       amount,
+//       description,
+//     });
+//     res.status(200).json(payment);
+//   } catch (error) {
+//     res.status(400).json(error.message);
+//   }
+// };
+
+// post para realizar pago
+const postPayment = async (req, res, next) => {
+  const { id, amount } = req.body;
+  try {
+    const payment = await stripe.paymentIntents.create({
+      amount,
+      currency: "usd",
+      payment_method: id,
+      description: "Pago de curso",
+      confirm: true,
+    });
+
+    res.send({message: 'Pago realizado con éxito'})
+
+    next();
+
+}
+  catch (error) {
+    res.json({ message: error.raw.message });
+  }
+};
+
 module.exports = {
   postCourse,
   getAllCourses,
@@ -357,9 +475,11 @@ module.exports = {
   createUser,
   disableUser,
   getCategories,
-  postCategorie,
+  postCategory,
   getCoursesByCategory,
   getCoursesByDifficulty,
   getCoursesByDuration,
   filterCourses,
+  contactMail,
+  postPayment
 };

@@ -24,16 +24,17 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 
 
-const domain = 'dev-ja3xbcn2aoqj38h2.us.auth0.com';
-const client_id = 'p8fIi6RZqrKmOfH00a8p4nOJRQna4xmJ';
+const domain = 'dev-m515bc1wpup4y80o.us.auth0.com';
+const client_id = 'Amvptjtg1qjiKP1AzyvqpnzjNsjrOaky';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Auth0Provider
       domain={domain}
       clientId={client_id}
-      redirectUri={window.location.origin}
+      redirectUri={'http://localhost:3000/home'}    //corregir el harcode
     >
+      
       <ChakraProvider>
         <BrowserRouter>
 

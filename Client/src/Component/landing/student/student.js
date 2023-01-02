@@ -6,17 +6,17 @@ import {
   Heading,
   CardBody,
   Text,
-  Button,
-  CardFooter,
   Center,
 } from "@chakra-ui/react";
 
 function Student() {
   return (
+    <a name='estudiantes' href=''>
     <SimpleGrid
       spacing={2}
-      templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
-      p={4}
+      templateColumns="repeat(3,1fr)"
+      templateRows='repeat(2,0.5fr)'
+      p={1}
     >
       <Card border='2px' borderColor='white' background='#3E4AB8' color='white'>
         <CardHeader >
@@ -25,11 +25,8 @@ function Student() {
           </Center>
         </CardHeader>
         <CardBody >
-          <Text>Este es un pequeño comentario para la landing</Text>
+          <Text>Hoy llegó el día y completé la segunda parte del curso de Programación Full Stack de Cursort, aprendí demasiadas cosas para interactuar con el usuario...</Text>
         </CardBody>
-        <CardFooter>
-          <Button background='black'>View here</Button>
-        </CardFooter>
       </Card>
       <Card border='2px' borderColor='white' background='#3E4AB8' color='white'>
         <CardHeader>
@@ -38,11 +35,9 @@ function Student() {
           </Center>
         </CardHeader>
         <CardBody>
-          <Text>View a summary of all your customers over the last month.</Text>
+          <Text>Otro de tantos objetivos cumplidos! Gracias Cursort, realmente aprendí muchísimo!
+Valoro enormemente el profesionalismo de los tutores....</Text>
         </CardBody>
-        <CardFooter>
-          <Button background='black'>View here</Button>
-        </CardFooter>
       </Card>
       <Card border='2px' borderColor='white' background='#3E4AB8' color='white'>
         <CardHeader>
@@ -51,11 +46,8 @@ function Student() {
           </Center>
         </CardHeader>
         <CardBody>
-          <Text>View a summary of all your customers over the last month.</Text>
+          <Text>¡Feliz de haber culminado mi primer curso de UX/UI en Cursort! 😁 Fue una experiencia retadora pero llena de aprendizaje.....</Text>
         </CardBody>
-        <CardFooter>
-          <Button background='black'>View here</Button>
-        </CardFooter>
       </Card>
       <Card border='2px' borderColor='white' background='#3E4AB8' color='white'>
         <CardHeader>
@@ -64,11 +56,8 @@ function Student() {
           </Center>
         </CardHeader>
         <CardBody>
-          <Text>View a summary of all your customers over the last month.</Text>
+          <Text>El trabajo de varios meses en donde comencé desde 0, en donde tuve la oportunidad de crear esta solución pensada en las necesidades del usuario, con fundamento, mucha investigación, desafíos entregados..</Text>
         </CardBody>
-        <CardFooter>
-          <Button background='black'>View here</Button>
-        </CardFooter>
       </Card>
       <Card border='2px' borderColor='white' background='#3E4AB8' color='white'>
         <CardHeader>
@@ -77,11 +66,8 @@ function Student() {
           </Center>
         </CardHeader>
         <CardBody>
-          <Text>View a summary of all your customers over the last month.</Text>
+          <Text>Las clases superaron mis expectativas ampliamente, la buena onda y las explicaciones fueron nada que ver a lo que yo pensaba....</Text>
         </CardBody>
-        <CardFooter>
-          <Button background='black'>View here</Button>
-        </CardFooter>
       </Card>
       <Card border='2px' borderColor='white' background='#3E4AB8' color='white'>
         <CardHeader>
@@ -90,13 +76,11 @@ function Student() {
           </Center>
         </CardHeader>
         <CardBody>
-          <Text>View a summary of all your customers over the last month.</Text>
+          <Text>Sin duda fue una gran experiencia que me permitió adquirir nuevos conocimientos y seguir capacitándome. No quiero dejar de agradecer....</Text>
         </CardBody>
-        <CardFooter>
-          <Button background='black'>View here</Button>
-        </CardFooter>
       </Card>
     </SimpleGrid>
+    </a>
   );
 }
 

@@ -2,7 +2,7 @@
 import React,{useState} from "react";
 import {
   Input,
-  Container,
+  // Container,
   IconButton,
   InputGroup,
   InputRightElement,
@@ -14,7 +14,7 @@ import { getCourses } from "../../../Redux/actions";
 import {useDispatch} from 'react-redux'
 import Filter from "../filter/filter";
 
-function Search ({setPagina}) {
+function Search ({setPagina, setOrder}) {
   
   const [name, setName] = useState("");
   const dispatch = useDispatch();
@@ -36,6 +36,9 @@ function Search ({setPagina}) {
             placeholder='Buscando'
             value={name}
             onChange={onChange}
+            background='white'
+            border='2px'
+            borderColor='black'
           />
           <InputRightElement >
             <IconButton
@@ -48,7 +51,7 @@ function Search ({setPagina}) {
         </InputGroup>
       </GridItem>
       <GridItem h='100%'>
-        <Filter/>
+        <Filter setOrder={setOrder} setPagina={setPagina}/>
       </GridItem>
 
     </Grid>

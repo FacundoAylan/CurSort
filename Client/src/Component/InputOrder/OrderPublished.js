@@ -6,13 +6,13 @@ const OrderPublished = ({handleOrderByPublished}) => {
     <div>
       <Grid gridTemplateRows="repeat(3, 45px)" p={0}>
         <GridItem p={0}>
-          <Button  value="all">All</Button>
+          <Button onClick={handleOrderByPublished} value="all">All</Button>
         </GridItem>
         <GridItem>
-          <Button value="desc">New</Button>
+          <Button onClick={handleOrderByPublished} value="desc">New</Button>
         </GridItem>
         <GridItem>
-          <Button value="asc">Old</Button>
+          <Button onClick={handleOrderByPublished} value="asc">Old</Button>
         </GridItem>
       </Grid>
     </div>

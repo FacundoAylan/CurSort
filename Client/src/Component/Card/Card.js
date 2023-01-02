@@ -1,19 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FiShoppingCart } from 'react-icons/fi';
+import { addToCart } from "../../Redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { FiShoppingCart } from "react-icons/fi";
 import {
   Grid,
   GridItem,
   Box,
   Image,
-  useColorModeValue,
+  // useColorModeValue,
   Icon,
-  chakra,
+  // chakra,
   Tooltip,
   Center,
   Flex,
+  Button,
 } from "@chakra-ui/react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import Swal from "sweetalert2";
+
+
 
 const data = {
   isNew: true,
@@ -25,9 +31,9 @@ const data = {
   numReviews: 34,
 };
 
-function Rating({ rating}) {
+function Rating({ rating }) {
   return (
-    <Flex maxW='100%'>
+    <Flex maxW="100%">
       {Array(5)
         .fill("")
         .map((_, i) => {
@@ -36,41 +42,79 @@ function Rating({ rating}) {
             return (
               <BsStarFill
                 key={i}
-                color={i < rating ? "teal.500" : "gray.300"}
+                color={i < rating ? "yellow" : "gray.300"}
               />
             );
           }
           if (roundedRating - i === 0.5) {
-            return <BsStarHalf background= 'white' key={i} style={{ marginLeft: "1" }} />;
+            return (
+              <BsStarHalf
+                background="white"
+                key={i}
+                style={{ marginLeft: "1" }}
+              />
+            );
           }
-          return <BsStar background='white' key={i} style={{ marginLeft: "1" }} />;
+          return (
+            <BsStar background="white" key={i} style={{ marginLeft: "1" }} />
+          );
         })}
     </Flex>
   );
 }
 
-function Cards({name, image, price, id}){
+function Cards({ name, image, price, id, categories, rating }) {
+  const dispatch = useDispatch();
+  const courses = useSelector((state) => state.courses);
+  const cart = useSelector((state) => state.cart);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    dispatch(addToCart(id));
+    const course = courses.find((course) => course.id === id);
+    const itemRepeated = cart.find((course) => course.id === id);
+    if (itemRepeated) {
+      return Swal.fire({
+        position: "top-center",
+        icon: "warning",
+        title: `${course.name} ya se encuentra en el carrito`,
+        fontSize: "5px",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+    Swal.fire({
+      position: 'top-center',
+      icon: 'success',
+      title: `${course.name} se agregó al carrito`,
+      fontSize: '5px',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  };
   return (
     <Link to={`/detalle/${id}`} className="linkStart">
-    <Grid
-      p={1}
-      templateRows=' 55% 45%'
-      background="#3E4AB8"
-      h='330px'
-      color='black'
-    >
-      <GridItem >
-      <Image
-          src={image}
-          alt={`Picture of ${name}`}
-          h='100%'
-          w='100%'
-          p={0}
-          m={0}  
-        />
-      </GridItem>
+      <Grid
+        p={0}
+        templateRows=" 45% 55%"
+        background="#3E4AB8"
+        h="400px"
+        color="black"
+        // borderRadius={12}
+      >
+        <GridItem>
+          <Image
+            // borderTopRadius={12}
+            src={image}
+            alt={`Picture of ${name}`}
+            h="100%"
+            w="100%"
+            p={0}
+            m={0}
+          />
+        </GridItem>
 
-      <GridItem w='100%'>
+        <GridItem w="100%" >
           {/* cursos nuevos  */}
           {/* <Box d="flex" alignItems="baseline">
             {data.isNew && (
@@ -79,48 +123,56 @@ function Cards({name, image, price, id}){
               </Badge>
             )}
           </Box> */}
-          {/* cursos nuevos  */}
+          {/* cursos nuevos   */}
 
-            {/* nombre del course */}
-            <Center
-              fontSize="130%"
-              pt={2}
-            >
-              {name}
-            </Center>
-            {/* nombre del course */}
+          {/* nombre del course */}
+          <Center fontSize="100%" p={0}>
+            {name}
+          </Center>
+          <Center>{categories}</Center>
+          {/* nombre del course */}
 
           {/* puntuacion */}
           <Box>
-            <Center ml='1%'>
-              <Rating rating={data.rating}/>
+            <Center ml="1%">
+              <Rating rating={rating} />
             </Center>
-          {/* puntuacion */}
+            {/* puntuacion */}
 
-          {/* precio */}
-            <Center fontSize="2xl" color={useColorModeValue("gray.800", "white")} >
+            {/* precio */}
+            <Center fontSize="40px" color="#03C139">
               {`$${price.toFixed(2)}`}
             </Center>
             {/* precio */}
 
             {/* boton de compra */}
-            <Center>
+            <Center >
               <Tooltip
                 label="Add to cart"
-                bg="white"
+                bg="#03C139"
                 placement={"top"}
                 color={"gray.800"}
                 fontSize={"1.2em"}
+                onClick={handleClick}
               >
-                <Link to='/'>
-                  <Icon as={FiShoppingCart} h={7} w={7} alignSelf={"center"}  color='white'/>
-                </Link>
+                {/* <Link to="/cart"> */}
+                  <Button background="none">
+                    <Icon
+                      as={FiShoppingCart}
+                      h={7}
+                      w={7}
+                      alignSelf={"center"}
+                      color="black"
+                      onClick={handleClick}
+                    />
+                  </Button>
+                {/* </Link> */}
               </Tooltip>
             </Center>
             {/* boton de compra */}
           </Box>
-      </GridItem>
-    </Grid>
+        </GridItem>
+      </Grid>
     </Link>
   );
 }

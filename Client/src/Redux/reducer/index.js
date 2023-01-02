@@ -9,6 +9,15 @@ import {
   FILTER_DURATION,
   FILTER_CATEGORY,
 
+  ORDER_BY_PRICE,
+  ORDER_BY_PUBLISHED,
+  ORDER_BY_RATING,
+
+  ADD_TO_CART,
+  REMOVE_ONE_FROM_CART,
+  REMOVE_ALL_FROM_CART,
+  CLEAR_CART,
+
 } from "../action-types";
 
 let initialState = {
@@ -17,7 +26,8 @@ let initialState = {
   courses: [], //este se renderiza
   warnings: "",
   categories: [],
-  filterCurses: [], //en teoria no sirve
+  filterCurses: [],
+  cart: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -43,12 +53,13 @@ const rootReducer = (state = initialState, action) => {
           price: action.payload.price,
         },
       };
+
     case GET_CATEGORIES:
       return {
         ...state,
         categories: action.payload,
       };
-    case "ORDER_BY_RATING":
+    case ORDER_BY_RATING:
       let orderRating =
         action.payload === "asc"
           ? state.courses.sort((a, b) => {
@@ -73,7 +84,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         courses: action.payload === "all" ? state.allCourses : orderRating,
       };
-    case "ORDER_BY_PRICE":
+    case ORDER_BY_PRICE:
       let orderPrice =
         action.payload === "asc"
           ? state.courses.sort((a, b) => {
@@ -98,7 +109,8 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         courses: action.payload === "all" ? state.allCourses : orderPrice,
       };
-    case "ORDER_BY_PUBLISHED":
+
+    case ORDER_BY_PUBLISHED:
       let orderPublished =
         action.payload === "asc"
           ? state.courses.sort((a, b) => {
@@ -143,7 +155,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         courses: action.payload,
       };
- 
+
     case FILTER_DIFFICULTY:
       const FilteredDifficulty =
         action.payload === "all"
@@ -183,26 +195,66 @@ const rootReducer = (state = initialState, action) => {
         };
       }
       //este return creo que esta demas, pero me tira un warning
-      return{
+      return {
         ...state,
-        courses: state.courses
-      }
+        courses: state.courses,
+      };
 
-      case FILTER_CATEGORY:
-        let filteredCategory = 
+    case FILTER_CATEGORY:
+      let filteredCategory =
         action.payload === "all"
-        ? state.allCourses 
-        : state.courses.filter((course) => course.categories.includes(action.payload))     
-        return{
-          ...state,
-          courses : filteredCategory
-        }
+          ? state.allCourses
+          : state.courses.filter((course) =>
+              course.categories.includes(action.payload)
+            );
+      return {
+        ...state,
+        courses: filteredCategory,
+      };
 
-         
-        
-     
+    case ADD_TO_CART:
+      const newItem = state.allCourses.find(
+        (item) => item.id === Number(action.payload)
+      );
 
-   
+      const itemRepeated = state.cart?.find(
+        (item) => item.id === newItem.id
+      );
+
+      return itemRepeated
+        ? {
+            ...state,
+          }
+        : { ...state, cart: [...state.cart, { ...newItem, quantity: 1 }] };
+
+    case REMOVE_ONE_FROM_CART:
+      const itemToDelete = state.cart.find(
+        (item) => item.id === action.payload
+      );
+      return itemToDelete.quantity > 1
+        ? {
+            ...state,
+            cart: state.cart.map((item) =>
+              item.id === Number(action.payload)
+                ? { ...item, quantity: item.quantity - 1 }
+                : item
+            ),
+          }
+        : {
+            ...state,
+            cart: state.cart.filter((item) => item.id !== Number(action.payload)),
+          };
+    case REMOVE_ALL_FROM_CART:
+      return {
+        ...state,
+        cart: state.cart.filter((item) => item.id !== Number(action.payload)),
+      };
+    case CLEAR_CART:
+      return {
+        ...state,
+        cart: [],
+      };
+
     default:
       return state;
   }
