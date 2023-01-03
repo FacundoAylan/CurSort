@@ -4,6 +4,7 @@ const { Users, Courses, Categories, Reviews } = require("../db");
 const nodemailer = require("nodemailer");
 const { CLIENT_STRIPE_KEY } = process.env;
 const Stripe = require("stripe");
+const { json } = require("body-parser");
 const stripe = new Stripe(CLIENT_STRIPE_KEY);
 
 const postCourse = async (req, res) => {
@@ -206,7 +207,7 @@ const postReview = async (req, res) => {
 const createUser = async (req, res) => {
   const user = req.body;
 
-  console.log(user.email);
+  // console.log(user.email);
 
   let name, lastname, email, email_verified, birthday;
 
@@ -215,25 +216,22 @@ const createUser = async (req, res) => {
   email = user.email;
   email_verified = user.email_verified;
   birthday = "";
-  admin = false,
-  active = true
+  (admin = false), (active = true);
 
   try {
-    const [usuario,craeted] = await Users.findOrCreate(
-      {
-        where : {email: user.email},
-        defaults: {
-          name,
-          lastname,
-          email,
-          email_verified,
-          birthday,
-          admin,
-          active
-        }
-
-      });
-    res.status(200).json({usuario, craeted});
+    const [usuario, craeted] = await Users.findOrCreate({
+      where: { email: user.email },
+      defaults: {
+        name,
+        lastname,
+        email,
+        email_verified,
+        birthday,
+        admin,
+        active,
+      },
+    });
+    res.status(200).json({ usuario, craeted });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -390,16 +388,16 @@ const filterCourses = async (req, res) => {
 };
 
 const contactMail = (req, res) => {
-  const {name, mail, message } = req.body;
-  
-  if(!name)res.status(500).json('Debe incluir el nombre. Vuelva a intenar')
-  
+  const { name, mail, message } = req.body;
+
+  if (!name) res.status(500).json("Debe incluir el nombre. Vuelva a intenar");
+
   // let newText = `${name} - ${email} - ${content}`
   let html = `<div>
     <h3> Name - ${name}</h3>
     <h3> Mail - ${mail}</h3>
     <h2>Message - ${message}</h2>
-  </div>`
+  </div>`;
 
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -412,17 +410,16 @@ const contactMail = (req, res) => {
   });
 
   let mailOption = {
-    from: 'Cursort contact', // sender address
-    to: "cursort.2022@gmail.com" , // list of receivers
-    subject: 'Cotact Form', // Subject line
+    from: "Cursort contact", // sender address
+    to: "cursort.2022@gmail.com", // list of receivers
+    subject: "Cotact Form", // Subject line
     // text: newText, // plain text body
-    html: html
+    html: html,
   };
   transporter.sendMail(mailOption, (error, info) => {
     if (error) {
       res.status(500).json(error.message);
     } else {
-     
       res.status(200).json("Email enviado con exito");
     }
   });
@@ -456,14 +453,77 @@ const postPayment = async (req, res, next) => {
       confirm: true,
     });
 
-    res.send({message: 'Pago realizado con éxito'})
+    res.send({ message: "Pago realizado con éxito" });
 
     next();
-
-}
-  catch (error) {
+  } catch (error) {
     res.json({ message: error.raw.message });
   }
+};
+
+/*
+¿que voy a mandar en el mail?
+- Datos del usuario : Nombre - Mail - detalle de cursos que compro {nombre:'',precio:''} - 
+-link de acceso a los cursos
+- verificar que este confirmado el pago: {confirm: true}
+
+------
+
+*/
+const linkMail = async (req, res) => {
+  let { mail, name, id_cursos} = req.body;
+
+  
+  const cursosPay = id_cursos.map((id)=>{
+   return Courses.findByPk(id);    
+  })  
+  const promesas = await Promise.all(cursosPay)
+
+ const promesasListas =  promesas.map(p=>{
+  return {
+    nombre : p.name,
+    precio: p.price,
+    imagen : p.image
+  }
+ })
+ console.log(promesasListas)
+ 
+
+
+
+  if (!mail)res.status(500).json("Faltan campos obligatorios, controle y vuelva a enviar");
+
+  let html = `<div>
+    <h3> ${name}! Gracias por confiar en Cursort \n ya está diponible tu curso, puedes ingresar en el siguiente link</h3>
+    <h3> http://localhost:3000 </h3>
+  </div>`
+
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: "cursort.2022@gmail.com", // generated ethereal user
+      pass: "cghynjlxmrlbasyt", // generated ethereal password
+    },
+  });
+
+  let mailOption1 = {
+    from: 'Cursort - Facturación', // sender address
+    to: mail , // list of receivers
+    subject: 'confirmación de compra', //
+    // text: newText, // plain text body
+    html: html
+  };
+
+  transporter.sendMail(mailOption1, (error, info) => {
+    if (error) {
+      res.status(500).json(error.message);
+    } else {
+
+      res.status(200).json("Email enviado con exito");
+    }
+  });
 };
 
 module.exports = {
@@ -481,5 +541,6 @@ module.exports = {
   getCoursesByDuration,
   filterCourses,
   contactMail,
-  postPayment
+  postPayment,
+  linkMail,
 };
