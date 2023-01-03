@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { getCategory, filterCategory } from "../../Redux/actions";
 
 
-const FilterCategory = () => {
+const FilterCategory = ({booleano}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,11 +28,18 @@ const FilterCategory = () => {
       <Button onClick={(e) => handleCategory(e)} key='all' value='all'>All</Button>
         {categories &&
             categories.map((e) => {
-              return( 
-              <Button>
-                <a href={`#${e.name}`} p={4} ml={4}>{e.name}</a>
-              </Button>
-              )
+              if(booleano){
+                return(
+                  <Button onClick={(e) => handleCategory(e)} key={e.id} value={e.name}>{e.name}</Button>
+                )
+              }
+              else{
+                return( 
+                <Button>
+                  <a href={`#${e.name}`} p={4} ml={4}>{e.name}</a>
+                </Button>
+                )
+              }
             })}
 
     </Grid>

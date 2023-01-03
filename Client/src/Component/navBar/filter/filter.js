@@ -33,7 +33,7 @@ import {
   orderByPublished,
 } from "../../../Redux/actions/index";
 
-function Filter({ setPagina, setOrder }) {
+function Filter({ setPagina, setOrder, booleano }) {
 
   const dispatch = useDispatch();
   function handleOrderByName(e) {
@@ -68,7 +68,7 @@ function Filter({ setPagina, setOrder }) {
   }
 
   return (
-    <Flex mt={3.8}>
+    <Flex mt={3.8} p={0} flexDirection='column'>
       <Menu>
         <MenuButton>
           <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
@@ -76,12 +76,12 @@ function Filter({ setPagina, setOrder }) {
           </Button>
         </MenuButton>
         <MenuList>
-          <FilterCategory handleOrderByName={handleOrderByName} />
+          <FilterCategory handleOrderByName={handleOrderByName} booleano={booleano}/>
         </MenuList>
       </Menu>
 
       <Menu>
-        <MenuButton ml={3}>
+        <MenuButton ml={1} mt={2}>
         <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
           Difficulty
           </Button>
@@ -92,7 +92,7 @@ function Filter({ setPagina, setOrder }) {
       </Menu>
 
       <Menu>
-        <MenuButton ml={3}>
+        <MenuButton ml={1} mt={2}>
         <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
           Duration
           </Button>
@@ -103,7 +103,7 @@ function Filter({ setPagina, setOrder }) {
       </Menu>
 
       <Menu>
-        <MenuButton ml={3}>
+        <MenuButton ml={3} mt={2}>
         <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
           Price
           </Button>
@@ -125,7 +125,7 @@ function Filter({ setPagina, setOrder }) {
       </Menu>
 
       <Menu>
-        <MenuButton ml={3}>
+        <MenuButton ml={3} mt={2}>
         <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
           Rating
           </Button>

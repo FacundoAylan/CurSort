@@ -11,6 +11,7 @@ import Admin from './Component/admin/admin';
 import Information from './Component/ShoppingCart/Information';
 import Payment from './Component/ShoppingCart/Payment';
 import Compra from './Component/compra/compra';
+import HomeFilter from './Component/Home/homeFilte';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Route exact path="/checkout/information" component={Information} />
       <Route exact path="/checkout/payment" component={Payment} />
       <Route path="/cursos" component={Compra} />
+      <Route path="/homefilter" component={HomeFilter} />
       
     </Container>
 )}

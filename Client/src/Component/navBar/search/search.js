@@ -1,5 +1,6 @@
 // este componente contintiene la barra de busqueda y llama al componente filter
 import React,{useState} from "react";
+import { Link } from "react-router-dom";
 import {
   Input,
   // Container,
@@ -7,12 +8,17 @@ import {
   InputGroup,
   InputRightElement,
   Grid,
-  GridItem
+  GridItem,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
 } from "@chakra-ui/react";
 import { SearchIcon } from '@chakra-ui/icons';
 import { getCourses } from "../../../Redux/actions";
 import {useDispatch} from 'react-redux'
 import Filter from "../filter/filter";
+import FilterCategory from "../../InputFilter/FilterCategory";
 
 function Search ({setPagina, setOrder}) {
   
@@ -24,6 +30,14 @@ function Search ({setPagina, setOrder}) {
   const onClick = () =>{
     setPagina(1);
     dispatch(getCourses(name));
+  }
+
+  function handleOrderByName(e) {
+    e.preventDefault();
+    setPagina(1);
+    dispatch(getCourses(e.target.value));
+    setPagina(1)
+    setOrder("order" + e.target.value);
   }
   return(
     <Grid 
@@ -51,7 +65,22 @@ function Search ({setPagina, setOrder}) {
         </InputGroup>
       </GridItem>
       <GridItem h='100%'>
-        <Filter setOrder={setOrder} setPagina={setPagina}/>
+        <Button>
+          <Link to='homefilter'>Filter</Link>
+        </Button>
+
+        {/* boton de filtrado */}
+        <Menu>
+        <MenuButton>
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
+            Category  
+          </Button>
+        </MenuButton>
+        <MenuList>
+          <FilterCategory handleOrderByName={handleOrderByName} booleano={false}/>
+        </MenuList>
+      </Menu>
+      
       </GridItem>
 
     </Grid>

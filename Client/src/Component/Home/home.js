@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {useSelector} from 'react-redux'
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from 'react-redux'
 import {
   Container,
   Box,
@@ -11,6 +11,7 @@ import NavBar from "../navBar/navBar";
 // import CreateCategory from "../CreateCategory/CreateCategory";
 import Footer from "../landing/footer/footer";
 import CarouselHome from "./currucelHome";
+import {getCategory} from '../../Redux/actions/index'
 
 
 // importo el json desde la api
@@ -24,10 +25,10 @@ function Home() {
   // const maximo = Math.ceil(info.length / porPagina);
 
   let [order, setOrder] = useState("");
-
-  // useEffect(() => {
-  //   dispatch(getCourses(""));
-  // }, [dispatch]);
+  const dispatch = useDispatch()
+  useEffect(() => {
+     dispatch(getCategory(""));
+   }, [dispatch]);
   
   // if (info <= 1) {
   //   //alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
