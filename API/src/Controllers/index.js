@@ -294,6 +294,34 @@ const disableUser = async (req, res) => {
   }
 };
 
+
+const editUser = async(req,res)=>{
+  
+  const {
+    name, 
+    lastname, 
+    birthday} = req.body;     
+    try {
+
+      if (!name || !lastname)
+        return res.status(400).send("Faltan datos");
+      const editUser = await Users.findOne({
+        where: { name: name },
+      });   
+        
+    const userEdit = await editUser.update({
+    name, 
+    lastname, 
+    birthday
+  });
+  res.status(200).send({message: "Usuario modificado con exito"})
+}catch (error){
+
+  res.status(404).send({message:error.message})
+} 
+
+}
+
 const getCategories = async (req, res) => {
   try {
     const categories = await Categories.findAll();
@@ -476,4 +504,5 @@ module.exports = {
   filterCourses,
   contactMail,
   editCourse,
+  editUser
 };
