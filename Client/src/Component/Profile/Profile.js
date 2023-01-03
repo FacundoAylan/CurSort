@@ -22,6 +22,14 @@ const Profile = () => {
       </GridItem>
 
       <GridItem>
+        <Link to="/cursos"  >
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' ml='10px'>
+            Mis cursos
+          </Button>
+        </Link>
+      </GridItem>
+
+      <GridItem>
         <CreateCategory />
       </GridItem>
 
