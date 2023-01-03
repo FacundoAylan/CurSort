@@ -319,7 +319,7 @@
         {
             "id": 6,
             "nombre": "Curso de JavaScript",
-            "imagen": "https://webtraining.zone/img/metadata-courses/curso-profesional-javascript-Advanced-2018.jpg",
+            "imagen": "https://webtraining.zone/img/metadata-courses/curso-profesional-javascript-avanzado-2018.jpg",
             "instructor": "Pedro Piedra",
             "precio": 50,
             "moneda": "USD",
@@ -760,7 +760,7 @@
       {
           "id": 6,
           "nombre": "Curso de JavaScript",
-          "imagen": "https://webtraining.zone/img/metadata-courses/curso-profesional-javascript-Advanced-2018.jpg",
+          "imagen": "https://webtraining.zone/img/metadata-courses/curso-profesional-javascript-avanzado-2018.jpg",
           "instructor": "Pedro Piedra",
           "precio": 20,
           "moneda": "USD",
@@ -1201,7 +1201,7 @@
             {
                 "id": 6,
                 "nombre": "Curso de JavaScript",
-                "imagen": "https://webtraining.zone/img/metadata-courses/curso-profesional-javascript-Advanced-2018.jpg",
+                "imagen": "https://webtraining.zone/img/metadata-courses/curso-profesional-javascript-avanzado-2018.jpg",
                 "instructor": "Pedro Piedra",
                 "precio": 24,
                 "moneda": "USD",
@@ -1642,7 +1642,7 @@
           {
               "id": 6,
               "nombre": "Curso de JavaScript",
-              "imagen": "https://webtraining.zone/img/metadata-courses/curso-profesional-javascript-Advanced-2018.jpg",
+              "imagen": "https://webtraining.zone/img/metadata-courses/curso-profesional-javascript-avanzado-2018.jpg",
               "instructor": "Pedro Piedra",
               "precio": 20,
               "moneda": "USD",
@@ -2083,7 +2083,7 @@
         {
             "id": 6,
             "nombre": "Curso de JavaScript",
-            "imagen": "https://webtraining.zone/img/metadata-courses/curso-profesional-javascript-Advanced-2018.jpg",
+            "imagen": "https://webtraining.zone/img/metadata-courses/curso-profesional-javascript-avanzado-2018.jpg",
             "instructor": "Pedro Piedra",
             "precio": 20,
             "moneda": "USD",
