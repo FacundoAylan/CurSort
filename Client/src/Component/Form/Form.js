@@ -145,7 +145,7 @@ const Form2 = ({ input, setInput, categories, isError }) => {
       ? setInput({ ...input, [e.target.id]: Number(e.target.value) })
       : setInput({ ...input, [e.target.id]: e.target.value });
   };
-  console.log(categories)
+  
 
   return (
     <>
@@ -179,7 +179,7 @@ const Form2 = ({ input, setInput, categories, isError }) => {
             onChange={handleInputChange}
           >
             {categories &&
-              categories.map((d) => (<option value={d.id}>{d.name}</option>))}
+              categories?.map((d) => (<option value={d.id}>{d.name}</option>))}
           </Select>
           {!isError.categoria ? (
             <FormHelperText color={"green"}>categoria valida</FormHelperText>

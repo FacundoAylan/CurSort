@@ -57,6 +57,7 @@ export function getDetail(id) {
 export function getCategory(){
     return async (dispatch) =>{
         let categories = await axios.get('http://localhost:3001/categories')
+        console.log(categories)
         return dispatch({
             type: GET_CATEGORIES,
             payload: categories.data
