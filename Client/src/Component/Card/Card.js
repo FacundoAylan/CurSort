@@ -140,6 +140,7 @@ function Cards({ name, image, price, id, categories, rating }) {
             {/* puntuacion */}
 
             {/* precio */}
+            <Box mt='80px'>
             <Center fontSize="40px" color="#03C139">
               {`$${price.toFixed(2)}`}
             </Center>
@@ -170,6 +171,7 @@ function Cards({ name, image, price, id, categories, rating }) {
               </Tooltip>
             </Center>
             {/* boton de compra */}
+          </Box>
           </Box>
         </GridItem>
       </Grid>

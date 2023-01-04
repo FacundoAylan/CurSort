@@ -33,7 +33,7 @@ import {
   orderByPublished,
 } from "../../../Redux/actions/index";
 
-function Filter({ setPagina, setOrder }) {
+function Filter({ setPagina, setOrder, booleano }) {
 
   const dispatch = useDispatch();
   function handleOrderByName(e) {
@@ -68,21 +68,21 @@ function Filter({ setPagina, setOrder }) {
   }
 
   return (
-    <Flex mt={3.8}>
+    <Flex mt={booleano? 3.8 : 5} p={0} flexDirection={booleano? 'row':'column'}>
       <Menu>
         <MenuButton>
-          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
             Category  
           </Button>
         </MenuButton>
         <MenuList>
-          <FilterCategory handleOrderByName={handleOrderByName} />
+          <FilterCategory handleOrderByName={handleOrderByName} booleano={booleano}/>
         </MenuList>
       </Menu>
 
       <Menu>
-        <MenuButton ml={3}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
+        <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
+        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
           Difficulty
           </Button>
           </MenuButton>
@@ -92,8 +92,8 @@ function Filter({ setPagina, setOrder }) {
       </Menu>
 
       <Menu>
-        <MenuButton ml={3}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
+        <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
+        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
           Duration
           </Button>
           </MenuButton>
@@ -103,8 +103,8 @@ function Filter({ setPagina, setOrder }) {
       </Menu>
 
       <Menu>
-        <MenuButton ml={3}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
+        <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
+        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
           Price
           </Button>
         </MenuButton>
@@ -114,8 +114,8 @@ function Filter({ setPagina, setOrder }) {
       </Menu>
 
       <Menu>
-        <MenuButton ml={3}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
+        <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
+        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
           Publiced
           </Button>
           </MenuButton>
@@ -124,9 +124,9 @@ function Filter({ setPagina, setOrder }) {
         </MenuList>
       </Menu>
 
-      <Menu>
-        <MenuButton ml={3}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
+      <Menu >
+        <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
+        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
           Rating
           </Button>
           </MenuButton>
