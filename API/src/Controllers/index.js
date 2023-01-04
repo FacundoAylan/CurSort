@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 const data = require("./api.json");
-const { Users, Courses, Categories, Reviews } = require("../db");
+const { Users, Courses, Categories, Reviews, Orders } = require("../db");
 const nodemailer = require("nodemailer");
 const { CLIENT_STRIPE_KEY } = process.env;
 const Stripe = require("stripe");
@@ -465,43 +465,111 @@ const contactMail = (req, res) => {
   });
 };
 
-// // post para realizar pago
-// const postPayment = async (req, res) => {
-//   const { id, email, amount, description } = req.body;
-//   try {
-//     const payment = await Payment.create({
-//       id,
-//       email,
-//       amount,
-//       description,
-//     });
-//     res.status(200).json(payment);
-//   } catch (error) {
-//     res.status(400).json(error.message);
-//   }
-// };
+//validacion de datos
+const validate = ({mail, phone, address, city, postalCode, country}) => {
+  const errors = {};
+  if (!mail) errors.mail = "El mail es requerido";
+  if (!phone) errors.phone = "El teléfono es requerido";
+  if (!address) errors.address = "La dirección es requerida";
+  if (!city) errors.city = "La ciudad es requerida";
+  if (!postalCode) errors.postalCode = "El código postal es requerido";
+  if (!country) errors.country = "El país es requerido";
 
+  return errors;
+};
+
+// post para guardar los datos del comprador
+const postInformationBuyer = async (req, res, next) => {
+  const { mail, phone, address, city, postalCode, country} = req.body;
+
+  const errors = validate({mail, phone, address, city, postalCode, country});
+
+  try {
+    if (Object.keys(errors).length > 0) {
+      return res.status(200).json(errors);
+    }
+
+      const buyer = await Users.findOne({
+      where: {email: mail },
+      })
+
+      buyer.phone = phone
+      buyer.address = address
+      buyer.city = city
+      buyer.postalCode = postalCode
+      buyer.country = country
+      await buyer.save()
+      res.send({message: 'success'})
+  
+  } catch (error) {
+      res.json({ message: error });
+  }
+};
+    
 // post para realizar pago
 const postPayment = async (req, res, next) => {
-  const { id, amount } = req.body;
+  const { id, amount, mail, name, id_courses, course_name } = req.body;
+  console.log(req.body)
   try {
     const payment = await stripe.paymentIntents.create({
       amount,
       currency: "usd",
       payment_method: id,
-      description: "Pago de curso",
+      description: `Pago de ${name} por el curso ${course_name}`,
       confirm: true,
     });
 
-    res.send({message: 'Pago realizado con éxito'})
+    const buyer = await Users.findOne({
+        where: {email: mail }
+    })
+    
+    const course = await Courses.findAll({
+        where: {id: id_courses}
+    })
+
+    console.log(course)
+
+   const newOrder = await Orders.create({
+        status: 'paid',
+        amount: amount,
+        stripe_id: id,
+    })
+
+    await newOrder.addCourse(course)
+    await newOrder.addUser(buyer)
+
+
+    res.send({message: 'success'})
 
     next();
 
 }
   catch (error) {
-    res.json({ message: error.raw.message });
+    console.log(error)
+    res.json({ message: error});
   }
 };
+
+const getOrders = async (req, res) => {
+  try {
+    const orders = await Orders.findAll({
+      include: [
+        {
+          model: Users,
+          attributes: ["name", "email"],
+        },
+        {
+          model: Courses,
+          attributes: ["name"],
+        },
+      ],
+    });
+    res.status(200).json(orders);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 
 module.exports = {
   postCourse,
@@ -519,5 +587,7 @@ module.exports = {
   filterCourses,
   contactMail,
   postPayment,
+  postInformationBuyer,
+  getOrders,
   editUser
 };

@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Swal from "sweetalert2";
 import { useHistory } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
+import { clearCart } from '../../Redux/actions/index';
 
 function Checkoutform() {
 
     const stripe = useStripe();
     const elements = useElements();
     const cart = useSelector(state => state.cart);
-
+    const { user, isAuthenticated } = useAuth0();
     const history = useHistory();
+    const dispatch = useDispatch();
 
-    
   const [total, setTotal] = useState(0);
 
   const getTotal = () => {
@@ -29,7 +31,9 @@ function Checkoutform() {
     getTotal();
     });
 
-    
+    const idCourse = cart.map((cart) => cart.id)
+    console.log(idCourse)
+
   
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -39,22 +43,26 @@ function Checkoutform() {
             card: elements.getElement(CardElement),
         })
 
-        console.log(stripe.createPaymentMethod)
+        console.log(paymentMethod)
 
         if (!error) {
             const{ id } = paymentMethod;
 
             try {
+
                 const { data } = await axios.post('http://localhost:3001/checkout/payment', {
                     amount: total * 100,
                     id,
-
+                    mail: user.email,
+                    name: user.name,
+                    id_courses: cart.map((cart) => cart.id),
+                    course_name: cart.map((cart) => cart.name)
                 });
     
                 const card = elements.getElement(CardElement)
                 card.clear();
        
-                if(data.message === 'Pago realizado con éxito') {
+                if(data.message === 'success') {
                    await  Swal.fire({
                         position: 'center',
                         icon: 'success',
@@ -62,6 +70,8 @@ function Checkoutform() {
                         showConfirmButton: false,
                         timer: 2000
                       })
+                       console.log(data)
+                        dispatch(clearCart())
                         history.push('/home')
                 }
                 else {
@@ -72,6 +82,7 @@ function Checkoutform() {
                         showConfirmButton: false,
                         timer: 2000
                       })
+                      console.log(data)
                 }
             } catch (error) {
 
