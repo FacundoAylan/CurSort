@@ -27,6 +27,22 @@ module.exports = (sequelize) => {
     },
     birthday: {
       type: DataTypes.STRING
-    }
+    },
+    //modificaciones mai
+    phone: {
+      type: DataTypes.INTEGER
+    },
+    address: {
+      type: DataTypes.STRING
+    },
+    city: {
+      type: DataTypes.STRING
+    },
+    country: {
+      type: DataTypes.STRING
+    },
+    postalCode: {
+      type: DataTypes.INTEGER
+    },
   })
 };
