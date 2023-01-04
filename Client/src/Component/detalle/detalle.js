@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState} from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 import { Image, Stack, Heading, Text, Button, Box, ListItem, List, SimpleGrid, StackDivider, Flex, Container, useColorModeValue, IconButton, HStack, Center} from '@chakra-ui/react';

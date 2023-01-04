@@ -2205,8 +2205,390 @@
                     "duracion": "2 horas"
                 }
             ]
+        },
+
+        {
+          "id": 35,
+          "nombre": "Aprende Javascript, HTML5 y CSS3",
+          "imagen": "https://img-b.udemycdn.com/course/240x135/23864_ddff_7.jpg",
+          "instructor": "Beto Quiroga",
+          "precio": 65,
+          "moneda": "USD",
+          "duracion": 10,
+          "descripcion": "Obtén un libro de más de cien páginas con el curso!!! .Este curso tiene como objetivo que usted aprenda JavaScript sin que sea programador. Revisaremos desde sus inicios la sintaxis del lenguaje, el manejo de sus variables, lo que es una sentencia condicional, los ciclos, las funciones, los arreglos y otros objetos, asi como la estructura DOM, que es fundamental para el manejo avanzado de las páginas, como es HTML5 y jQuerys. También revisaremos el manejo de los eventos con este potente lenguaje.",
+          "updated_at": "2019-03-25T20:00:00.000Z",
+          "created_at": "2019-03-25T20:00:00.000Z",
+          "rating": 4,
+          "reviews": [],
+          "dificultad": "Middle",
+          "idCategoria": "1",
+          "temario": [
+              {
+                  "id": 1,
+                  "titulo": "Introducción",
+                  "duracion": "1 hora"
+              },
+              {
+                  "id": 2,
+                  "titulo": "Fundamentos de Python",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 3,
+                  "titulo": "Estructuras de control",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 4,
+                  "titulo": "Funciones",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 5,
+                  "titulo": "Módulos",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 6,
+                  "titulo": "POO",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 7,
+                  "titulo": "Archivos",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 8,
+                  "titulo": "Excepciones",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 9,
+                  "titulo": "Proyecto",
+                  "duracion": "2 horas"
+              }
+          ]
+        },
+        {
+          "id": 36,
+          "nombre": "Vue.js - Intermedio: Lleva tus bases al siguiente nivel",
+          "imagen": "https://img-b.udemycdn.com/course/750x422/4918174_43ab.jpg",
+          "instructor": "Fernando Herrera",
+          "precio": 5,
+          "moneda": "USD",
+          "duracion": 10,
+          "descripcion": "Bienvenido al curso de Vue.js Intermedio (Vue 3.2+). Este es un curso orientado a personas con cierta base de conocimiento sobre el framework de Vue.js, todo el contenido está escrito en TypeScript, con el objetivo de hacer componentes y código reutilizable utilizando la nueva sintaxis del script setup.",
+          "updated_at": "2019-03-25T20:00:00.000Z",
+          "created_at": "2019-03-25T20:00:00.000Z",
+          "rating": 3,
+          "reviews": [],
+          "dificultad": "Middle",
+          "idCategoria": "1",
+          "temario": [
+              {
+                  "id": 1,
+                  "titulo": "Introducción",
+                  "duracion": "1 hora"
+              },
+              {
+                  "id": 2,
+                  "titulo": "Fundamentos de Python",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 3,
+                  "titulo": "Estructuras de control",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 4,
+                  "titulo": "Funciones",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 5,
+                  "titulo": "Módulos",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 6,
+                  "titulo": "POO",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 7,
+                  "titulo": "Archivos",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 8,
+                  "titulo": "Excepciones",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 9,
+                  "titulo": "Proyecto",
+                  "duracion": "2 horas"
+              }
+          ]
+        },
+        {
+          "id": 37,
+          "nombre": "Universidad Desarrollo Web - FrontEnd Web Developer!",
+          "imagen": "https://img-b.udemycdn.com/course/240x135/3895716_00dc_7.jpg",
+          "instructor": "Fernando Herrera",
+          "precio": 9.99,
+          "moneda": "USD",
+          "duracion": 10,
+          "descripcion": "Ya somos más de 132,000 alumnos!  En este curso Universidad Desarrollo Web - FrontEnd aprenderás las tecnologías HTML, CSS y JavaScript con las últimas tecnologías y herramientas que te permitirán dominar y crear aplicaciones Web modernas, convirtiéndote en el FronEnd Developer que las empresas están buscando.Aprenderás HTML, CSS y JavaScript a profundidad, la mano del Ing. Ubaldo Acosta, experto en desarrollo Web y aplicaciones Empresariales, con más de 20 años de experiencia laboral y más de 10 años enseñando vía online. Fundador de Global Mentoring y  del exitoso curso Universidad Java.",
+          "updated_at": "2019-03-25T20:00:00.000Z",
+          "created_at": "2019-03-25T20:00:00.000Z",
+          "rating": 5,
+          "reviews": [],
+          "dificultad": "Middle",
+          "idCategoria": "1",
+          "temario": [
+              {
+                  "id": 1,
+                  "titulo": "Introducción",
+                  "duracion": "1 hora"
+              },
+              {
+                  "id": 2,
+                  "titulo": "Fundamentos de Python",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 3,
+                  "titulo": "Estructuras de control",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 4,
+                  "titulo": "Funciones",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 5,
+                  "titulo": "Módulos",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 6,
+                  "titulo": "POO",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 7,
+                  "titulo": "Archivos",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 8,
+                  "titulo": "Excepciones",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 9,
+                  "titulo": "Proyecto",
+                  "duracion": "2 horas"
+              }
+          ]
+        },
+        {
+          "id": 38,
+          "nombre": "The Complete Front-End Web Development Course",
+          "imagen": "https://img-c.udemycdn.com/course/240x135/1166306_84a1_3.jpg",
+          "instructor": "Nick Germanie",
+          "precio": 29.99,
+          "moneda": "USD",
+          "duracion": 10,
+          "descripcion": "If you would like to learn web development and get a job in the tech industry, you are going to LOVE this course! Learn HTML, CSS, JavaScript, Bootstrap and more with over 15 hours of HD video tutorials! This course was designed to be extremely beginner friendly. We will begin with the very basics of HTML and build a simple web page. By the end of this course, you will be able to develop and publish your very own Google Chrome extension! In this course we will focus on coding exercises and projects. Your time will not be wasted reviewing unnecessarily long PowerPoint presentations. Upon completing this course, you will have a solid portfolio of development projects to show potential employers!",
+          "updated_at": "2019-03-25T20:00:00.000Z",
+          "created_at": "2019-03-25T20:00:00.000Z",
+          "rating": 4,
+          "reviews": [],
+          "dificultad": "Middle",
+          "idCategoria": "2",
+          "temario": [
+              {
+                  "id": 1,
+                  "titulo": "Introducción",
+                  "duracion": "1 hora"
+              },
+              {
+                  "id": 2,
+                  "titulo": "Fundamentos de Python",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 3,
+                  "titulo": "Estructuras de control",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 4,
+                  "titulo": "Funciones",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 5,
+                  "titulo": "Módulos",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 6,
+                  "titulo": "POO",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 7,
+                  "titulo": "Archivos",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 8,
+                  "titulo": "Excepciones",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 9,
+                  "titulo": "Proyecto",
+                  "duracion": "2 horas"
+              }
+          ]
+        },
+        {
+          "id": 39,
+          "nombre": "Curso Práctico de Django: Desarrollo Web Backend con Python",
+          "imagen": "https://img-b.udemycdn.com/course/240x135/1444542_d3b8_9.jpg",
+          "instructor": "Hector Gomez",
+          "precio": 29.99,
+          "moneda": "USD",
+          "duracion": 10,
+          "descripcion": "Bienvenidos sobre el framework web de referencia para desarrollar backends con Python.Este curso es 100% compatible con Django 2, 3 y 4. Todos los proyectos han sido revisados en Febrero de 2022 utilizando Python 3.10.2 y Django 4.0.2. Seré conciso y claro, el curso tiene un objetivo por encima de todo: aprender practicando cosas útiles y reales. Para ello te mostraré cómo completar tres proyectos paso a paso",
+          "updated_at": "2019-03-25T20:00:00.000Z",
+          "created_at": "2019-03-25T20:00:00.000Z",
+          "rating": 2,
+          "reviews": [],
+          "dificultad": "Middle",
+          "idCategoria": "2",
+          "temario": [
+              {
+                  "id": 1,
+                  "titulo": "Introducción",
+                  "duracion": "1 hora"
+              },
+              {
+                  "id": 2,
+                  "titulo": "Fundamentos de Python",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 3,
+                  "titulo": "Estructuras de control",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 4,
+                  "titulo": "Funciones",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 5,
+                  "titulo": "Módulos",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 6,
+                  "titulo": "POO",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 7,
+                  "titulo": "Archivos",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 8,
+                  "titulo": "Excepciones",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 9,
+                  "titulo": "Proyecto",
+                  "duracion": "2 horas"
+              }
+          ]
+        },
+        {
+          "id": 40,
+          "nombre": "Introducción a la programación orientada a objetos con PHP",
+          "imagen": "https://img-b.udemycdn.com/course/240x135/225170_e177_3.jpg",
+          "instructor": "Francisco Arce",
+          "precio": 8.99,
+          "moneda": "USD",
+          "duracion": 10,
+          "descripcion": "La programación orientada a objetos te permitirá llevar a PHP a su máxima capacidad, y hacer proyectos enormes y fáciles de mantener. En este curso aprenderás desde los conceptos básicos de la programación orientada a objetos hasta realizar una aplicación completa desarrollada bajo este paradigma. revisaremos puntos muy importantes como clase, función constructora, instancia, getters y setter.",
+          "updated_at": "2019-03-25T20:00:00.000Z",
+          "created_at": "2019-03-25T20:00:00.000Z",
+          "rating": 2,
+          "reviews": [],
+          "dificultad": "Middle",
+          "idCategoria": "2",
+          "temario": [
+              {
+                  "id": 1,
+                  "titulo": "Introducción",
+                  "duracion": "1 hora"
+              },
+              {
+                  "id": 2,
+                  "titulo": "Fundamentos de Python",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 3,
+                  "titulo": "Estructuras de control",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 4,
+                  "titulo": "Funciones",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 5,
+                  "titulo": "Módulos",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 6,
+                  "titulo": "POO",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 7,
+                  "titulo": "Archivos",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 8,
+                  "titulo": "Excepciones",
+                  "duracion": "2 horas"
+              },
+              {
+                  "id": 9,
+                  "titulo": "Proyecto",
+                  "duracion": "2 horas"
+              }
+          ]
         }
     ],
+
+
+    
 
     "categorias":[
         {

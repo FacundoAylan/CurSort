@@ -10,7 +10,7 @@ function Title () {
   return(
     <Box ml='15%' mt='4%' bg='none'>
       <Link to='/'>
-        <Image src='https://i.ibb.co/9bwtk3s/Logo2.png' alt='' w='50%' />
+        <Image src='https://i.ibb.co/9bwtk3s/Logo2.png' alt='' w='50%' cursor='poiner'/>
       </Link>
     </Box>
   )

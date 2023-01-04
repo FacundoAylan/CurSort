@@ -178,6 +178,7 @@ function Contact() {
                           color="white"
                           _hover={{}}
                           onClick={send}
+                          ml='60px'
                         >
                           Send Message
                         </Button>

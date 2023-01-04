@@ -15,7 +15,7 @@ function Nosotros () {
               <Text fontSize='15'ml='25%'>@Front-end</Text>
               <Text fontSize='10' ml='25%'>
                 <Button bg="#3E4AB8" >
-                  <a target="_blank" href="https://www.linkedin.com/in/pablo-swistoniuk-0b15a6247/">linkedin</a>
+                  <a  href="https://www.linkedin.com/in/pablo-swistoniuk-0b15a6247/" target="_blank" >linkedin</a>
                 </Button>
               </Text>
         </Box>
@@ -29,7 +29,7 @@ function Nosotros () {
               <Text fontSize='15'ml='25%'>@Front-end</Text>
               <Text fontSize='10' ml='25%'>
                 <Button bg="#3E4AB8" >
-                  <a href="https://www.linkedin.com/in/facundo-aylan-582b52257/">linkedin</a>
+                <a  href="https://www.linkedin.com/in/pablo-swistoniuk-0b15a6247/" target="_blank" >linkedin</a>
                 </Button>
               </Text>
         </Box>
@@ -43,7 +43,7 @@ function Nosotros () {
               <Text fontSize='15'ml='25%'>@Front-end</Text>
               <Text fontSize='10' ml='25%'>
                 <Button bg="#3E4AB8" >
-                  <a href="https://www.linkedin.com/in/facundo-aylan-582b52257/">linkedin</a>
+                  <a href="https://www.linkedin.com/in/facundo-aylan-582b52257/" target="_blank">linkedin</a>
                 </Button>
               </Text>
         </Box>
@@ -57,7 +57,7 @@ function Nosotros () {
               <Text fontSize='15'ml='25%'>@Front-end</Text>
               <Text fontSize='10' ml='25%'>
                 <Button bg="#3E4AB8" >
-                  <a href="https://www.linkedin.com/in/facundo-aylan-582b52257/">linkedin</a>
+                  <a href="https://www.linkedin.com/in/facundo-aylan-582b52257/" target="_blank">linkedin</a>
                 </Button>
               </Text>
         </Box>
@@ -71,7 +71,7 @@ function Nosotros () {
               <Text fontSize='15'ml='25%'>@Front-end</Text>
               <Text fontSize='10' ml='25%'>
                 <Button bg="#3E4AB8" >
-                  <a href="https://www.linkedin.com/in/facundo-aylan-582b52257/" >linkedin</a>
+                  <a href="https://www.linkedin.com/in/facundo-aylan-582b52257/" target="_blank">linkedin</a>
                 </Button>
               </Text>
         </Box>
@@ -84,7 +84,7 @@ function Nosotros () {
               <Text fontSize='15'ml='25%'>@Front-end</Text>
               <Text fontSize='10' ml='25%'>
                 <Button bg="#3E4AB8" >
-                  <a href="https://www.linkedin.com/in/facundo-aylan-582b52257/">linkedin</a>
+                  <a href="https://www.linkedin.com/in/facundo-aylan-582b52257/" target="_blank">linkedin</a>
                 </Button>
               </Text>
         </Box>
