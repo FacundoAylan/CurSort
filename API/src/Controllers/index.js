@@ -258,26 +258,33 @@ const disableUser = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
-//ruta para modificar un usuario
 
+
+
+//ruta para modificar un usuario
 const editUser = async(req,res)=>{
   
   const {
     name, 
     lastname, 
-    birthday} = req.body;     
+    birthday,
+    country,
+    gender
+  } = req.body;     
     try {
 
       if (!name || !lastname)
         return res.status(400).send("Faltan datos");
       const editUser = await Users.findOne({
-        where: { name: name },
+        where: { name: name }
       });   
         
     const userEdit = await editUser.update({
     name, 
     lastname, 
-    birthday
+    birthday,
+    country,
+    gender // acepta solo F o M
   });
   res.status(200).send({message: "Usuario modificado con exito"})
 }catch (error){
