@@ -51,7 +51,7 @@ function Search ({setPagina, setOrder}) {
         </InputGroup>
       </GridItem>
       <GridItem h='100%'>
-        <Filter setOrder={setOrder} setPagina={setPagina}/>
+        <Filter setOrder={setOrder} setPagina={setPagina} booleano={true}/>
       </GridItem>
 
     </Grid>

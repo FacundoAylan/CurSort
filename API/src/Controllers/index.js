@@ -64,16 +64,14 @@ const postCourse = async (req, res) => {
 const loadCoursesToDB = async () => {
   const coursesDB = await Courses.findAll();
   const coursesJSON = data.cursos;
-  const categoriesJSON = data.categorys;
-  const categoriesDB = await Categories.findAll();
+  const categoriesJSON = data.categorias;
 
-  if (categoriesDB.length === 0) {
-    categoriesJSON.forEach(async (e) => {
-      await Categories.create({
-        name: e.name,
-      });
-    });
-  }
+  categoriesJSON.map(e => Categories.findOrCreate({
+    where: {
+      id: e.id,
+      name: e.name
+    }
+  }))
 
   if (coursesDB.length === 0) {
     coursesJSON.forEach(async (e) => {
@@ -87,10 +85,9 @@ const loadCoursesToDB = async () => {
       rating = e.rating;
       image = e.imagen;
       difficulty = e.dificultad;
-      price = e.precio;
       categoryId = parseInt(e.idCategoria);
 
-      await Courses.create({
+      const newcourse = await Courses.create({
         name,
         description,
         instructor,
@@ -99,9 +96,9 @@ const loadCoursesToDB = async () => {
         rating,
         image,
         difficulty,
-        price,
-        categoryId,
       });
+
+      newcourse.addCategories(categoryId)
     });
   }
 };
