@@ -35,8 +35,8 @@ function Home() {
   // }
   return (
     <Container maxW="100%" p="0" heightMode="min">
-      <Box background="#3E4AB8" maxW="100%" maxH="50%">
-        <NavBar setOrder={setOrder} setPagina={setPagina} />
+      <Box mt="8%">
+        <NavBar setOrder={setOrder} setPagina={setPagina}/>
       </Box>
       <Box h="40%" maxW="100%">
        

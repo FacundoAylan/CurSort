@@ -13,6 +13,10 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN,
       defualtValue: false
     },
+    enabled: {
+      type: DataTypes.BOOLEAN,
+      defualtValue: true
+    },
     active: {
       type: DataTypes.BOOLEAN,
       defualtValue: true
@@ -20,13 +24,34 @@ module.exports = (sequelize) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique:true
+      unique:true,
+      isEmail: true,
     },
     email_verified:{
       type: DataTypes.BOOLEAN
     },
     birthday: {
       type: DataTypes.STRING
+    },
+    //modificaciones mai
+    phone: {
+      type: DataTypes.INTEGER
+    },
+    address: {
+      type: DataTypes.STRING
+    },
+    city: {
+      type: DataTypes.STRING
+    },
+    country: {
+      type: DataTypes.STRING
+    },
+    postalCode: {
+      type: DataTypes.INTEGER
+    },
+    gender: {
+      type: DataTypes.ENUM('F', 'M')
     }
+
   })
 };

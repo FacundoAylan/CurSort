@@ -8,29 +8,47 @@ import {
     Button,
     Stack,
   } from "@chakra-ui/react";
+import axios from 'axios';
+import Swal from "sweetalert2";
 
 function Information() {
     const { user } = useAuth0();
-    console.log(user);
 
     const cart = useSelector(state => state.cart);
     const history = useHistory();
     const form = useRef(null);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const formData = new FormData(form.current);
-        const buyer = {
-            name: formData.get('name'),
-            lastname: formData.get('lastname'),
-            mail: formData.get('email'),
-            phone: formData.get('phone'),
-            address: formData.get('address'),
-            city: formData.get('city'),
-            country: formData.get('country'),
-            postalCode: formData.get('cp'),
-        };
-        history.push('/checkout/payment');
+        try{
+          const formData = new FormData(form.current);
+          const buyer = {
+              name: formData.get('name'),
+              lastname: formData.get('lastname'),
+              mail: formData.get('email'),
+              phone: formData.get('phone'),
+              address: formData.get('address'),
+              city: formData.get('city'),
+              country: formData.get('country'),
+              postalCode: formData.get('cp'),
+          };
+          const { data } = await axios.post('http://localhost:3001/checkout/information', buyer);
+          console.log(data);
+          if(data.message === 'success'){
+            console.log(data)
+            history.push('/checkout/payment');
+          } else {
+            Swal.fire({
+              icon: 'info',
+              title: 'Oops...',
+              text: 'Algo salió mal, intentalo de nuevo',
+            })
+          }
+
+        }
+        catch(error){
+          console.log(error);
+        }
     }
 
   return (
@@ -65,7 +83,7 @@ function Information() {
             />
             <br />
             <br />
-            <input type="text" placeholder="Direccion" name="addres" />
+            <input type="text" placeholder="Direccion" name="address" />
             <br />
             <br />
             <input type="text" placeholder="Ciudad" name="city" />

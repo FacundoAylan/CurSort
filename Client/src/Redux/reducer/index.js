@@ -60,29 +60,20 @@ const rootReducer = (state = initialState, action) => {
         categories: action.payload,
       };
     case ORDER_BY_RATING:
-      let orderRating =
-        action.payload === "asc"
-          ? state.courses.sort((a, b) => {
-              if (a.rating > b.rating) {
-                return 1;
-              }
-              if (b.rating > a.rating) {
-                return -1;
-              }
-              return 0;
-            })
-          : state.courses.sort((a, b) => {
-              if (a.rating > b.rating) {
-                return -1;
-              }
-              if (b.rating > a.rating) {
-                return 1;
-              }
-              return 0;
-            });
+      let orderRating = 
+        state.courses.sort((a, b) => {
+          if (a.rating > b.rating) {
+            return -1;
+          }
+          if (b.rating > a.rating) {
+            return 1;
+          }
+          return 0;
+        });
+
       return {
         ...state,
-        courses: action.payload === "all" ? state.allCourses : orderRating,
+        courses: orderRating,
       };
     case ORDER_BY_PRICE:
       let orderPrice =

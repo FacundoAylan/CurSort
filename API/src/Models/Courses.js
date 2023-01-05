@@ -18,28 +18,28 @@ module.exports = (sequelize) => {
     },
     price: {
       type: DataTypes.INTEGER,
-      
     },
-
-    fecha: {
+    released: {
       type : DataTypes.DATE,
       defaultValue: DataTypes.NOW
     },
     rating: {
       type: DataTypes.FLOAT,
-
       defualtValue: 0,
-
     },
     image: {
       type: DataTypes.STRING
+    },
+    enabled: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     },
     active: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
     },
     difficulty: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('Beginner', 'Middle', 'Advanced')
     },
   });
 };

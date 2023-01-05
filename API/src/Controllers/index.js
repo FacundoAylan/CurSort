@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 const data = require("./api.json");
-const { Users, Courses, Categories, Reviews } = require("../db");
+const { Users, Courses, Categories, Reviews, Orders } = require("../db");
 const nodemailer = require("nodemailer");
 const { CLIENT_STRIPE_KEY } = process.env;
 const Stripe = require("stripe");
@@ -66,16 +66,14 @@ const postCourse = async (req, res) => {
 const loadCoursesToDB = async () => {
   const coursesDB = await Courses.findAll();
   const coursesJSON = data.cursos;
-  const categoriesJSON = data.categorys;
-  const categoriesDB = await Categories.findAll();
+  const categoriesJSON = data.categorias;
 
-  if (categoriesDB.length === 0) {
-    categoriesJSON.forEach(async (e) => {
-      await Categories.create({
-        name: e.name,
-      });
-    });
-  }
+  categoriesJSON.map(e => Categories.findOrCreate({
+    where: {
+      id: e.id,
+      name: e.name
+    }
+  }))
 
   if (coursesDB.length === 0) {
     coursesJSON.forEach(async (e) => {
@@ -89,10 +87,9 @@ const loadCoursesToDB = async () => {
       rating = e.rating;
       image = e.imagen;
       difficulty = e.dificultad;
-      price = e.precio;
       categoryId = parseInt(e.idCategoria);
 
-      await Courses.create({
+      const newcourse = await Courses.create({
         name,
         description,
         instructor,
@@ -101,9 +98,9 @@ const loadCoursesToDB = async () => {
         rating,
         image,
         difficulty,
-        price,
-        categoryId,
       });
+
+      newcourse.addCategories(categoryId)
     });
   }
 };
@@ -261,6 +258,46 @@ const disableUser = async (req, res) => {
   }
 };
 
+
+
+//ruta para modificar un usuario
+const editUser = async(req,res)=>{
+  
+  const {
+    name, 
+    lastname, 
+    birthday,
+    country,
+    gender
+  } = req.body;     
+    try {
+
+      if (!name || !lastname)
+        return res.status(400).send("Faltan datos");
+      const editUser = await Users.findOne({
+        where: { name: name }
+      });   
+        
+    const userEdit = await editUser.update({
+    name, 
+    lastname, 
+    birthday,
+    country,
+    gender // acepta solo F o M
+  });
+  res.status(200).send({message: "Usuario modificado con exito"})
+}catch (error){
+
+  res.status(404).send({message:error.message})
+} 
+
+}
+
+
+
+
+
+
 const getCategories = async (req, res) => {
   try {
     const categories = await Categories.findAll();
@@ -388,13 +425,13 @@ const filterCourses = async (req, res) => {
   }
 };
 
+//para Contacto con nosotros
 const contactMail = (req, res) => {
   const { name, mail, message } = req.body;
 
   if (!name) res.status(500).json("Debe incluir el nombre. Vuelva a intenar");
 
-  // let newText = `${name} - ${email} - ${content}`
-  let html = `<div>
+ let html = `<div>
     <h3> Name - ${name}</h3>
     <h3> Mail - ${mail}</h3>
     <h2>Message - ${message}</h2>
@@ -426,57 +463,13 @@ const contactMail = (req, res) => {
   });
 };
 
-// // post para realizar pago
-// const postPayment = async (req, res) => {
-//   const { id, email, amount, description } = req.body;
-//   try {
-//     const payment = await Payment.create({
-//       id,
-//       email,
-//       amount,
-//       description,
-//     });
-//     res.status(200).json(payment);
-//   } catch (error) {
-//     res.status(400).json(error.message);
-//   }
-// };
-
-// post para realizar pago
-const postPayment = async (req, res, next) => {
-  const { id, amount } = req.body;
-  try {
-    const payment = await stripe.paymentIntents.create({
-      amount,
-      currency: "usd",
-      payment_method: id,
-      description: "Pago de curso",
-      confirm: true,
-    });
-
-    res.send({ message: "Pago realizado con éxito" });
-
-    next();
-  } catch (error) {
-    res.json({ message: error.raw.message });
-  }
-};
-
-/*
-¿que voy a mandar en el mail?
-- Datos del usuario : Nombre - Mail - detalle de cursos que compro {nombre:'',precio:''} - 
--link de acceso a los cursos
-- verificar que este confirmado el pago: {confirm: true}
-
-------
-
-*/
-
+// middleware para mail de confirmacion
 
 const linkMail = async (req, res, next) => {
   let { mail, name, id_cursos} = req.body;
 
-  //---- Esto recibe un [] con los id de los cursos pero no puedo incluirlos en el mail. Igual recibe el mail de confirmacion
+//---- Esto recibe un [] con los id de los cursos pero no puedo incluirlos en el mail. 
+//Igual recibe el mail de confirmacion simple
 
 //   const cursosPay = id_cursos.map((id)=>{
 //    return Courses.findByPk(id);    
@@ -529,6 +522,113 @@ const linkMail = async (req, res, next) => {
   });
 };
 
+//validacion de datos
+const validate = ({mail, phone, address, city, postalCode, country}) => {
+  const errors = {};
+  if (!mail) errors.mail = "El mail es requerido";
+  if (!phone) errors.phone = "El teléfono es requerido";
+  if (!address) errors.address = "La dirección es requerida";
+  if (!city) errors.city = "La ciudad es requerida";
+  if (!postalCode) errors.postalCode = "El código postal es requerido";
+  if (!country) errors.country = "El país es requerido";
+
+  return errors;
+};
+
+// post para guardar los datos del comprador
+const postInformationBuyer = async (req, res, next) => {
+  const { mail, phone, address, city, postalCode, country} = req.body;
+
+  const errors = validate({mail, phone, address, city, postalCode, country});
+
+  try {
+    if (Object.keys(errors).length > 0) {
+      return res.status(200).json(errors);
+    }
+
+      const buyer = await Users.findOne({
+      where: {email: mail },
+      })
+
+      buyer.phone = phone
+      buyer.address = address
+      buyer.city = city
+      buyer.postalCode = postalCode
+      buyer.country = country
+      await buyer.save()
+      res.send({message: 'success'})
+  
+  } catch (error) {
+      res.json({ message: error });
+  }
+};
+    
+// post para realizar pago
+const postPayment = async (req, res, next) => {
+  const { id, amount, mail, name, id_courses, course_name } = req.body;
+  console.log(req.body)
+  try {
+    const payment = await stripe.paymentIntents.create({
+      amount,
+      currency: "usd",
+      payment_method: id,
+      description: `Pago de ${name} por el curso ${course_name}`,
+      confirm: true,
+    });
+
+    const buyer = await Users.findOne({
+        where: {email: mail }
+    })
+    
+    const course = await Courses.findAll({
+        where: {id: id_courses}
+    })
+
+    console.log(course)
+
+   const newOrder = await Orders.create({
+        status: 'paid',
+        amount: amount,
+        stripe_id: id,
+    })
+
+    await newOrder.addCourse(course)
+    await newOrder.addUser(buyer)
+
+
+    res.send({message: 'success'})
+
+    next();
+
+}
+  catch (error) {
+    console.log(error)
+    res.json({ message: error});
+  }
+};
+
+const getOrders = async (req, res) => {
+  try {
+    const orders = await Orders.findAll({
+      include: [
+        {
+          model: Users,
+          attributes: ["name", "email"],
+        },
+        {
+          model: Courses,
+          attributes: ["name"],
+        },
+      ],
+    });
+    res.status(200).json(orders);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+
+
 module.exports = {
   postCourse,
   getAllCourses,
@@ -546,4 +646,8 @@ module.exports = {
   contactMail,
   postPayment,
   linkMail,
+  postInformationBuyer,
+  getOrders,
+  editUser
+
 };
