@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 
-const {postCourse, getAllCourses, getCourseById, postReview, loadCoursesToDB} = require('../Controllers/index.js')
+const {postCourse, getAllCourses, getCourseById, postReview} = require('../Controllers/index.js')
 
 router
     .post('/', postCourse)

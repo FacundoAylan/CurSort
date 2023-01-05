@@ -259,6 +259,46 @@ const disableUser = async (req, res) => {
   }
 };
 
+
+
+//ruta para modificar un usuario
+const editUser = async(req,res)=>{
+  
+  const {
+    name, 
+    lastname, 
+    birthday,
+    country,
+    gender
+  } = req.body;     
+    try {
+
+      if (!name || !lastname)
+        return res.status(400).send("Faltan datos");
+      const editUser = await Users.findOne({
+        where: { name: name }
+      });   
+        
+    const userEdit = await editUser.update({
+    name, 
+    lastname, 
+    birthday,
+    country,
+    gender // acepta solo F o M
+  });
+  res.status(200).send({message: "Usuario modificado con exito"})
+}catch (error){
+
+  res.status(404).send({message:error.message})
+} 
+
+}
+
+
+
+
+
+
 const getCategories = async (req, res) => {
   try {
     const categories = await Categories.findAll();
@@ -548,5 +588,6 @@ module.exports = {
   contactMail,
   postPayment,
   postInformationBuyer,
-  getOrders
+  getOrders,
+  editUser
 };
