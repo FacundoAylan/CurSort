@@ -77,7 +77,7 @@
             "created_at": "2019-03-25T20:00:00.000Z",
             "rating": 1,
             "reviews": [],
-            "dificultad": "Begginer",
+            "dificultad": "Beginner",
             "idCategoria": "1",
             "temario": [
                 {
@@ -203,7 +203,7 @@
             "created_at": "2019-03-25T20:00:00.000Z",
             "rating": 4,
             "reviews": [],
-            "dificultad": "Begginer",
+            "dificultad": "Beginner",
             "idCategoria": "2",
             "temario": [
                 {
@@ -518,7 +518,7 @@
           "created_at": "2019-03-25T20:00:00.000Z",
           "rating": 0,
           "reviews": [],
-          "dificultad": "Begginer",
+          "dificultad": "Beginner",
           "idCategoria": "1",
           "temario": [
               {
@@ -644,7 +644,7 @@
           "created_at": "2019-03-25T20:00:00.000Z",
           "rating": 0,
           "reviews": [],
-          "dificultad": "Begginer",
+          "dificultad": "Beginner",
           "idCategoria": "2",
           "temario": [
               {
@@ -959,7 +959,7 @@
                 "created_at": "2019-03-25T20:00:00.000Z",
                 "rating": 0,
                 "reviews": [],
-                "dificultad": "Begginer",
+                "dificultad": "Beginner",
                 "idCategoria": "1",
                 "temario": [
                     {
@@ -1085,7 +1085,7 @@
                 "created_at": "2019-03-25T20:00:00.000Z",
                 "rating": 0,
                 "reviews": [],
-                "dificultad": "Begginer",
+                "dificultad": "Beginner",
                 "idCategoria": "2",
                 "temario": [
                     {
@@ -1400,7 +1400,7 @@
               "created_at": "2019-03-25T20:00:00.000Z",
               "rating": 0,
               "reviews": [],
-              "dificultad": "Begginer",
+              "dificultad": "Beginner",
               "idCategoria": "1",
               "temario": [
                   {
@@ -1526,7 +1526,7 @@
               "created_at": "2019-03-25T20:00:00.000Z",
               "rating": 0,
               "reviews": [],
-              "dificultad": "Begginer",
+              "dificultad": "Beginner",
               "idCategoria": "2",
               "temario": [
                   {
@@ -1841,7 +1841,7 @@
             "created_at": "2019-03-25T20:00:00.000Z",
             "rating": 0,
             "reviews": [],
-            "dificultad": "Begginer",
+            "dificultad": "Beginner",
             "idCategoria": "1",
             "temario": [
                 {
@@ -1967,7 +1967,7 @@
             "created_at": "2019-03-25T20:00:00.000Z",
             "rating": 0,
             "reviews": [],
-            "dificultad": "Begginer",
+            "dificultad": "Beginner",
             "idCategoria": "2",
             "temario": [
                 {
