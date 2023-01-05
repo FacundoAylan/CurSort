@@ -64,16 +64,14 @@ const postCourse = async (req, res) => {
 const loadCoursesToDB = async () => {
   const coursesDB = await Courses.findAll();
   const coursesJSON = data.cursos;
-  const categoriesJSON = data.categorys;
-  const categoriesDB = await Categories.findAll();
+  const categoriesJSON = data.categorias;
 
-  if (categoriesDB.length === 0) {
-    categoriesJSON.forEach(async (e) => {
-      await Categories.create({
-        name: e.name,
-      });
-    });
-  }
+  categoriesJSON.map(e => Categories.findOrCreate({
+    where: {
+      id: e.id,
+      name: e.name
+    }
+  }))
 
   if (coursesDB.length === 0) {
     coursesJSON.forEach(async (e) => {
@@ -87,10 +85,9 @@ const loadCoursesToDB = async () => {
       rating = e.rating;
       image = e.imagen;
       difficulty = e.dificultad;
-      price = e.precio;
       categoryId = parseInt(e.idCategoria);
 
-      await Courses.create({
+      const newcourse = await Courses.create({
         name,
         description,
         instructor,
@@ -99,9 +96,9 @@ const loadCoursesToDB = async () => {
         rating,
         image,
         difficulty,
-        price,
-        categoryId,
       });
+
+      newcourse.addCategories(categoryId)
     });
   }
 };
@@ -261,6 +258,46 @@ const disableUser = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+
+
+//ruta para modificar un usuario
+const editUser = async(req,res)=>{
+  
+  const {
+    name, 
+    lastname, 
+    birthday,
+    country,
+    gender
+  } = req.body;     
+    try {
+
+      if (!name || !lastname)
+        return res.status(400).send("Faltan datos");
+      const editUser = await Users.findOne({
+        where: { name: name }
+      });   
+        
+    const userEdit = await editUser.update({
+    name, 
+    lastname, 
+    birthday,
+    country,
+    gender // acepta solo F o M
+  });
+  res.status(200).send({message: "Usuario modificado con exito"})
+}catch (error){
+
+  res.status(404).send({message:error.message})
+} 
+
+}
+
+
+
+
+
 
 const getCategories = async (req, res) => {
   try {
@@ -551,5 +588,6 @@ module.exports = {
   contactMail,
   postPayment,
   postInformationBuyer,
-  getOrders
+  getOrders,
+  editUser
 };

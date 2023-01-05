@@ -36,7 +36,7 @@ function NavBar({ setPagina, setOrder}) {
 
   return (
     <>
-      <Grid templateColumns="repeat(3,1fr)">
+      <Grid templateColumns="repeat(3,1fr)" position="fixed" backgroundColor='#3E4AB8' zIndex='100' mt="-8%">
         <GridItem mt="2%">
           {/* componente del titulo */}
           <Title />

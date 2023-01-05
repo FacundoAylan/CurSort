@@ -13,6 +13,10 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN,
       defualtValue: false
     },
+    enabled: {
+      type: DataTypes.BOOLEAN,
+      defualtValue: true
+    },
     active: {
       type: DataTypes.BOOLEAN,
       defualtValue: true
@@ -20,7 +24,8 @@ module.exports = (sequelize) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique:true
+      unique:true,
+      isEmail: true,
     },
     email_verified:{
       type: DataTypes.BOOLEAN
@@ -44,5 +49,9 @@ module.exports = (sequelize) => {
     postalCode: {
       type: DataTypes.STRING
     },
+    gender: {
+      type: DataTypes.ENUM('F', 'M')
+    }
+
   })
 };

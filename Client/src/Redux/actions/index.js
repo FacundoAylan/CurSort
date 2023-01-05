@@ -87,10 +87,9 @@ export function posCourses(data){
 }
 
 
-export function orderByRating(payload) {
+export function orderByRating() {
     return {
         type: ORDER_BY_RATING,
-        payload
     };
 }
 
