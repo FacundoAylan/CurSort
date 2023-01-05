@@ -25,7 +25,6 @@ import FilterDifficulty from "../../InputFilter/FilterDifficulty";
 import FilterDuration from "../../InputFilter/FilterDuration";
 import OrderPrice from "../../InputOrder/OrderPrice";
 import OrderPublished from "../../InputOrder/OrderPublished";
-import OrderStar from "../../InputOrder/OrderStar";
 import {
   getCourses,
   orderByRating,
@@ -62,7 +61,7 @@ function Filter({ setPagina, setOrder, booleano }) {
 
   function handleOrderByStar(e) {
     e.preventDefault();
-    dispatch(orderByRating(e.target.value));
+    dispatch(orderByRating());
     setPagina(1)
     setOrder("order" + e.target.value);
   }
@@ -116,23 +115,26 @@ function Filter({ setPagina, setOrder, booleano }) {
       <Menu>
         <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
         <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
-          Publiced
+          Released Date
           </Button>
           </MenuButton>
         <MenuList>
           <OrderPublished handleOrderByPublished={handleOrderByPublished} />
         </MenuList>
       </Menu>
-
+      
       <Menu >
-        <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
-          Rating
-          </Button>
-          </MenuButton>
-        <MenuList>
-          <OrderStar handleOrderByStar={handleOrderByStar} />
-        </MenuList>
+        <Button 
+          ml={booleano? 3: 0} mt={booleano? '0':'10px'}
+          background='black' 
+          color='white' 
+          border='2px' 
+          borderColor='white' 
+          borderRadius='12px' 
+          w='100%' 
+          onClick={(e) => handleOrderByStar(e)}>
+            Best Rated
+        </Button> 
       </Menu>
     </Flex>
   );
