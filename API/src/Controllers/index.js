@@ -28,7 +28,7 @@ const postCourse = async (req, res) => {
     image,
     difficulty,
     categoryId;
-
+ 
   name = nombre.toUpperCase();
   description = descripcion;
   instructor = instuctor;
