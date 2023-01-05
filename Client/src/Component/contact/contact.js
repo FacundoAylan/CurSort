@@ -172,12 +172,13 @@ function Contact() {
                         />
                       </FormControl>
                       <FormControl id="name" float="right">
-                        <Button
+                      <Button
                           variant="solid"
                           bg="#0D74FF"
                           color="white"
                           _hover={{}}
                           onClick={send}
+                          ml='60px'
                         >
                           Send Message
                         </Button>

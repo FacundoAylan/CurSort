@@ -24,7 +24,6 @@ function Admin () {
       </Box>
       <Tabs>
         <TabList color="white">
-          <Tab>Users</Tab>
           <Tab>ListUsers</Tab>
           <Tab>Courses</Tab>
           <Tab>statistics</Tab>
@@ -32,20 +31,7 @@ function Admin () {
 
         <TabPanels>
           <TabPanel>
-            <SearchAdmin />
-            <Flex
-              flexDirection="row"
-              flexWrap="wrap"
-              justifyContent="space-around"
-              maxW="90%"
-              pl="120px"
-            >
-              {usuario.map((value) => {
-                return <Usuarios />;
-              })}
-            </Flex>
-          </TabPanel>
-          <TabPanel>
+          <SearchAdmin />
             <ListCourses />
           </TabPanel>
 

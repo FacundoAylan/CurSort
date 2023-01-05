@@ -15,6 +15,7 @@ import {
   Center,
   Flex,
   Button,
+  Badge,
 } from "@chakra-ui/react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import Swal from "sweetalert2";
@@ -63,7 +64,7 @@ function Rating({ rating }) {
   );
 }
 
-function Cards({ name, image, price, id, categories, rating }) {
+function Cards({ name, image, price, id, categories, rating, createdAt }) {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses);
   const cart = useSelector((state) => state.cart);
@@ -92,19 +93,20 @@ function Cards({ name, image, price, id, categories, rating }) {
       timer: 1500
     })
   };
+
   return (
     <Link to={`/detalle/${id}`} className="linkStart">
       <Grid
         p={0}
         templateRows=" 45% 55%"
         background="#3E4AB8"
-        h="400px"
+        h="360px"
         color="black"
-        // borderRadius={12}
+        borderRadius={12}
       >
         <GridItem>
           <Image
-            // borderTopRadius={12}
+            borderTopRadius={12}
             src={image}
             alt={`Picture of ${name}`}
             h="100%"
@@ -116,17 +118,22 @@ function Cards({ name, image, price, id, categories, rating }) {
 
         <GridItem w="100%" >
           {/* cursos nuevos  */}
-          {/* <Box d="flex" alignItems="baseline">
-            {data.isNew && (
-              <Badge rounded="full" px="2" fontSize="0.8em" colorScheme="red">
-                New
-              </Badge>
-            )}
-          </Box> */}
+          {
+            createdAt =='2019-03-25T20:00:00.000Z'?
+            <Box d="flex" alignItems="baseline">
+              {data.isNew && (
+                <Badge rounded="full" px="2" fontSize="0.8em" colorScheme="red" ml='80%'>
+                  New
+                </Badge>
+              )}
+            </Box>
+            :<Box h='5px'> </Box>
+
+          }
           {/* cursos nuevos   */}
 
           {/* nombre del course */}
-          <Center fontSize="100%" p={0}>
+          <Center fontSize="100%" p={0} pt={ createdAt =='2019-03-25T20:00:00.000Z'? 0 : 4 }>
             {name}
           </Center>
           <Center>{categories}</Center>
@@ -140,7 +147,7 @@ function Cards({ name, image, price, id, categories, rating }) {
             {/* puntuacion */}
 
             {/* precio */}
-            <Box mt='80px'>
+            <Box mt='10px'>
             <Center fontSize="40px" color="#03C139">
               {`$${price.toFixed(2)}`}
             </Center>
