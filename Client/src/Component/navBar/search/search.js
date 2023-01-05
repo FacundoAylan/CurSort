@@ -33,7 +33,7 @@ function Search ({setPagina, setOrder}) {
         <InputGroup size='md'>
           <Input
             pr='8rem'
-            placeholder='Buscando'
+            placeholder='Search your next course...'
             value={name}
             onChange={onChange}
             background='white'
