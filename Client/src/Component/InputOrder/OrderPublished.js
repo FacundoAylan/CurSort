@@ -9,10 +9,10 @@ const OrderPublished = ({handleOrderByPublished}) => {
           <Button onClick={handleOrderByPublished} value="all">All</Button>
         </GridItem>
         <GridItem>
-          <Button onClick={handleOrderByPublished} value="desc">New</Button>
+          <Button onClick={handleOrderByPublished} value="desc">Most recent</Button>
         </GridItem>
         <GridItem>
-          <Button onClick={handleOrderByPublished} value="asc">Old</Button>
+          <Button onClick={handleOrderByPublished} value="asc">Oldest</Button>
         </GridItem>
       </Grid>
     </div>

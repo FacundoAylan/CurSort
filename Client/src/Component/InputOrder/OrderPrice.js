@@ -10,10 +10,10 @@ const OrderPrice = ({handleOrderByPrice}) => {
           <Button  onClick={(e)=>handleOrderByPrice(e)} value="all">All</Button>
         </GridItem>
         <GridItem>
-          <Button onClick={(e)=>handleOrderByPrice(e)} value="desc">Expensive</Button>
+          <Button onClick={(e)=>handleOrderByPrice(e)} value="desc">Higher price</Button>
         </GridItem>
         <GridItem>
-          <Button onClick={(e)=>handleOrderByPrice(e)} value="asc">Cheap</Button>
+          <Button onClick={(e)=>handleOrderByPrice(e)} value="asc">Lower price</Button>
         </GridItem>
       </Grid>
     </div>

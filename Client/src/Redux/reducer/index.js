@@ -17,6 +17,7 @@ import {
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
+  CLEAN_FILTERS,
 
 } from "../action-types";
 
@@ -244,6 +245,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         cart: [],
+      };
+    case CLEAN_FILTERS:
+      return {
+        ...state,
+        courses: state.allCourses
       };
 
     default:
