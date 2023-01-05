@@ -20,13 +20,13 @@ const FilterDifficulty = () => {
       p={0}
     >
       <GridItem p={0}>
-        <Button onClick={(e) => handleDifficulty(e)} value='Principiante'>Beginner</Button>
+        <Button onClick={(e) => handleDifficulty(e)} value='Beginner'>Beginner</Button>
       </GridItem>
       <GridItem>
-        <Button onClick={(e) => handleDifficulty(e)} value='Intermedio'>Middle</Button>
+        <Button onClick={(e) => handleDifficulty(e)} value='Middle'>Middle</Button>
       </GridItem>
       <GridItem>
-        <Button onClick={(e) => handleDifficulty(e)} value='Avanzado'>Advanced</Button>
+        <Button onClick={(e) => handleDifficulty(e)} value='Advanced'>Advanced</Button>
       </GridItem>
     </Grid>
 
