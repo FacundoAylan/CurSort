@@ -99,7 +99,7 @@ const rootReducer = (state = initialState, action) => {
             });
       return {
         ...state,
-        courses: action.payload === "all" ? state.allCourses : orderPrice,
+        courses: orderPrice,
       };
 
     case ORDER_BY_PUBLISHED:
@@ -125,7 +125,7 @@ const rootReducer = (state = initialState, action) => {
             });
       return {
         ...state,
-        courses: action.payload === "all" ? state.allCourses : orderPublished,
+        courses: orderPublished,
       };
     case ADDFILTER:
       return {

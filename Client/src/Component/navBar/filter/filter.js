@@ -87,10 +87,10 @@ function Filter({ setPagina, setOrder, booleano }) {
 
       <Menu>
         <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
-          Difficulty
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
+            Difficulty
           </Button>
-          </MenuButton>
+        </MenuButton>
         <MenuList>
           <FilterDifficulty />
         </MenuList>
@@ -98,10 +98,10 @@ function Filter({ setPagina, setOrder, booleano }) {
 
       <Menu>
         <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
-          Duration
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
+            Duration
           </Button>
-          </MenuButton>
+        </MenuButton>
         <MenuList>
           <FilterDuration />
         </MenuList>
@@ -109,8 +109,8 @@ function Filter({ setPagina, setOrder, booleano }) {
 
       <Menu>
         <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
-          Price
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
+            Price
           </Button>
         </MenuButton>
         <MenuList>
@@ -120,12 +120,12 @@ function Filter({ setPagina, setOrder, booleano }) {
 
       <Menu>
         <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
-          Released Date
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
+            Released Date
           </Button>
-          </MenuButton>
+        </MenuButton>
         <MenuList>
-          <OrderPublished handleOrderByPublished={handleOrderByPublished} />
+          <OrderPublished handleOrderByPublished={handleOrderByPublished}/>
         </MenuList>
       </Menu>
       
