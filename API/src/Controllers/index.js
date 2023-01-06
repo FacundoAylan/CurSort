@@ -452,7 +452,7 @@ const contactMail = (req, res) => {
     to: "cursort.2022@gmail.com", // list of receivers
     subject: "Cotact Form", // Subject line
     // text: newText, // plain text body
-    html: html,
+    html: html
   };
   transporter.sendMail(mailOption, (error, info) => {
     if (error) {
