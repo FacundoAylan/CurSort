@@ -30,7 +30,7 @@ function HomeFilter() {
     (state) => state.courses,
     () => false
   ); // el false, verifica el estado anterior
-  // console.log(info)
+  console.log("Info: ", info)
   const dispatch = useDispatch();
   const [pagina, setPagina] = useState(1);
   const porPagina = 10;

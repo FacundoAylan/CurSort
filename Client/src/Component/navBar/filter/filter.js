@@ -76,7 +76,7 @@ function Filter({ setPagina, setOrder, booleano }) {
         </MenuButton>
         <MenuList>
 
-          <FilterCategory handleOrderByName={handleOrderByName} booleano={booleano}/>
+          <FilterCategory booleano={booleano}/>
 
         </MenuList>
       </Menu>
