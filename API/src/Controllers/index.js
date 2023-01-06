@@ -4,7 +4,9 @@ const { Users, Courses, Categories, Reviews, Orders } = require("../db");
 const nodemailer = require("nodemailer");
 const { CLIENT_STRIPE_KEY } = process.env;
 const Stripe = require("stripe");
+const { json } = require("body-parser");
 const stripe = new Stripe(CLIENT_STRIPE_KEY);
+
 
 const postCourse = async (req, res) => {
   const {
@@ -26,7 +28,7 @@ const postCourse = async (req, res) => {
     image,
     difficulty,
     categoryId;
-
+ 
   name = nombre.toUpperCase();
   description = descripcion;
   instructor = instuctor;
@@ -203,7 +205,7 @@ const postReview = async (req, res) => {
 const createUser = async (req, res) => {
   const user = req.body;
 
-  console.log(user.email);
+  // console.log(user.email);
 
   let name, lastname, email, email_verified, birthday;
 
@@ -212,25 +214,22 @@ const createUser = async (req, res) => {
   email = user.email;
   email_verified = user.email_verified;
   birthday = "";
-  admin = false,
-  active = true
+  (admin = false), (active = true);
 
   try {
-    const [usuario,craeted] = await Users.findOrCreate(
-      {
-        where : {email: user.email},
-        defaults: {
-          name,
-          lastname,
-          email,
-          email_verified,
-          birthday,
-          admin,
-          active
-        }
-
-      });
-    res.status(200).json({usuario, craeted});
+    const [usuario, craeted] = await Users.findOrCreate({
+      where: { email: user.email },
+      defaults: {
+        name,
+        lastname,
+        email,
+        email_verified,
+        birthday,
+        admin,
+        active,
+      },
+    });
+    res.status(200).json({ usuario, craeted });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -426,17 +425,17 @@ const filterCourses = async (req, res) => {
   }
 };
 
+//para Contacto con nosotros
 const contactMail = (req, res) => {
-  const {name, mail, message } = req.body;
-  
-  if(!name)res.status(500).json('Debe incluir el nombre. Vuelva a intenar')
-  
-  // let newText = `${name} - ${email} - ${content}`
-  let html = `<div>
+  const { name, mail, message } = req.body;
+
+  if (!name) res.status(500).json("Debe incluir el nombre. Vuelva a intenar");
+
+ let html = `<div>
     <h3> Name - ${name}</h3>
     <h3> Mail - ${mail}</h3>
     <h2>Message - ${message}</h2>
-  </div>`
+  </div>`;
 
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -449,9 +448,9 @@ const contactMail = (req, res) => {
   });
 
   let mailOption = {
-    from: 'Cursort contact', // sender address
-    to: "cursort.2022@gmail.com" , // list of receivers
-    subject: 'Cotact Form', // Subject line
+    from: "Cursort contact", // sender address
+    to: "cursort.2022@gmail.com", // list of receivers
+    subject: "Cotact Form", // Subject line
     // text: newText, // plain text body
     html: html
   };
@@ -459,8 +458,66 @@ const contactMail = (req, res) => {
     if (error) {
       res.status(500).json(error.message);
     } else {
-     
       res.status(200).json("Email enviado con exito");
+    }
+  });
+};
+
+// middleware para mail de confirmacion
+
+const linkMail = async (req, res, next) => {
+  let { mail, name, id_cursos} = req.body;
+
+//---- Esto recibe un [] con los id de los cursos pero no puedo incluirlos en el mail. 
+//Igual recibe el mail de confirmacion simple
+
+//   const cursosPay = id_cursos.map((id)=>{
+//    return Courses.findByPk(id);    
+//   })  
+//   const promesas = await Promise.all(cursosPay)
+
+//  const promesasListas =  promesas.map(p=>{
+//   return {
+//     nombre : p.name,
+//     precio: p.price,
+//     imagen : p.image
+//   }
+//  })
+
+  if (!mail)res.status(500).json("Faltan campos obligatorios, controle y vuelva a enviar");
+
+  // Falta agregar el link a donde se van a renderizar los cursos.
+  let html = `<div>
+    <h3> ${name}! Gracias por confiar en Cursort \n ya está diponible tu curso, puedes ingresar en el siguiente link</h3>
+    <button><p> http://localhost:3000 </p></button> 
+  </div>`
+
+  //esto le da acceso a nodemailer al mail de cursort
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: "cursort.2022@gmail.com", // generated ethereal user
+      pass: "cghynjlxmrlbasyt", // generated ethereal password
+    },
+  });
+
+  //esto es la configuracion del Mail
+  let mailOption1 = {
+    from: 'Cursort - Facturación', // sender address
+    to: mail , // puede recibir [] con mails para enviar en cadena
+    subject: 'confirmación de compra', //
+    // text: newText, // plain text body
+    html: html
+  };
+
+  transporter.sendMail(mailOption1, (error, info) => {
+    if (error) {
+      res.status(500).json(error.message);
+    } else {
+      res.status(200).json(`Email enviado con exito a ${mail}`);
+      next()
     }
   });
 };
@@ -571,6 +628,7 @@ const getOrders = async (req, res) => {
 };
 
 
+
 module.exports = {
   postCourse,
   getAllCourses,
@@ -587,7 +645,9 @@ module.exports = {
   filterCourses,
   contactMail,
   postPayment,
+  linkMail,
   postInformationBuyer,
   getOrders,
   editUser
+
 };
