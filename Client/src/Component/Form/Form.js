@@ -37,11 +37,7 @@ import { ArrowLeftIcon } from "@chakra-ui/icons";
 const Form1 = ({ input, setInput, isError }) => {
 
   const handleInputChange = (e) => {
-    e.target.id === "duracion" ||
-    e.target.id === "precio" ||
-    e.target.id === "categoria"
-      ? setInput({ ...input, [e.target.id]: Number(e.target.value) })
-      : setInput({ ...input, [e.target.id]: e.target.value });
+   setInput({ ...input, [e.target.id]: e.target.value });
   };
 
   return (
@@ -121,9 +117,9 @@ const Form1 = ({ input, setInput, isError }) => {
             onChange={handleInputChange}
             color='black'
           >
-            <option value="Principiante">Principiante</option>
-            <option value="Intermedio">Intermedio</option>
-            <option value="Avanzado">Avanzado</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Middle">Middle</option>
+            <option value="Advanced">Advanced</option>
           </Select>
           {!isError.dificultad ? (
             <FormHelperText color={"green"}>dificultad valido</FormHelperText>
@@ -139,11 +135,7 @@ const Form1 = ({ input, setInput, isError }) => {
 const Form2 = ({ input, setInput, categories, isError }) => {
 
   const handleInputChange = (e) => {
-    e.target.id === "duracion" ||
-    e.target.id === "precio" ||
-    e.target.id === "categoria"
-      ? setInput({ ...input, [e.target.id]: Number(e.target.value) })
-      : setInput({ ...input, [e.target.id]: e.target.value });
+     setInput({ ...input, [e.target.id]: e.target.value });
   };
 
   return (
@@ -248,11 +240,7 @@ const Form3 = ({ input, setInput }) => {
 
 const Form4 = ({ input, setInput, isError }) => {
   const handleInputChange = (e) => {
-    e.target.id === "duracion" ||
-    e.target.id === "precio" ||
-    e.target.id === "categoria"
-      ? setInput({ ...input, [e.target.id]: Number(e.target.value) })
-      : setInput({ ...input, [e.target.id]: e.target.value });
+   setInput({ ...input, [e.target.id]: e.target.value });
   };
   return (
     <>
@@ -330,16 +318,17 @@ function Form() {
   const validacion = () => {
     const e = isError;
     if (
-      !e.nombre &&
-      !e.instuctor &&
-      !e.duracion &&
-      !e.dificultad &&
-      !e.categoria &&
-      !e.imagen &&
-      !e.precio &&
-      !e.descripcion
+      !e.nombre 
+      // &&
+    //   !e.instuctor &&
+    //  // !e.duracion &&
+    //   !e.dificultad &&
+    //   !e.categoria &&
+    //   // !e.imagen &&
+    //   // !e.precio &&
+    //   !e.descripcion
     ) {
-      
+      console.log('Hola mundo!')
       axios.post('http://localhost:3001/courses',input)
         .then(res => {
             setInput({

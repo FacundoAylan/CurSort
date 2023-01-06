@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
     },
     //modificaciones mai
     phone: {
-      type: DataTypes.INTEGER
+      type: DataTypes.STRING
     },
     address: {
       type: DataTypes.STRING
@@ -47,7 +47,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING
     },
     postalCode: {
-      type: DataTypes.INTEGER
+      type: DataTypes.STRING
     },
     gender: {
       type: DataTypes.ENUM('F', 'M')

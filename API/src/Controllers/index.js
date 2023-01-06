@@ -20,7 +20,8 @@ const postCourse = async (req, res) => {
     categoria,
   } = req.body;
 
-  let name,
+  // console.log('categoria : ', categoria)
+   let name,
     description,
     instructor,
     duration,
@@ -51,8 +52,10 @@ const postCourse = async (req, res) => {
       price,
       image,
       difficulty,
-      categoryId,
+      categoryId,      
     });
+
+    newcourse.addCategories(categoryId)
 
     res.status(200).send("El curso ha sido creado exitosamente!");
   } catch (error) {
@@ -290,13 +293,7 @@ const editUser = async(req,res)=>{
 
   res.status(404).send({message:error.message})
 } 
-
 }
-
-
-
-
-
 
 const getCategories = async (req, res) => {
   try {
@@ -489,7 +486,7 @@ const linkMail = async (req, res, next) => {
   // Falta agregar el link a donde se van a renderizar los cursos.
   let html = `<div>
     <h3> ${name}! Gracias por confiar en Cursort \n ya está diponible tu curso, puedes ingresar en el siguiente link</h3>
-    <button><p> http://localhost:3000 </p></button> 
+    <button><p> http://localhost:3000/cursos </p></button> 
   </div>`
 
   //esto le da acceso a nodemailer al mail de cursort
@@ -517,9 +514,9 @@ const linkMail = async (req, res, next) => {
       res.status(500).json(error.message);
     } else {
       res.status(200).json(`Email enviado con exito a ${mail}`);
-      next()
     }
   });
+  next()
 };
 
 //validacion de datos
