@@ -30,6 +30,7 @@ import {
   orderByRating,
   orderByPrice,
   orderByPublished,
+  cleanFilters,
 } from "../../../Redux/actions/index";
 
 function Filter({ setPagina, setOrder, booleano }) {
@@ -64,6 +65,11 @@ function Filter({ setPagina, setOrder, booleano }) {
     dispatch(orderByRating());
     setPagina(1)
     setOrder("order" + e.target.value);
+  }
+
+  function handleCleanFilters(e) {
+    e.preventDefault();
+    dispatch(cleanFilters());
   }
 
   return (
@@ -134,6 +140,20 @@ function Filter({ setPagina, setOrder, booleano }) {
           w='100%' 
           onClick={(e) => handleOrderByStar(e)}>
             Best Rated
+        </Button> 
+      </Menu>
+
+      <Menu >
+        <Button 
+          ml={booleano? 3: 0} mt={booleano? '0':'10px'}
+          background='black' 
+          color='white' 
+          border='2px' 
+          borderColor='white' 
+          borderRadius='12px' 
+          w='100%' 
+          onClick={(e) => handleCleanFilters(e)}>
+            Clean Filters
         </Button> 
       </Menu>
     </Flex>

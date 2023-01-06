@@ -47,7 +47,7 @@ function NavBar({ setPagina, setOrder}) {
           <Search setOrder={setOrder} setPagina={setPagina} />
         </GridItem>
 
-        <GridItem mt="15%" ml="62%">
+        <GridItem mt="15%" ml="35%">
           <Flex>
             <Box pt={1}>
               <Link to="/checkout">
