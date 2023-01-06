@@ -30,6 +30,7 @@ import {
   orderByRating,
   orderByPrice,
   orderByPublished,
+  cleanFilters,
 } from "../../../Redux/actions/index";
 
 function Filter({ setPagina, setOrder, booleano }) {
@@ -66,6 +67,11 @@ function Filter({ setPagina, setOrder, booleano }) {
     setOrder("order" + e.target.value);
   }
 
+  function handleCleanFilters(e) {
+    e.preventDefault();
+    dispatch(cleanFilters());
+  }
+
   return (
     <Flex mt={booleano? 3.8 : 5} p={0} flexDirection={booleano? 'row':'column'}>
       <Menu>
@@ -81,10 +87,10 @@ function Filter({ setPagina, setOrder, booleano }) {
 
       <Menu>
         <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
-          Difficulty
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
+            Difficulty
           </Button>
-          </MenuButton>
+        </MenuButton>
         <MenuList>
           <FilterDifficulty />
         </MenuList>
@@ -92,10 +98,10 @@ function Filter({ setPagina, setOrder, booleano }) {
 
       <Menu>
         <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
-          Duration
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
+            Duration
           </Button>
-          </MenuButton>
+        </MenuButton>
         <MenuList>
           <FilterDuration />
         </MenuList>
@@ -103,8 +109,8 @@ function Filter({ setPagina, setOrder, booleano }) {
 
       <Menu>
         <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
-          Price
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
+            Price
           </Button>
         </MenuButton>
         <MenuList>
@@ -114,12 +120,12 @@ function Filter({ setPagina, setOrder, booleano }) {
 
       <Menu>
         <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
-          Released Date
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
+            Released Date
           </Button>
-          </MenuButton>
+        </MenuButton>
         <MenuList>
-          <OrderPublished handleOrderByPublished={handleOrderByPublished} />
+          <OrderPublished handleOrderByPublished={handleOrderByPublished}/>
         </MenuList>
       </Menu>
       
@@ -134,6 +140,20 @@ function Filter({ setPagina, setOrder, booleano }) {
           w='100%' 
           onClick={(e) => handleOrderByStar(e)}>
             Best Rated
+        </Button> 
+      </Menu>
+
+      <Menu >
+        <Button 
+          ml={booleano? 3: 0} mt={booleano? '0':'10px'}
+          background='black' 
+          color='white' 
+          border='2px' 
+          borderColor='white' 
+          borderRadius='12px' 
+          w='100%' 
+          onClick={(e) => handleCleanFilters(e)}>
+            Clean Filters
         </Button> 
       </Menu>
     </Flex>

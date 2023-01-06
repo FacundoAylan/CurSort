@@ -33,7 +33,7 @@ function HomeFilter() {
   // console.log(info)
   const dispatch = useDispatch();
   const [pagina, setPagina] = useState(1);
-  const porPagina = 6;
+  const porPagina = 10;
   const maximo = Math.ceil(info.length / porPagina);
 
   let [order, setOrder] = useState("");
@@ -81,7 +81,7 @@ function HomeFilter() {
           <Center mt="1%">
             <Paginado pagina={pagina} setPagina={setPagina} maximo={maximo} />
           </Center>
-          <Grid templateColumns="repeat(6, 0.2fr)" gap={4} pt={4} p={5} m={0}>
+          <Grid templateColumns="repeat(5, 0.2fr)" templateRows='repeat(2,350px)' gap={4} pt={4} p={5} m={0}>
             {info &&
               info
                 .slice(
@@ -97,6 +97,7 @@ function HomeFilter() {
                         price={value.price}
                         id={value.id}
                         category={value.categories[0]}
+                        createdAt={value.createdAt}
                       />
                     </GridItem>
                   );

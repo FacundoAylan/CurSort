@@ -109,6 +109,7 @@ function CarouselHome({ categorie }) {
                     id={value.id}
                     categories={value.categories}
                     rating={value.rating}
+                    createdAt={value.createdAt}
                   />
                 </Box>
               );

@@ -15,7 +15,7 @@
             "rating": 3,
             "reviews": [],
             "dificultad": "Middle",
-            "idCategoria": "2",
+            "idCategoria": "3",
             "temario": [
                 {
                     "id": 1,
@@ -141,7 +141,7 @@
             "rating": 6,
             "reviews": [],
             "dificultad": "Middle",
-            "idCategoria": "2",
+            "idCategoria": "3",
             "temario": [
                 {
                     "id": 1,
@@ -204,7 +204,7 @@
             "rating": 4,
             "reviews": [],
             "dificultad": "Beginner",
-            "idCategoria": "2",
+            "idCategoria": "3",
             "temario": [
                 {
                     "id": 1,
@@ -267,7 +267,7 @@
             "rating": 1,
             "reviews": [],
             "dificultad": "Advanced",
-            "idCategoria": "2",
+            "idCategoria": "3",
             "temario": [
                 {
                     "id": 1,
@@ -330,7 +330,7 @@
             "rating": 2,
             "reviews": [],
             "dificultad": "Advanced",
-            "idCategoria": "2",
+            "idCategoria": "3",
             "temario": [
                 {
                     "id": 1,
@@ -393,7 +393,7 @@
             "rating": 5,
             "reviews": [],
             "dificultad": "Advanced",
-            "idCategoria": "2",
+            "idCategoria": "3",
             "temario": [
                 {
                     "id": 1,

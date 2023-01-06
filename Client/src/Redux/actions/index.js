@@ -18,6 +18,7 @@ import {
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
+  CLEAN_FILTERS,
 } from "../action-types";
 
 export function getCourses(name) {
@@ -204,5 +205,11 @@ export function contact(payload) {
   return async function (dispatch) {
     let json = await axios.post('http://localhost:3001/contact/send-email', payload);
     return json;
+  }
+}
+
+export function cleanFilters() {
+  return {
+    type: CLEAN_FILTERS,
   }
 }
