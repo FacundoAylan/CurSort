@@ -30,8 +30,9 @@ useEffect(()=>{
             borderColor="white"
             borderRadius="12px"
             ml="10px"
+            width='90%'
           >
-            cerrar sesion
+            Logout
           </Button>
         </MenuList>
       </Menu>
