@@ -28,7 +28,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { getCategory } from "../../Redux/actions/index"
+import { getCategory } from "../../../Redux/actions/index"
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -42,46 +42,43 @@ const Form1 = ({ input, setInput, isError }) => {
 
   return (
     <>
-      <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
-        User Registration
-      </Heading>
-      <Flex>
+      <Flex mt='5%'>
         <FormControl mr="5%" isInvalid={isError.nombre} isRequired>
-          <FormLabel htmlFor="first-name" fontWeight={"normal"}>
-            NOMBRE DEL CURSO:
+          <FormLabel htmlFor="first-name" fontWeight={"normal"} color='white'>
+            Course name:
           </FormLabel>
           <Input
-            placeholder="Nombre"
             id="nombre"
             onChange={handleInputChange}
+            color='white'
           />
           {!isError.nombre ? (
-            <FormHelperText color={"green"}>nombre valido</FormHelperText>
+            <FormHelperText color={"green"}>✓</FormHelperText>
           ) : (
-            <FormErrorMessage>se requiere el nombre</FormErrorMessage>
+            <FormErrorMessage>Obligatory field</FormErrorMessage>
           )}
         </FormControl>
 
         <FormControl isRequired isInvalid={isError.instuctor}>
-          <FormLabel htmlFor="last-name" fontWeight={"normal"}>
-            INSTRUCTOR:
+          <FormLabel htmlFor="last-name" fontWeight={"normal"} color='white'>
+            Instructor name:
           </FormLabel>
           <Input
-            placeholder="Instructor"
             id="instuctor"
             onChange={handleInputChange}
+            color='white'
           />
           {!isError.instuctor ? (
-            <FormHelperText color={"green"}>instuctor valido</FormHelperText>
+            <FormHelperText color={"green"}>✓</FormHelperText>
           ) : (
             <FormErrorMessage>
-              se requiere el nombre del instuctor
+              Obligatory field
             </FormErrorMessage>
           )}
         </FormControl>
       </Flex>
 
-      <Flex>
+      <Flex mt='3%'>
         <FormControl
           mt="2%"
           w="48%"
@@ -89,42 +86,41 @@ const Form1 = ({ input, setInput, isError }) => {
           isRequired
           isInvalid={isError.duracion}
         >
-          <FormLabel htmlFor="email" fontWeight={"normal"}>
-            DURACION:
+          <FormLabel htmlFor="email" fontWeight={"normal"} color='white'>
+            Duration time: (hs)
           </FormLabel>
           <Input
-            placeholder="Duracion"
             id="duracion"
             onChange={handleInputChange}
+            color='white'
           />
           {!isError.duracion ? (
-            <FormHelperText color={"green"}>duracion valido</FormHelperText>
+            <FormHelperText color={"green"}>✓</FormHelperText>
           ) : (
             <FormErrorMessage>
-              se requiere la duracion del curso
+              Obligatory field
             </FormErrorMessage>
           )}
-          <FormHelperText>We'll never share your email.</FormHelperText>
         </FormControl>
 
         <FormControl w="48%" mt="1%" isRequired isInvalid={isError.dificultad}>
-          <FormLabel htmlFor="password" fontWeight={"normal"} mt="2%">
-            DIFICULTAD:
+          <FormLabel htmlFor="password" fontWeight={"normal"} mt="2%" color='white'>
+            Difficulty:
           </FormLabel>
           <Select
-            placeholder="DIFICULTAD:"
+            placeholder="Enter an option:"
             id="dificultad"
             onChange={handleInputChange}
-            color='black'
+            color='white'
           >
             <option value="Beginner">Beginner</option>
             <option value="Middle">Middle</option>
             <option value="Advanced">Advanced</option>
           </Select>
           {!isError.dificultad ? (
-            <FormHelperText color={"green"}>dificultad valido</FormHelperText>
+            <FormHelperText color={"green"}>✓</FormHelperText>
           ) : (
-            <FormErrorMessage>se requiere la dificultad</FormErrorMessage>
+            <FormErrorMessage>Obligatory field</FormErrorMessage>
           )}
         </FormControl>
       </Flex>
@@ -140,42 +136,41 @@ const Form2 = ({ input, setInput, categories, isError }) => {
 
   return (
     <>
-      <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
-        User Registration
-      </Heading>
-      <Flex>
+      <Flex mt='5%' pb='17.2%'>
         <FormControl mr="5%" isRequired isInvalid={isError.precio}>
-          <FormLabel htmlFor="first-name" fontWeight={"normal"}>
-            Precio
+          <FormLabel htmlFor="first-name" fontWeight={"normal"} color='white'>
+            Cost:
           </FormLabel>
           <Input
-            placeholder="Precio en U$s"
+            placeholder="US$"
             id="precio"
             onChange={handleInputChange}
+            color='white'
           />
           {!isError.precio ? (
-            <FormHelperText color={"green"}>precio valido</FormHelperText>
+            <FormHelperText color={"green"}>✓</FormHelperText>
           ) : (
-            <FormErrorMessage>se requiere precio del curso</FormErrorMessage>
+            <FormErrorMessage>Obligatory field</FormErrorMessage>
           )}
         </FormControl>
 
         <FormControl isRequired isInvalid={isError.categoria}>
-          <FormLabel htmlFor="last-name" fontWeight={"normal"}>
-            CATEGORIA:
+          <FormLabel htmlFor="last-name" fontWeight={"normal"} color='white'>
+            Category:
           </FormLabel>
           <Select
-            placeholder="CATEGORIA:"
+            placeholder="Enter an option:"
             id="categoria"
             onChange={handleInputChange}
+            color='white'
           >
             {categories &&
               categories.map((el) => <option value={el.id}>{el.name}</option>)}
           </Select>
           {!isError.categoria ? (
-            <FormHelperText color={"green"}>categoria valida</FormHelperText>
+            <FormHelperText color={"green"}>✓</FormHelperText>
           ) : (
-            <FormErrorMessage>se requiere categoria</FormErrorMessage>
+            <FormErrorMessage>Obligatory field</FormErrorMessage>
           )}
         </FormControl>
       </Flex>
@@ -204,26 +199,24 @@ const Form3 = ({ input, setInput }) => {
   };
   return (
     <>
-      <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
-        Imagen
-      </Heading>
-      <FormControl as={GridItem} colSpan={[6, 3]}>
+      <FormControl as={GridItem} colSpan={[6, 3]} pb='15.4%'>
+        <FormLabel htmlFor="last-name" fontWeight={"normal"} color='white' mt='5%'>
+          Cover image:
+        </FormLabel>        
         <Center>
-          <Center p={5}>
-            {input.imagen && (
-              <Image
-                h="150px"
-                w="300px"
-                src={input.imagen}
-                alt="Green double couch with wooden legs"
-                borderRadius="lg"
-                border="1px"
-                borderColor="gray.200"
-              />
-            )}
-          </Center>
+          {input.imagen && (
+            <Image
+              h="150px"
+              w="300px"
+              src={input.imagen}
+              alt="Green double couch with wooden legs"
+              borderRadius="lg"
+              border="1px"
+              borderColor="gray.200"
+            />
+          )}
         </Center>
-        <Input value={input.id} />
+        <Input value={input.id} color='white'/>
         <Box pt={2}>
           <input
             pt={3}
@@ -244,9 +237,9 @@ const Form4 = ({ input, setInput, isError }) => {
   };
   return (
     <>
-      <Heading w="100%" textAlign={"center"} fontWeight="normal">
-        Descripción
-      </Heading>
+      <FormLabel htmlFor="last-name" fontWeight={"normal"} color='white' mt='5%'>
+        Description:
+      </FormLabel>        
       <SimpleGrid columns={1} spacing={6}>
         <FormControl
           as={GridItem}
@@ -255,14 +248,17 @@ const Form4 = ({ input, setInput, isError }) => {
           isInvalid={isError.descripcion}
         >
           <Textarea
-            placeholder="Descripción del curso"
+            placeholder="This course is about..."
             id="descripcion"
             onChange={handleInputChange}
+            color='white'
+            size='sm'
+            rows='8'
           />
           {!isError.descripcion ? (
-            <FormHelperText color={"green"}>description valido</FormHelperText>
+            <FormHelperText color={"green"}>✓</FormHelperText>
           ) : (
-            <FormErrorMessage>se requiere la descripcion</FormErrorMessage>
+            <FormErrorMessage>Obligatory field</FormErrorMessage>
           )}
         </FormControl>
       </SimpleGrid>
@@ -270,7 +266,7 @@ const Form4 = ({ input, setInput, isError }) => {
   );
 };
 
-function Form() {
+function CreateCursor() {
   
   const categories = useSelector((state) => state.categories);
   const dispatch = useDispatch();
@@ -328,30 +324,20 @@ function Form() {
     //   // !e.precio &&
     //   !e.descripcion
     ) {
-      console.log('Hola mundo!')
       axios.post('http://localhost:3001/courses',input)
         .then(res => {
             setInput({
             })
         })
-        .catch(error=> alert(`hubo un problema al registrar tu receta ${error}`));
+        .catch(error=> alert(`${error}`));
       return true;
     } else {
       return false;
     }
   };
   return (
-    <Container maxW="100%" h="100vh" as="form"  color="black">
-      <Box pt={1}>
-        <Link to="/home" className="backCreate">
-          <IconButton
-            colorScheme="blue"
-            aria-label="Search database"
-            icon={<ArrowLeftIcon />}
-          />
-        </Link>
-      </Box>
-      <Box maxWidth={800} ml='18%' mt='5%' p={2} border='1px' borderColor='black' borderRadius={9} bg="#3E4AB8" >
+    <Container maxW="100%" as="form" color="black">
+      <Box maxWidth={800} ml='18%' mt='3%' p={2}>
         <Progress hasStripe value={progress} isAnimated></Progress>
         {step === 1 ? (
           <Form1 input={input} setInput={setInput} isError={isError} />
@@ -367,9 +353,11 @@ function Form() {
         ) : (
           <Form4 input={input} setInput={setInput} isError={isError} />
         )}
-        <ButtonGroup mt="5%" w="100%">
+        <Center>
+        <ButtonGroup mt="7%" w="100" >
           <Flex w="100%" justifyContent="space-between">
             <Flex>
+              {step !== 1 && (
               <Button
                 onClick={() => {
                   setStep(step - 1);
@@ -383,6 +371,8 @@ function Form() {
               >
                 Back
               </Button>
+              )}
+              {step !== 4 && (
               <Button
                 w="7rem"
                 isDisabled={step === 4}
@@ -398,13 +388,15 @@ function Form() {
                 variant="outline"
               >
                 Next
-              </Button>
+              </Button> 
+              )}
             </Flex>
             {step === 4 ? (
               <Button
-                w="7rem"
+                width="7rem"
                 colorScheme="red"
                 variant="solid"
+                ml='4%'
                 onClick={() => {
                   validacion();
                   toast({
@@ -424,8 +416,9 @@ function Form() {
             ) : null}
           </Flex>
         </ButtonGroup>
+        </Center>
       </Box>
     </Container>
   );
 }
-export default Form;
+export default CreateCursor;
