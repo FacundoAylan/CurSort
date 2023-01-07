@@ -2,12 +2,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { filterDifficulty} from "../../Redux/actions/index";
-import { Grid, GridItem, Button } from '@chakra-ui/react'
+import { Grid, Button } from '@chakra-ui/react'
 
-const FilterDifficulty = () => {
+const FilterDifficulty = ({setPagina, setHome }) => {
   const dispatch = useDispatch();
   
   const handleDifficulty = (e) => {
+    setPagina(1);
+    setHome(false);
    dispatch(filterDifficulty(e.target.value));
     
   };

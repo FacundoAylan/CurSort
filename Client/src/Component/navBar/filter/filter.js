@@ -31,18 +31,19 @@ import {
   orderByPrice,
   orderByPublished,
   cleanFilters,
+  home
 } from "../../../Redux/actions/index";
 
-function Filter({ setPagina, setOrder, booleano }) {
+function Filter({ setPagina, setOrder, booleano, setHome }) {
 
   const dispatch = useDispatch();
-  function handleOrderByName(e) {
-    e.preventDefault();
-    setPagina(1);
-    dispatch(getCourses(e.target.value));
-    setPagina(1)
-    setOrder("order" + e.target.value);
-  }
+  // function handleOrderByName(e) {
+  //   e.preventDefault();
+  //   setPagina(1);
+  //   dispatch(getCourses(e.target.value));
+  //   setPagina(1)
+  //   setOrder("order" + e.target.value);
+  // }
 
   function handleOrderByPrice(e) {
     console.log(e.target.value);
@@ -57,6 +58,7 @@ function Filter({ setPagina, setOrder, booleano }) {
     e.preventDefault();
     dispatch(orderByPublished(e.target.value));
     setPagina(1)
+    setHome(false)
     setOrder("order" + e.target.value);
   }
 
@@ -64,6 +66,7 @@ function Filter({ setPagina, setOrder, booleano }) {
     e.preventDefault();
     dispatch(orderByRating());
     setPagina(1)
+    setHome(false)
     setOrder("order" + e.target.value);
   }
 
@@ -81,7 +84,7 @@ function Filter({ setPagina, setOrder, booleano }) {
           </Button>
         </MenuButton>
         <MenuList>
-          <FilterCategory handleOrderByName={handleOrderByName} booleano={booleano}/>
+          <FilterCategory booleano={booleano} setPagina={setPagina} setHome={setHome}/>
         </MenuList>
       </Menu>
 
@@ -92,7 +95,7 @@ function Filter({ setPagina, setOrder, booleano }) {
           </Button>
         </MenuButton>
         <MenuList>
-          <FilterDifficulty />
+          <FilterDifficulty setPagina={setPagina} setHome={setHome}/>
         </MenuList>
       </Menu>
 
@@ -103,7 +106,7 @@ function Filter({ setPagina, setOrder, booleano }) {
           </Button>
         </MenuButton>
         <MenuList>
-          <FilterDuration />
+          <FilterDuration setPagina={setPagina} setHome={setHome} />
         </MenuList>
       </Menu>
 
@@ -114,7 +117,7 @@ function Filter({ setPagina, setOrder, booleano }) {
           </Button>
         </MenuButton>
         <MenuList>
-          <OrderPrice handleOrderByPrice={handleOrderByPrice} />
+          <OrderPrice handleOrderByPrice={handleOrderByPrice}/>
         </MenuList>
       </Menu>
 
