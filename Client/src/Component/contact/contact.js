@@ -30,7 +30,7 @@ function Contact() {
   const [user, setUsers] = useState(
     {
       "name": '',
-      "email": '',
+      "mail": '',
       "message": ''
     });
     const dispatch = useDispatch();
@@ -157,7 +157,7 @@ function Contact() {
                             pointerEvents="none"
                             children={<MdOutlineEmail color="gray.800" />}
                           />
-                          <Input type="text" size="md"  id='email' onChange={mensaje}/>
+                          <Input type="text" size="md"  id='mail' onChange={mensaje}/>
                         </InputGroup>
                       </FormControl>
                       <FormControl id="name">
@@ -172,12 +172,13 @@ function Contact() {
                         />
                       </FormControl>
                       <FormControl id="name" float="right">
-                        <Button
+                      <Button
                           variant="solid"
                           bg="#0D74FF"
                           color="white"
                           _hover={{}}
                           onClick={send}
+                          ml='60px'
                         >
                           Send Message
                         </Button>
