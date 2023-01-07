@@ -9,39 +9,38 @@ import { ArrowLeftIcon } from '@chakra-ui/icons'
 
 
 function Detalle() {
-
   let { id } = useParams();
   const dispatch = useDispatch();
-  const course = useSelector(state => state.courseDetail)
+  const course = useSelector((state) => state.courseDetail);
   const [rating, setRating] = useState(4);
   const history = useHistory();
-  console.log(course)
-    useEffect(() => {
-        dispatch(getDetail(id));
-    }, [dispatch, id]);
+  console.log(course);
+  useEffect(() => {
+    dispatch(getDetail(id));
+  }, [dispatch, id]);
 
-    //este useEffect para poder ver el carrito actualizado
-    useEffect(() => { 
-      dispatch(getCourses(''));
+  //este useEffect para poder ver el carrito actualizado
+  useEffect(() => {
+    dispatch(getCourses(""));
   }, [dispatch]);
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        dispatch(addToCart(id));
-        history.push('/checkout');
-    }
+  const handleClick = (e) => {
+    e.preventDefault();
+    dispatch(addToCart(id));
+    history.push("/checkout");
+  };
 
-    function Rating({ rating }) {
-      return (
-        <Center>
-        <Flex maxW="200%" h='50px'>
+  function Rating({ rating }) {
+    return (
+      <Center>
+        <Flex maxW="200%" h="50px">
           {Array(5)
             .fill("")
             .map((_, i) => {
               const roundedRating = Math.round(rating * 2) / 2;
               if (roundedRating - i >= 1) {
                 return (
-                  <Button bg='none'>
+                  <Button bg="none">
                     <BsStarFill
                       key={i}
                       color={i < rating ? "yellow" : "gray.300"}
@@ -51,7 +50,7 @@ function Detalle() {
               }
               if (roundedRating - i === 0.5) {
                 return (
-                  <Button bg='none'>
+                  <Button bg="none">
                     <BsStarHalf
                       background="white"
                       key={i}
@@ -61,15 +60,19 @@ function Detalle() {
                 );
               }
               return (
-                <Button bg='none' onClick={setRating(i)}>
-                  <BsStar background="white" key={i} style={{ marginLeft: "1" }} />
+                <Button bg="none" onClick={setRating(i)}>
+                  <BsStar
+                    background="white"
+                    key={i}
+                    style={{ marginLeft: "1" }}
+                  />
                 </Button>
               );
             })}
         </Flex>
-        </Center>
-      );
-    }
+      </Center>
+    );
+  }
   return (
     <Container maxW={"100%"} bg="Black" color="white" m={0} p={0}>
       <Box pt="10px">
@@ -87,7 +90,7 @@ function Detalle() {
         py={{ base: 1, md: 10 }}
       >
         <Flex>
-        <Image
+          <Image
             rounded={"md"}
             alt={"product image"}
             src={course.image}
@@ -105,7 +108,7 @@ function Detalle() {
               {course.name}
             </Heading>
 
-            <Rating rating={rating}/>
+            <Rating rating={rating} />
 
             <Text fontWeight={300} fontSize={"2xl"} color="white">
               {`$${course.price} USD`}
@@ -195,15 +198,15 @@ function Detalle() {
           </Button>
 
           <Stack direction="row" alignItems="center" justifyContent={"center"}>
-          <a href="https://github.com/FacundoAylan/CurSort">
-            <IconButton
-              aria-label="github"
-              variant="ghost"
-              size="lg"
-              isRound={true}
-              _hover={{ bg: "#0D74FF" }}
-              icon={<BsGithub size="40px" />}
-            />
+            <a href="https://github.com/FacundoAylan/CurSort">
+              <IconButton
+                aria-label="github"
+                variant="ghost"
+                size="lg"
+                isRound={true}
+                _hover={{ bg: "#0D74FF" }}
+                icon={<BsGithub size="40px" />}
+              />
             </a>
           </Stack>
         </Stack>
