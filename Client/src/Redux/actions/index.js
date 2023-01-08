@@ -19,7 +19,8 @@ import {
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
   CLEAN_FILTERS,
-  HOME
+  HOME,
+  GET_WARNING
 } from "../action-types";
 
 export function getCourses(name) {
@@ -219,5 +220,11 @@ export function home(payload) {
   return {
       type: HOME,
       payload
+  };
+}
+
+export function getWarning() {
+  return {
+      type: GET_WARNING,
   };
 }

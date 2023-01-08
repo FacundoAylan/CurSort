@@ -37,17 +37,17 @@ function Home() {
 
   return (
     <Container maxW="100%" p="0" heightMode="min">
-      <Box mt="8%">
+      <Box>
         <NavBar setOrder={setOrder} setPagina={setPagina} setHome={setHome}/>
       </Box>
-      <Grid templateColumns="15% 85%" spacing="3px" p={0}>
+      <Grid templateColumns="15% 85%" spacing="3px" pt='110px'>
       <Filter
               setPagina={setPagina}
               setOrder={setOrder}
               booleano={false}
               setHome={setHome}
             />
-      <Box h="40%" maxW="100%">
+      <Box h="40%" maxW="100%" >
         { home ?
             categories &&
             categories.slice(0,3).map((value) => {
