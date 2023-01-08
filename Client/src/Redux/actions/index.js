@@ -214,8 +214,9 @@ export function cleanFilters() {
     type: CLEAN_FILTERS,
   }
 }
+
 export function getWarning() {
   return {
-      type: GET_WARNING,
-  };
+    type: GET_WARNING,
+  }
 }
