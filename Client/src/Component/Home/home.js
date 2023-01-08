@@ -1,80 +1,71 @@
-import React, {useState,useEffect} from "react";
-import { useDispatch, useSelector} from 'react-redux'
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from 'react-redux'
 import {
-  Grid,
-  GridItem,
   Container,
   Box,
   Center,
+  Text,
+  Grid,
   // Image,
 } from "@chakra-ui/react";
-import Cards from "../Card/Card";
 import NavBar from "../navBar/navBar";
-import Paginado from "../paginado/paginado";
-import { getCourses } from "../../Redux/actions";
-// import CreateCategory from "../CreateCategory/CreateCategory";
 import Footer from "../landing/footer/footer";
-
-// importo el json desde la api
-// var data = require("./api.json");
+import CarouselHome from "./currucelHome";
+import Filter from "../navBar/filter/filter";
+import HomeFilter from "./homeFilter";
+import { getCourses } from "../../Redux/actions";
 
 function Home() {
   let info = useSelector(
     (state) => state.courses,
     () => false
   ); // el false, verifica el estado anterior
-  // console.log(info)
+  console.log(info)
+  const [ home, setHome ] =  useState(true);
+
   const dispatch = useDispatch();
-  const [pagina, setPagina] = useState(1);
-  const porPagina = 6;
-  const maximo = Math.ceil(info.length / porPagina);
-
-  let [order, setOrder] = useState("");
-
   useEffect(() => {
     dispatch(getCourses(""));
   }, [dispatch]);
+  const categories = useSelector(state => state.categories)
 
-  if (info <= 1) {
-    //alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
-    dispatch(getCourses(""));
-  }
-
-  // const flickityOptions = {
-  //     initialIndex: 2
-  //   }
+  const [pagina, setPagina] = useState(1);
+  const porPagina = 10;
+  const maximo = Math.ceil(info.length / porPagina);
+  const [order, setOrder] = useState("");
+ 
 
   return (
     <Container maxW="100%" p="0" heightMode="min">
-      <Box background="#3E4AB8" maxW="100%" maxH="50%">
-        <NavBar setOrder={setOrder} setPagina={setPagina} />
+      <Box>
+        <NavBar setOrder={setOrder} setPagina={setPagina} setHome={setHome}/>
       </Box>
-      <Center mt="1%">
-        <Paginado pagina={pagina} setPagina={setPagina} maximo={maximo} />
-      </Center>
-      <Box h="40%" maxW="100%">
-        <Grid templateColumns="repeat(6, 0.2fr)" gap={4} pt={4} p={5} m={0}>
-          {info &&
-            info
-              .slice(
-                (pagina - 1) * porPagina,
-                (pagina - 1) * porPagina + porPagina
+      <Grid templateColumns="15% 85%" spacing="3px" pt='110px'>
+      <Filter
+              setPagina={setPagina}
+              setOrder={setOrder}
+              booleano={false}
+              setHome={setHome}
+            />
+      <Box h="40%" maxW="100%" >
+        { home ?
+            categories &&
+            categories.slice(0,3).map((value) => {
+              return (
+                <>
+                  <Center pt='10px'>
+                      <Text color='white'>{value.name.toUpperCase()}</Text>
+                  </Center>
+                  <CarouselHome categorie={value.name}/>
+        
+                </>
               )
-              .map((value) => {
-                return (
-                  <GridItem>
-                    <Cards
-                      name={value.name}
-                      image={value.image}
-                      price={value.price}
-                      id={value.id}
-                      category={value.categories[0]}
-                    />
-                  </GridItem>
-                );
-              })}
-        </Grid>
+            }
+            )
+        : <HomeFilter info={info} pagina={pagina} setPagina={setPagina} maximo={maximo} porPagina={porPagina} />}
+
       </Box>
+      </Grid>
       <Box mt={7}>
         <Footer/>
       </Box>

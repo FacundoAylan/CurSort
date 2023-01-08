@@ -25,24 +25,27 @@ import FilterDifficulty from "../../InputFilter/FilterDifficulty";
 import FilterDuration from "../../InputFilter/FilterDuration";
 import OrderPrice from "../../InputOrder/OrderPrice";
 import OrderPublished from "../../InputOrder/OrderPublished";
-import OrderStar from "../../InputOrder/OrderStar";
 import {
   getCourses,
   orderByRating,
   orderByPrice,
   orderByPublished,
+  cleanFilters,
+  home
 } from "../../../Redux/actions/index";
 
-function Filter({ setPagina, setOrder }) {
+function Filter({ setPagina, setOrder, booleano, setHome }) {
 
   const dispatch = useDispatch();
-  function handleOrderByName(e) {
-    e.preventDefault();
-    setPagina(1);
-    dispatch(getCourses(e.target.value));
-    setPagina(1)
-    setOrder("order" + e.target.value);
-  }
+
+  // function handleOrderByName(e) {
+  //   e.preventDefault();
+  //   setPagina(1);
+  //   dispatch(getCourses(e.target.value));
+  //   setPagina(1)
+  //   setOrder("order" + e.target.value);
+  // }
+
 
   function handleOrderByPrice(e) {
     console.log(e.target.value);
@@ -57,82 +60,106 @@ function Filter({ setPagina, setOrder }) {
     e.preventDefault();
     dispatch(orderByPublished(e.target.value));
     setPagina(1)
+    setHome(false)
     setOrder("order" + e.target.value);
   }
 
   function handleOrderByStar(e) {
     e.preventDefault();
-    dispatch(orderByRating(e.target.value));
+    dispatch(orderByRating());
     setPagina(1)
+    setHome(false)
     setOrder("order" + e.target.value);
   }
 
+  function handleCleanFilters(e) {
+    e.preventDefault();
+    dispatch(cleanFilters());
+  }
+
   return (
-    <Flex mt={3.8}>
+    <Flex mt={booleano? 3.8 : 5} p={0} flexDirection={booleano? 'row':'column'}>
       <Menu>
         <MenuButton>
-          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
             Category  
           </Button>
         </MenuButton>
         <MenuList>
-          <FilterCategory handleOrderByName={handleOrderByName} />
+          <FilterCategory booleano={booleano} setPagina={setPagina} setHome={setHome}/>
         </MenuList>
       </Menu>
 
       <Menu>
-        <MenuButton ml={3}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
-          Difficulty
-          </Button>
-          </MenuButton>
-        <MenuList>
-          <FilterDifficulty />
-        </MenuList>
-      </Menu>
-
-      <Menu>
-        <MenuButton ml={3}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
-          Duration
-          </Button>
-          </MenuButton>
-        <MenuList>
-          <FilterDuration />
-        </MenuList>
-      </Menu>
-
-      <Menu>
-        <MenuButton ml={3}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
-          Price
+        <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
+            Difficulty
           </Button>
         </MenuButton>
         <MenuList>
-          <OrderPrice handleOrderByPrice={handleOrderByPrice} />
+          <FilterDifficulty setPagina={setPagina} setHome={setHome}/>
         </MenuList>
       </Menu>
 
       <Menu>
-        <MenuButton ml={3}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
-          Publiced
+        <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
+            Duration
           </Button>
-          </MenuButton>
+        </MenuButton>
         <MenuList>
-          <OrderPublished handleOrderByPublished={handleOrderByPublished} />
+          <FilterDuration setPagina={setPagina} setHome={setHome} />
         </MenuList>
       </Menu>
 
       <Menu>
-        <MenuButton ml={3}>
-        <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px'>
-          Rating
+        <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
+            Price
           </Button>
-          </MenuButton>
+        </MenuButton>
         <MenuList>
-          <OrderStar handleOrderByStar={handleOrderByStar} />
+          <OrderPrice handleOrderByPrice={handleOrderByPrice}/>
         </MenuList>
+      </Menu>
+
+      <Menu>
+        <MenuButton ml={booleano? 3: 0} mt={booleano? '0':'10px'}>
+          <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
+            Released Date
+          </Button>
+        </MenuButton>
+        <MenuList>
+          <OrderPublished handleOrderByPublished={handleOrderByPublished}/>
+        </MenuList>
+      </Menu>
+      
+      <Menu >
+        <Button 
+          ml={booleano? 3: 0} mt={booleano? '0':'10px'}
+          background='black' 
+          color='white' 
+          border='2px' 
+          borderColor='white' 
+          borderRadius='12px' 
+          w='100%' 
+          onClick={(e) => handleOrderByStar(e)}>
+            Best Rated
+        </Button> 
+      </Menu>
+
+      <Menu >
+        <Button 
+          ml={booleano? 3: 0} mt={booleano? '0':'10px'}
+          background='black' 
+          color='white' 
+          border='2px' 
+          borderColor='white' 
+          borderRadius='12px' 
+          w='100%' 
+          onClick={(e) => handleCleanFilters(e)}>
+            Clean Filters
+        </Button> 
       </Menu>
     </Flex>
   );

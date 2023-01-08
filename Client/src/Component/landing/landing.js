@@ -1,27 +1,56 @@
 import React from "react";
-import Carrucel from "../carrucel/carrucel";
+import Regresiva from "./Cuenta Regresiva/cuentaRegresiva";
+import Carousel from "../carrucel/carrucel";
 import NavbarLanding from './navbarLanding.js/navbar'
-import{Box} from "@chakra-ui/react";
+import{Box, Center} from "@chakra-ui/react";
 import Student from './student/student';
 import Footer from "./footer/footer";
+import Promociones from "./Promociones/Promociones";
+import Nosotros from "./nosotros/nosotros";
+import Instructor from "./instructor/instructor";
 
 function Landing () {
-  return(
+  return (
     <>
-      <Box background="#3E4AB8" maxW="100%" maxH="15%">
-        <NavbarLanding/>
-      </Box>
       <Box>
-      {/* carruce */}
-      <Carrucel />
-    </Box>
-    <Box mt='2%'>
-      <Student/>
-    </Box>
-    <Box mt='2%'>
-      <Footer/>
-    </Box>
+        <Promociones/>
+      </Box>
+
+      <Box background="#3E4AB8" maxW="100%" maxH="15%">
+        <NavbarLanding />
+      </Box>
+      
+
+      <Box>
+        {/* carruce */}
+        <Carousel/>
+      </Box>
+      <Box mt="1%">
+        <Center fontSize={40} color='white'>
+          Estudiantes
+        </Center>
+        <Student />
+      </Box>
+      {/* Promociones  */}
+      <Box maxW="100%" bg='#191E29'>
+        <Regresiva />
+      </Box>
+      {/* Promociones */}
+      <Box p={6}>           
+        <Center color="white" fontSize={35} p={4}>
+            Integrantes del proyecto:
+        </Center>
+        <Nosotros/>
+      </Box>
+
+      <Box>
+        <Instructor />
+      </Box>
+
+      <Box mt="2%">
+        <Footer />
+      </Box>
     </>
-  )
+  );
 }
 export default Landing;

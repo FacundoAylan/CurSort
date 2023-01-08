@@ -18,10 +18,13 @@ import {
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
+  CLEAN_FILTERS,
+  HOME,
+  GET_WARNING
 } from "../action-types";
 
 export function getCourses(name) {
-
+  
   return async (dispatch) => {
     let response = await axios.get(
       `https://cursort-api.onrender.com/courses?name=${name}`
@@ -87,10 +90,9 @@ export function posCourses(data){
 }
 
 
-export function orderByRating(payload) {
+export function orderByRating() {
     return {
         type: ORDER_BY_RATING,
-        payload
     };
 }
 
@@ -199,4 +201,30 @@ export function clearCart(){
   return {
     type: CLEAR_CART,
   }
+};
+
+export function contact(payload) {
+  return async function (dispatch) {
+    let json = await axios.post('http://localhost:3001/contact/send-email', payload);
+    return json;
+  }
+}
+
+export function cleanFilters() {
+  return {
+    type: CLEAN_FILTERS,
+  }
+}
+
+export function home(payload) {
+  return {
+      type: HOME,
+      payload
+  };
+}
+
+export function getWarning() {
+  return {
+      type: GET_WARNING,
+  };
 }

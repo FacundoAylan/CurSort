@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import {
   Grid,
@@ -11,27 +11,31 @@ import {
 } from "@chakra-ui/react";
 
 
-function NavbarLanding({ setPagina}) {
+function NavbarLanding() {
   // const {isAuthenticated, user} = useAuth0()
-
-  const {isAuthenticated, user} = useAuth0()
 
   return (
     <Flex>
       <Grid templateColumns="repeat(2,1fr)">
         <GridItem p={0}  m={0}>
-          <Box ml='2%' mt='1%'>
+          <Box ml='1%' mt='1%'>
             <Image src='https://i.ibb.co/9bwtk3s/Logo2.png' alt='' w='25%' />
           </Box>
         </GridItem>
 
-        <GridItem p={0} mt='4%' pl='59px'>
+        <GridItem p={0} mt='4%'>
             <Link to='/home'>
-              <Button p={4} ml={4}>Cursos</Button>
+              <Button p={4} ml='120px'>Cursos</Button>
             </Link>
-            <Button p={4} ml={4}>Estudiantes</Button>
-            <Button p={4} ml={4}>Contactanos</Button>
-            <Button p={4} ml={4}>¿Quienes Somos?</Button>
+            <Link to='/Admin'>
+              <Button p={4} ml={4}>Administrador</Button>
+            </Link>
+            <Link to='/Contact'>
+              <Button p={4} ml={4}>Contactanos</Button>
+            </Link>
+            <Button p={4} ml={4}>
+              <a href='#footer' p={4} ml={4}>Nosotros</a>
+            </Button>
         </GridItem>
 
       </Grid> 

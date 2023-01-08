@@ -1,19 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import ShoppingCart from './ShoppingCart';
 import EmptyCart from './EmptyCart';
 import {Text, Grid, GridItem} from "@chakra-ui/react";
-import { useAuth0 } from '@auth0/auth0-react';
 import ButtonCart from './ButtonCart';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 function HomeCart() {
-  const cart = useSelector((state) => state.cart);
 
+  const dataLocalStore = window.localStorage.getItem("cart");
+  const dataLocal = JSON.parse(dataLocalStore);
+  const data = dataLocal.flat();
+  
+  const local = useSelector((state) => state.local);
+  console.log("local", local)
+
+
+  const [shop, setShop] = useLocalStorage("cart", data);
+
+  useEffect(() => {
+    setShop(data);
+  }, []);
+
+ 
   const [total, setTotal] = useState(0);
 
   const getTotal = () => {
     let total = 0;
-    cart.forEach((item) => {
+    data.forEach((item) => {
       total += item.price * item.quantity;
     });
     setTotal(total);
@@ -47,7 +61,7 @@ function HomeCart() {
         gridColumnStart={1}
         gridColumnEnd={5}
       >
-        {cart.length > 0 ? <ShoppingCart /> : <EmptyCart />}
+         {data.length > 0 ? <ShoppingCart data={data} /> : <EmptyCart />}
       </GridItem>
       <GridItem
         gridRowStart={8}
@@ -55,7 +69,7 @@ function HomeCart() {
         gridColumnStart={1}
         gridColumnEnd={3}
       >
-        {cart.length > 0 ? <ButtonCart getTotal={getTotal} /> : null}
+        {data.length > 0 ? <ButtonCart getTotal={getTotal} /> : null}
       </GridItem>
     </Grid>
   );

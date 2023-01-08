@@ -2,12 +2,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { filterDifficulty} from "../../Redux/actions/index";
-import { Grid, GridItem, Button } from '@chakra-ui/react'
+import { Grid, Button } from '@chakra-ui/react'
 
-const FilterDifficulty = () => {
+const FilterDifficulty = ({setPagina, setHome }) => {
   const dispatch = useDispatch();
   
   const handleDifficulty = (e) => {
+    setPagina(1);
+    setHome(false);
    dispatch(filterDifficulty(e.target.value));
     
   };
@@ -19,15 +21,9 @@ const FilterDifficulty = () => {
       gridTemplateRows='repeat(3, 45px)' 
       p={0}
     >
-      <GridItem p={0}>
-        <Button onClick={(e) => handleDifficulty(e)} value='Principiante'>Beginner</Button>
-      </GridItem>
-      <GridItem>
-        <Button onClick={(e) => handleDifficulty(e)} value='Intermedio'>Middle</Button>
-      </GridItem>
-      <GridItem>
-        <Button onClick={(e) => handleDifficulty(e)} value='Avanzado'>Advanced</Button>
-      </GridItem>
+        <Button onClick={(e) => handleDifficulty(e)} value='Beginner'>Beginner</Button>
+        <Button onClick={(e) => handleDifficulty(e)} value='Middle'>Middle</Button>
+        <Button onClick={(e) => handleDifficulty(e)} value='Advanced'>Advanced</Button>
     </Grid>
 
   )

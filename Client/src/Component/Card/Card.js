@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { addToCart } from "../../Redux/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FiShoppingCart } from "react-icons/fi";
 import {
   Grid,
@@ -15,8 +15,12 @@ import {
   Center,
   Flex,
   Button,
+  Badge,
 } from "@chakra-ui/react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import Swal from "sweetalert2";
+
+
 
 const data = {
   isNew: true,
@@ -39,7 +43,7 @@ function Rating({ rating }) {
             return (
               <BsStarFill
                 key={i}
-                color={i < rating ? "teal.500" : "gray.300"}
+                color={i < rating ? "yellow" : "gray.300"}
               />
             );
           }
@@ -60,21 +64,43 @@ function Rating({ rating }) {
   );
 }
 
-function Cards({ name, image, price, id, category }) {
+function Cards({ name, image, price, id, categories, rating, createdAt }) {
   const dispatch = useDispatch();
+  const courses = useSelector((state) => state.courses);
+  const local = useSelector((state) => state.local);
 
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(addToCart(id));
+    const course = courses.find((course) => course.id === id);
+    const itemRepeated = local.find((course) => course.id === id);
+    if (itemRepeated) {
+      return Swal.fire({
+        position: "top-center",
+        icon: "warning",
+        title: `${course.name} ya se encuentra en el carrito`,
+        fontSize: "5px",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+    Swal.fire({
+      position: 'top-center',
+      icon: 'success',
+      title: `${course.name} se agregó al carrito`,
+      fontSize: '5px',
+      showConfirmButton: false,
+      timer: 1500
+    })
   };
 
   return (
     <Link to={`/detalle/${id}`} className="linkStart">
       <Grid
         p={0}
-        templateRows=" 55% 45%"
+        templateRows=" 45% 55%"
         background="#3E4AB8"
-        h="330px"
+        h="360px"
         color="black"
         borderRadius={12}
       >
@@ -90,39 +116,45 @@ function Cards({ name, image, price, id, category }) {
           />
         </GridItem>
 
-        <GridItem w="100%">
+        <GridItem w="100%" >
           {/* cursos nuevos  */}
-          {/* <Box d="flex" alignItems="baseline">
-            {data.isNew && (
-              <Badge rounded="full" px="2" fontSize="0.8em" colorScheme="red">
-                New
-              </Badge>
-            )}
-          </Box> */}
+          {
+            createdAt =='2019-03-25T20:00:00.000Z'?
+            <Box d="flex" alignItems="baseline">
+              {data.isNew && (
+                <Badge rounded="full" px="2" fontSize="0.8em" colorScheme="red" ml='80%'>
+                  New
+                </Badge>
+              )}
+            </Box>
+            :<Box h='5px'> </Box>
+
+          }
           {/* cursos nuevos   */}
 
           {/* nombre del course */}
-          <Center fontSize="100%" pt={2}>
+          <Center fontSize="100%" p={0} pt={ createdAt =='2019-03-25T20:00:00.000Z'? 0 : 4 }>
             {name}
           </Center>
-          <Center>{category}</Center>
+          <Center>{categories}</Center>
           {/* nombre del course */}
 
           {/* puntuacion */}
           <Box>
             <Center ml="1%">
-              <Rating rating={data.rating} />
+              <Rating rating={rating} />
             </Center>
             {/* puntuacion */}
 
             {/* precio */}
+            <Box mt='10px'>
             <Center fontSize="40px" color="#03C139">
               {`$${price.toFixed(2)}`}
             </Center>
             {/* precio */}
 
             {/* boton de compra */}
-            <Center>
+            <Center >
               <Tooltip
                 label="Add to cart"
                 bg="#03C139"
@@ -131,7 +163,7 @@ function Cards({ name, image, price, id, category }) {
                 fontSize={"1.2em"}
                 onClick={handleClick}
               >
-                <Link to="/cart">
+                {/* <Link to="/cart"> */}
                   <Button background="none">
                     <Icon
                       as={FiShoppingCart}
@@ -139,12 +171,14 @@ function Cards({ name, image, price, id, category }) {
                       w={7}
                       alignSelf={"center"}
                       color="black"
+                      onClick={handleClick}
                     />
                   </Button>
-                </Link>
+                {/* </Link> */}
               </Tooltip>
             </Center>
             {/* boton de compra */}
+          </Box>
           </Box>
         </GridItem>
       </Grid>
