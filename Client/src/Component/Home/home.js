@@ -20,7 +20,7 @@ function Home() {
     (state) => state.courses,
     () => false
   ); // el false, verifica el estado anterior
-  // console.log(info)
+  console.log(info)
   const [ home, setHome ] =  useState(true);
 
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ function Home() {
   const porPagina = 10;
   const maximo = Math.ceil(info.length / porPagina);
   const [order, setOrder] = useState("");
-  
+ 
 
   return (
     <Container maxW="100%" p="0" heightMode="min">
