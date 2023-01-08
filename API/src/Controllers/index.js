@@ -563,7 +563,7 @@ const postInformationBuyer = async (req, res, next) => {
 // post para realizar pago
 const postPayment = async (req, res, next) => {
   const { id, amount, mail, name, id_courses, course_name } = req.body;
-  console.log(req.body)
+
   try {
     const payment = await stripe.paymentIntents.create({
       amount,
@@ -599,7 +599,6 @@ const postPayment = async (req, res, next) => {
 
 }
   catch (error) {
-    console.log(error)
     res.json({ message: error});
   }
 };

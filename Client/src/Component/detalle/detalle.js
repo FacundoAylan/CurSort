@@ -15,7 +15,9 @@ function Detalle() {
   const course = useSelector(state => state.courseDetail)
   const [rating, setRating] = useState(4);
   const history = useHistory();
-  console.log(course)
+  const local = useSelector((state) => state.local);
+  console.log('local', local)
+  
     useEffect(() => {
         dispatch(getDetail(id));
     }, [dispatch, id]);

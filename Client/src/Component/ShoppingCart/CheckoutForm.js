@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Swal from "sweetalert2";
 import { useHistory } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -11,16 +11,18 @@ function Checkoutform() {
 
     const stripe = useStripe();
     const elements = useElements();
-    const cart = useSelector(state => state.cart);
     const { user, isAuthenticated } = useAuth0();
     const history = useHistory();
     const dispatch = useDispatch();
+
+    const dataLocalStore = window.localStorage.getItem("cart");
+    const data = JSON.parse(dataLocalStore);
 
   const [total, setTotal] = useState(0);
 
   const getTotal = () => {
     let total = 0;
-    cart.forEach((item) => {
+    data.forEach((item) => {
       total += item.price * item.quantity;
     });
     setTotal(total);
@@ -31,19 +33,17 @@ function Checkoutform() {
     getTotal();
     });
 
-    const idCourse = cart.map((cart) => cart.id)
-    console.log(idCourse)
-
-  
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        const dataLocalStore = window.localStorage.getItem("cart");
+        const dataLocal = JSON.parse(dataLocalStore);
+    
 
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card: elements.getElement(CardElement),
         })
-
-        console.log(paymentMethod)
 
         if (!error) {
             const{ id } = paymentMethod;
@@ -55,8 +55,8 @@ function Checkoutform() {
                     id,
                     mail: user.email,
                     name: user.name,
-                    id_courses: cart.map((cart) => cart.id),
-                    course_name: cart.map((cart) => cart.name)
+                    id_courses: dataLocal.map((cart) => cart.id),
+                    course_name: dataLocal.map((cart) => cart.name)
                 });
     
                 const card = elements.getElement(CardElement)
@@ -82,7 +82,6 @@ function Checkoutform() {
                         showConfirmButton: false,
                         timer: 2000
                       })
-                      console.log(data)
                 }
             } catch (error) {
 
@@ -103,7 +102,7 @@ function Checkoutform() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        {cart.map((cart) => (
+        {data.map((cart) => (
           <div key={cart.id}>
             <h3 style={{ color: "#f1faee" }}>{cart.name}</h3>
             <p style={{ color: "#f1faee" }}>usd {cart.price}</p>

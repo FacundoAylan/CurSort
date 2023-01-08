@@ -29,6 +29,7 @@ let initialState = {
   categories: [],
   filterCurses: [],
   cart: [],
+  local: JSON.parse(localStorage.getItem("cart"))
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -209,24 +210,40 @@ const rootReducer = (state = initialState, action) => {
         (item) => item.id === Number(action.payload)
       );
 
-      const itemRepeated = state.cart?.find(
+      const itemRepeated = state.local?.find(
         (item) => item.id === newItem.id
       );
+
+      if(!itemRepeated) {
+        window.localStorage.setItem('cart', JSON.stringify([...state.local, { ...newItem, quantity: 1 }]))
+        console.log('cart', JSON.parse(window.localStorage.getItem('cart')))
+      }
 
       return itemRepeated
         ? {
             ...state,
           }
-        : { ...state, cart: [...state.cart, { ...newItem, quantity: 1 }] };
+        : { ...state, local: [...state.local, JSON.parse(window.localStorage.getItem('cart'))].flat()};
 
     case REMOVE_ONE_FROM_CART:
-      const itemToDelete = state.cart.find(
+      const data =  JSON.parse(window.localStorage.getItem('cart')).flat()
+      console.log('data', data)
+      const itemToDelete = data.find(
         (item) => item.id === action.payload
       );
+
+      console.log('itemToDelete', itemToDelete)
+      
+      if(itemToDelete) {
+        window.localStorage.setItem('cart', JSON.stringify(data.filter((item) => item.id !== Number(action.payload))))
+        state.local = JSON.parse(window.localStorage.getItem('cart'))
+        console.log('state', state.local)
+      }
+
       return itemToDelete.quantity > 1
         ? {
             ...state,
-            cart: state.cart.map((item) =>
+            local: state.local.map((item) =>
               item.id === Number(action.payload)
                 ? { ...item, quantity: item.quantity - 1 }
                 : item
@@ -234,7 +251,7 @@ const rootReducer = (state = initialState, action) => {
           }
         : {
             ...state,
-            cart: state.cart.filter((item) => item.id !== Number(action.payload)),
+            local: state.local.filter((item) => item.id !== Number(action.payload)),
           };
     case REMOVE_ALL_FROM_CART:
       return {
@@ -242,6 +259,7 @@ const rootReducer = (state = initialState, action) => {
         cart: state.cart.filter((item) => item.id !== Number(action.payload)),
       };
     case CLEAR_CART:
+      window.localStorage.setItem('cart', JSON.stringify([]))
       return {
         ...state,
         cart: [],
