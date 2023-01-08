@@ -1,11 +1,12 @@
 import React from 'react';
 import { Box, Flex, IconButton, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
-import Usuarios from './usuarios/usuarios';
 import SearchAdmin from './searchAdmin/searchAdmin';
 import CoursesAdmin from './coursesAdmin/coursesAdmin'
 import ListCourses from './listUsers/listusers'
 import { Link } from 'react-router-dom';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
+import CreateCategory from './CreateCategory/CreateCategory';
+import CreateCourse from './CreateCourse/CreateCourse';
 
 
 function Admin () {
@@ -22,11 +23,13 @@ function Admin () {
           />
         </Link>
       </Box>
-      <Tabs>
+      <Tabs isFitted variant='enclosed'>
         <TabList color="white">
-          <Tab>ListUsers</Tab>
+          <Tab>Users</Tab>
           <Tab>Courses</Tab>
-          <Tab>statistics</Tab>
+          <Tab>Statistics</Tab>
+          <Tab>New course</Tab>
+          <Tab>New category</Tab>
         </TabList>
 
         <TabPanels>
@@ -41,6 +44,14 @@ function Admin () {
 
           <TabPanel>
             <p>three!</p>
+          </TabPanel>
+
+          <TabPanel>
+            <CreateCourse />
+          </TabPanel>
+
+          <TabPanel>
+            <CreateCategory />
           </TabPanel>
         </TabPanels>
       </Tabs>

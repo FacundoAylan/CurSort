@@ -63,6 +63,7 @@ function Home() {
             }
             )
         : <HomeFilter info={info} pagina={pagina} setPagina={setPagina} maximo={maximo} porPagina={porPagina} />}
+
       </Box>
       </Grid>
       <Box mt={7}>

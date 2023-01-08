@@ -37,6 +37,7 @@ import {
 function Filter({ setPagina, setOrder, booleano, setHome }) {
 
   const dispatch = useDispatch();
+
   // function handleOrderByName(e) {
   //   e.preventDefault();
   //   setPagina(1);
@@ -44,6 +45,7 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
   //   setPagina(1)
   //   setOrder("order" + e.target.value);
   // }
+
 
   function handleOrderByPrice(e) {
     console.log(e.target.value);
