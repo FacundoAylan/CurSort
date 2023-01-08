@@ -363,7 +363,6 @@ function CreateCursor() {
                   setStep(step - 1);
                   setProgress(progress - 25);
                 }}
-                isDisabled={step === 1}
                 colorScheme="teal"
                 variant="solid"
                 w="7rem"
@@ -397,6 +396,7 @@ function CreateCursor() {
                 colorScheme="red"
                 variant="solid"
                 ml='4%'
+                isDisabled={isError.descripcion}
                 onClick={() => {
                   validacion();
                   toast({
