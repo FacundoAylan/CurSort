@@ -19,15 +19,14 @@ import {
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
   CLEAN_FILTERS,
-  HOME,
   GET_WARNING
 } from "../action-types";
 
 export function getCourses(name) {
-  
+
   return async (dispatch) => {
     let response = await axios.get(
-      `https://cursort-api.onrender.com/courses?name=${name}`
+      `http://localhost:3001/courses?name=${name}`
     );
     dispatch({
       type: GET_COURSES,
@@ -40,7 +39,7 @@ export function getCourses(name) {
 
 export function getDetail(id) {
   return async (dispatch) => {
-    let response = await axios.get(`https://cursort-api.onrender.com/courses/${id}`);
+    let response = await axios.get(`http://localhost:3001/courses/${id}`);
 
     dispatch({
       type: GET_DETAIL,
@@ -51,7 +50,7 @@ export function getDetail(id) {
 
 export function getCategory(){
     return async (dispatch) =>{
-        let categories = await axios.get('https://cursort-api.onrender.com/categories')
+        let categories = await axios.get('http://localhost:3001/categories')
         return dispatch({
             type: GET_CATEGORIES,
             payload: categories.data
@@ -63,7 +62,7 @@ export function getFilterCategory(id){
   
   if(id=== 'all'){
     return async (dispatch)=>{
-      const response = await axios.get(`https://cursort-api.onrender.com/filter/category`)
+      const response = await axios.get(`http://localhost:3001/filter/category`)
       dispatch({
         type:GET_FILTER_CATEGORY,
         payload : response.data //array de cursos
@@ -72,7 +71,7 @@ export function getFilterCategory(id){
   }
 
   return async (dispatch)=>{
-    const response = await axios.get(`https://cursort-api.onrender.com/filter/category/?id=${id}`)
+    const response = await axios.get(`http://localhost:3001/filter/category/?id=${id}`)
     dispatch({
       type:GET_FILTER_CATEGORY,
       payload : response.data //array de cursos
@@ -112,7 +111,7 @@ export function orderByPublished(payload) {
 
 export function createNewCategory(payload) {
   return async function (dispatch) {
-    let json = await axios.post('https://cursort-api.onrender.com/categories', payload);
+    let json = await axios.post('http://localhost:3001/categories', payload);
     return json;
   }
 }
@@ -216,15 +215,8 @@ export function cleanFilters() {
   }
 }
 
-export function home(payload) {
-  return {
-      type: HOME,
-      payload
-  };
-}
-
 export function getWarning() {
   return {
-      type: GET_WARNING,
-  };
+    type: GET_WARNING,
+  }
 }

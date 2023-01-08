@@ -64,7 +64,7 @@ function NavBar({ setPagina, setOrder, setHome}) {
                   borderRadius="12px"
                 >
                   <IconButton size="1%" icon={<GrCart />} />
-                  {data.length > 0 && (
+                  {/* {data.length > 0 && (
                     <div>
                       <b>
                         <sub
@@ -79,7 +79,7 @@ function NavBar({ setPagina, setOrder, setHome}) {
                         </sub>
                       </b>
                     </div>
-                  )}
+                  )} */}
                 </Button>
               </Link>
             </Box>
