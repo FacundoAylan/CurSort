@@ -4,31 +4,30 @@ import ShoppingCart from './ShoppingCart';
 import EmptyCart from './EmptyCart';
 import {Text, Grid, GridItem} from "@chakra-ui/react";
 import ButtonCart from './ButtonCart';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 function HomeCart() {
-  const cart = useSelector((state) => state.cart);
 
-  const getLocalStorage = () => {
-    const data = window.localStorage.getItem("cart");
-    if (data) {
-      return JSON.parse(data);
-    } else {
-      return [];
-    }
-  };
+  const dataLocalStore = window.localStorage.getItem("cart");
+  const dataLocal = JSON.parse(dataLocalStore);
+  const data = dataLocal.flat();
   
-  const data = getLocalStorage();
-  console.log("data", data);
+  const local = useSelector((state) => state.local);
+  console.log("local", local)
+
+
+  const [shop, setShop] = useLocalStorage("cart", data);
 
   useEffect(() => {
-    getLocalStorage();
+    setShop(data);
   }, []);
 
+ 
   const [total, setTotal] = useState(0);
 
   const getTotal = () => {
     let total = 0;
-    cart.forEach((item) => {
+    data.forEach((item) => {
       total += item.price * item.quantity;
     });
     setTotal(total);
@@ -62,7 +61,7 @@ function HomeCart() {
         gridColumnStart={1}
         gridColumnEnd={5}
       >
-         {cart.length > 0 || data.length > 0 ? <ShoppingCart data={data}/> : <EmptyCart />}
+         {data.length > 0 ? <ShoppingCart data={data} /> : <EmptyCart />}
       </GridItem>
       <GridItem
         gridRowStart={8}
@@ -70,7 +69,7 @@ function HomeCart() {
         gridColumnStart={1}
         gridColumnEnd={3}
       >
-        {cart.length > 0 ? <ButtonCart getTotal={getTotal} /> : null}
+        {data.length > 0 ? <ButtonCart getTotal={getTotal} /> : null}
       </GridItem>
     </Grid>
   );

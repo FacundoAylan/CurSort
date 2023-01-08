@@ -67,13 +67,13 @@ function Rating({ rating }) {
 function Cards({ name, image, price, id, categories, rating, createdAt }) {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses);
-  const cart = useSelector((state) => state.cart);
+  const local = useSelector((state) => state.local);
 
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(addToCart(id));
     const course = courses.find((course) => course.id === id);
-    const itemRepeated = cart.find((course) => course.id === id);
+    const itemRepeated = local.find((course) => course.id === id);
     if (itemRepeated) {
       return Swal.fire({
         position: "top-center",

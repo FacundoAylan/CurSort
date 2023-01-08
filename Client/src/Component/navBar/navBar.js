@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import LoginButton from '../LoginButton/LoginButton'
 import LogoutButton from '../LogoutButton/LogoutButton'
@@ -30,8 +30,14 @@ function NavBar({ setPagina, setOrder, setHome}) {
   // const reset = () =>{
   //   dispatch(getCourses(''));
   // }
+  const dataLocalStore = window.localStorage.getItem("cart");
+  const data = JSON.parse(dataLocalStore);
 
-  const cart = useSelector(state => state.cart)
+  const local = useSelector((state) => state.local);
+  
+  useEffect(() => {
+    window.localStorage.setItem("cart", JSON.stringify(data));
+  }, [data]);
 
 
   return (
@@ -58,7 +64,7 @@ function NavBar({ setPagina, setOrder, setHome}) {
                   borderRadius="12px"
                 >
                   <IconButton size="1%" icon={<GrCart />} />
-                  {cart.length > 0 && (
+                  {data.length > 0 && (
                     <div>
                       <b>
                         <sub
@@ -69,7 +75,7 @@ function NavBar({ setPagina, setOrder, setHome}) {
                             marginRight: "none",
                           }}
                         >
-                          {cart.length}
+                          {data.length}
                         </sub>
                       </b>
                     </div>

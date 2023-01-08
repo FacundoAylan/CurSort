@@ -14,9 +14,11 @@ import Swal from "sweetalert2";
 function Information() {
     const { user } = useAuth0();
 
-    const cart = useSelector(state => state.cart);
     const history = useHistory();
     const form = useRef(null);
+
+    const dataLocalStore = window.localStorage.getItem("cart");
+    const dataLocal = JSON.parse(dataLocalStore);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -115,7 +117,7 @@ function Information() {
       <hr />
       <Flex className="Information-sidebar">
         <h3 style={{ color: "#f1faee" }}>Pedido:</h3>
-        {cart.map((item) => (
+        {dataLocal.map((item) => (
           <div className="Information-element" key={item.id}>
             <h4 style={{ color: "white" }}>{item.name}</h4>
             <span style={{ color: "white" }}>USD {item.price}</span>
