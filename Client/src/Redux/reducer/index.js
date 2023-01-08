@@ -18,6 +18,7 @@ import {
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
   CLEAN_FILTERS,
+  GET_WARNING
 
 } from "../action-types";
 
@@ -149,44 +150,60 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_DIFFICULTY:
-      const FilteredDifficulty =
-        action.payload === "all"
-          ? state.allCourses
-          : state.courses.filter(
-              (curse) => action.payload === curse.difficulty
-            );
-      return {
-        ...state,
-        courses: FilteredDifficulty,
-      };
+      const FilteredDifficulty = state.courses.filter((curse) => action.payload === curse.difficulty);
+      if( FilteredDifficulty.length > 0){
+        return {
+          ...state,
+          courses: FilteredDifficulty,
+        };
+      }else{
+        return {
+          ...state,
+          warnings: 'no match found',
+        };
+      }
 
     case FILTER_DURATION:
-      if (action.payload === "all") {
-        return {
-          type: FILTER_DURATION,
-          courses: state.allCourses,
-        };
-      } else if (action.payload === "1A50") {
-        console.log("1A50")
-        return {
-          ...state,
-          courses: state.courses.filter(
-            (course) => course.duration >= 1 && course.duration <= 50
-          ),
-        };
+
+    if (action.payload === "1A50") {
+        let filter =state.courses.filter((course) => course.duration >= 1 && course.duration <= 50);
+        if(filter.length >0 ){
+          return {
+            ...state,
+            courses: filter,
+          };
+        }else{
+          return {
+            ...state,
+            warnings: 'no match found',
+          };
+        }
       } else if (action.payload === "51A100") {
-        return {
-          ...state,
-          courses: state.courses.filter(
-            (course) => course.duration >= 51 && course.duration <= 100
-          ),
-        };
+        let filter = state.courses.filter((course) => course.duration >= 51 && course.duration <= 100);
+        if(filter.length >0 ){
+          return {
+            ...state,
+            courses: filter,
+          };
+        }else{
+          return {
+            ...state,
+            warnings: 'no match found',
+          };
+        }
       } else if (action.payload === "100") {
-        console.log("100")
-        return {
-          ...state,
-          courses: state.courses.filter((course) => course.duration >= 100),
-        };
+        let filter = state.courses.filter((course) => course.duration >= 100);
+        if(filter.length >0 ){
+          return {
+            ...state,
+            courses: filter,
+          };
+        }else{
+          return {
+            ...state,
+            warnings: 'no match found',
+          };
+        }
       }
       //este return creo que esta demas, pero me tira un warning
       return {
@@ -195,16 +212,26 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_CATEGORY:
-      let filteredCategory =
-        action.payload === "all"
-          ? state.allCourses
-          : state.courses.filter((course) =>
-              course.categories.includes(action.payload)
-            );
-      return {
-        ...state,
-        courses: filteredCategory,
-      };
+      let filteredCategory = state.courses.filter((course) =>
+          course.categories.includes(action.payload)
+        );
+        if (action.payload === "all"){
+          return {
+            ...state,
+            courses: state.allCourses,
+          };
+        }else if(filteredCategory.length > 0) {
+            return {
+              ...state,
+              courses: filteredCategory,
+            };
+        }else{
+          return {
+            ...state,
+            warnings: 'no match found',
+          };
+        }
+  
 
     case ADD_TO_CART:
       const newItem = state.allCourses.find(
@@ -253,7 +280,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         courses: state.allCourses
       };
-
+    case GET_WARNING:
+      return {
+        ...state,
+        warnings: '',
+      };
     default:
       return state;
   }

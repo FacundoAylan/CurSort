@@ -36,7 +36,7 @@ function NavBar({ setPagina, setOrder, setHome}) {
 
   return (
     <>
-      <Grid templateColumns="25% 50% 25%" position="fixed" backgroundColor='#3E4AB8' zIndex='100' mt="-8%" w='100vw' h='105px'>
+      <Grid templateColumns="25% 50% 25%" position="fixed" backgroundColor='#3E4AB8' zIndex='100'  w='100vw' h='105px'>
         <GridItem mt="2%">
           {/* componente del titulo */}
           <Title />
