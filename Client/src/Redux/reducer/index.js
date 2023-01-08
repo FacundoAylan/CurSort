@@ -167,6 +167,7 @@ const rootReducer = (state = initialState, action) => {
           courses: state.allCourses,
         };
       } else if (action.payload === "1A50") {
+        console.log("1A50")
         return {
           ...state,
           courses: state.courses.filter(
@@ -181,6 +182,7 @@ const rootReducer = (state = initialState, action) => {
           ),
         };
       } else if (action.payload === "100") {
+        console.log("100")
         return {
           ...state,
           courses: state.courses.filter((course) => course.duration >= 100),

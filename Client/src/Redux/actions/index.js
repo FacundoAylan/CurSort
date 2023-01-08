@@ -19,10 +19,11 @@ import {
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
   CLEAN_FILTERS,
+  HOME
 } from "../action-types";
 
 export function getCourses(name) {
-
+  
   return async (dispatch) => {
     let response = await axios.get(
       `http://localhost:3001/courses?name=${name}`
@@ -212,4 +213,11 @@ export function cleanFilters() {
   return {
     type: CLEAN_FILTERS,
   }
+}
+
+export function home(payload) {
+  return {
+      type: HOME,
+      payload
+  };
 }
