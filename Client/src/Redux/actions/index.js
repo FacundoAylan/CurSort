@@ -25,7 +25,7 @@ import {
 export function getCourses(name) {
   return async (dispatch) => {
     let response = await axios.get(
-      `https://cursort-api.onrender.com/courses?name=${name}`
+      `http://localhost:3001/courses?name=${name}`
     );
     dispatch({
       type: GET_COURSES,
@@ -36,7 +36,7 @@ export function getCourses(name) {
 
 export function getDetail(id) {
   return async (dispatch) => {
-    let response = await axios.get(`https://cursort-api.onrender.com/courses/${id}`);
+    let response = await axios.get(`http://localhost:3001/courses/${id}`);
 
     dispatch({
       type: GET_DETAIL,
