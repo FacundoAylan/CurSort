@@ -13,7 +13,7 @@ useEffect(()=>{
 },[user])
   
   const handleLogout = () => {
-    logout({ returnTo: 'https://cursort.onrender.com/home' });
+    logout({ returnTo: 'https://cursort.onrender.com' });
     window.LocalStorage.setItem("user", []);
   };
 
