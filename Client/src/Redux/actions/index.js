@@ -19,12 +19,11 @@ import {
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
   CLEAN_FILTERS,
-  HOME,
   GET_WARNING
 } from "../action-types";
 
 export function getCourses(name) {
-  
+
   return async (dispatch) => {
     let response = await axios.get(
       `https://cursort-api.onrender.com/courses?name=${name}`
@@ -142,12 +141,12 @@ export function AllFilterDifficulty(payload){ // ==> llega un obj {duration:'1A5
 //   const duration = useSelector(state=> state.filterDuration)
 //   const difficulty = useSelector(state=> state.filterDifficulty)
 
-//   // console.log(difficulty.difficulty)
-//   console.log(duration.duration)
+//   // //console.log(difficulty.difficulty)
+//   //console.log(duration.duration)
 
 //   return async (dispatch)=>{
-//     const response = await axios.get(`http://localhost:3001/filter/?duration${duration.duration}`) // ==>no se como conseguir todos los query juntos 
-//     console.log('data', response.data)
+//     const response = await axios.get(`https://cursort-api.onrender.com/filter/?duration${duration.duration}`) // ==>no se como conseguir todos los query juntos 
+//     //console.log('data', response.data)
 //     dispatch({
 //       type: 'GET_FILTER',
 //       payload: response.data,
@@ -205,7 +204,7 @@ export function clearCart(){
 
 export function contact(payload) {
   return async function (dispatch) {
-    let json = await axios.post('http://localhost:3001/contact/send-email', payload);
+    let json = await axios.post('https://cursort-api.onrender.com/contact/send-email', payload);
     return json;
   }
 }
@@ -216,15 +215,8 @@ export function cleanFilters() {
   }
 }
 
-export function home(payload) {
-  return {
-      type: HOME,
-      payload
-  };
-}
-
 export function getWarning() {
   return {
-      type: GET_WARNING,
-  };
+    type: GET_WARNING,
+  }
 }

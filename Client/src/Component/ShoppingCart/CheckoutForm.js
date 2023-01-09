@@ -70,8 +70,8 @@ function Checkoutform() {
                         showConfirmButton: false,
                         timer: 2000
                       })
-                       console.log(data)
                         dispatch(clearCart())
+                        window.localStorage.setItem('cart', JSON.stringify([]))
                         history.push('/home')
                 }
                 else {
@@ -85,7 +85,7 @@ function Checkoutform() {
                 }
             } catch (error) {
 
-                console.log(error)
+                //console.log(error)
             }
         } else {
             Swal.fire({
@@ -95,7 +95,7 @@ function Checkoutform() {
                 showConfirmButton: false,
                 timer: 1500
                 })
-            console.log(error.message)
+            //console.log(error.message)
         }
     };
 

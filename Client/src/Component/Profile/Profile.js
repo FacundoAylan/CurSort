@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Profile = () => {
 	const { user, isAuthenticated } = useAuth0();
+	//console.log('isAuthenticated', isAuthenticated)
 
 	return (
 		<Grid templateRows='25px repeat(2,45px)'>

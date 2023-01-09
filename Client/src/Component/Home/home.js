@@ -13,19 +13,22 @@ import Footer from "../landing/footer/footer";
 import CarouselHome from "./currucelHome";
 import Filter from "../navBar/filter/filter";
 import HomeFilter from "./homeFilter";
-import { getCourses } from "../../Redux/actions";
+import { getCategory, getCourses } from "../../Redux/actions";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useAuth0 } from '@auth0/auth0-react';
 
 function Home() {
   let info = useSelector(
     (state) => state.courses,
     () => false
   ); // el false, verifica el estado anterior
-  console.log(info)
+  //console.log(info)
   const [ home, setHome ] =  useState(true);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCourses(""));
+    dispatch(getCategory());
   }, [dispatch]);
   const categories = useSelector(state => state.categories)
 
@@ -33,7 +36,17 @@ function Home() {
   const porPagina = 10;
   const maximo = Math.ceil(info.length / porPagina);
   const [order, setOrder] = useState("");
- 
+
+  //modificación mai local storage
+  useLocalStorage("cart", []);
+  const { user, isAuthenticated } = useAuth0();
+
+  const [userLocal, setUserLocal ] = useLocalStorage("user", user || []);
+
+  useEffect(() => {
+    setUserLocal(user || [])
+  }, [user])
+  
 
   return (
     <Container maxW="100%" p="0" heightMode="min">
