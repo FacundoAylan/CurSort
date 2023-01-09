@@ -20,7 +20,7 @@ const settings = {
 };
 
 function CarouselHome({ categorie }) {
-  // console.log('categorie carrucel : ', categorie)
+  // //console.log('categorie carrucel : ', categorie)
 
   let info = useSelector(
     (state) => state.courses,
@@ -47,6 +47,7 @@ function CarouselHome({ categorie }) {
   const side = useBreakpointValue({ base: "30%", md: "10px" });
 
   return (
+
     <Box
       position={"relative"}
       height={"400px"}
@@ -109,6 +110,7 @@ function CarouselHome({ categorie }) {
                     id={value.id}
                     categories={value.categories}
                     rating={value.rating}
+                    createdAt={value.createdAt}
                   />
                 </Box>
               );

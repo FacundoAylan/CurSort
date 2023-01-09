@@ -5,6 +5,7 @@ const nodemailer = require("nodemailer");
 const jwt = require('jsonwebtoken');
 const { CLIENT_STRIPE_KEY } = process.env;
 const Stripe = require("stripe");
+const { json } = require("body-parser");
 const stripe = new Stripe(CLIENT_STRIPE_KEY);
 
 const postCourse = async (req, res) => {
@@ -19,6 +20,7 @@ const postCourse = async (req, res) => {
     categoria,
   } = req.body;
 
+  // //console.log('categoria : ', categoria)
   let name,
     description,
     instructor,
@@ -53,6 +55,8 @@ const postCourse = async (req, res) => {
       categoryId,
     });
 
+    newcourse.addCategories(categoryId);
+
     res.status(200).send("El curso ha sido creado exitosamente!");
   } catch (error) {
     res.status(400).send(error);
@@ -67,12 +71,14 @@ const loadCoursesToDB = async () => {
   const coursesJSON = data.cursos;
   const categoriesJSON = data.categorias;
 
-  categoriesJSON.map(e => Categories.findOrCreate({
-    where: {
-      id: e.id,
-      name: e.name
-    }
-  }))
+  categoriesJSON.map((e) =>
+    Categories.findOrCreate({
+      where: {
+        id: e.id,
+        name: e.name,
+      },
+    })
+  );
 
   if (coursesDB.length === 0) {
     coursesJSON.forEach(async (e) => {
@@ -99,7 +105,7 @@ const loadCoursesToDB = async () => {
         difficulty,
       });
 
-      newcourse.addCategories(categoryId)
+      newcourse.addCategories(categoryId);
     });
   }
 };
@@ -153,10 +159,20 @@ const getAllCourses = async (req, res) => {
       courses = await findByName(name);
     } else {
       courses = await Courses.findAll({
-        include: Categories,
+        include: [
+          {
+            model: Categories,
+            attributes: ["id", "name"],
+          },
+          {
+            model: Reviews,
+            attributes: ["name", "text", "rating"],
+          },
+        ],
       });
     }
-    courses = courses.map((c) => {
+
+      courses = courses.map((c) => {
       return {
         id: c.id,
         name: c.name,
@@ -172,6 +188,7 @@ const getAllCourses = async (req, res) => {
         createdAt: c.createdAt,
         updatedAt: c.updatedAt,
         categories: c.categories.map((c) => c.name),
+        reviews : c.reviews
       };
     });
 
@@ -192,7 +209,7 @@ const postReview = async (req, res) => {
       name,
       text,
       rating,
-      courseId: courseId,
+      courseId: courseId, //relacion con el curso
     });
     res.status(200).send({ message: "Reseña creada con exito" });
   } catch (error) {
@@ -212,7 +229,7 @@ const getUsers = async (req, res)=>{
 const createUser = async (req, res) => {
   const user = req.body;
 
-  console.log(user.email);
+  // //console.log(user.email);
 
   let name, lastname, email, email_verified, birthday;
 
@@ -221,25 +238,22 @@ const createUser = async (req, res) => {
   email = user.email;
   email_verified = user.email_verified;
   birthday = "";
-  admin = false,
-  active = true
+  (admin = false), (active = true);
 
   try {
-    const [usuario,craeted] = await Users.findOrCreate(
-      {
-        where : {email: user.email},
-        defaults: {
-          name,
-          lastname,
-          email,
-          email_verified,
-          birthday,
-          admin,
-          active
-        }
-
-      });
-    res.status(200).json({usuario, craeted});
+    const [usuario, craeted] = await Users.findOrCreate({
+      where: { email: user.email },
+      defaults: {
+        name,
+        lastname,
+        email,
+        email_verified,
+        birthday,
+        admin,
+        active,
+      },
+    });
+    res.status(200).json({ usuario, craeted });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -268,45 +282,27 @@ const disableUser = async (req, res) => {
   }
 };
 
-
-
 //ruta para modificar un usuario
-const editUser = async(req,res)=>{
-  
-  const {
-    name, 
-    lastname, 
-    birthday,
-    country,
-    gender
-  } = req.body;     
-    try {
+const editUser = async (req, res) => {
+  const { name, lastname, birthday, country, gender } = req.body;
+  try {
+    if (!name || !lastname) return res.status(400).send("Faltan datos");
+    const editUser = await Users.findOne({
+      where: { name: name },
+    });
 
-      if (!name || !lastname)
-        return res.status(400).send("Faltan datos");
-      const editUser = await Users.findOne({
-        where: { name: name }
-      });   
-        
     const userEdit = await editUser.update({
-    name, 
-    lastname, 
-    birthday,
-    country,
-    gender // acepta solo F o M
-  });
-  res.status(200).send({message: "Usuario modificado con exito"})
-}catch (error){
-
-  res.status(404).send({message:error.message})
-} 
-
-}
-
-
-
-
-
+      name,
+      lastname,
+      birthday,
+      country,
+      gender, // acepta solo F o M
+    });
+    res.status(200).send({ message: "Usuario modificado con exito" });
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+  }
+};
 
 const getCategories = async (req, res) => {
   try {
@@ -414,8 +410,8 @@ const getCoursesByDuration = async (duration) => {
 const filterCourses = async (req, res) => {
   const { id, difficulty, duration } = req.query;
 
-  // console.log('duration', duration)
-  // console.log('difficulty',difficulty)
+  // //console.log('duration', duration)
+  // //console.log('difficulty',difficulty)
 
   try {
     if (id) {
@@ -435,17 +431,17 @@ const filterCourses = async (req, res) => {
   }
 };
 
+//para Contacto con nosotros
 const contactMail = (req, res) => {
-  const {name, mail, message } = req.body;
-  
-  if(!name)res.status(500).json('Debe incluir el nombre. Vuelva a intenar')
-  
-  // let newText = `${name} - ${email} - ${content}`
+  const { name, mail, message } = req.body;
+
+  if (!name) res.status(500).json("Debe incluir el nombre. Vuelva a intenar");
+
   let html = `<div>
     <h3> Name - ${name}</h3>
     <h3> Mail - ${mail}</h3>
     <h2>Message - ${message}</h2>
-  </div>`
+  </div>`;
 
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -458,24 +454,85 @@ const contactMail = (req, res) => {
   });
 
   let mailOption = {
-    from: 'Cursort contact', // sender address
-    to: "cursort.2022@gmail.com" , // list of receivers
-    subject: 'Cotact Form', // Subject line
+    from: "Cursort contact", // sender address
+    to: "cursort.2022@gmail.com", // list of receivers
+    subject: "Cotact Form", // Subject line
     // text: newText, // plain text body
-    html: html
+    html: html,
   };
   transporter.sendMail(mailOption, (error, info) => {
     if (error) {
       res.status(500).json(error.message);
     } else {
-     
       res.status(200).json("Email enviado con exito");
     }
   });
 };
 
+// middleware para mail de confirmacion
+
+const linkMail = async (req, res, next) => {
+  let { mail, name, id_cursos } = req.body;
+
+  //---- Esto recibe un [] con los id de los cursos pero no puedo incluirlos en el mail.
+  //Igual recibe el mail de confirmacion simple
+
+  //   const cursosPay = id_cursos.map((id)=>{
+  //    return Courses.findByPk(id);
+  //   })
+  //   const promesas = await Promise.all(cursosPay)
+
+  //  const promesasListas =  promesas.map(p=>{
+  //   return {
+  //     nombre : p.name,
+  //     precio: p.price,
+  //     imagen : p.image
+  //   }
+  //  })
+
+  if (!mail)
+    res
+      .status(500)
+      .json("Faltan campos obligatorios, controle y vuelva a enviar");
+
+  // Falta agregar el link a donde se van a renderizar los cursos.
+  let html = `<div>
+    <h3> ${name}! Gracias por confiar en Cursort \n ya está diponible tu curso, puedes ingresar en el siguiente link</h3>
+    <button><p> http://localhost:3000/cursos </p></button> 
+  </div>`;
+
+  //esto le da acceso a nodemailer al mail de cursort
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: "cursort.2022@gmail.com", // generated ethereal user
+      pass: "cghynjlxmrlbasyt", // generated ethereal password
+    },
+  });
+
+  //esto es la configuracion del Mail
+  let mailOption1 = {
+    from: "Cursort - Facturación", // sender address
+    to: mail, // puede recibir [] con mails para enviar en cadena
+    subject: "confirmación de compra", //
+    // text: newText, // plain text body
+    html: html,
+  };
+
+  transporter.sendMail(mailOption1, (error, info) => {
+    if (error) {
+      res.status(500).json(error.message);
+    } else {
+      res.status(200).json(`Email enviado con exito a ${mail}`);
+    }
+  });
+  next();
+};
+
 //validacion de datos
-const validate = ({mail, phone, address, city, postalCode, country}) => {
+const validate = ({ mail, phone, address, city, postalCode, country }) => {
   const errors = {};
   if (!mail) errors.mail = "El mail es requerido";
   if (!phone) errors.phone = "El teléfono es requerido";
@@ -489,36 +546,35 @@ const validate = ({mail, phone, address, city, postalCode, country}) => {
 
 // post para guardar los datos del comprador
 const postInformationBuyer = async (req, res, next) => {
-  const { mail, phone, address, city, postalCode, country} = req.body;
+  const { mail, phone, address, city, postalCode, country } = req.body;
 
-  const errors = validate({mail, phone, address, city, postalCode, country});
+  const errors = validate({ mail, phone, address, city, postalCode, country });
 
   try {
     if (Object.keys(errors).length > 0) {
       return res.status(200).json(errors);
     }
 
-      const buyer = await Users.findOne({
-      where: {email: mail },
-      })
+    const buyer = await Users.findOne({
+      where: { email: mail },
+    });
 
-      buyer.phone = phone
-      buyer.address = address
-      buyer.city = city
-      buyer.postalCode = postalCode
-      buyer.country = country
-      await buyer.save()
-      res.send({message: 'success'})
-  
+    buyer.phone = phone;
+    buyer.address = address;
+    buyer.city = city;
+    buyer.postalCode = postalCode;
+    buyer.country = country;
+    await buyer.save();
+    res.send({ message: "success" });
   } catch (error) {
-      res.json({ message: error });
+    res.json({ message: error });
   }
 };
-    
+
 // post para realizar pago
 const postPayment = async (req, res, next) => {
   const { id, amount, mail, name, id_courses, course_name } = req.body;
-  console.log(req.body)
+
   try {
     const payment = await stripe.paymentIntents.create({
       amount,
@@ -529,33 +585,29 @@ const postPayment = async (req, res, next) => {
     });
 
     const buyer = await Users.findOne({
-        where: {email: mail }
-    })
-    
+      where: { email: mail },
+    });
+
     const course = await Courses.findAll({
-        where: {id: id_courses}
-    })
+      where: { id: id_courses },
+    });
 
-    console.log(course)
+    //console.log(course)
 
-   const newOrder = await Orders.create({
-        status: 'paid',
-        amount: amount,
-        stripe_id: id,
-    })
+    const newOrder = await Orders.create({
+      status: "paid",
+      amount: amount,
+      stripe_id: id,
+    });
 
-    await newOrder.addCourse(course)
-    await newOrder.addUser(buyer)
+    await newOrder.addCourse(course);
+    await newOrder.addUser(buyer);
 
-
-    res.send({message: 'success'})
+    res.send({ message: "success" });
 
     next();
-
-}
-  catch (error) {
-    console.log(error)
-    res.json({ message: error});
+  } catch (error) {
+    res.json({ message: error });
   }
 };
 
@@ -584,7 +636,6 @@ const getToken = (req , res)=>{
   res.send(token);
 }
 
-
 module.exports = {
   postCourse,
   getAllCourses,
@@ -601,9 +652,10 @@ module.exports = {
   filterCourses,
   contactMail,
   postPayment,
+  linkMail,
   postInformationBuyer,
   getOrders,
   editUser,
   getToken,
   getUsers
-};
+}-+

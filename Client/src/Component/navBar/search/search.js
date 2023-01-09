@@ -7,14 +7,14 @@ import {
   InputGroup,
   InputRightElement,
   Grid,
-  GridItem
+  GridItem,
 } from "@chakra-ui/react";
 import { SearchIcon } from '@chakra-ui/icons';
 import { getCourses } from "../../../Redux/actions";
 import {useDispatch} from 'react-redux'
-import Filter from "../filter/filter";
 
-function Search ({setPagina, setOrder}) {
+
+function Search ({setPagina,setHome}) {
   
   const [name, setName] = useState("");
   const dispatch = useDispatch();
@@ -23,17 +23,17 @@ function Search ({setPagina, setOrder}) {
   }
   const onClick = () =>{
     setPagina(1);
+    setHome(false)
     dispatch(getCourses(name));
   }
+
+
   return(
-    <Grid 
-    templateRows='50px 50px'
-    >
-      <GridItem>
+    <form>
         <InputGroup size='md'>
           <Input
             pr='8rem'
-            placeholder='Buscando'
+            placeholder='Search your next course...'
             value={name}
             onChange={onChange}
             background='white'
@@ -49,12 +49,7 @@ function Search ({setPagina, setOrder}) {
               />
           </InputRightElement>
         </InputGroup>
-      </GridItem>
-      <GridItem h='100%'>
-        <Filter setOrder={setOrder} setPagina={setPagina} booleano={true}/>
-      </GridItem>
-
-    </Grid>
+      </form>
   )
 };
 

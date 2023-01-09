@@ -17,6 +17,8 @@ import {
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
+  CLEAN_FILTERS,
+  GET_WARNING
 
 } from "../action-types";
 
@@ -28,6 +30,7 @@ let initialState = {
   categories: [],
   filterCurses: [],
   cart: [],
+  local: JSON.parse(localStorage.getItem("cart")) || [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -98,7 +101,7 @@ const rootReducer = (state = initialState, action) => {
             });
       return {
         ...state,
-        courses: action.payload === "all" ? state.allCourses : orderPrice,
+        courses: orderPrice,
       };
 
     case ORDER_BY_PUBLISHED:
@@ -124,7 +127,7 @@ const rootReducer = (state = initialState, action) => {
             });
       return {
         ...state,
-        courses: action.payload === "all" ? state.allCourses : orderPublished,
+        courses: orderPublished,
       };
     case ADDFILTER:
       return {
@@ -148,42 +151,60 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_DIFFICULTY:
-      const FilteredDifficulty =
-        action.payload === "all"
-          ? state.allCourses
-          : state.courses.filter(
-              (curse) => action.payload === curse.difficulty
-            );
-      return {
-        ...state,
-        courses: FilteredDifficulty,
-      };
+      const FilteredDifficulty = state.courses.filter((curse) => action.payload === curse.difficulty);
+      if( FilteredDifficulty.length > 0){
+        return {
+          ...state,
+          courses: FilteredDifficulty,
+        };
+      }else{
+        return {
+          ...state,
+          warnings: 'no match found',
+        };
+      }
 
     case FILTER_DURATION:
-      if (action.payload === "all") {
-        return {
-          type: FILTER_DURATION,
-          courses: state.allCourses,
-        };
-      } else if (action.payload === "1A50") {
-        return {
-          ...state,
-          courses: state.courses.filter(
-            (course) => course.duration >= 1 && course.duration <= 50
-          ),
-        };
+
+    if (action.payload === "1A50") {
+        let filter =state.courses.filter((course) => course.duration >= 1 && course.duration <= 50);
+        if(filter.length >0 ){
+          return {
+            ...state,
+            courses: filter,
+          };
+        }else{
+          return {
+            ...state,
+            warnings: 'no match found',
+          };
+        }
       } else if (action.payload === "51A100") {
-        return {
-          ...state,
-          courses: state.courses.filter(
-            (course) => course.duration >= 51 && course.duration <= 100
-          ),
-        };
+        let filter = state.courses.filter((course) => course.duration >= 51 && course.duration <= 100);
+        if(filter.length >0 ){
+          return {
+            ...state,
+            courses: filter,
+          };
+        }else{
+          return {
+            ...state,
+            warnings: 'no match found',
+          };
+        }
       } else if (action.payload === "100") {
-        return {
-          ...state,
-          courses: state.courses.filter((course) => course.duration >= 100),
-        };
+        let filter = state.courses.filter((course) => course.duration >= 100);
+        if(filter.length >0 ){
+          return {
+            ...state,
+            courses: filter,
+          };
+        }else{
+          return {
+            ...state,
+            warnings: 'no match found',
+          };
+        }
       }
       //este return creo que esta demas, pero me tira un warning
       return {
@@ -192,40 +213,66 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_CATEGORY:
-      let filteredCategory =
-        action.payload === "all"
-          ? state.allCourses
-          : state.courses.filter((course) =>
-              course.categories.includes(action.payload)
-            );
-      return {
-        ...state,
-        courses: filteredCategory,
-      };
+      let filteredCategory = state.courses.filter((course) =>
+          course.categories.includes(action.payload)
+        );
+        if (action.payload === "all"){
+          return {
+            ...state,
+            courses: state.allCourses,
+          };
+        }else if(filteredCategory.length > 0) {
+            return {
+              ...state,
+              courses: filteredCategory,
+            };
+        }else{
+          return {
+            ...state,
+            warnings: 'no match found',
+          };
+        }
+  
 
     case ADD_TO_CART:
       const newItem = state.allCourses.find(
         (item) => item.id === Number(action.payload)
       );
 
-      const itemRepeated = state.cart?.find(
+      const itemRepeated = state.local?.find(
         (item) => item.id === newItem.id
       );
+
+      if(!itemRepeated) {
+        window.localStorage.setItem('cart', JSON.stringify([...state.local, { ...newItem, quantity: 1 }]))
+        //console.log('cart', JSON.parse(window.localStorage.getItem('cart')))
+      }
 
       return itemRepeated
         ? {
             ...state,
           }
-        : { ...state, cart: [...state.cart, { ...newItem, quantity: 1 }] };
+        : { ...state, local: [JSON.parse(window.localStorage.getItem('cart'))].flat()};
 
     case REMOVE_ONE_FROM_CART:
-      const itemToDelete = state.cart.find(
+      const data =  JSON.parse(window.localStorage.getItem('cart')).flat()
+      //console.log('data', data)
+      const itemToDelete = data.find(
         (item) => item.id === action.payload
       );
+
+      //console.log('itemToDelete', itemToDelete)
+      
+      if(itemToDelete) {
+        window.localStorage.setItem('cart', JSON.stringify(data.filter((item) => item.id !== Number(action.payload))))
+        state.local = JSON.parse(window.localStorage.getItem('cart'))
+        //console.log('state', state.local)
+      }
+
       return itemToDelete.quantity > 1
         ? {
             ...state,
-            cart: state.cart.map((item) =>
+            local: state.local.map((item) =>
               item.id === Number(action.payload)
                 ? { ...item, quantity: item.quantity - 1 }
                 : item
@@ -233,7 +280,7 @@ const rootReducer = (state = initialState, action) => {
           }
         : {
             ...state,
-            cart: state.cart.filter((item) => item.id !== Number(action.payload)),
+            local: state.local.filter((item) => item.id !== Number(action.payload)),
           };
     case REMOVE_ALL_FROM_CART:
       return {
@@ -241,11 +288,21 @@ const rootReducer = (state = initialState, action) => {
         cart: state.cart.filter((item) => item.id !== Number(action.payload)),
       };
     case CLEAR_CART:
+
       return {
         ...state,
-        cart: [],
+        local: [],
+      }
+    case CLEAN_FILTERS:
+      return {
+        ...state,
+        courses: state.allCourses
       };
-
+    case GET_WARNING:
+      return {
+        ...state,
+        warnings: '',
+      };
     default:
       return state;
   }

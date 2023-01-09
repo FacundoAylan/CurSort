@@ -1,7 +1,8 @@
 import Home from './Component/Home/home';
 //import Profile from './Component/Profile/Profile';
 import { Route} from "react-router-dom";
-import Form from './Component/Form/Form'
+//import Form from './Component/Form/Form'
+import CreateCourse from './Component/admin/CreateCourse/CreateCourse'
 import Detalle from './Component/detalle/detalle';
 import{Container} from "@chakra-ui/react";
 import Landing from './Component/landing/landing';
@@ -12,13 +13,13 @@ import Information from './Component/ShoppingCart/Information';
 import Payment from './Component/ShoppingCart/Payment';
 import Compra from './Component/compra/compra';
 import HomeFilter from './Component/Home/homeFilter';
-
+import project from './Component/landing/project/project';
 function App() {
   return (
     <Container background='#191E29' minH='100vh' maxW='100%' p={0} >
       <Route exact path="/" component={Landing} />
       <Route  path="/home" component={Home} />
-      <Route path="/crear" component={Form}/>
+      <Route path="/crear" component={CreateCourse}/>
       <Route path="/detalle/:id" component={Detalle} />
       <Route path="/Contact" component={Contact} />
       <Route path="/Admin" component={Admin} />
@@ -27,7 +28,7 @@ function App() {
       <Route exact path="/checkout/payment" component={Payment} />
       <Route path="/cursos" component={Compra} />
       <Route path="/homefilter" component={HomeFilter} />
-      
+      <Route path ="/project" component={project}/>
     </Container>
 )}
 

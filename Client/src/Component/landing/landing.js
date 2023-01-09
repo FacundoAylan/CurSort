@@ -7,8 +7,14 @@ import Student from './student/student';
 import Footer from "./footer/footer";
 import Promociones from "./Promociones/Promociones";
 import Nosotros from "./nosotros/nosotros";
+import Instructor from "./instructor/instructor";
+import { useLocalStorage } from "../../hooks/useLocalStorage"; //modificación mai local storage
 
 function Landing () {
+  //modificación mai local storage
+  useLocalStorage("cart", []);
+  useLocalStorage("user", []);
+
   return (
     <>
       <Box>
@@ -35,11 +41,15 @@ function Landing () {
         <Regresiva />
       </Box>
       {/* Promociones */}
-      <Box p={6}>
-        <Center color='white' fontSize={35} p={4}>
-          ¿Quienes somos?
+      <Box p={6}>           
+        <Center color="white" fontSize={35} p={4}>
+            Integrantes del proyecto:
         </Center>
         <Nosotros/>
+      </Box>
+
+      <Box>
+        <Instructor />
       </Box>
 
       <Box mt="2%">

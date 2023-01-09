@@ -1,87 +1,56 @@
-import React, {useState,useEffect} from "react";
-import { useDispatch, useSelector} from 'react-redux'
+import React from "react";
 import {
   Grid,
   GridItem,
   Container,
   Box,
   Center,
-  SimpleGrid,
-  Button,
-  IconButton,
-  // Image,
+  AlertTitle,
+  AlertIcon,
+  Alert,
+  IconButton
 } from "@chakra-ui/react";
 import Cards from "../Card/Card";
-import NavBar from "../navBar/navBar";
 import Paginado from "../paginado/paginado";
-import { getCourses } from "../../Redux/actions";
-// import CreateCategory from "../CreateCategory/CreateCategory";
-import Footer from "../landing/footer/footer";
-import Filter from "../navBar/filter/filter";
-import { Link } from "react-router-dom";
-import { SmallCloseIcon } from "@chakra-ui/icons";
+import { useDispatch, useSelector } from "react-redux";
+import {CloseIcon} from '@chakra-ui/icons';
+import { getWarning } from "../../Redux/actions/index";
 
+function HomeFilter({info, pagina, setPagina, maximo, porPagina}) {
 
-// importo el json desde la api
-// var data = require("./api.json");
+  const warnings = useSelector ((state) => state.warnings)
 
-function HomeFilter() {
-  let info = useSelector(
-    (state) => state.courses,
-    () => false
-  ); // el false, verifica el estado anterior
-  // console.log(info)
-  const dispatch = useDispatch();
-  const [pagina, setPagina] = useState(1);
-  const porPagina = 6;
-  const maximo = Math.ceil(info.length / porPagina);
-
-  let [order, setOrder] = useState("");
-
-  useEffect(() => {
-    dispatch(getCourses(""));
-  }, [dispatch]);
-
-  if (info <= 1) {
-    //alert('No hay coincidencias con esos filtros. ¿Desea reiniciar su busqueda?')
-    dispatch(getCourses(""));
+  const dispatch = useDispatch()
+  const handleWarning = () => {
+    dispatch(getWarning())
   }
-
-  // const flickityOptions = {
-  //     initialIndex: 2
-  //   }
 
   return (
     <Container maxW="100%" p="0" heightMode="min">
-      <Box background="#3E4AB8" maxW="100%" maxH="50%">
-        <NavBar setOrder={setOrder} setPagina={setPagina} />
-      </Box>
-
-      <Grid templateColumns="15% 85%" spacing="3px" p={0}>
-        <GridItem>
-          <Box bg="none" w="100%" h="100%" p={0} mt='10px'>
-            <Box pl={40}>
-              <Link to="home">
-                <IconButton
-                  colorScheme="blue"
-                  aria-label="Search database"
-                  icon={<SmallCloseIcon />}
-                />
-              </Link>
-            </Box>
-
-            <Filter
-              setPagina={setPagina}
-              setOrder={setOrder}
-              booleano={false}
-            />
-          </Box>
-        </GridItem>
         <Box h="100%" maxW="100%" >
           <Center mt="1%">
             <Paginado pagina={pagina} setPagina={setPagina} maximo={maximo} />
           </Center>
-          <Grid templateColumns="repeat(6, 0.2fr)" gap={4} pt={4} p={5} m={0}>
+          {warnings === 'no match found'?
+          <Alert
+          status='warning'
+          variant='subtle'
+          flexDirection='column'
+          height='200px'
+          w='40%'
+          ml='22%'
+          borderRadius={12}
+          position='fixed'
+          mt='4%'
+        >
+          <IconButton aria-label='Search database' icon={<CloseIcon />} ml='90%' bg='none' onClick={handleWarning}/>
+          <AlertIcon boxSize='40px' mr={0} />
+          <AlertTitle mt={4} mb={1} fontSize='lg'>
+            {warnings}
+          </AlertTitle>
+        </Alert>
+        : ""}
+          <Grid templateColumns="repeat(5, 0.2fr)" templateRows='repeat(2,350px)' gap={4} pt={4} p={5} m={0}>
             {info &&
               info
                 .slice(
@@ -97,16 +66,14 @@ function HomeFilter() {
                         price={value.price}
                         id={value.id}
                         category={value.categories[0]}
+                        createdAt={value.createdAt}
                       />
                     </GridItem>
                   );
                 })}
           </Grid>
         </Box>
-      </Grid>
-      <Box mt={7}>
-        <Footer />
-      </Box>
+
     </Container>
   );
 }

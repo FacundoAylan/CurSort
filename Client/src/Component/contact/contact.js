@@ -30,7 +30,7 @@ function Contact() {
   const [user, setUsers] = useState(
     {
       "name": '',
-      "email": '',
+      "mail": '',
       "message": ''
     });
     const dispatch = useDispatch();
@@ -50,12 +50,18 @@ function Contact() {
         showConfirmButton: false,
         timer: 1500,
       });
+      setUsers({
+        ...user,
+        "name": '',
+        "mail": '',
+        "message": ''
+      })
   }
 
   return (
-    <Container bg="#3E4AB8" maxW="full" mt={0} centerContent overflow="hidden">
+    <Container bg="#3E4AB8" maxW="full" mt={0} centerContent overflow="hidden" h='100vh'>
       <Box mr='99%' pt='4px'>
-        <Link to="/home">
+        <Link to="/">
           <IconButton
             colorScheme="blue"
             aria-label="Search database"
@@ -68,8 +74,6 @@ function Contact() {
           bg="#02054B"
           color="white"
           borderRadius="lg"
-          m={{ sm: 4, md: 16, lg: 10 }}
-          p={{ sm: 5, md: 5, lg: 16 }}
         >
           <Box p={4}>
             <Wrap spacing={{ base: 20, sm: 3, md: 5, lg: 20 }}>
@@ -77,43 +81,28 @@ function Contact() {
                 <Box>
                   <Heading>Contact</Heading>
                   <Text mt={{ sm: 3, md: 3, lg: 5 }} color="gray.500">
-                    Gracias por elegir nuestra comunidad.
+                    Thank you for choosing our community.
                   </Text>
                   <Box py={{ base: 5, sm: 5, md: 8, lg: 10 }}>
-                    <VStack pl={0} spacing={3} alignItems="flex-start">
-                      <Button
-                        size="md"
-                        height="48px"
-                        width="200px"
-                        variant="ghost"
-                        color="#DCE2FF"
-                        _hover={{ border: "2px solid #1C6FEB" }}
-                        leftIcon={<MdPhone color="#1970F1" size="20px" />}
-                      >
+                    <VStack pl={0} spacing={3} alignItems="flex-start"> 
+                    <Flex ml='60px'>
+                      <MdPhone color="#1970F1" size="20px"/>
+                      <Text ml={2}>
                         +54-1175260856
-                      </Button>
-                      <Button
-                        size="md"
-                        height="55px"
-                        width="220px"
-                        variant="ghost"
-                        color="#DCE2FF"
-                        _hover={{ border: "2px solid #1C6FEB" }}
-                        leftIcon={<MdEmail color="#1970F1" size="20px" />}
-                      >
-                        cursort.2022@gmail.com
-                      </Button>
-                      <Button
-                        size="md"
-                        height="48px"
-                        width="200px"
-                        variant="ghost"
-                        color="#DCE2FF"
-                        _hover={{ border: "2px solid #1C6FEB" }}
-                        leftIcon={<MdLocationOn color="#1970F1" size="20px" />}
-                      >
+                      </Text>
+                    </Flex>
+                    <Flex pl='40px'>
+                      <MdEmail color="#1970F1" size="20px" />
+                        <Text ml={2}>
+                          cursort.2022@gmail.com
+                        </Text>
+                    </Flex>
+                    <Flex pl='70px'>
+                    <MdLocationOn color="#1970F1" size="20px" />
+                      <Text ml={2}>
                         Argentina
-                      </Button>
+                      </Text>
+                    </Flex>
                     </VStack>
                   </Box>
                   <HStack
@@ -130,7 +119,7 @@ function Contact() {
                         isRound={true}
                         _hover={{ bg: "#0D74FF" }}
                         icon={<BsGithub size="40px" />}
-                        ml='60px'
+                        ml='90px'
                       />
                     </a>
                   </HStack>
@@ -147,7 +136,7 @@ function Contact() {
                             pointerEvents="none"
                             children={<BsPerson color="gray.800" />}
                           />
-                          <Input type="text" size="md" id='name' onChange={mensaje} />
+                          <Input type="text" size="md" id='name' value={user.name} onChange={mensaje} />
                         </InputGroup>
                       </FormControl>
                       <FormControl id="name">
@@ -157,7 +146,7 @@ function Contact() {
                             pointerEvents="none"
                             children={<MdOutlineEmail color="gray.800" />}
                           />
-                          <Input type="text" size="md"  id='email' onChange={mensaje}/>
+                          <Input type="text" size="md"  id='mail' value={user.mail} onChange={mensaje}/>
                         </InputGroup>
                       </FormControl>
                       <FormControl id="name">
@@ -168,16 +157,18 @@ function Contact() {
                             borderRadius: "gray.300",
                           }}
                           placeholder="message"
+                          value={user.message}
                           id='message' onChange={mensaje}
                         />
                       </FormControl>
                       <FormControl id="name" float="right">
-                        <Button
+                      <Button
                           variant="solid"
                           bg="#0D74FF"
                           color="white"
                           _hover={{}}
                           onClick={send}
+                          ml='60px'
                         >
                           Send Message
                         </Button>

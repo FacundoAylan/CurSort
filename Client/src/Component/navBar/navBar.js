@@ -20,10 +20,10 @@ import Search from './search/search'
 import { GrCart } from 'react-icons/gr';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 
-
-function NavBar({ setPagina, setOrder}) {
+function NavBar({ setPagina, setOrder, setHome}) {
 
   // const {isAuthenticated, user} = useAuth0()
 
@@ -32,6 +32,9 @@ function NavBar({ setPagina, setOrder}) {
   // const reset = () =>{
   //   dispatch(getCourses(''));
   // }
+  const dataLocalStore = window.localStorage.getItem("cart");
+  const data = JSON.parse(dataLocalStore);
+
 
   useEffect(()=>{
       if(isAuthenticated){        
@@ -43,12 +46,23 @@ function NavBar({ setPagina, setOrder}) {
 
   const cart = useSelector(state => state.cart)
 
+  const local = useSelector((state) => state.local);
+  //console.log('local',local)
+  //console.log('data',data)
+
+  const [storage, setStorage] = useLocalStorage("cart", local)
+  
+  useEffect(() => {
+    setStorage(local);
+  }, []);
+
+
   console.log(localStorage.getItem('jwt'));
 
 
   return (
     <>
-      <Grid templateColumns="repeat(3,1fr)" position="fixed" backgroundColor='#3E4AB8' zIndex='100' mt="-8%">
+      <Grid templateColumns="25% 50% 25%" position="fixed" backgroundColor='#3E4AB8' zIndex='100'  w='100vw' h='105px'>
         <GridItem mt="2%">
           {/* componente del titulo */}
           <Title />
@@ -56,10 +70,10 @@ function NavBar({ setPagina, setOrder}) {
         <GridItem mt="2%">
           {/* componente del search */}
 
-          <Search setOrder={setOrder} setPagina={setPagina} />
+          <Search setOrder={setOrder} setPagina={setPagina} setHome={setHome}/>
         </GridItem>
 
-        <GridItem mt="15%" ml="62%">
+        <GridItem mt="15%" ml="60%">
           <Flex>
             <Box pt={1}>
               <Link to="/checkout">
@@ -70,7 +84,7 @@ function NavBar({ setPagina, setOrder}) {
                   borderRadius="12px"
                 >
                   <IconButton size="1%" icon={<GrCart />} />
-                  {cart.length > 0 && (
+                  {local.length > 0 && (
                     <div>
                       <b>
                         <sub
@@ -81,7 +95,7 @@ function NavBar({ setPagina, setOrder}) {
                             marginRight: "none",
                           }}
                         >
-                          {cart.length}
+                          {local.length}
                         </sub>
                       </b>
                     </div>
@@ -90,7 +104,7 @@ function NavBar({ setPagina, setOrder}) {
               </Link>
             </Box>
 
-            <Box pl={5}>
+            <Box pl={3}>
               {!isAuthenticated && <LoginButton />}
               {isAuthenticated && <LogoutButton />}
               {/* {isAuthenticated && <Profile/>} */}

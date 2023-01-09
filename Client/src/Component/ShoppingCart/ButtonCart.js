@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Button, Text, GridItem } from "@chakra-ui/react"
+import { Button, Text, GridItem, Center, Box } from "@chakra-ui/react"
 import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -26,15 +26,19 @@ function ButtonCart({getTotal}) {
 
   return (
     <GridItem>
-      <Text fontSize="lg" fontWeight="bold" color='#f1faee'  m="10px">
-        TOTAL             USD  {getTotal()}
-      </Text>
-      <Button onClick={handleCheckout} colorScheme="blue" variant="solid" m="10px">
-        FINALIZAR COMPRA
-      </Button>
-      <Button colorScheme="blue" variant="outline" onClick={handleClick}>
-        CONTINUAR COMPRANDO
-      </Button>
+      <Box ml='65%'>
+        <Text fontSize="lg" fontWeight="bold" color='#f1faee'  m="10px">
+          TOTAL             USD  {getTotal()}
+        </Text>
+      </Box>
+      <Box ml='50%'>
+        <Button onClick={handleCheckout} colorScheme="blue" variant="solid" m="10px">
+          FINALIZAR COMPRA
+        </Button>
+        <Button colorScheme="blue" variant="outline" onClick={handleClick}>
+          CONTINUAR COMPRANDO
+        </Button>
+      </Box>
     </GridItem>
   );
 }

@@ -12,6 +12,11 @@ useEffect(()=>{
   axios.post("http://localhost:3001/users/create", user);
 },[user])
   
+  const handleLogout = () => {
+    logout({ returnTo: 'http://localhost:3000/home' });
+    window.LocalStorage.setItem("user", []);
+  };
+
   return (
     <>
       <Menu>
@@ -23,15 +28,16 @@ useEffect(()=>{
         <MenuList>
           <Profile />
           <Button
-            onClick={() => logout({ returnTo:'http://localhost:3000/home' })} //corregir el harcode
+            onClick={()=> handleLogout()} //corregir el harcode
             background="black"
             color="white"
             border="2px"
             borderColor="white"
             borderRadius="12px"
             ml="10px"
+            width='90%'
           >
-            cerrar sesion
+            Logout
           </Button>
         </MenuList>
       </Menu>

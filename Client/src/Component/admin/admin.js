@@ -1,11 +1,13 @@
 import React from 'react';
 import { Box, Flex, IconButton, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
-import Usuarios from './usuarios/usuarios';
 import SearchAdmin from './searchAdmin/searchAdmin';
 import CoursesAdmin from './coursesAdmin/coursesAdmin'
 import ListCourses from './listUsers/listusers'
 import { Link } from 'react-router-dom';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
+import CreateCategory from './CreateCategory/CreateCategory';
+import CreateCourse from './CreateCourse/CreateCourse';
+import Estadistica from './estadistica/estadistica';
 
 
 function Admin () {
@@ -22,30 +24,18 @@ function Admin () {
           />
         </Link>
       </Box>
-      <Tabs>
+      <Tabs isFitted variant='enclosed'>
         <TabList color="white">
           <Tab>Users</Tab>
-          <Tab>ListUsers</Tab>
           <Tab>Courses</Tab>
-          <Tab>statistics</Tab>
+          <Tab>Statistics</Tab>
+          <Tab>New course</Tab>
+          <Tab>New category</Tab>
         </TabList>
 
         <TabPanels>
           <TabPanel>
-            <SearchAdmin />
-            <Flex
-              flexDirection="row"
-              flexWrap="wrap"
-              justifyContent="space-around"
-              maxW="90%"
-              pl="120px"
-            >
-              {usuario.map((value) => {
-                return <Usuarios />;
-              })}
-            </Flex>
-          </TabPanel>
-          <TabPanel>
+          <SearchAdmin />
             <ListCourses />
           </TabPanel>
 
@@ -54,7 +44,15 @@ function Admin () {
           </TabPanel>
 
           <TabPanel>
-            <p>three!</p>
+            <Estadistica/>
+          </TabPanel>
+
+          <TabPanel>
+            <CreateCourse />
+          </TabPanel>
+
+          <TabPanel>
+            <CreateCategory />
           </TabPanel>
         </TabPanels>
       </Tabs>
