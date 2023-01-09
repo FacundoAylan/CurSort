@@ -2,6 +2,7 @@ const { Op } = require("sequelize");
 const data = require("./api.json");
 const { Users, Courses, Categories, Reviews, Orders } = require("../db");
 const nodemailer = require("nodemailer");
+const jwt = require('jsonwebtoken');
 const { CLIENT_STRIPE_KEY } = process.env;
 const Stripe = require("stripe");
 const { json } = require("body-parser");
@@ -216,7 +217,15 @@ const postReview = async (req, res) => {
   }
 };
 
-//Crear un nuevo usuario (ruta de prueba para deshabilitar usuarios)
+const getUsers = async (req, res)=>{
+  try{
+    const users = await Users.findAll();
+    res.json(users);
+  }catch(error){
+    res.status(401).json(error.name)
+  }
+
+}
 const createUser = async (req, res) => {
   const user = req.body;
 
@@ -622,6 +631,11 @@ const getOrders = async (req, res) => {
   }
 };
 
+const getToken = (req , res)=>{
+  const token = jwt.sign({estado: "token valido"}, 'secret');
+  res.send(token);
+}
+
 module.exports = {
   postCourse,
   getAllCourses,
@@ -642,4 +656,6 @@ module.exports = {
   postInformationBuyer,
   getOrders,
   editUser,
-};
+  getToken,
+  getUsers
+}-+

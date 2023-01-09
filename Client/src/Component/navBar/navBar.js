@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import LoginButton from '../LoginButton/LoginButton'
 import LogoutButton from '../LogoutButton/LogoutButton'
@@ -19,6 +19,7 @@ import Title from './title/title';
 import Search from './search/search'
 import { GrCart } from 'react-icons/gr';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 
@@ -34,6 +35,17 @@ function NavBar({ setPagina, setOrder, setHome}) {
   const dataLocalStore = window.localStorage.getItem("cart");
   const data = JSON.parse(dataLocalStore);
 
+
+  useEffect(()=>{
+      if(isAuthenticated){        
+           axios('http://localhost:3001/getToken')
+              .then(response => localStorage.setItem('jwt', response.data))
+              .catch(error => console.log(error));
+      }
+  },[isAuthenticated])
+
+  const cart = useSelector(state => state.cart)
+
   const local = useSelector((state) => state.local);
   //console.log('local',local)
   //console.log('data',data)
@@ -43,6 +55,9 @@ function NavBar({ setPagina, setOrder, setHome}) {
   useEffect(() => {
     setStorage(local);
   }, []);
+
+
+  console.log(localStorage.getItem('jwt'));
 
 
   return (
