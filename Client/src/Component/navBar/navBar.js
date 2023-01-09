@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import LoginButton from '../LoginButton/LoginButton'
 import LogoutButton from '../LogoutButton/LogoutButton'
@@ -19,6 +19,8 @@ import Title from './title/title';
 import Search from './search/search'
 import { GrCart } from 'react-icons/gr';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
+
 
 
 function NavBar({ setPagina, setOrder}) {
@@ -31,7 +33,17 @@ function NavBar({ setPagina, setOrder}) {
   //   dispatch(getCourses(''));
   // }
 
+  useEffect(()=>{
+      if(isAuthenticated){        
+           axios('http://localhost:3001/getToken')
+              .then(response => localStorage.setItem('jwt', response.data))
+              .catch(error => console.log(error));
+      }
+  },[isAuthenticated])
+
   const cart = useSelector(state => state.cart)
+
+  console.log(localStorage.getItem('jwt'));
 
 
   return (
