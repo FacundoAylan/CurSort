@@ -9,7 +9,6 @@ import {
   StatLabel,
   StatNumber,
 } from "@chakra-ui/react";
-
 function Estadistica() {
   return (
     <>
