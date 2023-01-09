@@ -1,5 +1,5 @@
 import axios from "axios";
-import {  useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import {
   GET_DETAIL,
@@ -19,10 +19,10 @@ import {
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
   CLEAN_FILTERS,
+  GET_WARNING,
 } from "../action-types";
 
 export function getCourses(name) {
-
   return async (dispatch) => {
     let response = await axios.get(
       `http://localhost:3001/courses?name=${name}`
@@ -32,9 +32,7 @@ export function getCourses(name) {
       payload: response.data,
     });
   };
-
 }
-
 
 export function getDetail(id) {
   return async (dispatch) => {
@@ -47,92 +45,95 @@ export function getDetail(id) {
   };
 }
 
-export function getCategory(){
-    return async (dispatch) =>{
-        let categories = await axios.get('http://localhost:3001/categories')
-        return dispatch({
-            type: GET_CATEGORIES,
-            payload: categories.data
-        })
-    }
+export function getCategory() {
+  return async (dispatch) => {
+    let categories = await axios.get("http://localhost:3001/categories");
+    return dispatch({
+      type: GET_CATEGORIES,
+      payload: categories.data,
+    });
+  };
 }
 
-export function getFilterCategory(id){
-  
-  if(id=== 'all'){
-    return async (dispatch)=>{
-      const response = await axios.get(`http://localhost:3001/filter/category`)
+export function getFilterCategory(id) {
+  if (id === "all") {
+    return async (dispatch) => {
+      const response = await axios.get(`http://localhost:3001/filter/category`);
+
       dispatch({
-        type:GET_FILTER_CATEGORY,
-        payload : response.data //array de cursos
-      })
-    }
+        type: GET_FILTER_CATEGORY,
+        payload: response.data, //array de cursos
+      });
+    };
   }
 
-  return async (dispatch)=>{
-    const response = await axios.get(`http://localhost:3001/filter/category/?id=${id}`)
+  return async (dispatch) => {
+    const response = await axios.get(
+      `http://localhost:3001/filter/category/?id=${id}`
+    );
     dispatch({
-      type:GET_FILTER_CATEGORY,
-      payload : response.data //array de cursos
-    })
-  }
+      type: GET_FILTER_CATEGORY,
+      payload: response.data, //array de cursos
+    });
+  };
 }
 
-export function posCourses(data){
-  return async (dispatch) =>{
-      dispatch({
-          type: POST_COURSES,
-          payload:data,
-      })
-  }
+export function posCourses(data) {
+  return async (dispatch) => {
+    dispatch({
+      type: POST_COURSES,
+      payload: data,
+    });
+  };
 }
-
 
 export function orderByRating() {
-    return {
-        type: ORDER_BY_RATING,
-    };
+  return {
+    type: ORDER_BY_RATING,
+  };
 }
 
 export function orderByPrice(payload) {
-    return {
-        type: ORDER_BY_PRICE,
-        payload
-    };
+  return {
+    type: ORDER_BY_PRICE,
+    payload,
+  };
 }
 
 export function orderByPublished(payload) {
-    return {
-        type: ORDER_BY_PUBLISHED,
-        payload
-    };
+  return {
+    type: ORDER_BY_PUBLISHED,
+    payload,
+  };
 }
 
 export function createNewCategory(payload) {
   return async function (dispatch) {
-    let json = await axios.post('http://localhost:3001/categories', payload);
+    let json = await axios.post("http://localhost:3001/categories", payload);
     return json;
-  }
+  };
 }
 
-export function AllFilterDuration(payload){ // ==> llega un obj {duration:'1A50'}
- 
-  return async (dispatch)=>{
+export function AllFilterDuration(payload) {
+  // ==> llega un obj {duration:'1A50'}
+
+  return async (dispatch) => {
     dispatch({
-    type: ADDFILTER,
-    payload: payload,
-   });
- }
+      type: ADDFILTER,
+      payload: payload,
+    });
+  };
 }
 
-export function AllFilterDifficulty(payload){ // ==> llega un obj {duration:'1A50'}
- 
-  return async (dispatch)=>{
+export function AllFilterDifficulty(payload) {
+  // ==> llega un obj {duration:'1A50'}
+
+  return async (dispatch) => {
     dispatch({
-    type: 'ADDFILTERDIFICULTY',
-    payload: payload,
-   });
- }
+      type: "ADDFILTERDIFICULTY",
+      payload: payload,
+    });
+  };
 }
 
 // export function GetFilter (){
@@ -140,12 +141,12 @@ export function AllFilterDifficulty(payload){ // ==> llega un obj {duration:'1A5
 //   const duration = useSelector(state=> state.filterDuration)
 //   const difficulty = useSelector(state=> state.filterDifficulty)
 
-//   // console.log(difficulty.difficulty)
-//   console.log(duration.duration)
+//   // //console.log(difficulty.difficulty)
+//   //console.log(duration.duration)
 
 //   return async (dispatch)=>{
-//     const response = await axios.get(`http://localhost:3001/filter/?duration${duration.duration}`) // ==>no se como conseguir todos los query juntos 
-//     console.log('data', response.data)
+//     const response = await axios.get(`http://localhost:3001/filter/?duration${duration.duration}`) // ==>no se como conseguir todos los query juntos
+//     //console.log('data', response.data)
 //     dispatch({
 //       type: 'GET_FILTER',
 //       payload: response.data,
@@ -153,63 +154,84 @@ export function AllFilterDifficulty(payload){ // ==> llega un obj {duration:'1A5
 //   }
 // }
 
-export function filterDifficulty(difficulty){
+export function filterDifficulty(difficulty) {
   return {
     type: FILTER_DIFFICULTY,
-    payload: difficulty
-  }
+    payload: difficulty,
+  };
 }
-export function filterDuration(duration){
+export function filterDuration(duration) {
   return {
     type: FILTER_DURATION,
-    payload : duration
-  }
+    payload: duration,
+  };
 }
-export function filterCategory(category){
+export function filterCategory(category) {
   return {
     type: FILTER_CATEGORY,
-    payload : category
-  }
+    payload: category,
+  };
 }
 
 export function addToCart(id) {
   return {
     type: ADD_TO_CART,
-    payload: id
+    payload: id,
   };
 }
 
-export function deleteFromCart(id, all = false){
-  return async (dispatch)=>{
-    if(all) {
+export function deleteFromCart(id, all = false) {
+  return async (dispatch) => {
+    if (all) {
       dispatch({
-          type: REMOVE_ALL_FROM_CART,
-          payload: id
-      })
+        type: REMOVE_ALL_FROM_CART,
+        payload: id,
+      });
     } else {
-     dispatch({
-         type: REMOVE_ONE_FROM_CART,
-         payload: id
-     })
+      dispatch({
+        type: REMOVE_ONE_FROM_CART,
+        payload: id,
+      });
     }
-  }
+  };
 }
 
-export function clearCart(){
+export function clearCart() {
   return {
     type: CLEAR_CART,
-  }
-};
+  };
+}
 
 export function contact(payload) {
   return async function (dispatch) {
-    let json = await axios.post('http://localhost:3001/contact/send-email', payload);
+    let json = await axios.post(
+      "http://localhost:3001/contact/send-email",
+      payload
+    );
     return json;
-  }
+  };
 }
 
 export function cleanFilters() {
   return {
     type: CLEAN_FILTERS,
-  }
+  };
+}
+
+export function getWarning() {
+  return {
+    type: GET_WARNING,
+  };
+}
+
+export function postComment(value) {
+  console.log("Value : ", value);
+  return async (dispatch) => {
+    let response = await axios.post(`http://localhost:3001/courses/review`,value);
+    console.log('Response : ',response.data)
+    dispatch({
+      type: 'POST_REVIEWS',
+      payload: response.data,
+    });
+  };
 }

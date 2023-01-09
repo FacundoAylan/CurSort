@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
 import CreateCategory from './CreateCategory/CreateCategory';
 import CreateCourse from './CreateCourse/CreateCourse';
+import Estadistica from './estadistica/estadistica';
 
 
 function Admin () {
@@ -43,7 +44,7 @@ function Admin () {
           </TabPanel>
 
           <TabPanel>
-            <p>three!</p>
+            <Estadistica/>
           </TabPanel>
 
           <TabPanel>

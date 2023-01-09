@@ -207,7 +207,6 @@ const Form3 = ({ input, setInput }) => {
       .then((snapshot) => {
       // Upload completed successfully, now we can get the download URL
       getDownloadURL(snapshot.ref).then((downloadURL) => {
-        console.log("File available at", downloadURL);
         setInput({...input, [e.target.id]: downloadURL});
       });
       });

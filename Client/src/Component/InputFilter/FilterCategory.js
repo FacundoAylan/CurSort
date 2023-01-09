@@ -3,10 +3,10 @@ import React, { useEffect } from "react";
 import { Grid, Button } from '@chakra-ui/react'
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getCategory, filterCategory } from "../../Redux/actions";
+import { getCategory, filterCategory, home } from "../../Redux/actions";
 
 
-const FilterCategory = ({booleano}) => {
+const FilterCategory = ({booleano, setPagina, setHome}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,7 +15,10 @@ const FilterCategory = ({booleano}) => {
 
 
   const categories = useSelector(state => state.categories)
+  console.log('categories', categories)
   const handleCategory = (e) => {    
+    setPagina(1);
+    setHome(false)
     dispatch(filterCategory(e.target.value)); 
   };
 
