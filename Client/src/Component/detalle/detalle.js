@@ -16,7 +16,7 @@ function Detalle() {
   const [rating, setRating] = useState(4);
   const history = useHistory();
   const local = useSelector((state) => state.local);
-  console.log('local', local)
+  //console.log('local', local)
   
     useEffect(() => {
         dispatch(getDetail(id));

@@ -19,6 +19,7 @@ import Title from './title/title';
 import Search from './search/search'
 import { GrCart } from 'react-icons/gr';
 import { useSelector } from 'react-redux';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 
 function NavBar({ setPagina, setOrder, setHome}) {
@@ -34,10 +35,14 @@ function NavBar({ setPagina, setOrder, setHome}) {
   const data = JSON.parse(dataLocalStore);
 
   const local = useSelector((state) => state.local);
+  //console.log('local',local)
+  //console.log('data',data)
+
+  const [storage, setStorage] = useLocalStorage("cart", local)
   
   useEffect(() => {
-    window.localStorage.setItem("cart", JSON.stringify(data));
-  }, [data]);
+    setStorage(local);
+  }, []);
 
 
   return (
@@ -64,7 +69,7 @@ function NavBar({ setPagina, setOrder, setHome}) {
                   borderRadius="12px"
                 >
                   <IconButton size="1%" icon={<GrCart />} />
-                  {/* {data.length > 0 && (
+                  {local.length > 0 && (
                     <div>
                       <b>
                         <sub
@@ -75,11 +80,11 @@ function NavBar({ setPagina, setOrder, setHome}) {
                             marginRight: "none",
                           }}
                         >
-                          {data.length}
+                          {local.length}
                         </sub>
                       </b>
                     </div>
-                  )} */}
+                  )}
                 </Button>
               </Link>
             </Box>
