@@ -486,7 +486,7 @@ const linkMail = async (req, res, next) => {
   // Falta agregar el link a donde se van a renderizar los cursos.
   let html = `<div>
     <h3> ${name}! Gracias por confiar en Cursort \n ya está diponible tu curso, puedes ingresar en el siguiente link</h3>
-    <button><p> http://localhost:3000/cursos </p></button> 
+    <button><p> https://cursort.onrender.com//cursos </p></button> 
   </div>`
 
   //esto le da acceso a nodemailer al mail de cursort
