@@ -10,7 +10,7 @@ function CartItem(props) {
     const dispatch = useDispatch();
 
   return (
-    <Center mt="1%" color="gray" minHeight="50%" >
+    <Center mt="1%"  minHeight="50%" bg='#3E4AB8' borderRadius={12} >
       <Card
         direction={{ base: "column", sm: "row" }}
         variant="outline"
@@ -20,7 +20,7 @@ function CartItem(props) {
       >
       <Flex minWidth='100%' justifyContent='space-between' flexDirection="row">
 
-        <img src={image} alt={name} style={{ height: "58px", width: "50px" }} />
+        <img src={image} alt={name} style={{ height: "58px", width: "50px" }}/>
         <h4
           style={{
             alignItems: "center",
@@ -54,7 +54,7 @@ function CartItem(props) {
             variant="link"
             onClick={() => dispatch(deleteFromCart(id))}
           >
-            <Text fontSize="13px">Eliminar</Text>
+            <Text fontSize="13px" color='white'>Eliminar</Text>
           </Button>
         </CardFooter>
       </Flex>
