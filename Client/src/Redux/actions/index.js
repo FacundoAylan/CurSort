@@ -25,7 +25,7 @@ import {
 export function getCourses(name) {
   return async (dispatch) => {
     let response = await axios.get(
-      `http://localhost:3001/courses?name=${name}`
+      `https://cursort-api.onrender.com/courses?name=${name}`
     );
     dispatch({
       type: GET_COURSES,
@@ -36,7 +36,7 @@ export function getCourses(name) {
 
 export function getDetail(id) {
   return async (dispatch) => {
-    let response = await axios.get(`http://localhost:3001/courses/${id}`);
+    let response = await axios.get(`https://cursort-api.onrender.com/courses/${id}`);
 
     dispatch({
       type: GET_DETAIL,
@@ -59,6 +59,7 @@ export function getFilterCategory(id) {
   if (id === "all") {
     return async (dispatch) => {
       const response = await axios.get(`http://localhost:3001/filter/category`);
+
       dispatch({
         type: GET_FILTER_CATEGORY,
         payload: response.data, //array de cursos
@@ -222,6 +223,7 @@ export function getWarning() {
     type: GET_WARNING,
   };
 }
+
 export function postComment(value) {
   console.log("Value : ", value);
   return async (dispatch) => {

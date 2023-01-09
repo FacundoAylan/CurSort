@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Center,
   Flex,
   Image,
   Stat,
@@ -9,14 +10,16 @@ import {
   StatLabel,
   StatNumber,
 } from "@chakra-ui/react";
+
 function Estadistica() {
   return (
     <>
-    <Flex>
+    <Center>
+    <Flex >
       <Flex color="white">
         <StatGroup>
           <Stat>
-            <StatLabel>Sent</StatLabel>
+            <StatLabel>Student</StatLabel>
             <StatNumber>345,670</StatNumber>
             <StatHelpText>
               <StatArrow type="increase" />
@@ -24,61 +27,41 @@ function Estadistica() {
             </StatHelpText>
           </Stat>
 
-          <Stat>
-            <StatLabel>Clicked</StatLabel>
-            <StatNumber>45</StatNumber>
+          <Stat ml='55px'>
+            <StatLabel>Courses</StatLabel>
+            <StatNumber>1545</StatNumber>
             <StatHelpText>
-              <StatArrow type="decrease" />
+              <StatArrow type="increase" />
               9.05%
             </StatHelpText>
           </Stat>
         </StatGroup>
       </Flex>
 
-      <Flex color="white">
+      <Flex color="white" ml={10}>
         <StatGroup>
-          <Stat>
-            <StatLabel>Sent</StatLabel>
-            <StatNumber>345,670</StatNumber>
+        <Stat>
+            <StatLabel>Sales</StatLabel>
+            <StatNumber>34670</StatNumber>
             <StatHelpText>
               <StatArrow type="increase" />
               23.36%
             </StatHelpText>
           </Stat>
 
-          <Stat>
-            <StatLabel>Clicked</StatLabel>
-            <StatNumber>45</StatNumber>
+          <Stat ml='55px'>
+            <StatLabel>Intructor</StatLabel>
+            <StatNumber>560</StatNumber>
             <StatHelpText>
               <StatArrow type="decrease" />
-              9.05%
-            </StatHelpText>
-          </Stat>
-        </StatGroup>
-      </Flex>
-      <Flex color="white">
-        <StatGroup>
-          <Stat>
-            <StatLabel>Sent</StatLabel>
-            <StatNumber>345,670</StatNumber>
-            <StatHelpText>
-              <StatArrow type="increase" />
-              23.36%
-            </StatHelpText>
-          </Stat>
-
-          <Stat>
-            <StatLabel>Clicked</StatLabel>
-            <StatNumber>45</StatNumber>
-            <StatHelpText>
-              <StatArrow type="decrease" />
-              9.05%
+              2.05%
             </StatHelpText>
           </Stat>
         </StatGroup>
       </Flex>
     </Flex>
-    <Image/>
+    </Center>
+    <Image src = 'https://i.ibb.co/GvfSGvj/Captura-de-pantalla-de-2022-12-28-02-06-48.png' w='100%' p={0}/>
     </>
   );
 }

@@ -3,9 +3,10 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import Swal from "sweetalert2";
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import { clearCart } from '../../Redux/actions/index';
+import {Button, Center, Flex, Grid, Image, Text} from '@chakra-ui/react'
 
 function Checkoutform() {
 
@@ -102,20 +103,34 @@ function Checkoutform() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        {data.map((cart) => (
-          <div key={cart.id}>
-            <h3 style={{ color: "#f1faee" }}>{cart.name}</h3>
-            <p style={{ color: "#f1faee" }}>usd {cart.price}</p>
-            <img
-              src={cart.image}
-              alt={cart.name}
-              style={{
-                width: "100px",
-                height: "100px",
-              }}
-            />
-          </div>
-        ))}
+        <Center>
+        <Grid templateColumns='repeat(2,400px)'>
+
+          {data.map((cart) => (
+            <Center>
+            <Flex bg="#3E4AB8" w="100%" borderRadius={12} m={3}>
+              <Image
+                src={cart.image}
+                alt={cart.name}
+                w="100px"
+                h="100px"
+                borderLeftRadius={12}
+              />
+              <Flex
+                flexDirection="column"
+                pt={7}
+                fontSize={18}
+                color="white"
+                pl={2}
+              >
+                <Text>{cart.name}</Text>
+                <Center>usd {cart.price}</Center>
+              </Flex>
+            </Flex>
+            </Center>
+          ))}
+        </Grid>
+        </Center>
         <CardElement
           options={{
             style: {
@@ -132,8 +147,12 @@ function Checkoutform() {
             },
           }}
         />
-        
-        <button disabled={!stripe || !elements} style={{ color: "#f1faee" }}>Pagar</button>
+        <Flex ml='45%' mt={4}>
+          <Link to="/checkout/information">
+            <Button>Regresar</Button>
+          </Link>
+          <Button disabled={!stripe || !elements} ml={3}>Pagar</Button>
+        </Flex>
       </form>
     </div>
   );

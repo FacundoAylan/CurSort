@@ -7,6 +7,13 @@ import {
     Flex,
     Button,
     Stack,
+    TagLabel as label,
+    Text,
+    Grid,
+    GridItem,
+    Input,
+    Box,
+    Center,
   } from "@chakra-ui/react";
 import axios from 'axios';
 import Swal from "sweetalert2";
@@ -60,7 +67,6 @@ function Information() {
 
   return (
     <>
-      <div className="Information-content">
         <Heading
           w="100%"
           textAlign={"center"}
@@ -70,65 +76,83 @@ function Information() {
         >
           Información de contacto
         </Heading>
-        <Flex>
           <form ref={form}>
-            <input type="text" name="name" defaultValue={user.given_name} />
-            <br />
-            <br />
-            <input
-              type="text"
-              name="lastname"
-              defaultValue={user.family_name}
-            />
-            <br />
-            <br />
-            <input
-              type="text"
-              placeholder="Correo Electronico"
-              name="email"
-              defaultValue={user.email}
-            />
-            <br />
-            <br />
-            <input type="text" placeholder="Direccion" name="address" />
-            <br />
-            <br />
-            <input type="text" placeholder="Ciudad" name="city" />
-            <br />
-            <br />
-            <input type="text" placeholder="Pais" name="country" />
-            <br />
-            <br />
-            <input type="text" placeholder="Codigo postal" name="cp" />
-            <br />
-            <br />
-            <input type="text" placeholder="Telefono" name="phone" />
-          </form>
-        </Flex>
-        <br/>
-        <Stack direction="row" spacing={4} align="center">
-          <Link to="/checkout">
-            <Button colorScheme="teal" variant="outline">
-              Regresar
-            </Button>
-          </Link>
+            <Grid templateColumns='repeat(2,1fr)' templateRows='repeat(4,100px)' w='100vw' color='white' pl={10} pr={10} >
+              <GridItem pl={10} pr={10}>
+                <Text ml='45%' fontSize={20}>Name</Text>
+                <Input type="text" name="name" defaultValue={user.given_name} />
+              </GridItem>
+            <GridItem pl={10} pr={10}>
+              <Text ml='45%' fontSize={20}>lastname</Text>
+              <Input
+                type="text"
+                name="lastname"
+                defaultValue={user.family_name}
+              />
+            </GridItem>
 
-          <Button colorScheme="teal" variant="solid" onClick={handleSubmit}>
-            Pagar
-          </Button>
-        </Stack>
-      </div>
-      <br />
-      <hr />
-      <Flex className="Information-sidebar">
-        <h3 style={{ color: "#f1faee" }}>Pedido:</h3>
-        {dataLocal.map((item) => (
-          <div className="Information-element" key={item.id}>
-            <h4 style={{ color: "white" }}>{item.name}</h4>
-            <span style={{ color: "white" }}>USD {item.price}</span>
-          </div>
-        ))}
-      </Flex>
+            <GridItem pl={10} pr={10}>
+              <Text ml='45%' fontSize={20}>Email</Text>
+              <Input
+                type="text"
+                placeholder="Correo Electronico"
+                name="email"
+                defaultValue={user.email}
+              />
+            </GridItem>
+
+            <GridItem pl={10} pr={10}>
+              <Text ml='45%' fontSize={20}>Direction</Text>
+              <Input type="text" placeholder="Direccion" name="address" />
+            </GridItem>
+  
+            <GridItem pl={10} pr={10}>
+              <Text ml='45%' fontSize={20}>City</Text>
+              <Input type="text" placeholder="Ciudad" name="city" />
+            </GridItem>
+
+            <GridItem pl={10} pr={10}>
+              <Text ml='45%' fontSize={20}>Country</Text>
+              <Input type="text" placeholder="Pais" name="country" />
+            </GridItem>
+
+            <GridItem pl={10} pr={10}>
+            <Text ml='45%' fontSize={20}>CP</Text>
+            <Input type="text" placeholder="Codigo postal" name="cp" />
+            </GridItem>
+
+            <GridItem pl={10} pr={10}>
+              <Text ml='45%' fontSize={20}>Phone</Text>
+              <Input type="text" placeholder="Telefono" name="phone" />
+            </GridItem>
+
+            </Grid>
+          </form>
+        <br/>
+        <Box ml='43%'>
+          <Stack direction="row" spacing={4} align="center">
+            <Link to="/checkout">
+              <Button colorScheme="teal" variant="outline">
+                Regresar
+              </Button>
+            </Link>
+
+            <Button colorScheme="teal" variant="solid" onClick={handleSubmit}>
+              Pagar
+            </Button>
+          </Stack>
+        </Box>
+
+        <Flex mt={6}>
+          <Text color='white'>Pedido:</Text>
+          {dataLocal.map((item) => (
+            <Flex flexDirection='column' bg='#3E4AB8' ml={5} borderRadius={12} color='white' p={2}>
+              <Text>{item.name}</Text>
+              <Center>USD {item.price}</Center>
+            </Flex>
+          ))}
+        </Flex>
+
     </>
   );
 }
