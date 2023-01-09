@@ -32,7 +32,7 @@ root.render(
     <Auth0Provider
       domain={domain}
       clientId={client_id}
-      redirectUri={'https://cursort.onrender.com /home'}    //corregir el harcode
+      redirectUri={'https://cursort.onrender.com/home'}    //corregir el harcode
     >
       
       <ChakraProvider>
