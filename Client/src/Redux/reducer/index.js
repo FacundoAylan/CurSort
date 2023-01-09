@@ -30,7 +30,7 @@ let initialState = {
   categories: [],
   filterCurses: [],
   cart: [],
-  local: JSON.parse(localStorage.getItem("cart"))
+  local: JSON.parse(localStorage.getItem("cart")) || [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -245,28 +245,28 @@ const rootReducer = (state = initialState, action) => {
 
       if(!itemRepeated) {
         window.localStorage.setItem('cart', JSON.stringify([...state.local, { ...newItem, quantity: 1 }]))
-        console.log('cart', JSON.parse(window.localStorage.getItem('cart')))
+        //console.log('cart', JSON.parse(window.localStorage.getItem('cart')))
       }
 
       return itemRepeated
         ? {
             ...state,
           }
-        : { ...state, local: [...state.local, JSON.parse(window.localStorage.getItem('cart'))].flat()};
+        : { ...state, local: [JSON.parse(window.localStorage.getItem('cart'))].flat()};
 
     case REMOVE_ONE_FROM_CART:
       const data =  JSON.parse(window.localStorage.getItem('cart')).flat()
-      console.log('data', data)
+      //console.log('data', data)
       const itemToDelete = data.find(
         (item) => item.id === action.payload
       );
 
-      console.log('itemToDelete', itemToDelete)
+      //console.log('itemToDelete', itemToDelete)
       
       if(itemToDelete) {
         window.localStorage.setItem('cart', JSON.stringify(data.filter((item) => item.id !== Number(action.payload))))
         state.local = JSON.parse(window.localStorage.getItem('cart'))
-        console.log('state', state.local)
+        //console.log('state', state.local)
       }
 
       return itemToDelete.quantity > 1
@@ -288,11 +288,11 @@ const rootReducer = (state = initialState, action) => {
         cart: state.cart.filter((item) => item.id !== Number(action.payload)),
       };
     case CLEAR_CART:
-      window.localStorage.setItem('cart', JSON.stringify([]))
+
       return {
         ...state,
-        cart: [],
-      };
+        local: [],
+      }
     case CLEAN_FILTERS:
       return {
         ...state,

@@ -20,7 +20,7 @@ const postCourse = async (req, res) => {
     categoria,
   } = req.body;
 
-  // console.log('categoria : ', categoria)
+  // //console.log('categoria : ', categoria)
    let name,
     description,
     instructor,
@@ -208,7 +208,7 @@ const postReview = async (req, res) => {
 const createUser = async (req, res) => {
   const user = req.body;
 
-  // console.log(user.email);
+  // //console.log(user.email);
 
   let name, lastname, email, email_verified, birthday;
 
@@ -401,8 +401,8 @@ const getCoursesByDuration = async (duration) => {
 const filterCourses = async (req, res) => {
   const { id, difficulty, duration } = req.query;
 
-  // console.log('duration', duration)
-  // console.log('difficulty',difficulty)
+  // //console.log('duration', duration)
+  // //console.log('difficulty',difficulty)
 
   try {
     if (id) {
@@ -581,7 +581,7 @@ const postPayment = async (req, res, next) => {
         where: {id: id_courses}
     })
 
-    console.log(course)
+    //console.log(course)
 
    const newOrder = await Orders.create({
         status: 'paid',

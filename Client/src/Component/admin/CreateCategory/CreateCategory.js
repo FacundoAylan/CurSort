@@ -30,6 +30,7 @@ function CreateCategory() {
 
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
+		console.log('category', category);
 		dispatch(createNewCategory(category));
 		setCategory(initialState);
 	};

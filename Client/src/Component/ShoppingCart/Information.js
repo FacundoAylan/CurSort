@@ -10,15 +10,20 @@ import {
   } from "@chakra-ui/react";
 import axios from 'axios';
 import Swal from "sweetalert2";
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 function Information() {
-    const { user } = useAuth0();
+    const useLocal = window.localStorage.getItem("user");
+    const user = JSON.parse(useLocal);
+    //console.log('userInformation',user)
 
     const history = useHistory();
     const form = useRef(null);
 
     const dataLocalStore = window.localStorage.getItem("cart");
     const dataLocal = JSON.parse(dataLocalStore);
+
+    useLocalStorage('user', user)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -35,9 +40,9 @@ function Information() {
               postalCode: formData.get('cp'),
           };
           const { data } = await axios.post('http://localhost:3001/checkout/information', buyer);
-          console.log(data);
+          //console.log(data);
           if(data.message === 'success'){
-            console.log(data)
+            //console.log(data)
             history.push('/checkout/payment');
           } else {
             Swal.fire({
@@ -49,7 +54,7 @@ function Information() {
 
         }
         catch(error){
-          console.log(error);
+          //console.log(error);
         }
     }
 

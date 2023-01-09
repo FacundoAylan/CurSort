@@ -15,6 +15,7 @@ const FilterCategory = ({booleano, setPagina, setHome}) => {
 
 
   const categories = useSelector(state => state.categories)
+  console.log('categories', categories)
   const handleCategory = (e) => {    
     setPagina(1);
     setHome(false)

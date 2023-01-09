@@ -13,7 +13,7 @@ function HomeCart() {
   const data = dataLocal.flat();
   
   const local = useSelector((state) => state.local);
-  console.log("local", local)
+  //console.log("local", local)
 
 
   const [shop, setShop] = useLocalStorage("cart", data);
