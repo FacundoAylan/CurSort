@@ -38,7 +38,7 @@ function NavBar({ setPagina, setOrder, setHome}) {
 
   useEffect(()=>{
       if(isAuthenticated){        
-           axios('http://localhost:3001/getToken')
+           axios('https://cursort-api.onrender.com/getToken')
               .then(response => localStorage.setItem('jwt', response.data))
               .catch(error => console.log(error));
       }
