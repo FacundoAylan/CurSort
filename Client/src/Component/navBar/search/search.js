@@ -10,7 +10,7 @@ import {
 import { SearchIcon } from "@chakra-ui/icons";
 import { getCourses } from "../../../Redux/actions";
 import { useDispatch } from "react-redux";
-import { Field, Form, Formik } from "formik";
+import {  Form, Formik } from "formik";
 
 function Search({ setPagina, setHome }) {
   const [name, setName] = useState("");
@@ -25,7 +25,7 @@ function Search({ setPagina, setHome }) {
   };
 
   return (
-    <Formik initialValues={{ name: "Sasuke" }} onSubmit={onClick}>
+    <Formik initialValues={{ name: "" }} onSubmit={onClick}>
       {(props) => (
         <Form>
           <InputGroup size="md">
