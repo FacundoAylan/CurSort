@@ -9,11 +9,11 @@ const LogoutButton = () => {
   const { logout, user } = useAuth0();
 
 useEffect(()=>{
-  axios.post("http://localhost:3001/users/create", user);
+  axios.post("https://cursort-api.onrender.com/users/create", user);
 },[user])
   
   const handleLogout = () => {
-    logout({ returnTo: 'http://localhost:3000/home' });
+    logout({ returnTo: 'https://cursort.onrender.com' });
     window.LocalStorage.setItem("user", []);
   };
 
