@@ -25,7 +25,7 @@ import {
 export function getCourses(name) {
   return async (dispatch) => {
     let response = await axios.get(
-      `http://localhost:3001/courses?name=${name}`
+      `https://cursort-api.onrender.com/courses?name=${name}`
     );
     dispatch({
       type: GET_COURSES,
@@ -36,7 +36,7 @@ export function getCourses(name) {
 
 export function getDetail(id) {
   return async (dispatch) => {
-    let response = await axios.get(`http://localhost:3001/courses/${id}`);
+    let response = await axios.get(`https://cursort-api.onrender.com/courses/${id}`);
 
     dispatch({
       type: GET_DETAIL,
@@ -47,7 +47,7 @@ export function getDetail(id) {
 
 export function getCategory() {
   return async (dispatch) => {
-    let categories = await axios.get("http://localhost:3001/categories");
+    let categories = await axios.get("https://cursort-api.onrender.com/categories");
     return dispatch({
       type: GET_CATEGORIES,
       payload: categories.data,
@@ -58,7 +58,7 @@ export function getCategory() {
 export function getFilterCategory(id) {
   if (id === "all") {
     return async (dispatch) => {
-      const response = await axios.get(`http://localhost:3001/filter/category`);
+      const response = await axios.get(`https://cursort-api.onrender.com/filter/category`);
 
       dispatch({
         type: GET_FILTER_CATEGORY,
@@ -69,7 +69,7 @@ export function getFilterCategory(id) {
 
   return async (dispatch) => {
     const response = await axios.get(
-      `http://localhost:3001/filter/category/?id=${id}`
+      `https://cursort-api.onrender.com/filter/category/?id=${id}`
     );
     dispatch({
       type: GET_FILTER_CATEGORY,
@@ -109,7 +109,7 @@ export function orderByPublished(payload) {
 
 export function createNewCategory(payload) {
   return async function (dispatch) {
-    let json = await axios.post("http://localhost:3001/categories", payload);
+    let json = await axios.post("https://cursort-api.onrender.com/categories", payload);
     return json;
   };
 }
@@ -145,7 +145,7 @@ export function AllFilterDifficulty(payload) {
 //   //console.log(duration.duration)
 
 //   return async (dispatch)=>{
-//     const response = await axios.get(`http://localhost:3001/filter/?duration${duration.duration}`) // ==>no se como conseguir todos los query juntos
+//     const response = await axios.get(`https://cursort-api.onrender.com/filter/?duration${duration.duration}`) // ==>no se como conseguir todos los query juntos
 //     //console.log('data', response.data)
 //     dispatch({
 //       type: 'GET_FILTER',
@@ -205,7 +205,7 @@ export function clearCart() {
 export function contact(payload) {
   return async function (dispatch) {
     let json = await axios.post(
-      "http://localhost:3001/contact/send-email",
+      "https://cursort-api.onrender.com/contact/send-email",
       payload
     );
     return json;
@@ -227,7 +227,7 @@ export function getWarning() {
 export function postComment(value) {
   console.log("Value : ", value);
   return async (dispatch) => {
-    let response = await axios.post(`http://localhost:3001/courses/review`,value);
+    let response = await axios.post(`https://cursort-api.onrender.com/courses/review`,value);
     console.log('Response : ',response.data)
     dispatch({
       type: 'POST_REVIEWS',
