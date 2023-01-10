@@ -18,7 +18,8 @@ import {
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
   CLEAN_FILTERS,
-  GET_WARNING
+  GET_WARNING,
+  GET_USERS
 
 } from "../action-types";
 
@@ -30,6 +31,7 @@ let initialState = {
   categories: [],
   filterCurses: [],
   cart: [],
+  users : [],
   local: JSON.parse(localStorage.getItem("cart")) || [],
 };
 
@@ -302,6 +304,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         warnings: '',
+      };
+    case GET_USERS:
+      return {
+        ...state,
+        users : action.payload
       };
     default:
       return state;
