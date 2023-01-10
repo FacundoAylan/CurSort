@@ -151,7 +151,8 @@ function Checkoutform() {
           <Link to="/checkout/information">
             <Button>Regresar</Button>
           </Link>
-          <Button disabled={!stripe || !elements} ml={3}>Pagar</Button>
+
+          <Button type='submit' isDisabled ={!stripe || !elements} ml={3}>Pagar</Button>
         </Flex>
       </form>
     </div>
