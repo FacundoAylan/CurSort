@@ -14,7 +14,7 @@ import Cards from "../Card/Card";
 import Paginado from "../paginado/paginado";
 import { useDispatch, useSelector } from "react-redux";
 import {CloseIcon} from '@chakra-ui/icons';
-import { getWarning } from "../../Redux/actions/index";
+import { cleanFilters, getWarning } from "../../Redux/actions/index";
 
 function HomeFilter({info, pagina, setPagina, maximo, porPagina}) {
 
@@ -23,6 +23,7 @@ function HomeFilter({info, pagina, setPagina, maximo, porPagina}) {
   const dispatch = useDispatch()
   const handleWarning = () => {
     dispatch(getWarning())
+    dispatch(cleanFilters())
   }
 
   return (
