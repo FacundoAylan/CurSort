@@ -34,7 +34,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
 
-const Form1 = ({ input, setInput, isError }) => {
+const Form1 = ({ input, setInput, isError, setDisabledNext }) => {
+
+  //useEffect();
 
   const handleInputChange = (e) => {
    setInput({ ...input, [e.target.id]: e.target.value });
@@ -42,6 +44,7 @@ const Form1 = ({ input, setInput, isError }) => {
 
   return (
     <>
+      {setDisabledNext(true)}
       <Flex mt='5%'>
         <FormControl mr="5%" isInvalid={isError.nombre} isRequired>
           <FormLabel htmlFor="first-name" fontWeight={"normal"} color='white'>
@@ -51,6 +54,7 @@ const Form1 = ({ input, setInput, isError }) => {
             id="nombre"
             onChange={handleInputChange}
             color='white'
+            value={input.nombre}
           />
           {!isError.nombre ? (
             <FormHelperText color={"green"}>✓</FormHelperText>
@@ -59,16 +63,17 @@ const Form1 = ({ input, setInput, isError }) => {
           )}
         </FormControl>
 
-        <FormControl isRequired isInvalid={isError.instuctor}>
+        <FormControl isRequired isInvalid={isError.instructor}>
           <FormLabel htmlFor="last-name" fontWeight={"normal"} color='white'>
             Instructor name:
           </FormLabel>
           <Input
-            id="instuctor"
+            id="instructor"
             onChange={handleInputChange}
             color='white'
+            value={input.instructor}
           />
-          {!isError.instuctor ? (
+          {!isError.instructor ? (
             <FormHelperText color={"green"}>✓</FormHelperText>
           ) : (
             <FormErrorMessage>
@@ -93,6 +98,7 @@ const Form1 = ({ input, setInput, isError }) => {
             id="duracion"
             onChange={handleInputChange}
             color='white'
+            value={input.duracion}
           />
           {!isError.duracion ? (
             <FormHelperText color={"green"}>✓</FormHelperText>
@@ -112,6 +118,7 @@ const Form1 = ({ input, setInput, isError }) => {
             id="dificultad"
             onChange={handleInputChange}
             color='white'
+            value={input.dificultad}
           >
             <option value="Beginner">Beginner</option>
             <option value="Middle">Middle</option>
@@ -124,11 +131,16 @@ const Form1 = ({ input, setInput, isError }) => {
           )}
         </FormControl>
       </Flex>
+      {!isError.nombre && 
+      !isError.instructor && 
+      !isError.duracion && 
+      !isError.dificultad && 
+      setDisabledNext(false)}
     </>
   );
 };
 
-const Form2 = ({ input, setInput, categories, isError }) => {
+const Form2 = ({ input, setInput, categories, isError, setDisabledNext }) => {
 
   const handleInputChange = (e) => {
      setInput({ ...input, [e.target.id]: e.target.value });
@@ -136,6 +148,7 @@ const Form2 = ({ input, setInput, categories, isError }) => {
 
   return (
     <>
+      {setDisabledNext(true)}
       <Flex mt='5%' pb='17.2%'>
         <FormControl mr="5%" isRequired isInvalid={isError.precio}>
           <FormLabel htmlFor="first-name" fontWeight={"normal"} color='white'>
@@ -146,6 +159,7 @@ const Form2 = ({ input, setInput, categories, isError }) => {
             id="precio"
             onChange={handleInputChange}
             color='white'
+            value={input.precio}
           />
           {!isError.precio ? (
             <FormHelperText color={"green"}>✓</FormHelperText>
@@ -163,6 +177,7 @@ const Form2 = ({ input, setInput, categories, isError }) => {
             id="categoria"
             onChange={handleInputChange}
             color='white'
+            value={input.categoria}
           >
             {categories &&
               categories.map((el) => <option value={el.id}>{el.name}</option>)}
@@ -174,29 +189,29 @@ const Form2 = ({ input, setInput, categories, isError }) => {
           )}
         </FormControl>
       </Flex>
+      {!isError.precio && 
+      !isError.categoria && 
+      setDisabledNext(false)}
     </>
   );
 };
 
 const Form3 = ({ input, setInput }) => {
+  
   const handleImagen = (e) => {
     const file = e.target.files[0];
     const storage = getStorage();
     const referencia = ref(storage, `cursos/${file.name}`);
 
-    const task = uploadBytesResumable(referencia, file);
-
-    task.on("state_changed", null, null, () => {
+    uploadBytesResumable(referencia, file)
+      .then((snapshot) => {
       // Upload completed successfully, now we can get the download URL
-      getDownloadURL(task.snapshot.ref).then((downloadURL) => {
-        //console.log("File available at", downloadURL);
-        setInput({
-          ...input,
-          [e.target.id]: downloadURL,
-        });
+      getDownloadURL(snapshot.ref).then((downloadURL) => {
+        setInput({...input, [e.target.id]: downloadURL});
       });
-    });
+      });
   };
+  
   return (
     <>
       <FormControl as={GridItem} colSpan={[6, 3]} pb='15.4%'>
@@ -216,16 +231,14 @@ const Form3 = ({ input, setInput }) => {
             />
           )}
         </Center>
-        <Input value={input.id} color='white'/>
-        <Box pt={2}>
-          <input
-            pt={3}
-            type="file"
-            placeholder="jpg o png"
-            id="imagen"
-            onChange={handleImagen}
-          />
-        </Box>
+        <Input 
+          id='imagen' 
+          color='white' 
+          type='file'
+          onChange={handleImagen}
+          border='none'
+          accept="image/*"
+          /> 
       </FormControl>
     </>
   );
@@ -254,6 +267,7 @@ const Form4 = ({ input, setInput, isError }) => {
             color='white'
             size='sm'
             rows='8'
+            value={input.descripcion}
           />
           {!isError.descripcion ? (
             <FormHelperText color={"green"}>✓</FormHelperText>
@@ -270,17 +284,19 @@ function CreateCursor() {
   
   const categories = useSelector((state) => state.categories);
   const dispatch = useDispatch();
+  
 
   useEffect(() => {
     dispatch(getCategory());
   }, []);
   
   const toast = useToast();
+  const [disabledNext, setDisabledNext] = useState(true)
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(33.33);
   const [input, setInput] = useState({
     nombre: "",
-    instuctor: "",
+    instructor: "",
     duracion: "",
     dificultad: "",
     imagen: "",
@@ -295,7 +311,7 @@ function CreateCursor() {
     //
     nombre: /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/,
     // ^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$ codigo anterior
-    instuctor: /[^\W_]/,
+    instructor: /[^\W_]/,
     duracion: /^[0-9]+([,][0-9]+)?$/,
     imagen: /(?:jpg|gif|png|jfif|jpeg)/,
     descripcion: /^[\s\S]{10,300}$/,
@@ -303,7 +319,7 @@ function CreateCursor() {
 
   const isError = {
     nombre: expresiones.nombre.test(input.nombre) ? false : true,
-    instuctor: expresiones.instuctor.test(input.instuctor) ? false : true,
+    instructor: expresiones.instructor.test(input.instructor) ? false : true,
     duracion: expresiones.duracion.test(input.duracion) ? false : true,
     dificultad: input.dificultad === "",
     categoria: input.categoria === "",
@@ -311,18 +327,11 @@ function CreateCursor() {
     precio: expresiones.duracion.test(input.precio) ? false : true,
     descripcion: expresiones.descripcion.test(input.descripcion) ? false : true,
   };
+
   const validacion = () => {
     const e = isError;
     if (
       !e.nombre 
-      // &&
-    //   !e.instuctor &&
-    //  // !e.duracion &&
-    //   !e.dificultad &&
-    //   !e.categoria &&
-    //   // !e.imagen &&
-    //   // !e.precio &&
-    //   !e.descripcion
     ) {
       axios.post('https://cursort-api.onrender.com/courses',input)
         .then(res => {
@@ -335,23 +344,25 @@ function CreateCursor() {
       return false;
     }
   };
+
   return (
     <Container maxW="100%" as="form" color="black">
       <Box maxWidth={800} ml='18%' mt='3%' p={2}>
         <Progress hasStripe value={progress} isAnimated></Progress>
         {step === 1 ? (
-          <Form1 input={input} setInput={setInput} isError={isError} />
+          <Form1 input={input} setInput={setInput} isError={isError} setDisabledNext={setDisabledNext}/>
         ) : step === 2 ? (
           <Form2
             input={input}
             setInput={setInput}
             categories={categories}
             isError={isError}
+            setDisabledNext={setDisabledNext}
           />
         ) : step === 3 ? (
           <Form3 input={input} setInput={setInput} />
         ) : (
-          <Form4 input={input} setInput={setInput} isError={isError} />
+          <Form4 input={input} setInput={setInput} isError={isError}/>
         )}
         <Center>
         <ButtonGroup mt="7%" w="100" >
@@ -374,7 +385,6 @@ function CreateCursor() {
               {step !== 4 && (
               <Button
                 w="7rem"
-                isDisabled={step === 4}
                 onClick={() => {
                   setStep(step + 1);
                   if (step === 4) {
@@ -385,6 +395,7 @@ function CreateCursor() {
                 }}
                 colorScheme="teal"
                 variant="outline"
+                isDisabled={disabledNext}
               >
                 Next
               </Button> 
@@ -400,15 +411,11 @@ function CreateCursor() {
                 onClick={() => {
                   validacion();
                   toast({
-                    title: "Account created.",
-                    description: "We've created your account for you.",
+                    title: `Course ${input.nombre} created successfully!`,
                     status: "success",
                     duration: 3000,
                     isClosable: true,
                   });
-                  setTimeout(function(){
-                    window.history.back()
-                }, 1000)
                 }}
               >
                 Submit

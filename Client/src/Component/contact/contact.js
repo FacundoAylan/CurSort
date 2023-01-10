@@ -19,6 +19,7 @@ import {
   InputGroup,
   InputLeftElement,
   Textarea,
+  Center,
 } from "@chakra-ui/react";
 import { MdPhone, MdEmail, MdLocationOn, MdOutlineEmail } from "react-icons/md";
 import { BsGithub, BsPerson } from "react-icons/bs";
@@ -75,29 +76,32 @@ function Contact() {
           color="white"
           borderRadius="lg"
         >
-          <Box p={4}>
-            <Wrap spacing={{ base: 20, sm: 3, md: 5, lg: 20 }}>
-              <WrapItem>
+          <Box p={4} >
+            <Wrap>
+              
+              <WrapItem alignItems='center'>
+              
                 <Box>
-                  <Heading>Contact</Heading>
-                  <Text mt={{ sm: 3, md: 3, lg: 5 }} color="gray.500">
+                  <Center><Heading>Contact us</Heading></Center>
+                  <Center><Text mt={{ sm: 3, md: 3, lg: 5 }} color="gray.500">
                     Thank you for choosing our community.
-                  </Text>
+                  </Text></Center>
                   <Box py={{ base: 5, sm: 5, md: 8, lg: 10 }}>
                     <VStack pl={0} spacing={3} alignItems="flex-start"> 
-                    <Flex ml='60px'>
+                    <Flex width='100%' justifyContent='center'>
+                      
                       <MdPhone color="#1970F1" size="20px"/>
                       <Text ml={2}>
                         +54-1175260856
                       </Text>
                     </Flex>
-                    <Flex pl='40px'>
+                    <Flex width='100%' justifyContent='center'>
                       <MdEmail color="#1970F1" size="20px" />
                         <Text ml={2}>
                           cursort.2022@gmail.com
                         </Text>
                     </Flex>
-                    <Flex pl='70px'>
+                    <Flex width='100%' justifyContent='center'>
                     <MdLocationOn color="#1970F1" size="20px" />
                       <Text ml={2}>
                         Argentina
@@ -110,6 +114,7 @@ function Contact() {
                     spacing={5}
                     px={5}
                     alignItems="flex-start"
+                    justifyContent='center'
                   >
                     <a href="https://github.com/FacundoAylan/CurSort">
                       <IconButton
@@ -119,18 +124,19 @@ function Contact() {
                         isRound={true}
                         _hover={{ bg: "#0D74FF" }}
                         icon={<BsGithub size="40px" />}
-                        ml='90px'
+
                       />
                     </a>
                   </HStack>
                 </Box>
               </WrapItem>
+              
               <WrapItem>
                 <Box bg="white" borderRadius="lg">
                   <Box m={8} color="#0B0E3F">
                     <VStack spacing={5}>
                       <FormControl id="name">
-                        <FormLabel>Your Name</FormLabel>
+                        <FormLabel>Your name</FormLabel>
                         <InputGroup borderColor="#E0E1E7">
                           <InputLeftElement
                             pointerEvents="none"
@@ -156,21 +162,21 @@ function Contact() {
                           _hover={{
                             borderRadius: "gray.300",
                           }}
-                          placeholder="message"
+                          placeholder="Question, comment, critics... whatever you want..."
                           value={user.message}
                           id='message' onChange={mensaje}
                         />
                       </FormControl>
-                      <FormControl id="name" float="right">
+                      <FormControl id="name" float="right" >
                       <Button
                           variant="solid"
                           bg="#0D74FF"
                           color="white"
                           _hover={{}}
                           onClick={send}
-                          ml='60px'
+                          width='100%'
                         >
-                          Send Message
+                          Send
                         </Button>
                       </FormControl>
                     </VStack>
