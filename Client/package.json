@@ -18,6 +18,7 @@
     "dialogflow": "^1.2.0",
     "firebase": "^9.14.0",
     "flickity": "^2.3.0",
+    "formik": "^2.2.9",
     "framer-motion": "^7.6.17",
     "node": "^19.2.0",
     "nuka-carousel": "^5.4.1",
