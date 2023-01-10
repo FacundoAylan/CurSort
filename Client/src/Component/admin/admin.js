@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Flex, IconButton, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import SearchAdmin from './searchAdmin/searchAdmin';
 import CoursesAdmin from './coursesAdmin/coursesAdmin'
-import ListCourses from './listUsers/listusers'
+import ListUsers from './listUsers/listusers'
 import { Link } from 'react-router-dom';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
 import CreateCategory from './CreateCategory/CreateCategory';
@@ -11,7 +11,7 @@ import Estadistica from './estadistica/estadistica';
 
 
 function Admin () {
-  const usuario = [1,2,3,4,5,6];
+  
 
   return (
     <>
@@ -36,7 +36,7 @@ function Admin () {
         <TabPanels>
           <TabPanel>
           <SearchAdmin />
-            <ListCourses />
+            <ListUsers />
           </TabPanel>
 
           <TabPanel>

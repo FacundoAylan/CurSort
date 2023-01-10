@@ -20,6 +20,7 @@ import {
   CLEAR_CART,
   CLEAN_FILTERS,
   GET_WARNING,
+  GET_USERS
 } from "../action-types";
 
 export function getCourses(name) {
@@ -53,6 +54,7 @@ export function getCategory() {
       payload: categories.data,
     });
   };
+  
 }
 
 export function getFilterCategory(id) {
@@ -235,3 +237,14 @@ export function postComment(value) {
     });
   };
 }
+
+export function getUsers(){
+  return async (dispatch) => {
+    let response = await axios.get('http://localhost:3001/users/getUsers');
+    dispatch({
+      type: GET_USERS,
+      payload : response.data
+    })
+  }
+}
+
