@@ -237,8 +237,8 @@ const createUser = async (req, res) => {
   lastname = user.family_name || "";
   email = user.email;
   email_verified = user.email_verified;
-  birthday = "";
-  (admin = false), (active = true);
+  admin = false,
+  enabled = true;
 
   try {
     const [usuario, craeted] = await Users.findOrCreate({
@@ -250,7 +250,7 @@ const createUser = async (req, res) => {
         email_verified,
         birthday,
         admin,
-        active,
+        enabled,
       },
     });
     res.status(200).json({ usuario, craeted });
@@ -259,28 +259,54 @@ const createUser = async (req, res) => {
   }
 };
 
-//Deshabilita el usuario por mail o id
+//Deshabilita el usuario por email
 const disableUser = async (req, res) => {
-  const { mail, id } = req.query;
+  const {email} = req.query;
 
   try {
-    if (id) {
-      const userId = await Users.findByPk(id);
-      userId.active = false;
-      await userId.save();
-      res.status(200).json({ message: "Usuario deshabilitado" });
-    } else if (mail) {
-      const userMail = await Users.findOne({ where: { mail } });
-      userMail.active = false;
-      await userMail.save();
-      res.status(200).json({ message: "Usuario deshabilitado" });
-    } else {
+      const user = await Users.findOne({where : {email}})
+     if(user){
+      await Users.update({enabled: !user.enabled},{where : {email}});
+      res.status(200).json({ message: `estado enabled del usuario ${!user.enabled}` });
+    }else {
       res.status(404).json({ message: "Usuario no encontrado" });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-};
+}
+
+const disableAdmin = async (req, res) => {
+  const {email} = req.query;
+
+  try {
+      const user = await Users.findOne({where : {email}})
+     if(user){
+      await Users.update({admin: !user.admin},{where : {email}});
+      res.status(200).json({ message: `estado admin del usuario ${!user.admin}` });
+    }else {
+      res.status(404).json({ message: "Usuario no encontrado" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+}
+
+const deleteUser = async (req, res)=>{
+  const {email} = req.query;
+
+  try {
+    const user = await Users.destroy({where: {email}});
+
+    if(user){
+      res.status(200).json({ message: "el usuario ha sido eliminado" });
+    }else {
+      res.status(404).json({ message: "Usuario no encontrado" });
+    }
+  }catch(error){
+    res.status(400).json({ message: error.message });
+  }
+}
 
 //ruta para modificar un usuario
 const editUser = async (req, res) => {
@@ -498,8 +524,8 @@ const linkMail = async (req, res, next) => {
   // Falta agregar el link a donde se van a renderizar los cursos.
   let html = `<div>
     <h3> ${name}! Gracias por confiar en Cursort \n ya está diponible tu curso, puedes ingresar en el siguiente link</h3>
-    <button><p> https://cursort.onrender.com//cursos </p></button> 
-  </div>`
+    <button><p> http://localhost:3000/cursos </p></button> 
+  </div>`;
 
   //esto le da acceso a nodemailer al mail de cursort
   let transporter = nodemailer.createTransport({
@@ -657,5 +683,7 @@ module.exports = {
   getOrders,
   editUser,
   getToken,
-  getUsers
+  getUsers,
+  disableAdmin,
+  deleteUser
 }
