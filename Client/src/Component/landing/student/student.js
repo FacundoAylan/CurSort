@@ -24,7 +24,7 @@ function Student() {
           </Center>
         </CardHeader>
         <CardBody >
-          <Text>Hoy llegó el día y completé la segunda parte del curso de Programación Full Stack de Cursort, aprendí demasiadas cosas para interactuar con el usuario...</Text>
+          <Text>I completed the second part of Cursort's Full Stack Programming course! I learned a lot about how to interact with the final user.</Text>
         </CardBody>
       </Card>
       <Card border='2px' borderColor='white' background='#3E4AB8' color='white'>
@@ -34,8 +34,8 @@ function Student() {
           </Center>
         </CardHeader>
         <CardBody>
-          <Text>Otro de tantos objetivos cumplidos! Gracias Cursort, realmente aprendí muchísimo!
-Valoro enormemente el profesionalismo de los tutores....</Text>
+          <Text>Another of many goals accomplished! Thanks Cursort, I really learned a lot!
+I greatly appreciate the professionalism of the tutors.</Text>
         </CardBody>
       </Card>
       <Card border='2px' borderColor='white' background='#3E4AB8' color='white'>
@@ -45,7 +45,7 @@ Valoro enormemente el profesionalismo de los tutores....</Text>
           </Center>
         </CardHeader>
         <CardBody>
-          <Text>¡Feliz de haber culminado mi primer curso de UX/UI en Cursort! 😁 Fue una experiencia retadora pero llena de aprendizaje.....</Text>
+          <Text>Happy to have completed my first UX/UI course at CurSort! 😁 It was a challenging experience but full of satisfaction.</Text>
         </CardBody>
       </Card>
       <Card border='2px' borderColor='white' background='#3E4AB8' color='white'>
@@ -55,7 +55,7 @@ Valoro enormemente el profesionalismo de los tutores....</Text>
           </Center>
         </CardHeader>
         <CardBody>
-          <Text>El trabajo de varios meses en donde comencé desde 0, en donde tuve la oportunidad de crear esta solución pensada en las necesidades del usuario, con fundamento, mucha investigación, desafíos entregados..</Text>
+          <Text>Finally, after a long time looking for where to study programming, a friend recommended me CurSort. I started from scratch and today I am already working in a big company as a JS developer.</Text>
         </CardBody>
       </Card>
       <Card border='2px' borderColor='white' background='#3E4AB8' color='white'>
@@ -65,7 +65,7 @@ Valoro enormemente el profesionalismo de los tutores....</Text>
           </Center>
         </CardHeader>
         <CardBody>
-          <Text>Las clases superaron mis expectativas ampliamente, la buena onda y las explicaciones fueron nada que ver a lo que yo pensaba....</Text>
+          <Text>The classes far exceeded my expectations. The good vibes and the level of the instructors were the things that I liked the most!</Text>
         </CardBody>
       </Card>
       <Card border='2px' borderColor='white' background='#3E4AB8' color='white'>
@@ -75,7 +75,7 @@ Valoro enormemente el profesionalismo de los tutores....</Text>
           </Center>
         </CardHeader>
         <CardBody>
-          <Text>Sin duda fue una gran experiencia que me permitió adquirir nuevos conocimientos y seguir capacitándome. No quiero dejar de agradecer....</Text>
+          <Text>Without a doubt, it was a great experience that allowed me to acquire new knowledge and continue training. I don't want to stop learning and growing professionally.</Text>
         </CardBody>
       </Card>
     </SimpleGrid>
