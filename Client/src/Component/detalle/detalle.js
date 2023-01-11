@@ -278,7 +278,7 @@ function Detalle() {
                   <ListItem>{`Duration: ${course.duration} hs`}</ListItem>{" "}
                 </List>
                 <List spacing={2}>
-                  <ListItem>{`Released date: ${course.fecha}`}</ListItem>
+                  <ListItem>{`Released date: ${course.released && course.released.slice(0, 10)}`}</ListItem>
                   <ListItem>{`Difficulty: ${course.difficulty}`}</ListItem>
                 </List>
               </SimpleGrid>
