@@ -82,7 +82,7 @@ function Home() {
 
       </Box>
         :
-        <Box maxW="100%" h='100%' backgroundImage="url('/images/kyuubi.png')" borderRadius={12}>
+        <Box maxW="100%" h='100%' borderRadius={12}>
           <Center pt='10%'>
             <Flex flexDirection='column'>
               <Text fontSize={36} color='white'>Loanding</Text>
