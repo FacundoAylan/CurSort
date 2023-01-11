@@ -39,6 +39,7 @@ export function getDetail(id) {
   return async (dispatch) => {
     let response = await axios.get(`http://localhost:3001/courses/${id}`);
 
+    console.log('como llegan los cursos id', response.data)
     dispatch({
       type: GET_DETAIL,
       payload: response.data,
