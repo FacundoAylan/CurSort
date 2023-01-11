@@ -15,7 +15,7 @@ import { setUserLocalStore } from "../../Redux/actions/index";
 function Landing () {
   //modificación mai local storage
   const userLocalStorage = useSelector(state => state.user)
-  console.log('userLocalStorage', userLocalStorage)
+ 
 
   useLocalStorage("cart", []);
 
