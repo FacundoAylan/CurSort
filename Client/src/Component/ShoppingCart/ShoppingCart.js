@@ -1,11 +1,6 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import React from 'react';
 import { Box, Flex, Container, GridItem} from "@chakra-ui/react";
 import CartItem from './CartItem';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
-
-
 
 function ShoppingCart({data}) {
   

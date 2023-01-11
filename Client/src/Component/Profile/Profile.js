@@ -5,13 +5,16 @@ import CreateCategory from '../admin/CreateCategory/CreateCategory';
 import { Link } from 'react-router-dom';
 
 const Profile = () => {
-	const { user, isAuthenticated } = useAuth0();
+	// const { user, isAuthenticated } = useAuth0();
 	//console.log('isAuthenticated', isAuthenticated)
+	//LocalStore
+	  const user = JSON.parse(window.localStorage.getItem("user"));
+	  const loguin = JSON.parse(window.localStorage.getItem("loguin"));
 
 	return (
 		<Grid templateRows='25px repeat(2,45px)'>
 			<Center>
-				<GridItem>{isAuthenticated && <h2>{user.name}</h2>}</GridItem>
+				<GridItem>{loguin && <h2>{user.name}</h2>}</GridItem>
 			</Center>
 
 			{/* <GridItem>

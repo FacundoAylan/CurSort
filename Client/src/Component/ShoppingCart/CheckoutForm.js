@@ -12,7 +12,8 @@ function Checkoutform() {
 
     const stripe = useStripe();
     const elements = useElements();
-    const { user, isAuthenticated } = useAuth0();
+    const user = JSON.parse(window.localStorage.getItem("user"));
+    console.log(user)
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -69,7 +70,7 @@ function Checkoutform() {
                         icon: 'success',
                         title: 'Pago realizado con éxito, a la brevedad recibirá un email con el link de descarga del curso',
                         showConfirmButton: false,
-                        timer: 2000
+                        timer: 4000
                       })
                         dispatch(clearCart())
                         window.localStorage.setItem('cart', JSON.stringify([]))
@@ -81,7 +82,7 @@ function Checkoutform() {
                         icon: 'error',
                         title: `${data.message}`,
                         showConfirmButton: false,
-                        timer: 2000
+                        timer: 4000
                       })
                 }
             } catch (error) {
@@ -151,7 +152,8 @@ function Checkoutform() {
           <Link to="/checkout/information">
             <Button>Regresar</Button>
           </Link>
-          <Button disabled={!stripe || !elements} ml={3}>Pagar</Button>
+
+          <Button type='submit' isDisabled ={!stripe || !elements} ml={3}>Pagar</Button>
         </Flex>
       </form>
     </div>

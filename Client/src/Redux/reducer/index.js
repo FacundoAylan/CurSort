@@ -18,8 +18,12 @@ import {
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
   CLEAN_FILTERS,
-  GET_WARNING
+  GET_WARNING,
 
+  GET_USER,
+  SET_USER,
+  SET_LOGUIN,
+  GET_LOGUIN,
 } from "../action-types";
 
 let initialState = {
@@ -30,7 +34,9 @@ let initialState = {
   categories: [],
   filterCurses: [],
   cart: [],
-  local: JSON.parse(localStorage.getItem("cart")) || [],
+  local: JSON.parse(window.localStorage.getItem("cart")) || [],
+  user: {},
+  loguin: JSON.parse(window.localStorage.getItem("loguin")) || false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -302,6 +308,26 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         warnings: '',
+      };
+    case SET_USER:
+      return {
+        ...state,
+        user: [window.localStorage.setItem('user', JSON.stringify(action.payload))]
+      };
+    case GET_USER:
+      return {
+        ...state,
+        user: JSON.parse(window.localStorage.getItem('user')),
+      };
+    case SET_LOGUIN:
+      return {
+        ...state,
+        loguin: window.localStorage.setItem('loguin', JSON.stringify(action.payload))
+      };
+    case GET_LOGUIN:
+      return {
+        ...state,
+        loguin: window.localStorage.getItem('loguin'),
       };
     default:
       return state;

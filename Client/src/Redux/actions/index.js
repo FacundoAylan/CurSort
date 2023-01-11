@@ -20,6 +20,10 @@ import {
   CLEAR_CART,
   CLEAN_FILTERS,
   GET_WARNING,
+  SET_USER,
+  GET_USER,
+  SET_LOGUIN,
+  GET_LOGUIN,
 } from "../action-types";
 
 export function getCourses(name) {
@@ -233,5 +237,31 @@ export function postComment(value) {
       type: 'POST_REVIEWS',
       payload: response.data,
     });
+  };
+}
+
+export function setUserLocalStore(payload) {
+  return {
+    type: SET_USER,
+    payload,
+  };
+}
+
+export function getUserLocalStore() {
+  return {
+    type: GET_USER,
+  };
+}
+
+export function setLoguinLocalStore(payload) {
+  return {
+    type: SET_LOGUIN,
+    payload,
+  };
+}
+
+export function getLoguinLocalStore() {
+  return {
+    type: GET_LOGUIN,
   };
 }

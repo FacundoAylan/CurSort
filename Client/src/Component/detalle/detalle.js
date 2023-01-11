@@ -38,7 +38,10 @@ function Detalle() {
   const history = useHistory();
   const local = useSelector((state) => state.local);
   //console.log('local', local)
-  const { user, isAuthenticated } = useAuth0();
+  // const { user, isAuthenticated } = useAuth0();
+  //localStore
+  const user = JSON.parse(window.localStorage.getItem("user"));
+  const loguin = JSON.parse(window.localStorage.getItem("loguin"));
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -101,7 +104,8 @@ function Detalle() {
   }
 
   function Comentario() {
-    const userEmail = isAuthenticated ? user.email : "";
+    const userEmail = loguin ? user.email : "";
+    console.log("userEmail", user.email);
   
     let [value, setValue] = React.useState({
       name: userEmail,
