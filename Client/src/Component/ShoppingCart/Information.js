@@ -46,6 +46,7 @@ function Information() {
               country: formData.get('country'),
               postalCode: formData.get('cp'),
           };
+          console.log(buyer)
           const { data } = await axios.post('https://cursort.onrender.com//checkout/information', buyer);
           //console.log(data);
           if(data.message === 'success'){
