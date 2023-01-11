@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Nosotros () {
   return (
-    <a name="footer" href="">
+    <a name="Knowus" href="">
       <Center>
         <Stack direction="row" spacing={3} color="white">
           <Box
@@ -244,7 +244,7 @@ function Nosotros () {
           </Box>
         </Stack>
       </Center>
-    </a>
+     </a>
   );
 }
 

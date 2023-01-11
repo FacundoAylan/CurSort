@@ -78,7 +78,7 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
   }
 
   return (
-    <Flex mt={booleano? 3.8 : 5} p={0} flexDirection={booleano? 'row':'column'}>
+    <Flex mt={booleano? 3.8 : 5} pl={3} pr={3} flexDirection={booleano? 'row':'column'}>
       <Menu>
         <MenuButton>
           <Button background='black' color='white' border='2px' borderColor='white' borderRadius='12px' w='100%'>
