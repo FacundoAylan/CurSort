@@ -6,6 +6,8 @@ import {
   Center,
   Text,
   Grid,
+  Flex,
+  Spinner,
   // Image,
 } from "@chakra-ui/react";
 import NavBar from "../navBar/navBar";
