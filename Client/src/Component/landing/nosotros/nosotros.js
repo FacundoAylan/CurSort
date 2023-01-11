@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Nosotros () {
   return (
-    <a name="Knowus" href="">
+    <a name="#/Knowus" href="">
       <Center>
         <Stack direction="row" spacing={3} color="white">
           <Box
