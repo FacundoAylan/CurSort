@@ -42,6 +42,7 @@ function Information() {
               country: formData.get('country'),
               postalCode: formData.get('cp'),
           };
+          console.log(buyer)
           const { data } = await axios.post('http://localhost:3001/checkout/information', buyer);
           //console.log(data);
           if(data.message === 'success'){
