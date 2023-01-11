@@ -42,11 +42,14 @@ function Detalle() {
   const [rating, setRating] = useState(4);
   const history = useHistory();
   const local = useSelector((state) => state.local);
+  //console.log('local', local)
+  // const { user, isAuthenticated } = useAuth0();
   //localStore
   const user = JSON.parse(window.localStorage.getItem("user"));
   const loguin = JSON.parse(window.localStorage.getItem("loguin"));
 
   const reviews = course.reviews
+  console.log('reviews : ' , reviews)
 
 
   useEffect(() => {
@@ -111,6 +114,7 @@ function Detalle() {
   function Comentario() {
 
     const userEmail = loguin ? user.email : "";
+    console.log("userEmail", user.email);
   
     let [value, setValue] = React.useState({
       name: userEmail,
@@ -157,6 +161,7 @@ function Detalle() {
           
             {reviews &&
              reviews.map((review) => {
+                console.log('dentro del map',course)
                 return (
                   <AccordionItem>
                     <h2>
