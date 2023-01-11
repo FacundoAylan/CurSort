@@ -19,6 +19,7 @@ import {
   CLEAR_CART,
   CLEAN_FILTERS,
   GET_WARNING,
+  GET_USERS
 
   GET_USER,
   SET_USER,
@@ -37,7 +38,7 @@ let initialState = {
   local: JSON.parse(window.localStorage.getItem("cart")) || [],
   user: {},
   loguin: JSON.parse(window.localStorage.getItem("loguin")) || false,
-};
+
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -60,6 +61,7 @@ const rootReducer = (state = initialState, action) => {
           image: action.payload.image,
           difficulty: action.payload.difficulty,
           price: action.payload.price,
+          reviews:action.payload.reviews
         },
       };
 
@@ -309,6 +311,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         warnings: '',
       };
+
     case SET_USER:
       return {
         ...state,
@@ -328,6 +331,12 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         loguin: window.localStorage.getItem('loguin'),
+
+    case GET_USERS:
+      return {
+        ...state,
+        users : action.payload
+
       };
     default:
       return state;

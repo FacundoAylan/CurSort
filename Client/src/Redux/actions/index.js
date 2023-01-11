@@ -24,6 +24,9 @@ import {
   GET_USER,
   SET_LOGUIN,
   GET_LOGUIN,
+
+  GET_USERS
+
 } from "../action-types";
 
 export function getCourses(name) {
@@ -42,6 +45,7 @@ export function getDetail(id) {
   return async (dispatch) => {
     let response = await axios.get(`http://localhost:3001/courses/${id}`);
 
+    console.log('como llegan los cursos id', response.data)
     dispatch({
       type: GET_DETAIL,
       payload: response.data,
@@ -57,6 +61,7 @@ export function getCategory() {
       payload: categories.data,
     });
   };
+  
 }
 
 export function getFilterCategory(id) {
@@ -240,6 +245,7 @@ export function postComment(value) {
   };
 }
 
+
 export function setUserLocalStore(payload) {
   return {
     type: SET_USER,
@@ -265,3 +271,15 @@ export function getLoguinLocalStore() {
     type: GET_LOGUIN,
   };
 }
+//develop se dejo por las dudas
+export function getUsers(){
+  return async (dispatch) => {
+    let response = await axios.get('http://localhost:3001/users/getUsers');
+    dispatch({
+      type: GET_USERS,
+      payload : response.data
+    })
+  }
+}
+
+//develop

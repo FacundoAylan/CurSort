@@ -63,7 +63,7 @@ function Home() {
               booleano={false}
               setHome={setHome}
             />
-      <Box h="40%" maxW="100%" >
+      <Box h="40%" maxW="100%" pl={3} pr={3}>
         { home ?
             categories &&
             categories.slice(0,3).map((value) => {

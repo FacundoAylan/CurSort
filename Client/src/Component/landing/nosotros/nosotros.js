@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Nosotros () {
   return (
-    <a name="footer" href="">
+    <a name="Knowus" href="">
       <Center>
         <Stack direction="row" spacing={3} color="white">
           <Box
@@ -32,7 +32,7 @@ function Nosotros () {
               Pablo swistoniuk
             </Text>
             <Text fontSize="15" ml="25%">
-              @Front-end
+              @FullStack
             </Text>
             <Text fontSize="10" ml="25%">
               <Button bg="#3E4AB8">
@@ -71,7 +71,7 @@ function Nosotros () {
               Mailen Benitez
             </Text>
             <Text fontSize="15" ml="25%">
-              @Front-end
+              @FullStack
             </Text>
             <Text fontSize="10" ml="25%">
               <Button bg="#3E4AB8">
@@ -110,12 +110,12 @@ function Nosotros () {
               Jonathan Lozano
             </Text>
             <Text fontSize="15" ml="25%">
-              @Front-end
+              @FullStack
             </Text>
             <Text fontSize="10" ml="25%">
               <Button bg="#3E4AB8">
                 <a
-                  href="https://www.linkedin.com/in/facundo-aylan-582b52257/"
+                  href="https://www.linkedin.com/in/jonathan-loaiza-l/"
                   target="_blank"
                 >
                   linkedin
@@ -147,7 +147,7 @@ function Nosotros () {
             </Link>
             <Text fontSize="22">Federico Ciociano</Text>
             <Text fontSize="15" ml="25%">
-              @Front-end
+              @FullStack
             </Text>
             <Text fontSize="10" ml="25%">
               <Button bg="#3E4AB8">
@@ -190,7 +190,7 @@ function Nosotros () {
               Juan Gómez A.{" "}
             </Text>
             <Text fontSize="15" ml="25%">
-              @Front-end
+              @FullStack
             </Text>
             <Text fontSize="10" ml="25%">
               <Button bg="#3E4AB8">
@@ -229,7 +229,7 @@ function Nosotros () {
               Facundo Aylan
             </Text>
             <Text fontSize="15" ml="25%">
-              @Front-end
+              @FullStack
             </Text>
             <Text fontSize="10" ml="25%">
               <Button bg="#3E4AB8">
@@ -244,7 +244,7 @@ function Nosotros () {
           </Box>
         </Stack>
       </Center>
-    </a>
+     </a>
   );
 }
 

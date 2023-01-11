@@ -29,22 +29,21 @@ function Landing () {
 
   return (
     <>
-      <Box>
+      <Box background="#3E4AB8" width='100%' maxH="15%" position='fixed' zIndex='100'>
+        <NavbarLanding/>
+      </Box>
+      
+      <Box position='fixed' zIndex='100' width='100%' mt='4.8%'>
         <Promociones/>
       </Box>
 
-      <Box background="#3E4AB8" maxW="100%" maxH="15%">
-        <NavbarLanding />
-      </Box>
-      
-
-      <Box>
+      <Box pt='9rem'>
         {/* carruce */}
         <Carousel/>
       </Box>
       <Box mt="1%">
-        <Center fontSize={40} color='white'>
-          Estudiantes
+        <Center fontWeight='800' fontSize="4xl" color='white' mb='1%' mt='5%'>
+          Our students
         </Center>
         <Student />
       </Box>
@@ -54,8 +53,8 @@ function Landing () {
       </Box>
       {/* Promociones */}
       <Box p={6}>           
-        <Center color="white" fontSize={35} p={4}>
-            Integrantes del proyecto:
+        <Center fontWeight='800' fontSize="4xl" color="white"  pb='4'>
+            Our team
         </Center>
         <Nosotros/>
       </Box>

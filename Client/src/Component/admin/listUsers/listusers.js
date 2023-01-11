@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect} from "react";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
-  Button,
-  Center,
   IconButton,
   Switch,
   Table,
@@ -15,18 +14,44 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { getCourses } from "../../../Redux/actions/index";
+import { getUsers } from "../../../Redux/actions/index";
 import {DeleteIcon} from '@chakra-ui/icons';
 
-function ListCourses() {
-  let info = useSelector(
-    (state) => state.courses,
-    () => false
-  );
+function ListUsers() {
+  let users = useSelector(state => state.users);
 
   const dispatch = useDispatch();
+
+
+  const handleAdmin = async (email)=>{
+    try {
+      await axios.put(`http://localhost:3001/users/disableAdmin?email=${email}`);
+      dispatch(getUsers());
+    } catch(error){
+      console.log(error);
+    }
+  }
+ 
+  const handle = async (email)=>{
+  try {
+    await axios.put(`http://localhost:3001/users/disable?email=${email}`);
+    dispatch(getUsers());
+  } catch(error){
+    console.log(error);
+  }
+  }
+
+  const handleClick = async email=>{
+    try {
+      await axios.delete(`http://localhost:3001/users/delete?email=${email}`);
+      dispatch(getUsers());
+    } catch(error){
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
-    dispatch(getCourses(""));
+    dispatch(getUsers());
   }, [dispatch]);
 
   return (
@@ -46,33 +71,33 @@ function ListCourses() {
             </Tr>
           </Thead>
           <Tbody>
-            {info &&
-              info.map((value) => {
+            {users &&
+              users.map((el) => {
                 return (
                   <Tr>
                     {/* email*/}
-                    <Td>buscoempleo@gmail.com</Td>
+                    <Td>{el.email}</Td>
                     {/* nombre*/}
-                    <Td>franco</Td>
+                    <Td>{el.name}</Td>
                     {/* apellido */}
-                    <Td>Escamilla</Td>
+                    <Td>{el.lastname}</Td>
                     {/* Telefono */}
-                    <Td>1134759401</Td>
+                    <Td>{el.phone}</Td>
                     {/* admin*/}
-                    <Td>No</Td>
+                    <Td>
+                      <Box>             
+                          <Switch
+                            isChecked={el.admin}
+                            onChange={()=>handleAdmin(el.email)}
+                          />
+                      </Box>
+                    </Td>
                     <Td>
                       {/* boton para convertir en admin */}
-                      <Box>
-                        <p htmlFor="isChecked">On/Off:</p>
-                          <Switch
-                            id="isChecked"
-                            p={0}
-                            colorScheme="blue"
-                            bg="black"
-                            w="15.7%"
-                            borderRadius="30px"
-                            border="2px"
-                            borderColor="black"
+                      <Box>             
+                          <Switch 
+                            isChecked={el.enabled}
+                            onChange={()=>handle(el.email)}
                           />
                       </Box>
                     </Td>
@@ -80,6 +105,7 @@ function ListCourses() {
                     <Td>
                         {/* boton para eliminar */}
                         <IconButton
+                        onClick={()=>handleClick(el.email)}
                         flex={1}
                         fontSize={"sm"}
                         rounded={"full"}
@@ -108,4 +134,4 @@ function ListCourses() {
     </>
   );
 }
-export default ListCourses;
+export default ListUsers;

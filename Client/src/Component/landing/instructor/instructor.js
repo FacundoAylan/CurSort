@@ -34,16 +34,13 @@ function Instructor() {
           >
 
             <Box color='black' pt={10}>
-              <Text fontSize={30}>
-                Conviértete en instructor
-              </Text>
-              <Text>
-              Instructores de todo el mundo enseñan a millones de estudiantes en Cursort. Proporcionamos las herramientas y las habilidades para que enseñes lo que te apasiona.
-              </Text>
+              <Text fontSize={30}>Join us on this travel!</Text>
+              <Text>Instructors from all over the world teach millions of students on Cursort.</Text>
+              <Text>We provide you with the necessary tools and skills to help you educate the next generation of programmers.</Text>
             </Box>
           </Stack>
             <Button bg='#3E4AB8'>
-              Empieza a enseñar hoy mismo
+              Start teaching now!
             </Button>
 
         </Stack>
