@@ -31,3 +31,7 @@ export const GET_LOGUIN = 'GET_LOGUIN'
 
 export const DISABLE_USER = 'DISABLE_USER'
 
+export const GET_USERS = 'GET_USERS'
+
+
+

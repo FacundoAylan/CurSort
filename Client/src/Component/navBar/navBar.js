@@ -64,8 +64,8 @@ function NavBar({ setPagina, setOrder, setHome}) {
           <Search setOrder={setOrder} setPagina={setPagina} setHome={setHome}/>
         </GridItem>
 
-        <GridItem mt="15%" ml="60%">
-          <Flex>
+        <GridItem mt="15%" ml="60%" pr='10px'>
+          <Flex >
             <Box pt={1}>
               <Link to="/checkout">
                 <Button
@@ -95,7 +95,7 @@ function NavBar({ setPagina, setOrder, setHome}) {
               </Link>
             </Box>
 
-            <Box pl={3}>
+            <Box pl={1}>
               {loguin ? <LogoutButton /> : <LoginButton />}
               {/* {isAuthenticated && <Profile/>} */}
             </Box>
