@@ -572,7 +572,7 @@ const validate = ({ mail, phone, address, city, postalCode, country }) => {
 
 // post para guardar los datos del comprador
 const postInformationBuyer = async (req, res, next) => {
-  const { address, city, country,lastname, mail,name, phone,  postalCode} = req.body;
+  const { mail, phone, address, city, postalCode, country } = req.body;
 
   const errors = validate({ mail, phone, address, city, postalCode, country });
 
