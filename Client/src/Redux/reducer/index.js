@@ -56,6 +56,7 @@ const rootReducer = (state = initialState, action) => {
           image: action.payload.image,
           difficulty: action.payload.difficulty,
           price: action.payload.price,
+          reviews:action.payload.reviews
         },
       };
 
