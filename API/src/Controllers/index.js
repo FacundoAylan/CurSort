@@ -201,6 +201,54 @@ const getAllCourses = async (req, res) => {
   }
 };
 
+const disableCourse = async(req, res) =>{
+  const {id} = req.params;
+  
+  try {
+    const curso = await Courses.findByPk(id)
+   if(curso){
+    await Courses.update({active: !curso.active},{where : {id}});
+    res.status(200).json({ message: `estado enabled del curso ${!curso.active}` });
+  }else {
+    res.status(404).json({ message: "Curso no encontrado" });
+  }
+} catch (error) {
+  res.status(400).json({ message: error.message });
+}
+
+}
+
+const editCourse = async(req, res)=>{
+  const {id} = req.params;
+  const {name, price, description} = req.body;
+  
+ try{ 
+    const course = await Courses.update({ name, price, description }, {where: {id}});
+    
+    res.status(200).json(course);
+    
+  }catch(error){
+    res.status(404).json({ message: error.message });
+  }
+   
+}
+
+const deleteCourse = async(req , res) =>{
+  const {id} = req.params;
+
+  try {
+    const curso = await Courses.destroy({where: {id}});
+
+    if(curso){
+      res.status(200).json({ message: "El curso ha sido eliminado" });
+    }else {
+      res.status(404).json({ message: "Curso no encontrado" });
+    }
+  }catch(error){
+    res.status(400).json({ message: error.message });
+  }
+}
+
 //se postea una review y se asocia con el ID del curso
 const postReview = async (req, res) => {
   try {
@@ -685,5 +733,8 @@ module.exports = {
   getToken,
   getUsers,
   disableAdmin,
-  deleteUser
+  deleteUser,
+  disableCourse,
+  editCourse,
+  deleteCourse
 }
