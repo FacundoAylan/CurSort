@@ -20,6 +20,13 @@ import {
   CLEAR_CART,
   CLEAN_FILTERS,
   GET_WARNING,
+  SET_USER,
+  GET_USER,
+  SET_LOGUIN,
+  GET_LOGUIN,
+
+  GET_USERS
+
 } from "../action-types";
 
 export function getCourses(name) {
@@ -53,6 +60,7 @@ export function getCategory() {
       payload: categories.data,
     });
   };
+  
 }
 
 export function getFilterCategory(id) {
@@ -136,23 +144,6 @@ export function AllFilterDifficulty(payload) {
   };
 }
 
-// export function GetFilter (){
-
-//   const duration = useSelector(state=> state.filterDuration)
-//   const difficulty = useSelector(state=> state.filterDifficulty)
-
-//   // //console.log(difficulty.difficulty)
-//   //console.log(duration.duration)
-
-//   return async (dispatch)=>{
-//     const response = await axios.get(`https://cursort-api.onrender.com/filter/?duration${duration.duration}`) // ==>no se como conseguir todos los query juntos
-//     //console.log('data', response.data)
-//     dispatch({
-//       type: 'GET_FILTER',
-//       payload: response.data,
-//     });
-//   }
-// }
 
 export function filterDifficulty(difficulty) {
   return {
@@ -225,13 +216,50 @@ export function getWarning() {
 }
 
 export function postComment(value) {
-  console.log("Value : ", value);
   return async (dispatch) => {
     let response = await axios.post(`https://cursort-api.onrender.com/courses/review`,value);
-    console.log('Response : ',response.data)
     dispatch({
       type: 'POST_REVIEWS',
       payload: response.data,
     });
   };
 }
+
+
+export function setUserLocalStore(payload) {
+  return {
+    type: SET_USER,
+    payload,
+  };
+}
+
+export function getUserLocalStore() {
+  return {
+    type: GET_USER,
+  };
+}
+
+export function setLoguinLocalStore(payload) {
+  return {
+    type: SET_LOGUIN,
+    payload,
+  };
+}
+
+export function getLoguinLocalStore() {
+  return {
+    type: GET_LOGUIN,
+  };
+}
+//develop se dejo por las dudas
+export function getUsers(){
+  return async (dispatch) => {
+    let response = await axios.get('https://cursort-api.onrender.com/users/getUsers');
+    dispatch({
+      type: GET_USERS,
+      payload : response.data
+    })
+  }
+}
+
+//develop

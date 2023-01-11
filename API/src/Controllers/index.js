@@ -2,7 +2,7 @@ const { Op } = require("sequelize");
 const data = require("./api.json");
 const { Users, Courses, Categories, Reviews, Orders } = require("../db");
 const nodemailer = require("nodemailer");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const { CLIENT_STRIPE_KEY } = process.env;
 const Stripe = require("stripe");
 const { json } = require("body-parser");
@@ -20,7 +20,7 @@ const postCourse = async (req, res) => {
     categoria,
   } = req.body;
 
-  // //console.log('categoria : ', categoria)
+
   let name,
     description,
     instructor,
@@ -64,7 +64,7 @@ const postCourse = async (req, res) => {
 };
 
 //loadCoursesToDB es solo para cargar los cursos del json a la DB
-//la ruta en Postman seria http://localhost:3001/course/load
+//la ruta en Postman seria https://cursort-api.onrender.com/course/load
 
 const loadCoursesToDB = async () => {
   const coursesDB = await Courses.findAll();
@@ -132,7 +132,14 @@ const getCourseById = async (req, res) => {
   const { id } = req.params;
   try {
     if (id) {
-      const course = await Courses.findByPk(id);
+      const course = await Courses.findByPk(id, {
+        include: [
+          {
+            model: Reviews,
+            attributes: ["name", "text", "rating"],
+          },
+        ],
+      });
       if (course) {
         res.status(200).json(course);
       } else {
@@ -172,7 +179,7 @@ const getAllCourses = async (req, res) => {
       });
     }
 
-      courses = courses.map((c) => {
+    courses = courses.map((c) => {
       return {
         id: c.id,
         name: c.name,
@@ -188,7 +195,7 @@ const getAllCourses = async (req, res) => {
         createdAt: c.createdAt,
         updatedAt: c.updatedAt,
         categories: c.categories.map((c) => c.name),
-        reviews : c.reviews
+        reviews: c.reviews,
       };
     });
 
@@ -217,19 +224,17 @@ const postReview = async (req, res) => {
   }
 };
 
-const getUsers = async (req, res)=>{
-  try{
+const getUsers = async (req, res) => {
+  try {
     const users = await Users.findAll();
     res.json(users);
-  }catch(error){
-    res.status(401).json(error.name)
+  } catch (error) {
+    res.status(401).json(error.name);
   }
-
-}
+};
 const createUser = async (req, res) => {
   const user = req.body;
 
-  // //console.log(user.email);
 
   let name, lastname, email, email_verified, birthday;
 
@@ -237,8 +242,7 @@ const createUser = async (req, res) => {
   lastname = user.family_name || "";
   email = user.email;
   email_verified = user.email_verified;
-  admin = false,
-  enabled = true;
+  (admin = false), (enabled = true);
 
   try {
     const [usuario, craeted] = await Users.findOrCreate({
@@ -261,30 +265,51 @@ const createUser = async (req, res) => {
 
 //Deshabilita el usuario por email
 const disableUser = async (req, res) => {
-  const {email} = req.query;
+
+  const { email } = req.query;
 
   try {
-      const user = await Users.findOne({where : {email}})
-     if(user){
-      await Users.update({enabled: !user.enabled},{where : {email}});
-      res.status(200).json({ message: `estado enabled del usuario ${!user.enabled}` });
-    }else {
+    const user = await Users.findOne({ where: { email } });
+    if (user) {
+      await Users.update({ enabled: !user.enabled }, { where: { email } });
+      res
+        .status(200)
+        .json({ message: `estado enabled del usuario ${!user.enabled}` });
+    } else {
       res.status(404).json({ message: "Usuario no encontrado" });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-}
+};
 
 const disableAdmin = async (req, res) => {
-  const {email} = req.query;
+  const { email } = req.query;
 
   try {
-      const user = await Users.findOne({where : {email}})
-     if(user){
-      await Users.update({admin: !user.admin},{where : {email}});
-      res.status(200).json({ message: `estado admin del usuario ${!user.admin}` });
-    }else {
+    const user = await Users.findOne({ where: { email } });
+    if (user) {
+      await Users.update({ admin: !user.admin }, { where: { email } });
+      res
+        .status(200)
+        .json({ message: `estado admin del usuario ${!user.admin}` });
+    } else {
+      res.status(404).json({ message: "Usuario no encontrado" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+const deleteUser = async (req, res) => {
+  const { email } = req.query;
+
+  try {
+    const user = await Users.destroy({ where: { email } });
+
+    if (user) {
+      res.status(200).json({ message: "el usuario ha sido eliminado" });
+    } else {
       res.status(404).json({ message: "Usuario no encontrado" });
     }
   } catch (error) {
@@ -292,21 +317,6 @@ const disableAdmin = async (req, res) => {
   }
 }
 
-const deleteUser = async (req, res)=>{
-  const {email} = req.query;
-
-  try {
-    const user = await Users.destroy({where: {email}});
-
-    if(user){
-      res.status(200).json({ message: "el usuario ha sido eliminado" });
-    }else {
-      res.status(404).json({ message: "Usuario no encontrado" });
-    }
-  }catch(error){
-    res.status(400).json({ message: error.message });
-  }
-}
 
 //ruta para modificar un usuario
 const editUser = async (req, res) => {
@@ -436,8 +446,6 @@ const getCoursesByDuration = async (duration) => {
 const filterCourses = async (req, res) => {
   const { id, difficulty, duration } = req.query;
 
-  // //console.log('duration', duration)
-  // //console.log('difficulty',difficulty)
 
   try {
     if (id) {
@@ -524,7 +532,7 @@ const linkMail = async (req, res, next) => {
   // Falta agregar el link a donde se van a renderizar los cursos.
   let html = `<div>
     <h3> ${name}! Gracias por confiar en Cursort \n ya está diponible tu curso, puedes ingresar en el siguiente link</h3>
-    <button><p> http://localhost:3000/cursos </p></button> 
+    <button><p> https://cursort.onrender.com/cursos </p></button> 
   </div>`;
 
   //esto le da acceso a nodemailer al mail de cursort
@@ -618,7 +626,7 @@ const postPayment = async (req, res, next) => {
       where: { id: id_courses },
     });
 
-    //console.log(course)
+
 
     const newOrder = await Orders.create({
       status: "paid",
@@ -657,10 +665,10 @@ const getOrders = async (req, res) => {
   }
 };
 
-const getToken = (req , res)=>{
-  const token = jwt.sign({estado: "token valido"}, 'secret');
+const getToken = (req, res) => {
+  const token = jwt.sign({ estado: "token valido" }, "secret");
   res.send(token);
-}
+};
 
 module.exports = {
   postCourse,
@@ -685,5 +693,6 @@ module.exports = {
   getToken,
   getUsers,
   disableAdmin,
-  deleteUser
-}
+  deleteUser,
+};
+

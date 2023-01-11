@@ -75,7 +75,6 @@ function Form() {
     task.on('state_changed',null,null,() => {
         // Upload completed successfully, now we can get the download URL
         getDownloadURL(task.snapshot.ref).then((downloadURL) => {
-          //console.log('File available at', downloadURL);
           setInput({
             ...input,
             [e.target.id]: downloadURL

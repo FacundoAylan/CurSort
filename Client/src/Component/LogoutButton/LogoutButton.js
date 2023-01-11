@@ -4,17 +4,26 @@ import { Button } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, WrapItem, Avatar } from "@chakra-ui/react";
 import Profile from "../Profile/Profile";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUserLocalStore, setLoguinLocalStore, getUserLocalStore } from "../../Redux/actions/index";
 
 const LogoutButton = () => {
   const { logout, user } = useAuth0();
 
-useEffect(()=>{
-  axios.post("https://cursort-api.onrender.com/users/create", user);
-},[user])
+  const dispatch = useDispatch();
+  
+  useEffect(()=>{
+    user && axios.post("https://cursort-api.onrender.com/users/create", user);
+    dispatch(getUserLocalStore())
+  },[user, dispatch])
+  
+  const userLocalStorage = JSON.parse(window.localStorage.getItem("user"))
+  console.log(userLocalStorage)
   
   const handleLogout = () => {
-    logout({ returnTo: 'https://cursort.onrender.com' });
-    window.LocalStorage.setItem("user", []);
+    logout({ returnTo: 'https://cursort.onrender.com/home' });
+    dispatch(setUserLocalStore([]));
+    dispatch(setLoguinLocalStore(false));
   };
 
   return (
@@ -22,7 +31,7 @@ useEffect(()=>{
       <Menu>
         <MenuButton>
           <WrapItem>
-            <Avatar name={user.name} src={user.picture} />
+            <Avatar name={userLocalStorage.name} src={userLocalStorage.picture} />
           </WrapItem>
         </MenuButton>
         <MenuList>

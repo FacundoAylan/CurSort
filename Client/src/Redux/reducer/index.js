@@ -18,8 +18,13 @@ import {
   REMOVE_ALL_FROM_CART,
   CLEAR_CART,
   CLEAN_FILTERS,
-  GET_WARNING
+  GET_WARNING,
+  GET_USERS,
 
+  GET_USER,
+  SET_USER,
+  SET_LOGUIN,
+  GET_LOGUIN,
 } from "../action-types";
 
 let initialState = {
@@ -30,8 +35,10 @@ let initialState = {
   categories: [],
   filterCurses: [],
   cart: [],
-  local: JSON.parse(localStorage.getItem("cart")) || [],
-};
+  local: JSON.parse(window.localStorage.getItem("cart")) || [],
+  user: {},
+  loguin: JSON.parse(window.localStorage.getItem("loguin")) || false,
+}
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -54,6 +61,8 @@ const rootReducer = (state = initialState, action) => {
           image: action.payload.image,
           difficulty: action.payload.difficulty,
           price: action.payload.price,
+          reviews:action.payload.reviews,
+          released: action.payload.released,
         },
       };
 
@@ -245,7 +254,6 @@ const rootReducer = (state = initialState, action) => {
 
       if(!itemRepeated) {
         window.localStorage.setItem('cart', JSON.stringify([...state.local, { ...newItem, quantity: 1 }]))
-        //console.log('cart', JSON.parse(window.localStorage.getItem('cart')))
       }
 
       return itemRepeated
@@ -256,17 +264,14 @@ const rootReducer = (state = initialState, action) => {
 
     case REMOVE_ONE_FROM_CART:
       const data =  JSON.parse(window.localStorage.getItem('cart')).flat()
-      //console.log('data', data)
       const itemToDelete = data.find(
         (item) => item.id === action.payload
       );
 
-      //console.log('itemToDelete', itemToDelete)
       
       if(itemToDelete) {
         window.localStorage.setItem('cart', JSON.stringify(data.filter((item) => item.id !== Number(action.payload))))
         state.local = JSON.parse(window.localStorage.getItem('cart'))
-        //console.log('state', state.local)
       }
 
       return itemToDelete.quantity > 1
@@ -302,6 +307,33 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         warnings: '',
+      };
+
+    case SET_USER:
+      return {
+        ...state,
+        user: [window.localStorage.setItem('user', JSON.stringify(action.payload))]
+      };
+    case GET_USER:
+      return {
+        ...state,
+        user: JSON.parse(window.localStorage.getItem('user')),
+      };
+    case SET_LOGUIN:
+      return {
+        ...state,
+        loguin: window.localStorage.setItem('loguin', JSON.stringify(action.payload))
+      };
+    case GET_LOGUIN:
+      return {
+        ...state,
+        loguin: window.localStorage.getItem('loguin'),
+      }
+    case GET_USERS:
+      return {
+        ...state,
+        users : action.payload
+
       };
     default:
       return state;

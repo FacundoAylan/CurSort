@@ -63,6 +63,7 @@ function Carousel() {
         top={top}
         transform={'translate(0%, -50%)'}
         zIndex={2}
+        ml='40'
         onClick={() => slider?.slickPrev()}>
         <BiLeftArrowAlt />
       </IconButton>
@@ -76,6 +77,7 @@ function Carousel() {
         top={top}
         transform={'translate(0%, -50%)'}
         zIndex={2}
+        mr='40'
         onClick={() => slider?.slickNext()}>
         <BiRightArrowAlt />
       </IconButton>
@@ -83,7 +85,8 @@ function Carousel() {
       <Slider {...settings} ref={(slider) => setSlider(slider)}>
         {cards.map((url, index) => (
           <Image
-          position="relative"
+          objectFit='contain'
+          bg='#3239746b'
           h={{ base: "100%", sm: "20px", lg: "400px" }}
           src={url}
           alt='Dan Abramov'

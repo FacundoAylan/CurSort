@@ -19,6 +19,7 @@ import {
   FormErrorMessage,
   Container,
   IconButton,
+  background,
 } from "@chakra-ui/react";
 
 import { useToast } from "@chakra-ui/react";
@@ -114,15 +115,17 @@ const Form1 = ({ input, setInput, isError, setDisabledNext }) => {
             Difficulty:
           </FormLabel>
           <Select
-            placeholder="Enter an option:"
+            // placeholder="Enter an option:"
             id="dificultad"
             onChange={handleInputChange}
             color='white'
             value={input.dificultad}
+            
           >
-            <option value="Beginner">Beginner</option>
-            <option value="Middle">Middle</option>
-            <option value="Advanced">Advanced</option>
+            <option style={{backgroundColor: '#191E29'}}>Enter an option:</option>
+            <option style={{backgroundColor: '#191E29'}} value="Beginner">Beginner</option>
+            <option style={{backgroundColor: '#191E29'}} value="Middle">Middle</option>
+            <option style={{backgroundColor: '#191E29'}} value="Advanced">Advanced</option>
           </Select>
           {!isError.dificultad ? (
             <FormHelperText color={"green"}>✓</FormHelperText>
@@ -173,14 +176,14 @@ const Form2 = ({ input, setInput, categories, isError, setDisabledNext }) => {
             Category:
           </FormLabel>
           <Select
-            placeholder="Enter an option:"
             id="categoria"
             onChange={handleInputChange}
             color='white'
             value={input.categoria}
           >
+            <option style={{backgroundColor: '#191E29'}}>Enter an option:</option>
             {categories &&
-              categories.map((el) => <option value={el.id}>{el.name}</option>)}
+              categories.map((el) => <option style={{backgroundColor: '#191E29'}} value={el.id}>{el.name}</option>)}
           </Select>
           {!isError.categoria ? (
             <FormHelperText color={"green"}>✓</FormHelperText>

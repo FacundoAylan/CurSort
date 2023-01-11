@@ -21,3 +21,17 @@ export const REMOVE_ALL_FROM_CART = 'REMOVE_ALL_FROM_CART'
 export const CLEAR_CART = 'CLEAR_CART'
 export const HOME = 'HOME'
 export const GET_WARNING = 'GET_WARNING'
+
+
+export const GET_USER = 'GET_USER'
+export const SET_USER = 'SET_USER'
+
+export const SET_LOGUIN = 'SET_LOGUIN'
+export const GET_LOGUIN = 'GET_LOGUIN'
+
+export const DISABLE_USER = 'DISABLE_USER'
+
+export const GET_USERS = 'GET_USERS'
+
+
+

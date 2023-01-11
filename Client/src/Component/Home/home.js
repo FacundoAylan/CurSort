@@ -16,13 +16,13 @@ import HomeFilter from "./homeFilter";
 import { getCategory, getCourses } from "../../Redux/actions";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useAuth0 } from '@auth0/auth0-react';
+import { setUserLocalStore, getUserLocalStore } from '../../Redux/actions/index';
 
 function Home() {
   let info = useSelector(
     (state) => state.courses,
     () => false
   ); // el false, verifica el estado anterior
-  //console.log(info)
   const [ home, setHome ] =  useState(true);
 
   const dispatch = useDispatch();
@@ -39,12 +39,14 @@ function Home() {
 
   //modificación mai local storage
   useLocalStorage("cart", []);
-  const { user, isAuthenticated } = useAuth0();
-
-  const [userLocal, setUserLocal ] = useLocalStorage("user", user || []);
+  const { user } = useAuth0();
 
   useEffect(() => {
-    setUserLocal(user || [])
+    if (user) {
+      dispatch(setUserLocalStore(user));
+    } else {
+      dispatch(getUserLocalStore());
+    }
   }, [user])
   
 
@@ -60,7 +62,7 @@ function Home() {
               booleano={false}
               setHome={setHome}
             />
-      <Box h="40%" maxW="100%" >
+      <Box h="40%" maxW="100%" pl={3} pr={3}>
         { home ?
             categories &&
             categories.slice(0,3).map((value) => {

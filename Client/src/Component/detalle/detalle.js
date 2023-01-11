@@ -18,6 +18,11 @@ import {
   HStack,
   Center,
   Textarea,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -37,8 +42,12 @@ function Detalle() {
   const [rating, setRating] = useState(4);
   const history = useHistory();
   const local = useSelector((state) => state.local);
-  //console.log('local', local)
-  const { user, isAuthenticated } = useAuth0();
+  //localStore
+  const user = JSON.parse(window.localStorage.getItem("user"));
+  const loguin = JSON.parse(window.localStorage.getItem("loguin"));
+
+  const reviews = course.reviews
+
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -55,7 +64,6 @@ function Detalle() {
     history.push("/checkout");
   };
 
-  
   function Rating({ rating }) {
     return (
       <Center>
@@ -101,23 +109,28 @@ function Detalle() {
   }
 
   function Comentario() {
-    const userEmail = isAuthenticated ? user.email : "";
+
+    const userEmail = loguin ? user.email : "";
   
     let [value, setValue] = React.useState({
       name: userEmail,
       text: "",
-      courseId: id
+      courseId: id,
     });
-  
+
     let handleInputChange = (e) => {
       let inputValue = e.target.value;
       setValue({ ...value, text: inputValue });
     };
-  
+
     const handleComment = (e) => {
       dispatch(postComment(value));
+      setTimeout(() => {
       setValue({ name: userEmail, text: "", rating: "", courseId: id });
+      dispatch(getDetail(id));
       history.push(`/detalle/${id}`);
+      }, 500);
+     
     };
 
     return (
@@ -138,6 +151,30 @@ function Detalle() {
         >
           Send Comment
         </Button>
+        {/* acordeon de comentarios*/}
+        <Box>
+          <Accordion defaultIndex={[0]} allowMultiple>
+          
+            {reviews &&
+             reviews.map((review) => {
+                return (
+                  <AccordionItem>
+                    <h2>
+                      <AccordionButton>
+                        <Box as="span" flex="1" textAlign="left">
+                        Comment from :  {review.name}
+                        </Box>
+                        <AccordionIcon />
+                      </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                     {review.text}
+                    </AccordionPanel>
+                  </AccordionItem>
+                );
+              })}
+          </Accordion>
+        </Box>
       </>
     );
   }
@@ -221,7 +258,7 @@ function Detalle() {
                   <ListItem>{`duracion: ${course.duration} hs`}</ListItem>{" "}
                 </List>
                 <List spacing={2}>
-                  <ListItem>{`Fecha de lanzamiento: ${course.fecha}`}</ListItem>
+                  <ListItem>{`Fecha de lanzamiento: ${course.released.slice(0, 10)}`}</ListItem>
                   <ListItem>{`dificultad: ${course.difficulty}`}</ListItem>
                 </List>
               </SimpleGrid>
@@ -246,9 +283,7 @@ function Detalle() {
               </List>
             </Box>
           </Stack>
-          <Box>
-            <Comentario />
-          </Box>
+
           <Button
             rounded={"none"}
             w={"full"}
@@ -267,6 +302,9 @@ function Detalle() {
             Add to cart
           </Button>
 
+          <Box>
+            <Comentario />
+          </Box>
           <Stack direction="row" alignItems="center" justifyContent={"center"}>
             <a href="https://github.com/FacundoAylan/CurSort">
               <IconButton
