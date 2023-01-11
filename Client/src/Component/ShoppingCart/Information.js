@@ -49,16 +49,17 @@ function Information() {
           console.log(buyer)
           const { data } = await axios.post('https://cursort.onrender.com//checkout/information', buyer);
           console.log(data);
-          if(data.message === 'success'){
+          history.push('/checkout/payment');
+          //if(data.message === 'success'){
             //console.log(data)
-            history.push('/checkout/payment');
-          } else {
-            Swal.fire({
-              icon: 'info',
-              title: 'Oops...',
-              text: 'Algo salió mal, intentalo de nuevo',
-            })
-          }
+            //history.push('/checkout/payment');
+          //} else {
+            //Swal.fire({
+              //icon: 'info',
+              //title: 'Oops...',
+              //text: 'Algo salió mal, intentalo de nuevo',
+            //})
+          //}
 
         }
         catch(error){
