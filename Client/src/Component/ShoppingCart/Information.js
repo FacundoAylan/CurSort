@@ -48,7 +48,7 @@ function Information() {
           };
           console.log(buyer)
           const { data } = await axios.post('https://cursort.onrender.com//checkout/information', buyer);
-          //console.log(data);
+          console.log(data);
           if(data.message === 'success'){
             //console.log(data)
             history.push('/checkout/payment');
