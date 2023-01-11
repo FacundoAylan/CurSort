@@ -62,6 +62,7 @@ function Home() {
               booleano={false}
               setHome={setHome}
             />
+      {info.length > 0 ?
       <Box h="40%" maxW="100%" pl={3} pr={3}>
         { home ?
             categories &&
@@ -80,6 +81,16 @@ function Home() {
         : <HomeFilter info={info} pagina={pagina} setPagina={setPagina} maximo={maximo} porPagina={porPagina} />}
 
       </Box>
+        :
+        <Box maxW="100%" h='100%' backgroundImage="url('/images/kyuubi.png')" borderRadius={12}>
+          <Center pt='10%'>
+            <Flex flexDirection='column'>
+              <Text fontSize={36} color='white'>Loanding</Text>
+              <Spinner size='xl' color='white' ml='50px'/>
+            </Flex>
+          </Center>
+        </Box>
+      }
       </Grid>
       <Box mt={7}>
         <Footer/>
