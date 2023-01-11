@@ -21,6 +21,10 @@ import {
   GET_WARNING,
   GET_USERS
 
+  GET_USER,
+  SET_USER,
+  SET_LOGUIN,
+  GET_LOGUIN,
 } from "../action-types";
 
 let initialState = {
@@ -31,9 +35,10 @@ let initialState = {
   categories: [],
   filterCurses: [],
   cart: [],
-  users : [],
-  local: JSON.parse(localStorage.getItem("cart")) || [],
-};
+  local: JSON.parse(window.localStorage.getItem("cart")) || [],
+  user: {},
+  loguin: JSON.parse(window.localStorage.getItem("loguin")) || false,
+
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -306,10 +311,32 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         warnings: '',
       };
+
+    case SET_USER:
+      return {
+        ...state,
+        user: [window.localStorage.setItem('user', JSON.stringify(action.payload))]
+      };
+    case GET_USER:
+      return {
+        ...state,
+        user: JSON.parse(window.localStorage.getItem('user')),
+      };
+    case SET_LOGUIN:
+      return {
+        ...state,
+        loguin: window.localStorage.setItem('loguin', JSON.stringify(action.payload))
+      };
+    case GET_LOGUIN:
+      return {
+        ...state,
+        loguin: window.localStorage.getItem('loguin'),
+
     case GET_USERS:
       return {
         ...state,
         users : action.payload
+
       };
     default:
       return state;

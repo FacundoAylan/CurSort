@@ -20,7 +20,13 @@ import {
   CLEAR_CART,
   CLEAN_FILTERS,
   GET_WARNING,
+  SET_USER,
+  GET_USER,
+  SET_LOGUIN,
+  GET_LOGUIN,
+
   GET_USERS
+
 } from "../action-types";
 
 export function getCourses(name) {
@@ -239,6 +245,33 @@ export function postComment(value) {
   };
 }
 
+
+export function setUserLocalStore(payload) {
+  return {
+    type: SET_USER,
+    payload,
+  };
+}
+
+export function getUserLocalStore() {
+  return {
+    type: GET_USER,
+  };
+}
+
+export function setLoguinLocalStore(payload) {
+  return {
+    type: SET_LOGUIN,
+    payload,
+  };
+}
+
+export function getLoguinLocalStore() {
+  return {
+    type: GET_LOGUIN,
+  };
+}
+//develop se dejo por las dudas
 export function getUsers(){
   return async (dispatch) => {
     let response = await axios.get('http://localhost:3001/users/getUsers');
@@ -249,3 +282,4 @@ export function getUsers(){
   }
 }
 
+//develop

@@ -32,9 +32,6 @@ function NavBar({ setPagina, setOrder, setHome}) {
   // const reset = () =>{
   //   dispatch(getCourses(''));
   // }
-  const dataLocalStore = window.localStorage.getItem("cart");
-  const data = JSON.parse(dataLocalStore);
-
 
   useEffect(()=>{
       if(isAuthenticated){        
@@ -44,21 +41,15 @@ function NavBar({ setPagina, setOrder, setHome}) {
       }
   },[isAuthenticated])
 
-  const cart = useSelector(state => state.cart)
-
   const local = useSelector((state) => state.local);
-  //console.log('local',local)
-  //console.log('data',data)
 
   const [storage, setStorage] = useLocalStorage("cart", local)
   
   useEffect(() => {
     setStorage(local);
-  }, []);
+  }, [local]);
 
-
-  console.log(localStorage.getItem('jwt'));
-
+  const loguin = useSelector(state => state.loguin)
 
   return (
     <>
@@ -105,8 +96,7 @@ function NavBar({ setPagina, setOrder, setHome}) {
             </Box>
 
             <Box pl={3}>
-              {!isAuthenticated && <LoginButton />}
-              {isAuthenticated && <LogoutButton />}
+              {loguin ? <LogoutButton /> : <LoginButton />}
               {/* {isAuthenticated && <Profile/>} */}
             </Box>
           </Flex>

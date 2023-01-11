@@ -46,7 +46,7 @@ function CartItem(props) {
             color: '#f1faee'
           }}
         >
-          ${price} x {quantity} = ${quantity * price}
+          USD {price}
         </h5>
         <CardFooter>
           <Button
