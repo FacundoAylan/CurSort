@@ -16,6 +16,7 @@ import HomeFilter from "./homeFilter";
 import { getCategory, getCourses } from "../../Redux/actions";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useAuth0 } from '@auth0/auth0-react';
+import { setUserLocalStore, getUserLocalStore } from '../../Redux/actions/index';
 
 function Home() {
   let info = useSelector(
@@ -39,12 +40,14 @@ function Home() {
 
   //modificación mai local storage
   useLocalStorage("cart", []);
-  const { user, isAuthenticated } = useAuth0();
-
-  const [userLocal, setUserLocal ] = useLocalStorage("user", user || []);
+  const { user } = useAuth0();
 
   useEffect(() => {
-    setUserLocal(user || [])
+    if (user) {
+      dispatch(setUserLocalStore(user));
+    } else {
+      dispatch(getUserLocalStore());
+    }
   }, [user])
   
 

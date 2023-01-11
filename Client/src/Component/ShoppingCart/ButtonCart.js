@@ -2,16 +2,22 @@ import React, { useEffect } from 'react'
 import { Button, Text, GridItem, Center, Box } from "@chakra-ui/react"
 import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useDispatch } from 'react-redux';
+import { getLoguinLocalStore } from '../../Redux/actions/index';
 
 
 function ButtonCart({getTotal}) {
 
   const history = useHistory();
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
-
+  const dispatch = useDispatch();
+  const { loginWithRedirect } = useAuth0();
+  
   useEffect(() => {
     getTotal()
+    dispatch(getLoguinLocalStore())
   }, [getTotal])
+  
+  const loguin = window.localStorage.getItem("loguin");
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -20,7 +26,7 @@ function ButtonCart({getTotal}) {
 
   const handleCheckout = (e) => {
     e.preventDefault();
-    !isAuthenticated ? loginWithRedirect() : history.push('/checkout/information');
+    !loguin ? loginWithRedirect() : history.push('/checkout/information');
   }
 
 
