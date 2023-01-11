@@ -246,9 +246,7 @@ function Detalle() {
               </List>
             </Box>
           </Stack>
-          <Box>
-            <Comentario />
-          </Box>
+         
           <Button
             rounded={"none"}
             w={"full"}
@@ -266,7 +264,9 @@ function Detalle() {
           >
             Add to cart
           </Button>
-
+          <Box>
+            <Comentario />
+          </Box>
           <Stack direction="row" alignItems="center" justifyContent={"center"}>
             <a href="https://github.com/FacundoAylan/CurSort">
               <IconButton
