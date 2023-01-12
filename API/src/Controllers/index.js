@@ -338,16 +338,16 @@ const deleteUser = async (req, res) => {
 //ruta para modificar un usuario
 const editUser = async (req, res) => {
   const {
-    email,
     name,
-    phone,
     lastname,
-    city,
-    adress,
+    email,
     birthday,
-    codePostal,
+    phone,
+    address,
+    city,
     country,
-    gender,
+    postalCode,
+    gender        
   } = req.body;
   try {
     // if (!name || !lastname) return res.status(400).send("Faltan datos");
@@ -358,16 +358,16 @@ const editUser = async (req, res) => {
 
     const userEdit = await editUser.update({
       name,
-      phone,
       lastname,
-      city,
-      adress,
       birthday,
-      codePostal,
+      phone,
+      address,
+      city,
       country,
-      gender,// acepta solo F o M
+      postalCode,
+      gender  // acepta solo F o M
     });
-    res.status(200).send({ message: "Usuario modificado con exito" });
+    res.status(200).send(userEdit);
   } catch (error) {
     res.status(404).send({ message: error.message });
     console.log('Error edit :', error.message)
