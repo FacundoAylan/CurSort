@@ -2,7 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import ShoppingCart from './ShoppingCart';
 import EmptyCart from './EmptyCart';
-import {Text, Grid, GridItem, Box, IconButton} from "@chakra-ui/react";
+import {
+  Text, 
+  Grid, 
+  GridItem, 
+  Box, 
+  IconButton, 
+  Center,
+  Flex,
+} from "@chakra-ui/react";
 import ButtonCart from './ButtonCart';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
@@ -13,10 +21,7 @@ function HomeCart() {
   const dataLocalStore = window.localStorage.getItem("cart");
   const dataLocal = JSON.parse(dataLocalStore);
   const data = dataLocal.flat();
-  
   const local = useSelector((state) => state.local);
-  //console.log("local", local)
-
 
   const [shop, setShop] = useLocalStorage("cart", data);
 
@@ -24,7 +29,6 @@ function HomeCart() {
     setShop(data);
   }, []);
 
- 
   const [total, setTotal] = useState(0);
 
   const getTotal = () => {
@@ -37,8 +41,8 @@ function HomeCart() {
   };
 
   return (
-    <>
-      <Box pt="10px">
+    <Flex>
+      <Box pt="10px" position='fixed' ml='5' mt='3'>
         <Link to="/home">
           <IconButton
             colorScheme="blue"
@@ -47,46 +51,30 @@ function HomeCart() {
           />
         </Link>
       </Box>
+      <Flex justifyContent='center' width='100%' mb='15rem'>
       <Grid
-        minH="100vh"
-        templateRows="repeat(12, 1fr)"
-        templateColumns="repeat(4, 1fr)"
-        mt="0"
         color="gray"
         fontWeight="bold"
+        width='100%'
+        
       >
-        <Text
+        <Center><Text
           fontSize="24px"
           fontWeight="bold"
-          p="10px"
-          gridRowStart={1}
-          gridRowEnd={2}
-          marginBottom="5px"
           color="#f1faee"
-          ml="45vw"
-          w="200px"
+          mt='10'
         >
-          Mi Carrito
-        </Text>
-        <GridItem
-          pl="2"
-          gridRowStart={2}
-          gridRowEnd={7}
-          gridColumnStart={1}
-          gridColumnEnd={5}
-        >
+          Cart
+        </Text></Center>
+        <GridItem>
           {data.length > 0 ? <ShoppingCart data={data} /> : <EmptyCart />}
         </GridItem>
-        <GridItem
-          gridRowStart={8}
-          gridRowEnd={10}
-          gridColumnStart={1}
-          gridColumnEnd={3}
-        >
+        <GridItem mt='5'>
           {data.length > 0 ? <ButtonCart getTotal={getTotal} /> : null}
         </GridItem>
       </Grid>
-    </>
+      </Flex>
+    </Flex>
   );
 }
 
