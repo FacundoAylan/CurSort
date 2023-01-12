@@ -25,7 +25,9 @@ import {
   SET_LOGUIN,
   GET_LOGUIN,
 
-  GET_USERS
+  GET_USERS,
+  GET_ADMIN_COURSES,
+  GET_ORDERS
 
 } from "../action-types";
 
@@ -45,7 +47,7 @@ export function getDetail(id) {
   return async (dispatch) => {
     let response = await axios.get(`http://localhost:3001/courses/${id}`);
 
-    console.log('como llegan los cursos id', response.data)
+   
     dispatch({
       type: GET_DETAIL,
       payload: response.data,
@@ -234,10 +236,10 @@ export function getWarning() {
 }
 
 export function postComment(value) {
-  console.log("Value : ", value);
+  
   return async (dispatch) => {
     let response = await axios.post(`http://localhost:3001/courses/review`,value);
-    console.log('Response : ',response.data)
+  
     dispatch({
       type: 'POST_REVIEWS',
       payload: response.data,
@@ -283,3 +285,33 @@ export function getUsers(){
 }
 
 //develop
+
+export function getAdminCourses(name) {
+  return async (dispatch) => {
+    let response = await axios.get(
+      `http://localhost:3001/courses?name=${name}`
+    );
+    dispatch({
+      type: GET_ADMIN_COURSES,
+      payload: response.data,
+    });
+  };
+}
+
+// pasado por juan
+export function putUser(payload){
+  return async function (dispatch){
+    const put = await axios.put("http://localhost:3001/users/edit", payload);
+    return put;
+  }
+}
+
+export function getOrders(){
+  return async (dispatch) =>{
+    let order = await axios.get("http://localhost:3001/checkout/orders");
+    return dispatch({
+      type: GET_ORDERS,
+      payload: order.data
+    })
+  }
+}

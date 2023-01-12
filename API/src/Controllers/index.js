@@ -213,12 +213,27 @@ const getAllCourses = async (req, res) => {
 const postReview = async (req, res) => {
   try {
     let { name, text, rating, courseId } = req.body;
+    if (!rating) rating = 0;
+
     const newReview = await Reviews.create({
       name,
       text,
       rating,
       courseId: courseId, //relacion con el curso
     });
+
+    const { count, rows } = await Reviews.findAndCountAll({
+      where: { courseId: courseId },
+    });
+
+    let total = 0;
+    let sumaRating = rows.map((r) => {
+      total = total + r.rating;
+    });
+    const ratingCourse = total / count;
+
+    await Courses.update({ rating: ratingCourse }, { where: { id: courseId } });
+
     res.status(200).send({ message: "Reseña creada con exito" });
   } catch (error) {
     res.status(400).send({ message: error.message });
@@ -697,4 +712,3 @@ module.exports = {
   disableAdmin,
   deleteUser,
 };
-
