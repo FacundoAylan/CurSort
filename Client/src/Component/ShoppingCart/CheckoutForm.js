@@ -4,9 +4,9 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import Swal from "sweetalert2";
 import { Link, useHistory } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
+
 import { clearCart } from '../../Redux/actions/index';
-import {Button, Center, Flex, Grid, Image, Text} from '@chakra-ui/react'
+import { Button, Center, Flex, Grid, Image, Text} from '@chakra-ui/react'
 
 function Checkoutform() {
 
@@ -131,6 +131,9 @@ function Checkoutform() {
           ))}
         </Grid>
         </Center>
+
+       
+        
         <CardElement
           options={{
             style: {
@@ -147,6 +150,7 @@ function Checkoutform() {
             },
           }}
         />
+       
         <Flex ml='45%' mt={4}>
           <Link to="/checkout/information">
             <Button>Regresar</Button>

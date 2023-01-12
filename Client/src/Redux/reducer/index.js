@@ -1,4 +1,4 @@
-import { filter } from "@chakra-ui/react";
+// import { filter } from "@chakra-ui/react";
 import {
   GET_DETAIL,
   GET_COURSES,
@@ -38,8 +38,9 @@ let initialState = {
   filterCurses: [],
   cart: [],
   local: JSON.parse(window.localStorage.getItem("cart")) || [],
-  user: {},
+  user: [],
   loguin: JSON.parse(window.localStorage.getItem("loguin")) || false,
+  userEmail:[]
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -372,6 +373,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         orders: action.payload,
       };
+      case "GET_USER_EMAIL":
+        return{
+          ...state,
+          userEmail: action.payload
+        }
     default:
       return state;
   }
