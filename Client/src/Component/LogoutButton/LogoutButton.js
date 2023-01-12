@@ -17,7 +17,7 @@ const LogoutButton = () => {
   },[user, dispatch])
   
   const userLocalStorage = JSON.parse(window.localStorage.getItem("user"))
-  console.log(userLocalStorage)
+
   
   const handleLogout = () => {
     logout({ returnTo: 'http://localhost:3000/home' });

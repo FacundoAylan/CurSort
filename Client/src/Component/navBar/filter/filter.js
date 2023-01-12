@@ -48,7 +48,7 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
 
 
   function handleOrderByPrice(e) {
-    //console.log(e.target.value);
+  
     e.preventDefault();
     setPagina(1);
     dispatch(orderByPrice(e.target.value));

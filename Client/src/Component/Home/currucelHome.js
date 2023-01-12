@@ -20,7 +20,7 @@ const settings = {
 };
 
 function CarouselHome({ categorie }) {
-  // //console.log('categorie carrucel : ', categorie)
+
 
   let info = useSelector(
     (state) => state.courses,

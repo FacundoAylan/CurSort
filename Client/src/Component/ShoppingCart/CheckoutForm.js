@@ -13,7 +13,7 @@ function Checkoutform() {
     const stripe = useStripe();
     const elements = useElements();
     const user = JSON.parse(window.localStorage.getItem("user"));
-    console.log(user)
+   
     const history = useHistory();
     const dispatch = useDispatch();
 

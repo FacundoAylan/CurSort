@@ -22,6 +22,8 @@ import {
   AccordionButton,
   AccordionIcon,
   AccordionPanel,
+ 
+  Select,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -41,13 +43,11 @@ function Detalle() {
   const [rating, setRating] = useState(4);
   const history = useHistory();
   const local = useSelector((state) => state.local);
-  //localStore
+
   const user = JSON.parse(window.localStorage.getItem("user"));
   const loguin = JSON.parse(window.localStorage.getItem("loguin"));
 
-  const reviews = course.reviews
-  console.log('reviews : ' , reviews)
-
+  const reviews = course.reviews;
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -109,35 +109,50 @@ function Detalle() {
   }
 
   function Comentario() {
-
     const userEmail = loguin ? user.email : "";
-    console.log("userEmail", user.email);
-  
+    // console.log("userEmail", user.email);
+
     let [value, setValue] = React.useState({
       name: userEmail,
       text: "",
       courseId: id,
+      rating: "",
     });
 
-    let handleInputChange = (e) => {
-      let inputValue = e.target.value;
-      setValue({ ...value, text: inputValue });
+    let handleInputChange = (e) => {      
+      setValue({...value, [e.target.id]:e.target.value });
     };
 
+    
     const handleComment = (e) => {
       dispatch(postComment(value));
       setTimeout(() => {
-      setValue({ name: userEmail, text: "", rating: "", courseId: id });
-      dispatch(getDetail(id));
-      history.push(`/detalle/${id}`);
+        setValue({ name: userEmail, text: "", rating: "", courseId: id });
+        dispatch(getDetail(id));
+        history.push(`/detalle/${id}`);
       }, 500);
-     
     };
 
     return (
       <>
+       <Text mb="8px">Rating: </Text>
+       <Select
+            // placeholder="Enter an option:"
+            id="rating"
+            onChange={handleInputChange}
+            color='white'
+          >
+            <option style={{backgroundColor: '#191E29'}}>Enter an option:</option>
+            <option style={{backgroundColor: '#191E29'}} value="1">1</option>
+            <option style={{backgroundColor: '#191E29'}} value="2">2</option>
+            <option style={{backgroundColor: '#191E29'}} value="3">3</option>
+            <option style={{backgroundColor: '#191E29'}} value="4">4</option>
+            <option style={{backgroundColor: '#191E29'}} value="5">5</option>
+          </Select>
+        <Text mb="8px">Comment :</Text>
         <Textarea
           name="comment"
+          id="text"
           //value={value}
           onChange={handleInputChange}
           placeholder="Leave a comment"
@@ -157,23 +172,20 @@ function Detalle() {
         {/* acordeon de comentarios*/}
         <Box>
           <Accordion defaultIndex={[0]} allowMultiple>
-          
             {reviews &&
-             reviews.map((review) => {
-                console.log('dentro del map',course)
+              reviews.map((review) => {
+                // console.log("dentro del map", course);
                 return (
                   <AccordionItem>
                     <h2>
                       <AccordionButton>
                         <Box as="span" flex="1" textAlign="left">
-                        Comment from :  {review.name}
+                          Comment from : {review.name}
                         </Box>
                         <AccordionIcon />
                       </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={4}>
-                     {review.text}
-                    </AccordionPanel>
+                    <AccordionPanel pb={4}>{review.text}</AccordionPanel>
                   </AccordionItem>
                 );
               })}
@@ -182,6 +194,8 @@ function Detalle() {
       </>
     );
   }
+
+ 
   return (
     <Container maxW={"100%"} bg="#191E29" color="white" m={0} px={4}>
       <Box pt="10px">
@@ -278,8 +292,10 @@ function Detalle() {
                   <ListItem>{`Duration: ${course.duration} hs`}</ListItem>{" "}
                 </List>
                 <List spacing={2}>
+
                   <ListItem>{`Released date: ${course.released && course.released.slice(0, 10)}`}</ListItem>
                   <ListItem>{`Difficulty: ${course.difficulty}`}</ListItem>
+
                 </List>
               </SimpleGrid>
             </Box>
@@ -302,7 +318,9 @@ function Detalle() {
                 </ListItem>
               </List>
             </Box>
+
           </Stack>          
+
         </Stack>
       </SimpleGrid>
     </Container>
