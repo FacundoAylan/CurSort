@@ -17,11 +17,10 @@ const LogoutButton = () => {
   },[user, dispatch])
   
   const userLocalStorage = JSON.parse(window.localStorage.getItem("user"))
-
   
   const handleLogout = () => {
     logout({ returnTo: 'http://localhost:3000/home' });
-    dispatch(setUserLocalStore([]));
+    dispatch(setUserLocalStore({}));
     dispatch(setLoguinLocalStore(false));
   };
 

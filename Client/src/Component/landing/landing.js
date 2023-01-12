@@ -9,23 +9,24 @@ import Promociones from "./Promociones/Promociones";
 import Nosotros from "./nosotros/nosotros";
 import Instructor from "./instructor/instructor";
 import { useLocalStorage } from "../../hooks/useLocalStorage"; //modificación mai local storage
-import { useDispatch, useSelector } from "react-redux";
-import { setUserLocalStore } from "../../Redux/actions/index";
+import { useDispatch } from "react-redux";
+import { getUserLocalStore, setUserLocalStore } from "../../Redux/actions/index";
+import { useAuth0 } from '@auth0/auth0-react';
+
 
 function Landing () {
   //modificación mai local storage
-  const userLocalStorage = useSelector(state => state.user)
- 
-
   useLocalStorage("cart", []);
-
+  const { user } = useAuth0();
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
-    if (!userLocalStorage) {
-      dispatch(setUserLocalStore({}));
+    if (user) {
+      dispatch(setUserLocalStore(user));
+    } else {
+      dispatch(getUserLocalStore());
     }
-  }, [userLocalStorage])
+  }, [user, dispatch])
 
   return (
     <>

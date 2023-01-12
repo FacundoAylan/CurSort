@@ -34,8 +34,8 @@ function Home() {
   const categories = useSelector(state => state.categories)
   useEffect(() => {
     dispatch(getCategory());
-  },[]);
-  console.log(categories)
+  },[dispatch]);
+
   const [pagina, setPagina] = useState(1);
   const porPagina = 10;
   const maximo = Math.ceil(info.length / porPagina);
@@ -51,7 +51,7 @@ function Home() {
     } else {
       dispatch(getUserLocalStore());
     }
-  }, [user])
+  }, [user, dispatch])
   
 
   return (
