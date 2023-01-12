@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
-import { Button, Text, GridItem, Center, Box } from "@chakra-ui/react"
+import { Button, Text, GridItem, Center, Box, Grid, Flex } from "@chakra-ui/react"
 import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch } from 'react-redux';
 import { getLoguinLocalStore } from '../../Redux/actions/index';
-
 
 function ButtonCart({getTotal}) {
 
@@ -31,21 +30,52 @@ function ButtonCart({getTotal}) {
 
 
   return (
-    <GridItem>
-      <Box ml='65%'>
-        <Text fontSize="lg" fontWeight="bold" color='#f1faee'  m="10px">
-          TOTAL             USD  {getTotal()}
-        </Text>
+    <Flex 
+      width='100%' 
+      justifyContent='center' 
+      position='fixed' 
+      zIndex='100' 
+      bottom='0' 
+      >
+    <GridItem 
+      width='100%' 
+      py='3'
+      pb='5'
+      borderTop='2px'
+      borderColor='blue'
+      bg='#101725'
+      >
+      <Box>
+        <Center>
+          <Text 
+            fontSize="lg" 
+            fontWeight="bold" 
+            color='#f1faee'
+            mb='4'
+            >
+              TOTAL US ${getTotal()}
+          </Text>
+        </Center>
       </Box>
-      <Box ml='50%'>
-        <Button onClick={handleCheckout} colorScheme="blue" variant="solid" m="10px">
-          FINALIZAR COMPRA
+      <Center><Box>
+        <Button 
+          colorScheme="teal" 
+          variant="outline" 
+          onClick={handleClick}
+          >
+            Continue buying
         </Button>
-        <Button colorScheme="blue" variant="outline" onClick={handleClick}>
-          CONTINUAR COMPRANDO
+        <Button 
+          onClick={handleCheckout} 
+          colorScheme="teal" 
+          variant="solid" 
+          ml="10px"
+          >
+            Finalize purchase
         </Button>
-      </Box>
+      </Box></Center>
     </GridItem>
+    </Flex>
   );
 }
 

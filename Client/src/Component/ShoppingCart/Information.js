@@ -132,13 +132,22 @@ function Information() {
         <Box ml='43%'>
           <Stack direction="row" spacing={4} align="center">
             <Link to="/checkout">
-              <Button colorScheme="teal" variant="outline">
-                Regresar
+              <Button 
+                colorScheme="teal" 
+                variant="outline"
+                width='5rem'
+                >
+                  Back
               </Button>
             </Link>
 
-            <Button colorScheme="teal" variant="solid" onClick={handleSubmit}>
-              Pagar
+            <Button 
+              colorScheme="teal" 
+              variant="solid" 
+              onClick={handleSubmit}
+              width='5rem'
+              >
+                Next
             </Button>
           </Stack>
         </Box>

@@ -6,9 +6,13 @@ import Swal from "sweetalert2";
 import { Link, useHistory } from 'react-router-dom';
 
 import { clearCart } from '../../Redux/actions/index';
-import { Button, Center, Flex, Grid, Image, Text} from '@chakra-ui/react'
+import {Button, Center, Flex, Grid, Image, Text, Box} from '@chakra-ui/react'
 
 function Checkoutform() {
+
+  
+  
+  // Pass the appearance object to the Elements instance
 
     const stripe = useStripe();
     const elements = useElements();
@@ -68,7 +72,7 @@ function Checkoutform() {
                    await  Swal.fire({
                         position: 'center',
                         icon: 'success',
-                        title: 'Pago realizado con éxito, a la brevedad recibirá un email con el link de descarga del curso',
+                        title: 'Payment made successfully! You will soon receive an e-mail with the download link.',
                         showConfirmButton: false,
                         timer: 4000
                       })
@@ -112,18 +116,20 @@ function Checkoutform() {
               <Image
                 src={cart.image}
                 alt={cart.name}
-                w="100px"
+                w="135px"
                 h="100px"
                 borderLeftRadius={12}
+                objectFit='cover'
               />
+      
               <Flex
                 flexDirection="column"
                 pt={7}
                 fontSize={18}
                 color="white"
-                pl={2}
+                width='100%'
               >
-                <Text>{cart.name}</Text>
+                <Center><Text>{cart.name}</Text></Center>
                 <Center>usd {cart.price}</Center>
               </Flex>
             </Flex>
@@ -132,10 +138,11 @@ function Checkoutform() {
         </Grid>
         </Center>
 
-       
-        
+        {/* Elementos de la tarjeta */}
         <CardElement
           options={{
+            
+            
             style: {
               base: {
                 fontSize: "16px",
@@ -149,14 +156,31 @@ function Checkoutform() {
               },
             },
           }}
+            
         />
-       
+        {/*  */}
+
         <Flex ml='45%' mt={4}>
           <Link to="/checkout/information">
-            <Button>Regresar</Button>
+            <Button 
+              colorScheme="teal" 
+              variant="outline"
+              width='5rem'
+              >
+                Back
+            </Button>
           </Link>
 
-          <Button type='submit' isDisabled ={!stripe || !elements} ml={3}>Pagar</Button>
+          <Button 
+            colorScheme="teal" 
+            variant="solid" 
+            type='submit' 
+            isDisabled ={!stripe || !elements} 
+            ml={3}
+            width='5rem'
+            >
+              Buy
+            </Button>
         </Flex>
       </form>
     </div>
