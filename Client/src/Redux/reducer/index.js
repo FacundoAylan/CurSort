@@ -12,7 +12,7 @@ import {
   ORDER_BY_PRICE,
   ORDER_BY_PUBLISHED,
   ORDER_BY_RATING,
-
+  GET_ORDERS,
   ADD_TO_CART,
   REMOVE_ONE_FROM_CART,
   REMOVE_ALL_FROM_CART,
@@ -44,6 +44,12 @@ const rootReducer = (state = initialState, action) => {
         allCourses: action.payload,
         courses: action.payload,
       };
+
+      case 'GET_ORDERS':
+        return{
+              ...state,
+              orders: action.payload
+        }
     case GET_DETAIL:
       return {
         ...state,

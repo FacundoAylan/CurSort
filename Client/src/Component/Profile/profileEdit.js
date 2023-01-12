@@ -254,8 +254,8 @@ function handleChange(e){
                 
                 </Input>
               <Select placeholder='Gender'>
-              <option value='Female'>F</option>
-              <option value='Male'>M</option>
+              <option value='F'>Female</option>
+              <option value='M'>Male</option>
               </Select>
               
               </FormControl>
