@@ -244,6 +244,7 @@ const getUsers = async (req, res) => {
   try {
     const users = await Users.findAll();
     res.json(users);
+    // console.log("user api", users);
   } catch (error) {
     res.status(401).json(error.name);
   }
@@ -335,23 +336,40 @@ const deleteUser = async (req, res) => {
 
 //ruta para modificar un usuario
 const editUser = async (req, res) => {
-  const { name, lastname, birthday, country, gender } = req.body;
+  const {
+    email,
+    name,
+    phone,
+    lastname,
+    city,
+    adress,
+    birthday,
+    codePostal,
+    country,
+    gender,
+  } = req.body;
   try {
-    if (!name || !lastname) return res.status(400).send("Faltan datos");
+    // if (!name || !lastname) return res.status(400).send("Faltan datos");
+
     const editUser = await Users.findOne({
-      where: { name: name },
+      where: { email: email },
     });
 
     const userEdit = await editUser.update({
       name,
+      phone,
       lastname,
+      city,
+      adress,
       birthday,
+      codePostal,
       country,
-      gender, // acepta solo F o M
+      gender,// acepta solo F o M
     });
     res.status(200).send({ message: "Usuario modificado con exito" });
   } catch (error) {
     res.status(404).send({ message: error.message });
+    console.log('Error edit :', error.message)
   }
 };
 
@@ -653,7 +671,7 @@ const postPayment = async (req, res, next) => {
 
     await newOrder.addCourse(course);
     await newOrder.addUser(buyer);
-
+    await buyer.addCourse(course) //agregue la relacion usuario => curso comprado
     res.send({ message: "success" });
 
     next();
@@ -687,6 +705,31 @@ const getToken = (req, res) => {
   res.send(token);
 };
 
+const getUserEmail = async (req, res) => {
+  const { email } = req.query;
+  try {
+    const findUser = await Users.findOne({
+      where: { email: email },
+      include: [
+        {
+          model: Courses,
+          attributes: ["name", "description", "rating"],
+        },
+        {
+          model: Orders,
+          attributes: ["stripe_id", "status"],
+        },
+      ],
+    });
+    if (findUser) {     
+      res.status(200).json(findUser);
+    } else {
+      res.status(404).json({ message: "Usuario no encontrado" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 module.exports = {
   postCourse,
   getAllCourses,
@@ -711,4 +754,5 @@ module.exports = {
   getUsers,
   disableAdmin,
   deleteUser,
+  getUserEmail,
 };

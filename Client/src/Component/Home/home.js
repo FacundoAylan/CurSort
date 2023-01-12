@@ -13,7 +13,7 @@ import Footer from "../landing/footer/footer";
 import CarouselHome from "./currucelHome";
 import Filter from "../navBar/filter/filter";
 import HomeFilter from "./homeFilter";
-import { getCategory, getCourses } from "../../Redux/actions";
+import { getCategory, getCourses,} from "../../Redux/actions";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useAuth0 } from '@auth0/auth0-react';
 import { setUserLocalStore, getUserLocalStore } from '../../Redux/actions/index';
@@ -31,11 +31,10 @@ function Home() {
     dispatch(getCourses(""));
     dispatch(getCategory());
   }, [dispatch]);
+  
   const categories = useSelector(state => state.categories)
-  useEffect(() => {
-    dispatch(getCategory());
-  },[]);
-  console.log(categories)
+  
+  
   const [pagina, setPagina] = useState(1);
   const porPagina = 10;
   const maximo = Math.ceil(info.length / porPagina);
