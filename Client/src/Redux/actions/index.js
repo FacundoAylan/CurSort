@@ -315,3 +315,17 @@ export function getOrders(){
     })
   }
 }
+
+export function getUserEmail(email){
+  return async (dispatch) =>{
+    let userEmail = await axios.get(`http://localhost:3001/users/userEmail?email=${email}`);
+    return dispatch({
+      type: "GET_USER_EMAIL",
+      payload: userEmail.data
+    })
+  }
+}
+// const getUserEmail= async function (email){
+//   const userEmail = await axios.get(`http://localhost:3001/users/userEmail?email=${email}`)
+//   return userEmail.data
+// } 

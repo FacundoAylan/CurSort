@@ -1,21 +1,8 @@
 import React from "react";
-// import { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { Link } from "react-router-dom";
 import {
-  // Grid,
-  // Tabs,
-  // TabList,
-  // Tab,
   Menu,
   Button,
-  // Popover,
-  // PopoverTrigger,
-  // Portal,
-  // PopoverContent,
-  // PopoverArrow,
-  // PopoverCloseButton,
-  // PopoverBody,
   MenuButton,
   MenuList,
   Flex,
@@ -38,15 +25,6 @@ import {
 function Filter({ setPagina, setOrder, booleano, setHome }) {
 
   const dispatch = useDispatch();
-
-  // function handleOrderByName(e) {
-  //   e.preventDefault();
-  //   setPagina(1);
-  //   dispatch(getCourses(e.target.value));
-  //   setPagina(1)
-  //   setOrder("order" + e.target.value);
-  // }
-
 
   function handleOrderByPrice(e) {
   
@@ -76,6 +54,7 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
   function handleCleanFilters(e) {
     e.preventDefault();
     dispatch(cleanFilters());
+    setHome(true)
   }
 
   return (

@@ -3,14 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
-  IconButton,
-  Table,
-  TableContainer,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,  
+  IconButton, 
   Select,
   Input,
   FormControl,
@@ -21,26 +14,31 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
-import { getUsers, putUser, getOrders } from "../../Redux/actions/index";
+import { putUser, } from "../../Redux/actions/index";
+
 
 
 const ProfileEdit = () => {
-const users = useSelector((state) => state.users);
 const dispatch = useDispatch();
-const order = useSelector((state) => state.orders )
+
+const newUser = useSelector((state) => state.userEmail)
+
+// console.log('new user :', newUser)
 
 const [input, setInput] = useState({
-       email: "",
-        name: "",
-        lastname: "",
-        phone: "",
-        country: "",
-        city: "",
-        adress: "",
-        codePostal: "",
-        gender:"",
-        birthday:""
-      });
+      email: newUser.email,
+      name: newUser.name,
+      lastname: newUser.lastname,
+      phone: newUser.phone,
+      country: newUser.country,
+      city: newUser.city,
+      adress: newUser.adress,
+      codePostal: newUser.codePostal,
+      gender:newUser.gender? newUser.gender: '',
+      birthday: newUser.birthday,
+      imagen:newUser.imagen
+    });
+
 
   function handleSubmit(e){
         e.preventDefault()
@@ -57,7 +55,7 @@ const [input, setInput] = useState({
           gender:"",
           birthday:""
         })
-       
+               
     }
 
 
@@ -68,10 +66,7 @@ function handleChange(e){
         })      
     }
 
-    useEffect(() => {
-      dispatch(getUsers());
-    }, [dispatch]);
-
+   
   return (
     <>
       <Box pt="10px">
@@ -83,56 +78,7 @@ function handleChange(e){
           />
         </Link>
       </Box>
-      <TableContainer color="white">
-        <Table>
-          <Tbody>
-            {order &&
-              order.map((e) => {
-                return (
-                  <Tr>
-                    <Td>{e.courses.name}</Td>
-                  </Tr>
-                );
-              })}
-          </Tbody>
-        </Table>
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>Email</Th>
-              <Th>Name</Th>
-              <Th>Lastname</Th>
-              <Th>Phone</Th>
-              <Th>Country</Th>
-              <Th>City</Th>
-              <Th>Adress</Th>
-              <Th>Code P.</Th>
-              <Th>Gender</Th>
-              <Th>Birthday</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {users &&
-              users.map((el) => {
-                return (
-                  <Tr>
-                    <Td>{el.email}</Td>
-                    <Td>{el.name}</Td>
-                    <Td>{el.lastname}</Td>
-                    <Td>{el.phone}</Td>
-                    <Td>{el.country}</Td>
-                    <Td>{el.city}</Td>
-                    <Td>{el.adress}</Td>
-                    <Td>{el.postalCode}</Td>
-                    <Td>{el.gender}</Td>
-                    <Td>{el.birthday}</Td>
-                  </Tr>
-                );
-              })}
-          </Tbody>
-        </Table>
-      </TableContainer>
-      
+     
       <form onSubmit={(e) => handleSubmit(e)}>
         <Center color="white" fontSize={30}>
           Edit Profile
@@ -147,6 +93,7 @@ function handleChange(e){
             <FormControl>
               <Center>Name</Center>
               <Input
+              value={input.name}
                 color="white"
                 className="form-control"
                 name="name"
@@ -159,8 +106,9 @@ function handleChange(e){
 
           <GridItem pl={3} pr={3}>
             <FormControl>
-              <Center>Last Name</Center>
+              <Center>Lastname</Center>
               <Input
+              value={input.lastname}
                 color="white"
                 className="form-control"
                 name="lastname"
@@ -175,6 +123,7 @@ function handleChange(e){
             <FormControl>
               <Center>Phone</Center>
               <Input
+                value={input.phone}
                 color="white"
                 className="form-control"
                 name="phone"
@@ -189,6 +138,7 @@ function handleChange(e){
             <FormControl>
               <Center>Country </Center>
               <Input
+              value={input.country}
                 color="white"
                 className="form-control"
                 name="country"
@@ -203,6 +153,7 @@ function handleChange(e){
             <FormControl>
               <Center>City</Center>
               <Input
+              value={input.city}
                 color="white"
                 className="form-control"
                 name="city"
@@ -217,6 +168,7 @@ function handleChange(e){
             <FormControl>
               <Center>Adress</Center>
               <Input
+              value={input.adress}
                 color="white"
                 className="form-control"
                 name="adress"
@@ -230,6 +182,7 @@ function handleChange(e){
             <FormControl>
               <Center>Postal Code</Center>
               <Input
+              value={input.postalCode}
                 color="white"
                 className="form-control"
                 name="postalCode"
@@ -244,23 +197,24 @@ function handleChange(e){
             <FormControl>
               <Center>Gender</Center>
               <Select
+              value={input.gender}
                 placeholder="Gender"
                 style={{ backgroundColor: "#191E29" }}
                 onChange={handleChange}
                 name="gender"
               >
-                <option value="Female" style={{ backgroundColor: "#191E29" }}>
-                  F
+                <option value="F" style={{ backgroundColor: "#191E29" }}>
+                Female
                 </option>
-                <option value="Male" style={{ backgroundColor: "#191E29" }}>
-                  M
+                <option value="M" style={{ backgroundColor: "#191E29" }}>
+                Male
                 </option>
               </Select>
             </FormControl>
           </GridItem>
         </Grid>
         <Center>
-          <Button type="submit" p={2} color="green" w='50px'>
+          <Button onClick={handleSubmit} type="submit" p={2} color="green" w='50px'>
             Edit
           </Button>
         </Center>

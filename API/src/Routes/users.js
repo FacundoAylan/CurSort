@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { disableUser, createUser, editUser, getUsers, disableAdmin, deleteUser} = require('../Controllers/index.js');
+const { disableUser, createUser, editUser, getUsers, disableAdmin, deleteUser, getUserEmail, } = require('../Controllers/index.js');
 const autorization = require('../middleware/autorization.js');
 
 
@@ -12,5 +12,6 @@ router
     .delete('/delete', deleteUser)
     .put('/edit', editUser)
     .get('/getUsers', getUsers)
+    .get('/userEmail',getUserEmail )
 
 module.exports = router;

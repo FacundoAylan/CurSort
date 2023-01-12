@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import Swal from "sweetalert2";
 import { Link, useHistory } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
+
 import { clearCart } from '../../Redux/actions/index';
 import {Button, Center, Flex, Grid, Image, Text, Box} from '@chakra-ui/react'
 
@@ -91,7 +91,7 @@ function Checkoutform() {
                 }
             } catch (error) {
 
-                //console.log(error)
+                console.log(error)
             }
         } else {
             Swal.fire({
@@ -101,7 +101,6 @@ function Checkoutform() {
                 showConfirmButton: false,
                 timer: 1500
                 })
-            //console.log(error.message)
         }
     };
 
@@ -160,6 +159,7 @@ function Checkoutform() {
             
         />
         {/*  */}
+
         <Flex ml='45%' mt={4}>
           <Link to="/checkout/information">
             <Button 
