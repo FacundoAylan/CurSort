@@ -32,9 +32,9 @@ import {
   getCourses,
   postComment,
 } from "../../Redux/actions";
-import { BsGithub, BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { ArrowForwardIcon, ArrowLeftIcon } from "@chakra-ui/icons";
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 
 function Detalle() {
   let { id } = useParams();
@@ -42,7 +42,7 @@ function Detalle() {
   const course = useSelector((state) => state.courseDetail);
   const [rating, setRating] = useState(4);
   const history = useHistory();
-  const local = useSelector((state) => state.local);
+  // const local = useSelector((state) => state.local);
 
   const user = JSON.parse(window.localStorage.getItem("user"));
   const loguin = JSON.parse(window.localStorage.getItem("loguin"));
