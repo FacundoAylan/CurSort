@@ -283,21 +283,22 @@ const createUser = async (req, res) => {
 
 //Deshabilita el usuario por email
 const disableUser = async (req, res) => {
-  const { email } = req.query;
+  const { mail} = req.query;
 
   try {
-    const user = await Users.findOne({ where: { email } });
+    const user = await Users.findOne({ where: { email: mail } });
     if (user) {
-      await Users.update({ enabled: !user.enabled }, { where: { email } });
+      await Users.update({ enabled: !user.enabled }, { where: { email: mail } });
       res
         .status(200)
-        .json({ message: `estado enabled del usuario ${!user.enabled}` });
+        .json({ message: `estado admin del usuario ${!user.enabled}` });
     } else {
       res.status(404).json({ message: "Usuario no encontrado" });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
+ 
 };
 
 const disableAdmin = async (req, res) => {

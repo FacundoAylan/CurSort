@@ -34,7 +34,7 @@ function ListUsers() {
  
   const handle = async (email)=>{
   try {
-    await axios.put(`http://localhost:3001/users/disable?email=${email}`);
+    await axios.put(`http://localhost:3001/users/disable?mail=${email}`);
     dispatch(getUsers());
   } catch(error){
     console.log(error);

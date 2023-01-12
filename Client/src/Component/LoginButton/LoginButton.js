@@ -13,7 +13,7 @@ const LoginButton = () => {
 
  
   const handleLogin = () => {
-    dispatch(setUserLocalStore({}));
+    dispatch(setUserLocalStore([]));
     dispatch(setLoguinLocalStore(true));
     loginWithRedirect();
   }
