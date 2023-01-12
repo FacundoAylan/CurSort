@@ -1,15 +1,32 @@
 import React from 'react'
-import { Grid, GridItem, Button } from '@chakra-ui/react'
+import { MenuItem } from '@chakra-ui/react'
 
 const OrderPrice = ({handleOrderByPrice}) => {
   
   return (
-    <div>
-      <Grid gridTemplateRows="repeat(2, 45px)" p={0}>
-        <Button onClick={(e)=>handleOrderByPrice(e)} value="desc">Higher price</Button>
-        <Button onClick={(e)=>handleOrderByPrice(e)} value="asc">Lower price</Button>
-      </Grid>
-    </div>
+    <>
+      <MenuItem 
+        onClick={(e)=>handleOrderByPrice(e)} 
+        value="desc"
+        bg='black'
+        color='white'
+        justifyContent='center'
+        _hover={{ bg: 'gray.600' }}
+        >
+          Higher price
+      </MenuItem>
+      
+      <MenuItem 
+        onClick={(e)=>handleOrderByPrice(e)} 
+        value="asc"
+        bg='black'
+        color='white'
+        justifyContent='center'
+        _hover={{ bg: 'gray.600' }}
+        >
+          Lower price
+      </MenuItem>
+    </>
   );
 }
 
