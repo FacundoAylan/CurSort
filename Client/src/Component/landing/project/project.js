@@ -20,7 +20,9 @@ function project() {
           />
         </Link>
       </Box>
-      <Center color='white' fontSize={35} p={4}>
+      <Center color='white' fontSize={35} p={4}
+      
+      >
           ¿Quienes somos?
       </Center>
       <Box fontSize={18}>
@@ -161,8 +163,8 @@ function project() {
 
       </SimpleGrid>
       
+    
       </>
-
   )
 }
 

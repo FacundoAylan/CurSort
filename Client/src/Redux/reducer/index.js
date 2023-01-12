@@ -32,6 +32,7 @@ let initialState = {
   filterCurses: [],
   cart: [],
   users : [],
+  orders:[],
   local: JSON.parse(localStorage.getItem("cart")) || [],
 };
 
@@ -234,7 +235,10 @@ const rootReducer = (state = initialState, action) => {
             warnings: 'no match found',
           };
         }
-  
+        case 'PUT_USER':
+          return{
+              ...state,
+          }
 
     case ADD_TO_CART:
       const newItem = state.allCourses.find(

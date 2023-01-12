@@ -63,7 +63,7 @@ function ListUsers() {
             <Tr>
               <Th>Email</Th>
               <Th>Name</Th>
-              <Th pl="2%">Surname</Th>
+              <Th pl="2%">Lastname</Th>
               <Th pl="3%">Phone</Th>
               <Th pl="1%">Admin</Th>
               <Th>Enable</Th>

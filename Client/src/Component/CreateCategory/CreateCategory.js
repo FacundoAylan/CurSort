@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-
+import { useHistory } from "react-router-dom";
 import {
   Button,
   Input,
@@ -20,19 +20,23 @@ import { createNewCategory ,getCategory } from "../../Redux/actions/index";
 function CreateCategory() {
   const initialState = { name: "" };
   let [category, setCategory] = React.useState(initialState);
-
+  const history = useHistory()
   //   const [name, setName] = useState("")
   const [alerta, setAlert] = useState(false);
   const dispatch = useDispatch();
 
   const onChange = (e) => {
     setCategory({ ...category, name: e.target.value });
+    
   };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
     dispatch(createNewCategory(category));
-    setCategory(initialState);
+    setCategory({
+      initialState
+    });
+   
     setAlert(true);
     getCategory()
   };
@@ -77,9 +81,11 @@ function CreateCategory() {
           <AlertIcon />
           Category created successfully!
         </Alert>
-      )}
+      )
+    }
     </>
   );
+  history.push('/home')
 }
 
 export default CreateCategory;

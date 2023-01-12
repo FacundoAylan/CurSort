@@ -1,7 +1,6 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Button, Center, Grid, GridItem } from '@chakra-ui/react';
-import CreateCategory from '../admin/CreateCategory/CreateCategory';
 import { Link } from 'react-router-dom';
 
 const Profile = () => {
@@ -25,7 +24,7 @@ const Profile = () => {
             Compras
         </Button>
       </GridItem> */}
-
+			<Link to='editprofile'>
 			<Button
 				background='black'
 				color='white'
@@ -37,6 +36,7 @@ const Profile = () => {
 			>
 				Settings
 			</Button>
+			</Link>
 
 			<Link to='/cursos'>
 				<Button

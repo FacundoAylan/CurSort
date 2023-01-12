@@ -323,6 +323,12 @@ const editUser = async (req, res) => {
       birthday,
       country,
       gender, // acepta solo F o M
+      city,
+      adress,
+      phone,
+      codePostal
+
+
     });
     res.status(200).send({ message: "Usuario modificado con exito" });
   } catch (error) {
@@ -345,9 +351,11 @@ const getCategories = async (req, res) => {
 };
 
 const postCategory = async (req, res) => {
-  const { name } = req.body;
   try {
-    await Categories.create({ name });
+  const { name } = req.body;
+    await Categories.create({ 
+      name
+    });
     res.status(200).send("La categoría ha sido creada con éxito.");
   } catch (error) {
     res.status(400).send(`ocurrio un error ${error}`);

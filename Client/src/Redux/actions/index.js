@@ -20,7 +20,8 @@ import {
   CLEAR_CART,
   CLEAN_FILTERS,
   GET_WARNING,
-  GET_USERS
+  GET_USERS,
+  GET_ORDERS
 } from "../action-types";
 
 export function getCourses(name) {
@@ -55,6 +56,16 @@ export function getCategory() {
     });
   };
   
+}
+
+export function getOrders(){
+  return async (dispatch) =>{
+    let order = await axios.get("http://localhost:3001/checkout/orders");
+    return dispatch({
+      type: GET_ORDERS,
+      payload: order.data
+    })
+  }
 }
 
 export function getFilterCategory(id) {
@@ -245,6 +256,13 @@ export function getUsers(){
       type: GET_USERS,
       payload : response.data
     })
+  }
+}
+
+export function putUser(payload){
+  return async function (dispatch){
+    const put = await axios.put("http://localhost:3001/users/edit", payload);
+    return put;
   }
 }
 
