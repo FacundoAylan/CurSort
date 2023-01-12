@@ -23,10 +23,8 @@ function project() {
       <Center color='white' fontSize={35} p={4}>
           ¿Quienes somos?
       </Center>
-      <Box fontSize={18}>
+      <Box fontSize={18} fontFamily='arial'>
       <Text color='white' >
-        //ESTE TEXTO HAY QUE EDITARLO Y ARMARLO COMO UN PARRAFO, LINDO Y HERMOSHO//
-        <br></br>
         Somos un grupo de estudiantes de Full Stack Developer(soy Henry), Esta
         pagina es nuestro proyecto final , que se trata de un ecommerce de
         ventas de cursos de programación, en el cual vas a poder: 

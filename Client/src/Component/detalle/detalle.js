@@ -32,20 +32,24 @@ import {
   getCourses,
   postComment,
 } from "../../Redux/actions";
-import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import {  BsStar, BsStarFill } from "react-icons/bs";
 import { ArrowForwardIcon, ArrowLeftIcon } from "@chakra-ui/icons";
-// import { useAuth0 } from "@auth0/auth0-react";
+import Rating2 from "./rating/rating";
 
 function Detalle() {
   let { id } = useParams();
   const dispatch = useDispatch();
   const course = useSelector((state) => state.courseDetail);
-  const [rating, setRating] = useState(4);
   const history = useHistory();
   // const local = useSelector((state) => state.local);
 
   const user = JSON.parse(window.localStorage.getItem("user"));
   const loguin = JSON.parse(window.localStorage.getItem("loguin"));
+  
+  
+  const [number, setNumber] = useState(0);
+  const [hoverStar, setHoverStar] = useState(undefined);
+
 
   const reviews = course.reviews;
 
@@ -74,33 +78,23 @@ function Detalle() {
               const roundedRating = Math.round(rating * 2) / 2;
               if (roundedRating - i >= 1) {
                 return (
-                  <Button bg="none">
+                  <Box bg="none" fontSize={20} pl={2}>
                     <BsStarFill
                       key={i}
                       color={i < rating ? "yellow" : "gray.300"}
                     />
-                  </Button>
+                  </Box>
                 );
               }
-              if (roundedRating - i === 0.5) {
-                return (
-                  <Button bg="none">
-                    <BsStarHalf
-                      background="white"
-                      key={i}
-                      style={{ marginLeft: "1" }}
-                    />
-                  </Button>
-                );
-              }
+
               return (
-                <Button bg="none" onClick={setRating(i)}>
+                <Box bg="none" fontSize={20} pl={2} >
                   <BsStar
                     background="white"
                     key={i}
                     style={{ marginLeft: "1" }}
                   />
-                </Button>
+                </Box>
               );
             })}
         </Flex>
@@ -116,7 +110,7 @@ function Detalle() {
       name: userEmail,
       text: "",
       courseId: id,
-      rating: "",
+      rating: number,
     });
 
     let handleInputChange = (e) => {      
@@ -135,20 +129,41 @@ function Detalle() {
 
     return (
       <>
-       <Text mb="8px">Rating: </Text>
-       <Select
-            // placeholder="Enter an option:"
-            id="rating"
-            onChange={handleInputChange}
-            color='white'
-          >
-            <option style={{backgroundColor: '#191E29'}}>Enter an option:</option>
-            <option style={{backgroundColor: '#191E29'}} value="1">1</option>
-            <option style={{backgroundColor: '#191E29'}} value="2">2</option>
-            <option style={{backgroundColor: '#191E29'}} value="3">3</option>
-            <option style={{backgroundColor: '#191E29'}} value="4">4</option>
-            <option style={{backgroundColor: '#191E29'}} value="5">5</option>
-          </Select>
+        <Text mb="8px">Rating: </Text>
+        <Rating2
+          number={number}
+          setNumber={setNumber}
+          hoverStar={hoverStar}
+          setHoverStar={setHoverStar}
+          value={number}
+          onChange={handleInputChange}
+          id="rating"
+        />
+        {/* <Select
+          // placeholder="Enter an option:"
+          id="rating"
+          onChange={handleInputChange}
+          color="white"
+        >
+          <option style={{ backgroundColor: "#191E29" }}>
+            Enter an option:
+          </option>
+          <option style={{ backgroundColor: "#191E29" }} value="1">
+            1
+          </option>
+          <option style={{ backgroundColor: "#191E29" }} value="2">
+            2
+          </option>
+          <option style={{ backgroundColor: "#191E29" }} value="3">
+            3
+          </option>
+          <option style={{ backgroundColor: "#191E29" }} value="4">
+            4
+          </option>
+          <option style={{ backgroundColor: "#191E29" }} value="5">
+            5
+          </option>
+        </Select> */}
         <Text mb="8px">Comment :</Text>
         <Textarea
           name="comment"
@@ -158,13 +173,13 @@ function Detalle() {
           placeholder="Leave a comment"
           size="sm"
         />
-        <Flex justifyContent='end'>
+        <Flex justifyContent="end">
           <Button
             onClick={(e) => handleComment(e)}
             rightIcon={<ArrowForwardIcon />}
             colorScheme="teal"
             variant="outline"
-            mt='2'
+            mt="2"
           >
             Send
           </Button>
@@ -242,7 +257,7 @@ function Detalle() {
                 {course.name}
               </Heading>
             </Flex>
-            <Rating rating={rating} />
+            <Rating rating={course.rating} />
             <Flex mt='5' alignItems='center' justifyContent='space-around'>
               <Text fontWeight={300} fontSize={"2xl"} color="white">
                 {`Price: US $${course.price}`}

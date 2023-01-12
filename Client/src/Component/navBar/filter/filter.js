@@ -19,6 +19,7 @@ import {
   MenuButton,
   MenuList,
   Flex,
+  background,
 } from "@chakra-ui/react";
 import FilterCategory from "../../InputFilter/FilterCategory";
 import FilterDifficulty from "../../InputFilter/FilterDifficulty";
@@ -143,7 +144,9 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
           borderColor='white' 
           borderRadius='12px' 
           w='100%' 
-          onClick={(e) => handleOrderByStar(e)}>
+          onClick={(e) => handleOrderByStar(e)}
+          _hover={{ background: 'black' }}
+          >
             Best Rated
         </Button> 
       </Menu>
@@ -157,7 +160,9 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
           borderColor='white' 
           borderRadius='12px' 
           w='100%' 
-          onClick={(e) => handleCleanFilters(e)}>
+          onClick={(e) => handleCleanFilters(e)}
+          _hover={{ background: 'black' }}
+          >
             Clean Filters
         </Button> 
       </Menu>

@@ -22,6 +22,10 @@ export const CLEAR_CART = 'CLEAR_CART'
 export const HOME = 'HOME'
 export const GET_WARNING = 'GET_WARNING'
 
+export const GET_ADMIN_COURSES = 'GET_ADMIN_COURSES';
+
+export const GET_ORDERS = 'GET_ORDERS'
+
 
 export const GET_USER = 'GET_USER'
 export const SET_USER = 'SET_USER'

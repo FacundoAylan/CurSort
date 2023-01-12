@@ -33,9 +33,11 @@ function NavbarLanding() {
             <Link to='/Contact'>
               <Button p={4} ml={4}>Contact us</Button>
             </Link>
-            <Button p={4} ml={4}>
-              <a href='#Knowus' p={4} ml={4}>Know us</a>
-            </Button>
+            <Link to='/project'>
+              <Button p={4} ml={4}>
+                Know us
+              </Button>
+            </Link>
         </GridItem>
 
       </Grid> 

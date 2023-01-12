@@ -32,7 +32,10 @@ function Home() {
     dispatch(getCategory());
   }, [dispatch]);
   const categories = useSelector(state => state.categories)
-
+  useEffect(() => {
+    dispatch(getCategory());
+  },[]);
+  // console.log(categories)
   const [pagina, setPagina] = useState(1);
   const porPagina = 10;
   const maximo = Math.ceil(info.length / porPagina);
@@ -56,13 +59,15 @@ function Home() {
       <Box>
         <NavBar setOrder={setOrder} setPagina={setPagina} setHome={setHome}/>
       </Box>
-      <Grid templateColumns="15% 85%" spacing="3px" pt='110px'>
-      <Filter
-              setPagina={setPagina}
-              setOrder={setOrder}
-              booleano={false}
-              setHome={setHome}
-            />
+      <Grid templateColumns="15% 85%" spacing="3px" pt='100px'>
+        <Box bg='#3E4AB8' mt={3} h='55vh' borderRadius={12}>
+          <Filter
+                  setPagina={setPagina}
+                  setOrder={setOrder}
+                  booleano={false}
+                  setHome={setHome}
+                />
+        </Box>
       <Box h="40%" maxW="100%" pl={3} pr={3}>
         { home ?
             categories &&
