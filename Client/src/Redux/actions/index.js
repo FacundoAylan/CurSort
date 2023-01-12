@@ -20,7 +20,15 @@ import {
   CLEAR_CART,
   CLEAN_FILTERS,
   GET_WARNING,
-  GET_USERS
+  SET_USER,
+  GET_USER,
+  SET_LOGUIN,
+  GET_LOGUIN,
+
+  GET_USERS,
+  GET_ADMIN_COURSES,
+  GET_ORDERS
+
 } from "../action-types";
 
 export function getCourses(name) {
@@ -39,6 +47,7 @@ export function getDetail(id) {
   return async (dispatch) => {
     let response = await axios.get(`http://localhost:3001/courses/${id}`);
 
+   
     dispatch({
       type: GET_DETAIL,
       payload: response.data,
@@ -227,10 +236,10 @@ export function getWarning() {
 }
 
 export function postComment(value) {
-  console.log("Value : ", value);
+  
   return async (dispatch) => {
     let response = await axios.post(`http://localhost:3001/courses/review`,value);
-    console.log('Response : ',response.data)
+  
     dispatch({
       type: 'POST_REVIEWS',
       payload: response.data,
@@ -238,6 +247,33 @@ export function postComment(value) {
   };
 }
 
+
+export function setUserLocalStore(payload) {
+  return {
+    type: SET_USER,
+    payload,
+  };
+}
+
+export function getUserLocalStore() {
+  return {
+    type: GET_USER,
+  };
+}
+
+export function setLoguinLocalStore(payload) {
+  return {
+    type: SET_LOGUIN,
+    payload,
+  };
+}
+
+export function getLoguinLocalStore() {
+  return {
+    type: GET_LOGUIN,
+  };
+}
+//develop se dejo por las dudas
 export function getUsers(){
   return async (dispatch) => {
     let response = await axios.get('http://localhost:3001/users/getUsers');
@@ -248,3 +284,34 @@ export function getUsers(){
   }
 }
 
+//develop
+
+export function getAdminCourses(name) {
+  return async (dispatch) => {
+    let response = await axios.get(
+      `http://localhost:3001/courses?name=${name}`
+    );
+    dispatch({
+      type: GET_ADMIN_COURSES,
+      payload: response.data,
+    });
+  };
+}
+
+// pasado por juan
+export function putUser(payload){
+  return async function (dispatch){
+    const put = await axios.put("http://localhost:3001/users/edit", payload);
+    return put;
+  }
+}
+
+export function getOrders(){
+  return async (dispatch) =>{
+    let order = await axios.get("http://localhost:3001/checkout/orders");
+    return dispatch({
+      type: GET_ORDERS,
+      payload: order.data
+    })
+  }
+}

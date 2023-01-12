@@ -6,17 +6,14 @@ export function useLocalStorage(key, initialValue) {
         try {
             localStorage.setItem(key, JSON.stringify(initialValue));
             const item = window.localStorage.getItem(key);
-            //console.log("item", item)
             return item ? JSON.parse(item) : initialValue;
         } catch (error) {
-            //console.log(error);
             return initialValue;
         }
     });
 
     const setValue = value => {
         try {
-            //console.log("value", value)
             setStoredValue(value);
             window.localStorage.setItem(key, JSON.stringify(value));
         } catch (error) {
@@ -24,7 +21,6 @@ export function useLocalStorage(key, initialValue) {
         }
     };
 
-    //console.log("storedValue", storedValue)
 
     return [storedValue, setValue];
 }   

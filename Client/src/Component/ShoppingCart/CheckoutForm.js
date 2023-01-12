@@ -12,7 +12,8 @@ function Checkoutform() {
 
     const stripe = useStripe();
     const elements = useElements();
-    const { user, isAuthenticated } = useAuth0();
+    const user = JSON.parse(window.localStorage.getItem("user"));
+   
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -69,7 +70,7 @@ function Checkoutform() {
                         icon: 'success',
                         title: 'Pago realizado con éxito, a la brevedad recibirá un email con el link de descarga del curso',
                         showConfirmButton: false,
-                        timer: 2000
+                        timer: 4000
                       })
                         dispatch(clearCart())
                         window.localStorage.setItem('cart', JSON.stringify([]))
@@ -81,12 +82,12 @@ function Checkoutform() {
                         icon: 'error',
                         title: `${data.message}`,
                         showConfirmButton: false,
-                        timer: 2000
+                        timer: 4000
                       })
                 }
             } catch (error) {
 
-                //console.log(error)
+                console.log(error)
             }
         } else {
             Swal.fire({
@@ -96,7 +97,6 @@ function Checkoutform() {
                 showConfirmButton: false,
                 timer: 1500
                 })
-            //console.log(error.message)
         }
     };
 

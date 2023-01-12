@@ -1,24 +1,12 @@
 import React from "react";
-// import { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { Link } from "react-router-dom";
 import {
-  // Grid,
-  // Tabs,
-  // TabList,
-  // Tab,
   Menu,
   Button,
-  // Popover,
-  // PopoverTrigger,
-  // Portal,
-  // PopoverContent,
-  // PopoverArrow,
-  // PopoverCloseButton,
-  // PopoverBody,
   MenuButton,
   MenuList,
   Flex,
+  background,
 } from "@chakra-ui/react";
 import FilterCategory from "../../InputFilter/FilterCategory";
 import FilterDifficulty from "../../InputFilter/FilterDifficulty";
@@ -38,17 +26,8 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
 
   const dispatch = useDispatch();
 
-  // function handleOrderByName(e) {
-  //   e.preventDefault();
-  //   setPagina(1);
-  //   dispatch(getCourses(e.target.value));
-  //   setPagina(1)
-  //   setOrder("order" + e.target.value);
-  // }
-
-
   function handleOrderByPrice(e) {
-    //console.log(e.target.value);
+  
     e.preventDefault();
     setPagina(1);
     dispatch(orderByPrice(e.target.value));
@@ -75,6 +54,7 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
   function handleCleanFilters(e) {
     e.preventDefault();
     dispatch(cleanFilters());
+    setHome(true)
   }
 
   return (
@@ -143,7 +123,9 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
           borderColor='white' 
           borderRadius='12px' 
           w='100%' 
-          onClick={(e) => handleOrderByStar(e)}>
+          onClick={(e) => handleOrderByStar(e)}
+          _hover={{ background: 'black' }}
+          >
             Best Rated
         </Button> 
       </Menu>
@@ -157,7 +139,9 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
           borderColor='white' 
           borderRadius='12px' 
           w='100%' 
-          onClick={(e) => handleCleanFilters(e)}>
+          onClick={(e) => handleCleanFilters(e)}
+          _hover={{ background: 'black' }}
+          >
             Clean Filters
         </Button> 
       </Menu>

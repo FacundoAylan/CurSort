@@ -17,20 +17,16 @@ import {
   } from "@chakra-ui/react";
 import axios from 'axios';
 import Swal from "sweetalert2";
-import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 function Information() {
     const useLocal = window.localStorage.getItem("user");
     const user = JSON.parse(useLocal);
-    //console.log('userInformation',user)
 
     const history = useHistory();
     const form = useRef(null);
 
     const dataLocalStore = window.localStorage.getItem("cart");
     const dataLocal = JSON.parse(dataLocalStore);
-
-    useLocalStorage('user', user)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -72,61 +68,65 @@ function Information() {
           textAlign={"center"}
           fontWeight="normal"
           mb="2%"
+          pt='10'
           color="#f1faee"
         >
-          Información de contacto
+          Contact information
         </Heading>
           <form ref={form}>
-            <Grid templateColumns='repeat(2,1fr)' templateRows='repeat(4,100px)' w='100vw' color='white' pl={10} pr={10} >
-              <GridItem pl={10} pr={10}>
-                <Text ml='45%' fontSize={20}>Name</Text>
+            <Flex flexDirection='column' px='15rem' >
+            <Grid  color='white' templateColumns='repeat(2,1fr)'>
+              
+              <GridItem px={10} mb='5' >
+                <Center><Text>Name</Text></Center>
                 <Input type="text" name="name" defaultValue={user.given_name} />
               </GridItem>
-            <GridItem pl={10} pr={10}>
-              <Text ml='45%' fontSize={20}>lastname</Text>
-              <Input
-                type="text"
-                name="lastname"
-                defaultValue={user.family_name}
-              />
-            </GridItem>
 
-            <GridItem pl={10} pr={10}>
-              <Text ml='45%' fontSize={20}>Email</Text>
-              <Input
-                type="text"
-                placeholder="Correo Electronico"
-                name="email"
-                defaultValue={user.email}
-              />
-            </GridItem>
+              <GridItem px={10} mb='5'>
+                <Center><Text>Lastname</Text></Center>
+                <Input
+                  type="text"
+                  name="lastname"
+                  defaultValue={user.family_name}
+                />
+              </GridItem>
 
-            <GridItem pl={10} pr={10}>
-              <Text ml='45%' fontSize={20}>Direction</Text>
-              <Input type="text" placeholder="Direccion" name="address" />
-            </GridItem>
-  
-            <GridItem pl={10} pr={10}>
-              <Text ml='45%' fontSize={20}>City</Text>
-              <Input type="text" placeholder="Ciudad" name="city" />
-            </GridItem>
+              <GridItem px={10} mb='5'>
+                <Center><Text>Email</Text></Center>
+                <Input
+                  type="text"
+                  placeholder="Correo Electronico"
+                  name="email"
+                  defaultValue={user.email}
+                />
+              </GridItem>
 
-            <GridItem pl={10} pr={10}>
-              <Text ml='45%' fontSize={20}>Country</Text>
-              <Input type="text" placeholder="Pais" name="country" />
-            </GridItem>
+              <GridItem px={10} mb='5'>
+                <Center><Text>Direction</Text></Center>
+                <Input type="text" name="address" />
+              </GridItem>
+    
+              <GridItem px={10} mb='5'>
+                <Center><Text>City</Text></Center>
+                <Input type="text" name="city" />
+              </GridItem>
 
-            <GridItem pl={10} pr={10}>
-            <Text ml='45%' fontSize={20}>CP</Text>
-            <Input type="text" placeholder="Codigo postal" name="cp" />
-            </GridItem>
+              <GridItem px={10} mb='5'>
+                <Center><Text >Country</Text></Center>
+                <Input type="text" name="country" />
+              </GridItem>
 
-            <GridItem pl={10} pr={10}>
-              <Text ml='45%' fontSize={20}>Phone</Text>
-              <Input type="text" placeholder="Telefono" name="phone" />
-            </GridItem>
+              <GridItem px={10} mb='5'>
+                <Center><Text>P.C.</Text></Center>
+                <Input type="text" name="cp" />
+              </GridItem>
 
+              <GridItem px={10} mb='5'>
+                <Center><Text>Phone</Text></Center>
+                <Input type="text" name="phone" />
+              </GridItem>
             </Grid>
+            </Flex>
           </form>
         <br/>
         <Box ml='43%'>
@@ -142,7 +142,7 @@ function Information() {
             </Button>
           </Stack>
         </Box>
-
+{/* 
         <Flex mt={6}>
           <Text color='white'>Pedido:</Text>
           {dataLocal.map((item) => (
@@ -151,7 +151,7 @@ function Information() {
               <Center>USD {item.price}</Center>
             </Flex>
           ))}
-        </Flex>
+        </Flex> */}
 
     </>
   );

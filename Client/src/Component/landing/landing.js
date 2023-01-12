@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Regresiva from "./Cuenta Regresiva/cuentaRegresiva";
 import Carousel from "../carrucel/carrucel";
 import NavbarLanding from './navbarLanding.js/navbar'
@@ -9,11 +9,24 @@ import Promociones from "./Promociones/Promociones";
 import Nosotros from "./nosotros/nosotros";
 import Instructor from "./instructor/instructor";
 import { useLocalStorage } from "../../hooks/useLocalStorage"; //modificación mai local storage
+import { useDispatch } from "react-redux";
+import { getUserLocalStore, setUserLocalStore } from "../../Redux/actions/index";
+import { useAuth0 } from '@auth0/auth0-react';
+
 
 function Landing () {
   //modificación mai local storage
   useLocalStorage("cart", []);
-  useLocalStorage("user", []);
+  const { user } = useAuth0();
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    if (user) {
+      dispatch(setUserLocalStore(user));
+    } else {
+      dispatch(getUserLocalStore());
+    }
+  }, [user, dispatch])
 
   return (
     <>

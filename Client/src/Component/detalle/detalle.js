@@ -15,9 +15,15 @@ import {
   Container,
   useColorModeValue,
   IconButton,
-  HStack,
   Center,
   Textarea,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
+ 
+  Select,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -26,19 +32,26 @@ import {
   getCourses,
   postComment,
 } from "../../Redux/actions";
-import { BsGithub, BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import {  BsStar, BsStarFill } from "react-icons/bs";
 import { ArrowForwardIcon, ArrowLeftIcon } from "@chakra-ui/icons";
-import { useAuth0 } from "@auth0/auth0-react";
+import Rating2 from "./rating/rating";
 
 function Detalle() {
   let { id } = useParams();
   const dispatch = useDispatch();
   const course = useSelector((state) => state.courseDetail);
-  const [rating, setRating] = useState(4);
   const history = useHistory();
   const local = useSelector((state) => state.local);
-  //console.log('local', local)
-  const { user, isAuthenticated } = useAuth0();
+
+  const user = JSON.parse(window.localStorage.getItem("user"));
+  const loguin = JSON.parse(window.localStorage.getItem("loguin"));
+  
+  
+  const [number, setNumber] = useState(0);
+  const [hoverStar, setHoverStar] = useState(undefined);
+
+
+  const reviews = course.reviews;
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -55,7 +68,6 @@ function Detalle() {
     history.push("/checkout");
   };
 
-  
   function Rating({ rating }) {
     return (
       <Center>
@@ -66,33 +78,23 @@ function Detalle() {
               const roundedRating = Math.round(rating * 2) / 2;
               if (roundedRating - i >= 1) {
                 return (
-                  <Button bg="none">
+                  <Box bg="none" fontSize={20} pl={2}>
                     <BsStarFill
                       key={i}
                       color={i < rating ? "yellow" : "gray.300"}
                     />
-                  </Button>
+                  </Box>
                 );
               }
-              if (roundedRating - i === 0.5) {
-                return (
-                  <Button bg="none">
-                    <BsStarHalf
-                      background="white"
-                      key={i}
-                      style={{ marginLeft: "1" }}
-                    />
-                  </Button>
-                );
-              }
+
               return (
-                <Button bg="none" onClick={setRating(i)}>
+                <Box bg="none" fontSize={20} pl={2} >
                   <BsStar
                     background="white"
                     key={i}
                     style={{ marginLeft: "1" }}
                   />
-                </Button>
+                </Box>
               );
             })}
         </Flex>
@@ -101,86 +103,182 @@ function Detalle() {
   }
 
   function Comentario() {
-    const userEmail = isAuthenticated ? user.email : "";
-  
+    const userEmail = loguin ? user.email : "";
+    // console.log("userEmail", user.email);
+
     let [value, setValue] = React.useState({
       name: userEmail,
       text: "",
-      courseId: id
+      courseId: id,
+      rating: number,
     });
-  
-    let handleInputChange = (e) => {
-      let inputValue = e.target.value;
-      setValue({ ...value, text: inputValue });
+
+    let handleInputChange = (e) => {      
+      setValue({...value, [e.target.id]:e.target.value });
     };
-  
+
+    
     const handleComment = (e) => {
       dispatch(postComment(value));
-      setValue({ name: userEmail, text: "", rating: "", courseId: id });
-      history.push(`/detalle/${id}`);
+      setTimeout(() => {
+        setValue({ name: userEmail, text: "", rating: "", courseId: id });
+        dispatch(getDetail(id));
+        history.push(`/detalle/${id}`);
+      }, 500);
     };
 
     return (
       <>
+        <Text mb="8px">Rating: </Text>
+        <Rating2
+          number={number}
+          setNumber={setNumber}
+          hoverStar={hoverStar}
+          setHoverStar={setHoverStar}
+          value={number}
+          onChange={handleInputChange}
+          id="rating"
+        />
+        {/* <Select
+          // placeholder="Enter an option:"
+          id="rating"
+          onChange={handleInputChange}
+          color="white"
+        >
+          <option style={{ backgroundColor: "#191E29" }}>
+            Enter an option:
+          </option>
+          <option style={{ backgroundColor: "#191E29" }} value="1">
+            1
+          </option>
+          <option style={{ backgroundColor: "#191E29" }} value="2">
+            2
+          </option>
+          <option style={{ backgroundColor: "#191E29" }} value="3">
+            3
+          </option>
+          <option style={{ backgroundColor: "#191E29" }} value="4">
+            4
+          </option>
+          <option style={{ backgroundColor: "#191E29" }} value="5">
+            5
+          </option>
+        </Select> */}
         <Text mb="8px">Comment :</Text>
         <Textarea
           name="comment"
+          id="text"
           //value={value}
           onChange={handleInputChange}
           placeholder="Leave a comment"
           size="sm"
         />
-        <Button
-          onClick={(e) => handleComment(e)}
-          rightIcon={<ArrowForwardIcon />}
-          colorScheme="teal"
-          variant="outline"
-        >
-          Send Comment
-        </Button>
+        <Flex justifyContent="end">
+          <Button
+            onClick={(e) => handleComment(e)}
+            rightIcon={<ArrowForwardIcon />}
+            colorScheme="teal"
+            variant="outline"
+            mt="2"
+          >
+            Send
+          </Button>
+        </Flex>
+        {/* acordeon de comentarios*/}
+        <Box>
+          <Accordion defaultIndex={[0]} allowMultiple>
+            {reviews &&
+              reviews.map((review) => {
+                // console.log("dentro del map", course);
+                return (
+                  <AccordionItem>
+                    <h2>
+                      <AccordionButton>
+                        <Box as="span" flex="1" textAlign="left">
+                          Comment from : {review.name}
+                        </Box>
+                        <AccordionIcon />
+                      </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>{review.text}</AccordionPanel>
+                  </AccordionItem>
+                );
+              })}
+          </Accordion>
+        </Box>
       </>
     );
   }
+
+ 
   return (
-    <Container maxW={"100%"} bg="Black" color="white" m={0} p={0}>
+    <Container maxW={"100%"} bg="#191E29" color="white" m={0} px={4}>
       <Box pt="10px">
         <Link to="/home">
           <IconButton
             colorScheme="blue"
             aria-label="Search database"
             icon={<ArrowLeftIcon />}
+            position='fixed'
+            my='3'
+            ml='1'
           />
         </Link>
       </Box>
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 1, md: 10 }}
-        py={{ base: 1, md: 10 }}
-      >
-        <Flex>
-          <Image
-            rounded={"md"}
-            alt={"product image"}
-            src={course.image}
-            w={"100%"}
-            h={{ base: "100%", sm: "20px", lg: "450px" }}
-          />
-        </Flex>
+        // py={{ base: 1, md: 10 }}
+        pt='1'
+        pb='4'
+        >
+        <Box>
+          <Flex justifyContent='center'>
+            <Image
+              rounded={"md"}
+              alt={"product image"}
+              src={course.image}
+              w={"70%"}
+            />
+          </Flex>
+    
+          <Box mt='10'>
+              <Comentario />
+          </Box>
+        </Box>
         <Stack spacing={{ base: 2, md: 10 }}>
           <Box as={"header"}>
-            <Heading
-              lineHeight={1.1}
-              fontWeight={600}
-              fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
-            >
-              {course.name}
-            </Heading>
-
-            <Rating rating={rating} />
-
-            <Text fontWeight={300} fontSize={"2xl"} color="white">
-              {`$${course.price} USD`}
-            </Text>
+            <Flex justifyContent='center'>
+              <Heading
+                lineHeight={1.1}
+                fontWeight={600}
+                fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
+              >
+                {course.name}
+              </Heading>
+            </Flex>
+            <Rating rating={course.rating} />
+            <Flex mt='5' alignItems='center' justifyContent='space-around'>
+              <Text fontWeight={300} fontSize={"2xl"} color="white">
+                {`Price: US $${course.price}`}
+              </Text>
+    
+              <Button
+                size={"lg"}
+                py={"7"}
+                bg={useColorModeValue("green", "gray.50")}
+                color={useColorModeValue("white", "gray.900")}
+                textTransform={"uppercase"}
+                _hover={{
+                  transform: "translateY(4px)",
+                  boxShadow: "2xl",
+                }}
+                onClick={(e) => handleClick(e)}
+                justifyItems='end'
+              >
+                Add to cart
+              </Button>
+            </Flex>
           </Box>
 
           <Stack
@@ -192,18 +290,6 @@ function Detalle() {
               />
             }
           >
-            {/* <VStack spacing={{ base: 4, sm: 6 }}>
-              {course.temario.map(temario=>{
-                return (
-                  <Text fontSize={"lg"}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad
-                    aliquid amet at delectus doloribus dolorum expedita hic, ipsum
-                    maxime modi nam officiis porro, quae, quisquam quos
-                    reprehenderit velit? Natus, totam.
-                  </Text>
-                )
-              })}
-            </VStack> */}
             <Box>
               <Text
                 fontSize={{ base: "16px", lg: "18px" }}
@@ -218,11 +304,13 @@ function Detalle() {
               <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
                 <List spacing={2}>
                   <ListItem>{`Instructor: ${course.instructor}`}</ListItem>
-                  <ListItem>{`duracion: ${course.duration} hs`}</ListItem>{" "}
+                  <ListItem>{`Duration: ${course.duration} hs`}</ListItem>{" "}
                 </List>
                 <List spacing={2}>
-                  <ListItem>{`Fecha de lanzamiento: ${course.fecha}`}</ListItem>
-                  <ListItem>{`dificultad: ${course.difficulty}`}</ListItem>
+
+                  <ListItem>{`Released date: ${course.released && course.released.slice(0, 10)}`}</ListItem>
+                  <ListItem>{`Difficulty: ${course.difficulty}`}</ListItem>
+
                 </List>
               </SimpleGrid>
             </Box>
@@ -234,7 +322,7 @@ function Detalle() {
                 textTransform={"uppercase"}
                 mb={"4"}
               >
-                Product Details
+                About this course
               </Text>
 
               <List spacing={2}>
@@ -245,47 +333,10 @@ function Detalle() {
                 </ListItem>
               </List>
             </Box>
-          </Stack>
-          <Box>
-            <Comentario />
-          </Box>
-          <Button
-            rounded={"none"}
-            w={"full"}
-            mt={8}
-            size={"lg"}
-            py={"7"}
-            bg={useColorModeValue("gray.900", "gray.50")}
-            color={useColorModeValue("white", "gray.900")}
-            textTransform={"uppercase"}
-            _hover={{
-              transform: "translateY(2px)",
-              boxShadow: "lg",
-            }}
-            onClick={(e) => handleClick(e)}
-          >
-            Add to cart
-          </Button>
 
-          <Stack direction="row" alignItems="center" justifyContent={"center"}>
-            <a href="https://github.com/FacundoAylan/CurSort">
-              <IconButton
-                aria-label="github"
-                variant="ghost"
-                size="lg"
-                isRound={true}
-                _hover={{ bg: "#0D74FF" }}
-                icon={<BsGithub size="40px" />}
-              />
-            </a>
-          </Stack>
+          </Stack>          
+
         </Stack>
-        <HStack
-          mt={{ lg: 10, md: 10 }}
-          spacing={5}
-          px={5}
-          alignItems="flex-start"
-        ></HStack>
       </SimpleGrid>
     </Container>
   );

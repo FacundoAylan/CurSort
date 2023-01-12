@@ -16,6 +16,7 @@ import HomeFilter from "./homeFilter";
 import { getCategory, getCourses } from "../../Redux/actions";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useAuth0 } from '@auth0/auth0-react';
+import { setUserLocalStore, getUserLocalStore } from '../../Redux/actions/index';
 
 function Home() {
   let info = useSelector(
@@ -31,6 +32,9 @@ function Home() {
     dispatch(getCategory());
   }, [dispatch]);
   const categories = useSelector(state => state.categories)
+  useEffect(() => {
+    dispatch(getCategory());
+  },[dispatch]);
 
   const [pagina, setPagina] = useState(1);
   const porPagina = 10;
@@ -39,13 +43,15 @@ function Home() {
 
   //modificación mai local storage
   useLocalStorage("cart", []);
-  const { user, isAuthenticated } = useAuth0();
-
-  const [userLocal, setUserLocal ] = useLocalStorage("user", user || []);
+  const { user } = useAuth0();
 
   useEffect(() => {
-    setUserLocal(user || [])
-  }, [user])
+    if (user) {
+      dispatch(setUserLocalStore(user));
+    } else {
+      dispatch(getUserLocalStore());
+    }
+  }, [user, dispatch])
   
 
   return (
@@ -53,13 +59,15 @@ function Home() {
       <Box>
         <NavBar setOrder={setOrder} setPagina={setPagina} setHome={setHome}/>
       </Box>
-      <Grid templateColumns="15% 85%" spacing="3px" pt='110px'>
-      <Filter
-              setPagina={setPagina}
-              setOrder={setOrder}
-              booleano={false}
-              setHome={setHome}
-            />
+      <Grid templateColumns="15% 85%" spacing="3px" pt='100px'>
+        <Box bg='#3E4AB8' mt={3} h='55vh' borderRadius={12}>
+          <Filter
+                  setPagina={setPagina}
+                  setOrder={setOrder}
+                  booleano={false}
+                  setHome={setHome}
+                />
+        </Box>
       <Box h="40%" maxW="100%" pl={3} pr={3}>
         { home ?
             categories &&
