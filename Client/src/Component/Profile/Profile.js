@@ -28,18 +28,19 @@ const Profile = () => {
             Compras
         </Button>
       </GridItem> */}
-
-			<Button
-				background='black'
-				color='white'
-				border='2px'
-				borderColor='white'
-				borderRadius='12px'
-				ml='10px'
-				width='90%'
-			>
-				Settings
-			</Button>
+      <Link to='/editprofile'>
+        <Button
+          background='black'
+          color='white'
+          border='2px'
+          borderColor='white'
+          borderRadius='12px'
+          ml='10px'
+          width='90%'
+        >
+          Settings
+        </Button>
+      </Link>
 
 			<Link to='/cursos'>
 				<Button
