@@ -38,7 +38,7 @@ let initialState = {
   filterCurses: [],
   cart: [],
   local: JSON.parse(window.localStorage.getItem("cart")) || [],
-  user: {},
+  user: [],
   loguin: JSON.parse(window.localStorage.getItem("loguin")) || false,
 }
 
