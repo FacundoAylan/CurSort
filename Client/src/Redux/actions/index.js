@@ -24,11 +24,9 @@ import {
   GET_USER,
   SET_LOGUIN,
   GET_LOGUIN,
-
   GET_USERS,
   GET_ADMIN_COURSES,
-  GET_ORDERS
-
+  GET_ORDERS,
 } from "../action-types";
 
 export function getCourses(name) {
@@ -47,7 +45,6 @@ export function getDetail(id) {
   return async (dispatch) => {
     let response = await axios.get(`http://localhost:3001/courses/${id}`);
 
-   
     dispatch({
       type: GET_DETAIL,
       payload: response.data,
@@ -63,7 +60,6 @@ export function getCategory() {
       payload: categories.data,
     });
   };
-  
 }
 
 export function getFilterCategory(id) {
@@ -236,17 +232,18 @@ export function getWarning() {
 }
 
 export function postComment(value) {
-  
   return async (dispatch) => {
-    let response = await axios.post(`http://localhost:3001/courses/review`,value);
-  
+    let response = await axios.post(
+      `http://localhost:3001/courses/review`,
+      value
+    );
+
     dispatch({
-      type: 'POST_REVIEWS',
+      type: "POST_REVIEWS",
       payload: response.data,
     });
   };
 }
-
 
 export function setUserLocalStore(payload) {
   return {
@@ -274,14 +271,14 @@ export function getLoguinLocalStore() {
   };
 }
 //develop se dejo por las dudas
-export function getUsers(){
+export function getUsers() {
   return async (dispatch) => {
-    let response = await axios.get('http://localhost:3001/users/getUsers');
+    let response = await axios.get("http://localhost:3001/users/getUsers");
     dispatch({
       type: GET_USERS,
-      payload : response.data
-    })
-  }
+      payload: response.data,
+    });
+  };
 }
 
 //develop
@@ -299,33 +296,39 @@ export function getAdminCourses(name) {
 }
 
 // pasado por juan
-export function putUser(payload){
-  return async function (dispatch){
-    const put = await axios.put("http://localhost:3001/users/edit", payload);
-    return put;
-  }
+export function putUser(payload) {
+  return async function (dispatch) {
+    const responseUser = await axios.put("http://localhost:3001/users/edit",payload
+    );
+    dispatch({
+      type: "EDIT_USER",
+      payload: responseUser.data,
+    });
+  };
 }
 
-export function getOrders(){
-  return async (dispatch) =>{
+export function getOrders() {
+  return async (dispatch) => {
     let order = await axios.get("http://localhost:3001/checkout/orders");
     return dispatch({
       type: GET_ORDERS,
-      payload: order.data
-    })
-  }
+      payload: order.data,
+    });
+  };
 }
 
-export function getUserEmail(email){
-  return async (dispatch) =>{
-    let userEmail = await axios.get(`http://localhost:3001/users/userEmail?email=${email}`);
+export function getUserEmail(email) {
+  return async (dispatch) => {
+    let userEmail = await axios.get(
+      `http://localhost:3001/users/userEmail?email=${email}`
+    );
     return dispatch({
       type: "GET_USER_EMAIL",
-      payload: userEmail.data
-    })
-  }
+      payload: userEmail.data,
+    });
+  };
 }
 // const getUserEmail= async function (email){
 //   const userEmail = await axios.get(`http://localhost:3001/users/userEmail?email=${email}`)
 //   return userEmail.data
-// } 
+// }

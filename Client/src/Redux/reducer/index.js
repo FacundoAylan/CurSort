@@ -377,7 +377,12 @@ const rootReducer = (state = initialState, action) => {
         return{
           ...state,
           userEmail: action.payload
-        }
+        };
+        case "EDIT_USER":
+          return{
+            ...state,
+            userEmail: action.payload
+          }
     default:
       return state;
   }

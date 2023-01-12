@@ -43,7 +43,7 @@ const Profile = () => {
         </Button>
       </Link>
 
-			<Link to='/cursos'>
+			<Link to='/mycourses'>
 				<Button
 					background='black'
 					color='white'

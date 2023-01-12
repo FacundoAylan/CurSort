@@ -1,72 +1,69 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
-  IconButton, 
+  IconButton,
   Select,
   Input,
   FormControl,
   Button,
   Center,
   Grid,
-  GridItem
+  GridItem,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
-import { putUser, } from "../../Redux/actions/index";
-
-
+import { putUser } from "../../Redux/actions/index";
+import { useHistory } from "react-router-dom";
 
 const ProfileEdit = () => {
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const newUser = useSelector((state) => state.userEmail);
+  const history = useHistory();
 
-const newUser = useSelector((state) => state.userEmail)
+  console.log("new user :", newUser);
 
-// console.log('new user :', newUser)
+  const [input, setInput] = useState({
+    name: newUser.name,
+    lastname: newUser.lastname,
+    email: newUser.email,
+    birthday: newUser.birthday,
+    phone: newUser.phone,
+    address: newUser.address,
+    city: newUser.city,
+    country: newUser.country,
+    postalCode: newUser.postalCode,
+    gender: newUser.gender,
+    
+  });
 
-const [input, setInput] = useState({
-      email: newUser.email,
-      name: newUser.name,
-      lastname: newUser.lastname,
-      phone: newUser.phone,
-      country: newUser.country,
-      city: newUser.city,
-      adress: newUser.adress,
-      codePostal: newUser.codePostal,
-      gender:newUser.gender? newUser.gender: '',
-      birthday: newUser.birthday,
-      imagen:newUser.imagen
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(putUser(input));
+    setInput({
+    name: '',
+    lastname: '',
+    email: '',
+    birthday:'',
+    phone: '',
+    address: '',
+    city: '',
+    country: '',
+    postalCode: '',
+    gender: '',
     });
+    alert("usuario modificado con exito");
+    history.push("/home");
+  }
 
+  function handleChange(e) {
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+  }
 
-  function handleSubmit(e){
-        e.preventDefault()
-        dispatch(putUser(input))        
-        setInput({
-          email: "",
-          name: "",
-          lastname: "",
-          phone: "",
-          country: "",
-          city: "",
-          adress: "",
-          codePostal: "",
-          gender:"",
-          birthday:""
-        })
-               
-    }
-
-
-function handleChange(e){
-        setInput({
-            ...input,
-            [e.target.name] : e.target.value
-        })      
-    }
-
-   
   return (
     <>
       <Box pt="10px">
@@ -78,7 +75,7 @@ function handleChange(e){
           />
         </Link>
       </Box>
-     
+
       <form onSubmit={(e) => handleSubmit(e)}>
         <Center color="white" fontSize={30}>
           Edit Profile
@@ -87,13 +84,13 @@ function handleChange(e){
           templateColumns="repeat(2,1fr)"
           templateRows="repeat(9,100px)"
           color="white"
-          h='390px'
+          h="390px"
         >
           <GridItem pl={3} pr={3}>
             <FormControl>
               <Center>Name</Center>
               <Input
-              value={input.name}
+                value={input.name}
                 color="white"
                 className="form-control"
                 name="name"
@@ -108,7 +105,7 @@ function handleChange(e){
             <FormControl>
               <Center>Lastname</Center>
               <Input
-              value={input.lastname}
+                value={input.lastname}
                 color="white"
                 className="form-control"
                 name="lastname"
@@ -127,7 +124,7 @@ function handleChange(e){
                 color="white"
                 className="form-control"
                 name="phone"
-                type="number"
+                type="text"
                 onChange={handleChange}
                 placeholder="Phone..."
               ></Input>
@@ -138,7 +135,7 @@ function handleChange(e){
             <FormControl>
               <Center>Country </Center>
               <Input
-              value={input.country}
+                value={input.country}
                 color="white"
                 className="form-control"
                 name="country"
@@ -153,7 +150,7 @@ function handleChange(e){
             <FormControl>
               <Center>City</Center>
               <Input
-              value={input.city}
+                value={input.city}
                 color="white"
                 className="form-control"
                 name="city"
@@ -166,12 +163,12 @@ function handleChange(e){
 
           <GridItem pl={3} pr={3}>
             <FormControl>
-              <Center>Adress</Center>
+              <Center>Address</Center>
               <Input
-              value={input.adress}
+                value={input.address}
                 color="white"
                 className="form-control"
-                name="adress"
+                name="address"
                 type="text"
                 onChange={handleChange}
                 placeholder="Adress..."
@@ -182,7 +179,7 @@ function handleChange(e){
             <FormControl>
               <Center>Postal Code</Center>
               <Input
-              value={input.postalCode}
+                value={input.postalCode}
                 color="white"
                 className="form-control"
                 name="postalCode"
@@ -197,30 +194,35 @@ function handleChange(e){
             <FormControl>
               <Center>Gender</Center>
               <Select
-              value={input.gender}
+                value={input.gender}
                 placeholder="Gender"
                 style={{ backgroundColor: "#191E29" }}
                 onChange={handleChange}
                 name="gender"
               >
                 <option value="F" style={{ backgroundColor: "#191E29" }}>
-                Female
+                  Female
                 </option>
                 <option value="M" style={{ backgroundColor: "#191E29" }}>
-                Male
+                  Male
                 </option>
               </Select>
             </FormControl>
           </GridItem>
         </Grid>
         <Center>
-          <Button onClick={handleSubmit} type="submit" p={2} color="green" w='50px'>
+          <Button
+            onClick={handleSubmit}
+            type="submit"
+            p={2}
+            color="green"
+            w="50px"
+          >
             Edit
           </Button>
         </Center>
-
       </form>
     </>
   );
-}
-export default ProfileEdit
+};
+export default ProfileEdit;

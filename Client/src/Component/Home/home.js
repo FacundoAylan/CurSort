@@ -13,7 +13,7 @@ import Footer from "../landing/footer/footer";
 import CarouselHome from "./currucelHome";
 import Filter from "../navBar/filter/filter";
 import HomeFilter from "./homeFilter";
-import { getCategory, getCourses,} from "../../Redux/actions";
+import { getCategory, getCourses, getUserEmail,} from "../../Redux/actions";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { useAuth0 } from '@auth0/auth0-react';
 import { setUserLocalStore, getUserLocalStore } from '../../Redux/actions/index';
@@ -42,10 +42,12 @@ function Home() {
   //modificación mai local storage
   useLocalStorage("cart", []);
   const { user } = useAuth0();
-
+  
+   
   useEffect(() => {
     if (user) {
       dispatch(setUserLocalStore(user));
+      dispatch(getUserEmail(user.email)) 
     } else {
       dispatch(getUserLocalStore());
     }
