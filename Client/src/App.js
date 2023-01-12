@@ -1,6 +1,6 @@
 import Home from './Component/Home/home';
 //import Profile from './Component/Profile/Profile';
-import { Route} from "react-router-dom";
+import { HashRouter, Route, Switch} from "react-router-dom";
 //import Form from './Component/Form/Form'
 import CreateCourse from './Component/admin/CreateCourse/CreateCourse'
 import Detalle from './Component/detalle/detalle';
@@ -36,3 +36,4 @@ function App() {
 )}
 
 export default App;
+

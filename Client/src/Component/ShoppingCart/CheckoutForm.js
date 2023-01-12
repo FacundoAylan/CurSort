@@ -87,7 +87,7 @@ function Checkoutform() {
                 }
             } catch (error) {
 
-                //console.log(error)
+                console.log(error)
             }
         } else {
             Swal.fire({
@@ -97,7 +97,6 @@ function Checkoutform() {
                 showConfirmButton: false,
                 timer: 1500
                 })
-            //console.log(error.message)
         }
     };
 
