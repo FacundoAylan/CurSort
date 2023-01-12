@@ -24,15 +24,15 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 
 
-const domain = 'dev-m515bc1wpup4y80o.us.auth0.com';
-const client_id = 'Amvptjtg1qjiKP1AzyvqpnzjNsjrOaky';
+const domain = 'dev-k7vhqlkkakdbugkd.us.auth0.com';
+const client_id = 'nyrEheOVHcD4vKt3wv5MgVwiq2uSXkDR';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Auth0Provider
       domain={domain}
       clientId={client_id}
-      redirectUri={'https://cursort.onrender.com'}    //corregir el harcode
+      redirectUri={'https://cursort.onrender.com/home'}   
     >
       
       <ChakraProvider>
