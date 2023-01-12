@@ -74,6 +74,7 @@ function ListUsers() {
             {users &&
               users.map((el) => {
                 return (
+                  el.active &&
                   <Tr>
                     {/* email*/}
                     <Td>{el.email}</Td>

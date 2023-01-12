@@ -110,6 +110,7 @@ function CoursesAdmin() {
             {info &&
               info.map((value) => {
                 return (
+                  value.active &&
                   <Tr>
                     {/* nombre del curso */}
                     <Td>{value.name}</Td>
@@ -123,7 +124,7 @@ function CoursesAdmin() {
                     <Td>{`$${value.price} USD`}</Td>
                     <Td>
                       <Switch
-                        isChecked={value.active}
+                        isChecked={value.enabled}
                         onChange={()=>handleChange(value.id)}
                       />
                     </Td>
