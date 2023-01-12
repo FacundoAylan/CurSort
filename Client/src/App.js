@@ -1,6 +1,6 @@
 import Home from './Component/Home/home';
 //import Profile from './Component/Profile/Profile';
-import { HashRouter, Route, Switch} from "react-router-dom";
+import { Route } from "react-router-dom";
 //import Form from './Component/Form/Form'
 import CreateCourse from './Component/admin/CreateCourse/CreateCourse'
 import Detalle from './Component/detalle/detalle';
@@ -17,8 +17,6 @@ import project from './Component/landing/project/project';
 function App() {
   return (
     <Container background='#191E29' minH='100vh' maxW='100%' p={0} >
-      <HashRouter>
-        <Switch>
           <Route exact path="/" component={Landing} />
           <Route  path="/home" component={Home} />
           <Route path="/crear" component={CreateCourse}/>
@@ -31,8 +29,6 @@ function App() {
           <Route path="/cursos" component={Compra} />
           <Route path="/homefilter" component={HomeFilter} />
           <Route path ="/project" component={project}/>
-        </Switch>
-      </HashRouter>
     </Container>
 )}
 
