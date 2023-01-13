@@ -3,10 +3,10 @@ const data = require("./api.json");
 const { Users, Courses, Categories, Reviews, Orders } = require("../db");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
-const { CLIENT_STRIPE_KEY } = process.env;
+//const { CLIENT_STRIPE_KEY } = process.env;
 const Stripe = require("stripe");
 const { json } = require("body-parser");
-const stripe = new Stripe(CLIENT_STRIPE_KEY);
+const stripe = new Stripe(sk_test_51MHeUICJ6dzvxdbTb6I0rURx3dIDBpFMrn3XdPKWYNaPtAsYjMOVdVrkWCnl1OWCfSEW2ylmmsD9Ia0xjQue1qbX00JT6xvLiy);
 
 const postCourse = async (req, res) => {
   const {
