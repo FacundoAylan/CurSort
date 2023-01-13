@@ -78,7 +78,7 @@ function Checkoutform() {
                       })
                         dispatch(clearCart())
                         window.localStorage.setItem('cart', JSON.stringify([]))
-                        history.push('/home')
+                        history.push('/#/home')
                 }
                 else {
                     Swal.fire({
