@@ -21,21 +21,26 @@ import editCourse from './Component/admin/editCourse/editCourse';
 function App() {
   return (
     <Container background='#191E29' minH='100vh' maxW='100%' p={0} >
-      <Route exact path="/" component={Landing} />
-      <Route  path="/home" component={Home} />
-      <Route path="/crear" component={CreateCourse}/>
-      <Route path="/detalle/:id" component={Detalle} />
-      <Route path="/Contact" component={Contact} />
-      <Route path="/Admin" component={Admin} />
-      <Route exact path="/checkout" component={HomeCart} />
-      <Route exact path="/checkout/information" component={Information} />
-      <Route exact path="/checkout/payment" component={Payment} />
-      <Route path="/course" component={Compra} />
-      <Route path="/homefilter" component={HomeFilter} />
-      <Route path ="/project" component={project}/>
-      <Route path ='/editprofile' component={ProfileEdit}/>
-      <Route path ='/mycourses' component={MyCourses}/>
-      <Route path ="/editcourse/:id" component={editCourse}/>
+
+          <HashRouter>
+            <Switch>
+              <Route exact path="/" component={Landing} />
+              <Route  path="/home" component={Home} />
+              <Route path="/crear" component={CreateCourse}/>
+              <Route path="/detalle/:id" component={Detalle} />
+              <Route path="/Contact" component={Contact} />
+              <Route path="/Admin" component={Admin} />
+              <Route exact path="/checkout" component={HomeCart} />
+              <Route exact path="/checkout/information" component={Information} />
+              <Route exact path="/checkout/payment" component={Payment} />
+              <Route path="/course" component={Compra} />
+              <Route path="/homefilter" component={HomeFilter} />
+              <Route path ="/project" component={project}/>
+              <Route path ='/editprofile' component={ProfileEdit}/>
+              <Route path ='/mycourses' component={MyCourses}/>
+              <Route path ="/editcourse/:id" component={editCourse}/>
+             </Switch>
+          </HashRouter>
     </Container>
 )}
 

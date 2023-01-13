@@ -25,17 +25,12 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 function NavBar({ setPagina, setOrder, setHome}) {
 
-  // const {isAuthenticated, user} = useAuth0()
 
   const {isAuthenticated} = useAuth0()
 
-  // const reset = () =>{
-  //   dispatch(getCourses(''));
-  // }
-
   useEffect(()=>{
       if(isAuthenticated){        
-           axios('http://localhost:3001/getToken')
+           axios('https://cursort-api.onrender.com/getToken')
               .then(response => localStorage.setItem('jwt', response.data))
               .catch(error => console.log(error));
       }

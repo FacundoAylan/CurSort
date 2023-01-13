@@ -336,7 +336,7 @@ function CreateCursor() {
     if (
       !e.nombre 
     ) {
-      axios.post('http://localhost:3001/courses',input)
+      axios.post('https://cursort-api.onrender.com/courses',input)
         .then(res => {
             setInput({
             })

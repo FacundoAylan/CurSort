@@ -102,7 +102,6 @@ console.log('curso: ', course)
 
   function Comentario() {
     const userEmail = loguin ? user.email : "";
-    // console.log("userEmail", user.email);
 
     let [value, setValue] = React.useState({
       name: userEmail,
@@ -137,31 +136,7 @@ console.log('curso: ', course)
           onChange={handleInputChange}
           id="rating"
         />
-        {/* <Select
-          // placeholder="Enter an option:"
-          id="rating"
-          onChange={handleInputChange}
-          color="white"
-        >
-          <option style={{ backgroundColor: "#191E29" }}>
-            Enter an option:
-          </option>
-          <option style={{ backgroundColor: "#191E29" }} value="1">
-            1
-          </option>
-          <option style={{ backgroundColor: "#191E29" }} value="2">
-            2
-          </option>
-          <option style={{ backgroundColor: "#191E29" }} value="3">
-            3
-          </option>
-          <option style={{ backgroundColor: "#191E29" }} value="4">
-            4
-          </option>
-          <option style={{ backgroundColor: "#191E29" }} value="5">
-            5
-          </option>
-        </Select> */}
+
         <Text mb="8px">Comment :</Text>
         <Textarea
           name="comment"

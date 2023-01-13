@@ -56,7 +56,7 @@ function Checkoutform() {
 
             try {
 
-                const { data } = await axios.post('http://localhost:3001/checkout/payment', {
+                const { data } = await axios.post('https://cursort-api.onrender.com/checkout/payment', {
                     amount: total * 100,
                     id,
                     mail: user.email,

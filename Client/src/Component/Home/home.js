@@ -1,6 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Container, Box, Center, Text, Grid, Flex } from "@chakra-ui/react";
+import React, {useEffect, useState} from "react";
+import {useDispatch, useSelector} from 'react-redux'
+import {
+  Container,
+  Box,
+  Center,
+  Text,
+  Grid,
+  Flex,
+  Spinner,
+} from "@chakra-ui/react";
+
 import NavBar from "../navBar/navBar";
 import Footer from "../landing/footer/footer";
 import CarouselHome from "./currucelHome";
@@ -19,8 +28,8 @@ function Home() {
     (state) => state.courses,
     () => false
   ); // el false, verifica el estado anterior
-  //console.log(info)
-  const [home, setHome] = useState(true);
+  const [ home, setHome ] =  useState(true);
+
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -52,6 +61,7 @@ function Home() {
       <Box>
         <NavBar setOrder={setOrder} setPagina={setPagina} setHome={setHome} />
       </Box>
+
       <Box bg="#3E4AB8" pt="6rem" h="100%" position="fixed">
         <Filter
           setPagina={setPagina}
@@ -60,9 +70,9 @@ function Home() {
           setHome={setHome}
         />
       </Box>
-
-      <Flex pt="100px" ml="10rem">
-        <Box h="40%" width="100%" pl={3} pr={3}>
+      {info.length > 0 ?
+        <Flex pt="100px" ml="10rem">
+          <Box h="40%" width="100%" pl={3} pr={3}>
           {home ? (
             categories &&
             categories.slice(0, 3).map((value) => {
@@ -75,7 +85,9 @@ function Home() {
                 </>
               );
             })
-          ) : (
+          )  
+          : 
+          (
             <HomeFilter
               info={info}
               pagina={pagina}
@@ -86,7 +98,17 @@ function Home() {
           )}
         </Box>
       </Flex>
-
+        :
+        <Box maxW="100%" h='100%' borderRadius={12}>
+          <Center pt='10%'>
+            <Flex flexDirection='column'>
+              <Text fontSize={36} color='white'>Loading</Text>
+              <Spinner size='xl' color='white' ml='50px'/>
+            </Flex>
+          </Center>
+        </Box>
+      }
+      </Grid>
       <Box mt={7}>
         <Footer />
       </Box>

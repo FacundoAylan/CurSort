@@ -10,7 +10,7 @@ function Promociones() {
   } = useDisclosure({ defaultIsOpen: true })
 
   return isVisible ? (
-    <Alert status='success' bg='red' h='3%'>
+    <Alert status='success' bg='red' h='3%' mt='20px'>
       <Box w='100%'>
         <AlertDescription >
           <Flex ml='25%' >

@@ -43,7 +43,7 @@ function Information() {
               country: formData.get('country'),
               postalCode: formData.get('cp'),
           };
-          const { data } = await axios.post('http://localhost:3001/checkout/information', buyer);
+          const { data } = await axios.post('https://cursort-api.onrender.com/checkout/information', buyer);
           //console.log(data);
           if(data.message === 'success'){
             //console.log(data)
@@ -152,17 +152,6 @@ function Information() {
             </Button>
           </Stack>
         </Box>
-{/* 
-        <Flex mt={6}>
-          <Text color='white'>Pedido:</Text>
-          {dataLocal.map((item) => (
-            <Flex flexDirection='column' bg='#3E4AB8' ml={5} borderRadius={12} color='white' p={2}>
-              <Text>{item.name}</Text>
-              <Center>USD {item.price}</Center>
-            </Flex>
-          ))}
-        </Flex> */}
-
     </>
   );
 }

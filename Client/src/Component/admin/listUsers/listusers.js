@@ -26,7 +26,7 @@ function ListUsers() {
 
   const handleAdmin = async (email)=>{
     try {
-      await axios.put(`http://localhost:3001/users/disableAdmin?email=${email}`);
+      await axios.put(`https://cursort-api.onrender.com/users/disableAdmin?email=${email}`);
       dispatch(getUsers());
     } catch(error){
       console.log(error);
@@ -35,7 +35,7 @@ function ListUsers() {
  
   const handle = async (email)=>{
   try {
-    await axios.put(`http://localhost:3001/users/disable?mail=${email}`);
+    await axios.put(`https://cursort-api.onrender.com/users/disable?mail=${email}`);
     dispatch(getUsers());
   } catch(error){
     console.log(error);
@@ -44,7 +44,7 @@ function ListUsers() {
 
   const handleClick = async email=>{
     try {
-      await axios.put(`http://localhost:3001/users/delete?mail=${email}`);
+      await axios.put(`https://cursort-api.onrender.com/users/delete?mail=${email}`);
       dispatch(getUsers());
       Swal.fire({
         position: 'center',

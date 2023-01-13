@@ -34,7 +34,7 @@ import {
 export function getCourses(name) {
   return async (dispatch) => {
     let response = await axios.get(
-      `http://localhost:3001/courses?name=${name}`
+      `https://cursort-api.onrender.com/courses?name=${name}`
     );
     dispatch({
       type: GET_COURSES,
@@ -45,7 +45,7 @@ export function getCourses(name) {
 
 export function getDetail(id) {
   return async (dispatch) => {
-    let response = await axios.get(`http://localhost:3001/courses/${id}`);
+    let response = await axios.get(`https://cursort-api.onrender.com/courses/${id}`);
 
     dispatch({
       type: GET_DETAIL,
@@ -56,7 +56,7 @@ export function getDetail(id) {
 
 export function getCategory() {
   return async (dispatch) => {
-    let categories = await axios.get("http://localhost:3001/categories");
+    let categories = await axios.get("https://cursort-api.onrender.com/categories");
     return dispatch({
       type: GET_CATEGORIES,
       payload: categories.data,
@@ -67,22 +67,22 @@ export function getCategory() {
 export function getFilterCategory(id) {
   if (id === "all") {
     return async (dispatch) => {
-      const response = await axios.get(`http://localhost:3001/filter/category`);
+      const response = await axios.get(`https://cursort-api.onrender.com/filter/category`);
 
       dispatch({
         type: GET_FILTER_CATEGORY,
-        payload: response.data, //array de cursos
+        payload: response.data,
       });
     };
   }
 
   return async (dispatch) => {
     const response = await axios.get(
-      `http://localhost:3001/filter/category/?id=${id}`
+      `https://cursort-api.onrender.com/filter/category/?id=${id}`
     );
     dispatch({
       type: GET_FILTER_CATEGORY,
-      payload: response.data, //array de cursos
+      payload: response.data, 
     });
   };
 }
@@ -118,7 +118,7 @@ export function orderByPublished(payload) {
 
 export function createNewCategory(payload) {
   return async function (dispatch) {
-    let json = await axios.post("http://localhost:3001/categories", payload);
+    let json = await axios.post("https://cursort-api.onrender.com/categories", payload);
     return json;
   };
 }
@@ -196,7 +196,7 @@ export function clearCart() {
 export function contact(payload) {
   return async function (dispatch) {
     let json = await axios.post(
-      "http://localhost:3001/contact/send-email",
+      "https://cursort-api.onrender.com/contact/send-email",
       payload
     );
     return json;
@@ -217,11 +217,7 @@ export function getWarning() {
 
 export function postComment(value) {
   return async (dispatch) => {
-    let response = await axios.post(
-      `http://localhost:3001/courses/review`,
-      value
-    );
-
+    let response = await axios.post(`https://cursort-api.onrender.com/courses/review`,value);
     dispatch({
       type: "POST_REVIEWS",
       payload: response.data,
@@ -257,7 +253,8 @@ export function getLoguinLocalStore() {
 //develop se dejo por las dudas
 export function getUsers() {
   return async (dispatch) => {
-    let response = await axios.get("http://localhost:3001/users/getUsers");
+
+    let response = await axios.get('https://cursort-api.onrender.com/users/getUsers');
     dispatch({
       type: GET_USERS,
       payload: response.data,
@@ -270,7 +267,7 @@ export function getUsers() {
 export function getAdminCourses(name) {
   return async (dispatch) => {
     let response = await axios.get(
-      `http://localhost:3001/courses?name=${name}`
+      `https://cursort-api.onrender.com/courses?name=${name}`
     );
     dispatch({
       type: GET_ADMIN_COURSES,
@@ -282,7 +279,7 @@ export function getAdminCourses(name) {
 // pasado por juan
 export function putUser(payload) {
   return async function (dispatch) {
-    const responseUser = await axios.put("http://localhost:3001/users/edit",payload
+    const responseUser = await axios.put("https://cursort-api.onrender.com/users/edit",payload
     );
     dispatch({
       type: "EDIT_USER",
@@ -293,7 +290,7 @@ export function putUser(payload) {
 
 export function putCourse(payload) {
   return async function (dispatch) {
-    const res = await axios.put("http://localhost:3001/courses", payload
+    const res = await axios.put("https://cursort-api.onrender.com/courses", payload
     );
     dispatch({
       type: EDIT_COURSE,
@@ -304,7 +301,7 @@ export function putCourse(payload) {
 
 export function getOrders() {
   return async (dispatch) => {
-    let order = await axios.get("http://localhost:3001/checkout/orders");
+    let order = await axios.get("https://cursort-api.onrender.com/checkout/orders");
     return dispatch({
       type: GET_ORDERS,
       payload: order.data,
@@ -315,7 +312,7 @@ export function getOrders() {
 export function getUserEmail(email) {
   return async (dispatch) => {
     let userEmail = await axios.get(
-      `http://localhost:3001/users/userEmail?email=${email}`
+      `https://cursort-api.onrender.com/users/userEmail?email=${email}`
     );
     return dispatch({
       type: "GET_USER_EMAIL",
@@ -330,7 +327,4 @@ export function clearCourseDetail() {
   };
 }
 
-// const getUserEmail= async function (email){
-//   const userEmail = await axios.get(`http://localhost:3001/users/userEmail?email=${email}`)
-//   return userEmail.data
-// }
+

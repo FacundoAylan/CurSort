@@ -12,14 +12,15 @@ const LogoutButton = () => {
   const dispatch = useDispatch();
   
   useEffect(()=>{
-    user && axios.post("http://localhost:3001/users/create", user);
+    user && axios.post("https://cursort-api.onrender.com/users/create", user);
     dispatch(getUserLocalStore())
   },[user, dispatch])
   
   const userLocalStorage = JSON.parse(window.localStorage.getItem("user"))
   
   const handleLogout = () => {
-    logout({ returnTo: 'http://localhost:3000/home' });
+
+    logout({ returnTo: 'https://cursort.onrender.com/home' });
     dispatch(setUserLocalStore({}));
     dispatch(setLoguinLocalStore(false));
   };

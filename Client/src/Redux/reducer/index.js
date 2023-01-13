@@ -260,6 +260,7 @@ const rootReducer = (state = initialState, action) => {
 
       const itemRepeated = state.local?.find((item) => item.id === newItem.id);
 
+
       if (!itemRepeated) {
         window.localStorage.setItem(
           "cart",
@@ -278,6 +279,7 @@ const rootReducer = (state = initialState, action) => {
           };
 
     case REMOVE_ONE_FROM_CART:
+
       const data = JSON.parse(window.localStorage.getItem("cart")).flat();
       //console.log('data', data)
       const itemToDelete = data.find((item) => item.id === action.payload);
