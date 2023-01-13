@@ -5,7 +5,7 @@ import { Menu, MenuButton, MenuList, WrapItem, Avatar } from "@chakra-ui/react";
 import Profile from "../Profile/Profile";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setUserLocalStore, setLoguinLocalStore, getUserLocalStore } from "../../Redux/actions/index";
+import { setUserLocalStore, setLoguinLocalStore, getUserLocalStore, getUsers } from "../../Redux/actions/index";
 
 const LogoutButton = () => {
   const { logout, user } = useAuth0();
