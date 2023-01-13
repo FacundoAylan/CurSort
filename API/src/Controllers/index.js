@@ -488,9 +488,6 @@ const getCoursesByDuration = async (duration) => {
 const filterCourses = async (req, res) => {
   const { id, difficulty, duration } = req.query;
 
-  // //console.log('duration', duration)
-  // //console.log('difficulty',difficulty)
-
   try {
     if (id) {
       const courses = await getCoursesByCategory(id);
@@ -540,6 +537,7 @@ const contactMail = (req, res) => {
   };
   transporter.sendMail(mailOption, (error, info) => {
     if (error) {
+      console.log('error mensaje :',error.message )
       res.status(500).json(error.message);
     } else {
       res.status(200).json("Email enviado con exito");
@@ -554,19 +552,6 @@ const linkMail = async (req, res, next) => {
 
   //---- Esto recibe un [] con los id de los cursos pero no puedo incluirlos en el mail.
   //Igual recibe el mail de confirmacion simple
-
-  //   const cursosPay = id_cursos.map((id)=>{
-  //    return Courses.findByPk(id);
-  //   })
-  //   const promesas = await Promise.all(cursosPay)
-
-  //  const promesasListas =  promesas.map(p=>{
-  //   return {
-  //     nombre : p.name,
-  //     precio: p.price,
-  //     imagen : p.image
-  //   }
-  //  })
 
   if (!mail)
     res
@@ -767,6 +752,7 @@ const editCourse = async (req, res) => {
   } catch (error) {
     res.status(404).send({ message: error.message });
     console.log('Error edit :', error.message)
+  }}
 
 const disableCourse = async (req, res) => {
   const { id } = req.params;
