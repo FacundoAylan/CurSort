@@ -692,7 +692,7 @@ const getOrders = async (req, res) => {
     const orders = await Orders.findAll({
       include: [
         {
-          model: Users,
+          model: Users, 
           attributes: ["name", "email"],
         },
         {
