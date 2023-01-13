@@ -108,7 +108,6 @@ function Home() {
           </Center>
         </Box>
       }
-      </Grid>
       <Box mt={7}>
         <Footer />
       </Box>
