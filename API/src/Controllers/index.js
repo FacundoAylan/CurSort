@@ -693,6 +693,6 @@ module.exports = {
   getToken,
   getUsers,
   disableAdmin,
-  deleteUser,
+  deleteUser, 
 };
 
