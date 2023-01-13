@@ -20,7 +20,6 @@ const postCourse = async (req, res) => {
     categoria,
   } = req.body;
 
-  // //console.log('categoria : ', categoria)
   let name,
     description,
     instructor,
@@ -252,7 +251,7 @@ const getUsers = async (req, res) => {
 const createUser = async (req, res) => {
   const user = req.body;
 
-  // //console.log(user.email);
+
 
   let name, lastname, email, email_verified, birthday;
 
@@ -390,12 +389,10 @@ const getCategories = async (req, res) => {
 
 const postCategory = async (req, res) => {
   const { name } = req.body;
-  console.log('Name ',name)
   try {
     await Categories.create({ name });
     res.status(200).send("La categoría ha sido creada con éxito.");
   } catch (error) {
-    // console.log('error :', error)
     res.status(400).send(`ocurrio un error ${error}`);
   }
 };
@@ -595,7 +592,6 @@ const linkMail = async (req, res, next) => {
 
   transporter.sendMail(mailOption1, (error, info) => {
     if (error) {
-      console.log('error mail :', error)
       res.status(500).json(error.message);
     } else {
       res.status(200).json(`Email enviado con exito a ${mail}`);
