@@ -9,7 +9,7 @@ router
     .post('/create', createUser) // provisorio para prueba disableUser
     .put('/disable', disableUser)
     .put('/disableAdmin', disableAdmin)
-    .delete('/delete', deleteUser)
+    .put('/delete', deleteUser)
     .put('/edit', editUser)
     .get('/getUsers', getUsers)
     .get('/userEmail',getUserEmail )

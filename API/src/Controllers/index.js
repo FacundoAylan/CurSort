@@ -259,7 +259,7 @@ const createUser = async (req, res) => {
   lastname = user.family_name || "";
   email = user.email;
   email_verified = user.email_verified;
-  (admin = false), (enabled = true);
+  (admin = false), (enabled = true), (active = true);
 
   try {
     const [usuario, craeted] = await Users.findOrCreate({
@@ -272,6 +272,7 @@ const createUser = async (req, res) => {
         birthday,
         admin,
         enabled,
+        active,
       },
     });
     res.status(200).json({ usuario, craeted });
@@ -319,13 +320,19 @@ const disableAdmin = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  const { email } = req.query;
+  const { mail } = req.query;
 
   try {
-    const user = await Users.destroy({ where: { email } });
+    if (mail) {
+      const user = await Users.findOne({ where: { email: mail } });
 
-    if (user) {
-      res.status(200).json({ message: "el usuario ha sido eliminado" });
+      if (user) {
+        await Users.update({ active: false }, { where: { email: mail } });
+        await Users.update({ enabled: false }, { where: { email: mail } });
+        res.status(200).json({ message: "el usuario ha sido eliminado" });
+      } else {
+        res.status(404).json({ message: "Usuario no encontrado" });
+      }
     } else {
       res.status(404).json({ message: "Usuario no encontrado" });
     }
