@@ -28,6 +28,7 @@ function Information() {
     const dataLocalStore = window.localStorage.getItem("cart");
     const dataLocal = JSON.parse(dataLocalStore);
 
+    const userLoguin = useSelector((state) => state.userEmail);
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
@@ -43,9 +44,9 @@ function Information() {
               postalCode: formData.get('cp'),
           };
           const { data } = await axios.post('https://cursort-api.onrender.com/checkout/information', buyer);
-          console.log(data);
-
+          //console.log(data);
           if(data.message === 'success'){
+            //console.log(data)
             history.push('/checkout/payment');
           } else {
             Swal.fire({
@@ -57,7 +58,7 @@ function Information() {
 
         }
         catch(error){
-         
+          console.log(error);
         }
     }
 
@@ -68,86 +69,89 @@ function Information() {
           textAlign={"center"}
           fontWeight="normal"
           mb="2%"
+          pt='10'
           color="#f1faee"
         >
-          Información de contacto
+          Contact information
         </Heading>
           <form ref={form}>
-            <Grid templateColumns='repeat(2,1fr)' templateRows='repeat(4,100px)' w='100vw' color='white' pl={10} pr={10} >
-              <GridItem pl={10} pr={10}>
-                <Text ml='45%' fontSize={20}>Name</Text>
-                <Input type="text" name="name" defaultValue={user.given_name} />
+            <Flex flexDirection='column' px='15rem' >
+            <Grid  color='white' templateColumns='repeat(2,1fr)'>
+              
+              <GridItem px={10} mb='5' >
+                <Center><Text>Name</Text></Center>
+                <Input type="text" name="name" defaultValue={userLoguin.name} />
               </GridItem>
-            <GridItem pl={10} pr={10}>
-              <Text ml='45%' fontSize={20}>lastname</Text>
-              <Input
-                type="text"
-                name="lastname"
-                defaultValue={user.family_name}
-              />
-            </GridItem>
 
-            <GridItem pl={10} pr={10}>
-              <Text ml='45%' fontSize={20}>Email</Text>
-              <Input
-                type="text"
-                placeholder="Correo Electronico"
-                name="email"
-                defaultValue={user.email}
-              />
-            </GridItem>
+              <GridItem px={10} mb='5'>
+                <Center><Text>Lastname</Text></Center>
+                <Input
+                  type="text"
+                  name="lastname"
+                  defaultValue={userLoguin.lastname}
+                />
+              </GridItem>
 
-            <GridItem pl={10} pr={10}>
-              <Text ml='45%' fontSize={20}>Direction</Text>
-              <Input type="text" placeholder="Direccion" name="address" />
-            </GridItem>
-  
-            <GridItem pl={10} pr={10}>
-              <Text ml='45%' fontSize={20}>City</Text>
-              <Input type="text" placeholder="Ciudad" name="city" />
-            </GridItem>
+              <GridItem px={10} mb='5'>
+                <Center><Text>Email</Text></Center>
+                <Input
+                  type="text"
+                  placeholder="Correo Electronico"
+                  name="email"
+                  defaultValue={userLoguin.email}
+                />
+              </GridItem>
 
-            <GridItem pl={10} pr={10}>
-              <Text ml='45%' fontSize={20}>Country</Text>
-              <Input type="text" placeholder="Pais" name="country" />
-            </GridItem>
+              <GridItem px={10} mb='5'>
+                <Center><Text>Direction</Text></Center>
+                <Input type="text" name="address" defaultValue={userLoguin.address} />
+              </GridItem>
+    
+              <GridItem px={10} mb='5'>
+                <Center><Text>City</Text></Center>
+                <Input type="text" name="city" defaultValue={userLoguin.city} />
+              </GridItem>
 
-            <GridItem pl={10} pr={10}>
-            <Text ml='45%' fontSize={20}>CP</Text>
-            <Input type="text" placeholder="Codigo postal" name="cp" />
-            </GridItem>
+              <GridItem px={10} mb='5'>
+                <Center><Text >Country</Text></Center>
+                <Input type="text" name="country"  defaultValue={userLoguin.country}/>
+              </GridItem>
 
-            <GridItem pl={10} pr={10}>
-              <Text ml='45%' fontSize={20}>Phone</Text>
-              <Input type="text" placeholder="Telefono" name="phone" />
-            </GridItem>
+              <GridItem px={10} mb='5'>
+                <Center><Text>P.C.</Text></Center>
+                <Input type="text" name="cp" defaultValue={userLoguin.postalCode} />
+              </GridItem>
 
+              <GridItem px={10} mb='5'>
+                <Center><Text>Phone</Text></Center>
+                <Input type="text" name="phone" defaultValue={userLoguin.phone}/>
+              </GridItem>
             </Grid>
+            </Flex>
           </form>
         <br/>
         <Box ml='43%'>
           <Stack direction="row" spacing={4} align="center">
             <Link to="/checkout">
-              <Button colorScheme="teal" variant="outline">
-                Regresar
+              <Button 
+                colorScheme="teal" 
+                variant="outline"
+                width='5rem'
+                >
+                  Back
               </Button>
             </Link>
 
-            <Button colorScheme="teal" variant="solid" onClick={handleSubmit}>
-              Pagar
+            <Button 
+              colorScheme="teal" 
+              variant="solid" 
+              onClick={handleSubmit}
+              width='5rem'
+              >
+                Next
             </Button>
           </Stack>
         </Box>
-
-        <Flex mt={6}>
-          <Text color='white'>Pedido:</Text>
-          {dataLocal.map((item) => (
-            <Flex flexDirection='column' bg='#3E4AB8' ml={5} borderRadius={12} color='white' p={2}>
-              <Text>{item.name}</Text>
-              <Center>USD {item.price}</Center>
-            </Flex>
-          ))}
-        </Flex>
 
     </>
   );
