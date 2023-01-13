@@ -737,6 +737,37 @@ const getUserEmail = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+const editCourse = async (req, res) => {
+  const {
+    id,
+    name,
+    description,
+    instructor,
+    duration,
+    price,
+    image,
+    difficulty,
+  } = req.body;
+  try {
+    const course = await Courses.findByPk(id)
+
+    await course.update({
+      name,
+      description,
+      instructor,
+      duration,
+      price,
+      image,
+      difficulty,
+    });
+    res.status(200).send('El curso fue editado con éxito');
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+    console.log('Error edit :', error.message)
+  }
+};
+
 module.exports = {
   postCourse,
   getAllCourses,
@@ -762,4 +793,5 @@ module.exports = {
   disableAdmin,
   deleteUser,
   getUserEmail,
+  editCourse,
 };

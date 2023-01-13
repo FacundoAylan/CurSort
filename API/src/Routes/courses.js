@@ -1,13 +1,20 @@
 const { Router } = require('express');
 const router = Router();
 
-const {postCourse, getAllCourses, getCourseById, postReview} = require('../Controllers/index.js')
+const {
+    postCourse, 
+    getAllCourses, 
+    getCourseById, 
+    postReview,
+    editCourse
+} = require('../Controllers/index.js')
 
 router
-    .post('/', postCourse)
     .get('/', getAllCourses)
     .get('/:id', getCourseById)
+    .post('/', postCourse)
     .post('/review', postReview)
+    .put('/', editCourse)
 
 
 module.exports = router;
