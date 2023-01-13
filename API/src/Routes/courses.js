@@ -6,7 +6,7 @@ const {
     getAllCourses, 
     getCourseById, 
     postReview,
-    editCourse
+    editCourse,
     disableCourse,
     deleteCourse
 } = require('../Controllers/index.js')
