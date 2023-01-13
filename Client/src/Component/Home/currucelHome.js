@@ -1,4 +1,3 @@
-
 import React, {useState,useEffect} from "react";
 import { useDispatch, useSelector} from 'react-redux'
 import { filterCategory, getCourses } from "../../Redux/actions";
@@ -20,6 +19,7 @@ const settings = {
 };
 
 function CarouselHome({ categorie }) {
+
 
   let info = useSelector(
     (state) => state.courses,
