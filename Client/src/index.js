@@ -11,7 +11,7 @@ import store from './Redux/store/index.js';
 import { Provider } from 'react-redux';
 
 const domain = 'dev-k7vhqlkkakdbugkd.us.auth0.com';
-const client_id = 'nyrEheOVHcD4vKt3wv5MgVwiq2uSXkDR' ;
+const client_id = 'nyrEheOVHcD4vKt3wv5MgVwiq2uSXkDR';
 
 
 const firebaseConfig = {
@@ -24,7 +24,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
+initializeApp(firebaseConfig); 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -32,7 +32,7 @@ root.render(
     <Auth0Provider
       domain={domain}
       clientId={client_id}
-      redirectUri={'https://cursort.onrender.com/home'}   
+      redirectUri={'https://cursort.onrender.com/#/home'}   
     >
       
       <ChakraProvider>
