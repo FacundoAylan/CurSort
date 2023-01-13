@@ -523,14 +523,14 @@ const contactMail = (req, res) => {
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-      user: "cursort.2022@gmail.com", // generated ethereal user
-      pass: "cghynjlxmrlbasyt", // generated ethereal password
+      user: "cursort.2023@gmail.com", // generated ethereal user
+      pass: "ikjwuqrymddsitoe", // generated ethereal password
     },
   });
 
   let mailOption = {
     from: "Cursort contact", // sender address
-    to: "cursort.2022@gmail.com", // list of receivers
+    to: "cursort.2023@gmail.com", // list of receivers
     subject: "Cotact Form", // Subject line
     // text: newText, // plain text body
     html: html,
@@ -561,7 +561,7 @@ const linkMail = async (req, res, next) => {
   // Falta agregar el link a donde se van a renderizar los cursos.
   let html = `<div>
     <h3> ${name}! Gracias por confiar en Cursort \n ya está diponible tu curso, puedes ingresar en el siguiente link</h3>
-    <button><p> http://localhost:3000/cursos </p></button> 
+    <button><p> http://localhost:3000/course </p></button> 
   </div>`;
 
   //esto le da acceso a nodemailer al mail de cursort
@@ -570,8 +570,8 @@ const linkMail = async (req, res, next) => {
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-      user: "cursort.2022@gmail.com", // generated ethereal user
-      pass: "cghynjlxmrlbasyt", // generated ethereal password
+      user: "cursort.2023@gmail.com", // generated ethereal user
+      pass: "ikjwuqrymddsitoe", // generated ethereal password
     },
   });
 
