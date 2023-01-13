@@ -7,6 +7,8 @@ const {
     getCourseById, 
     postReview,
     editCourse
+    disableCourse,
+    deleteCourse
 } = require('../Controllers/index.js')
 
 router
@@ -15,6 +17,7 @@ router
     .post('/', postCourse)
     .post('/review', postReview)
     .put('/', editCourse)
-
+    .put('/disable/:id', disableCourse)
+    .put('/delete/:id', deleteCourse)
 
 module.exports = router;

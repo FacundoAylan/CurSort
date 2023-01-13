@@ -191,6 +191,7 @@ const getAllCourses = async (req, res) => {
         rating: c.rating,
         image: c.image,
         active: c.active,
+        enabled: c.enabled,
         difficulty: c.difficulty,
         createdAt: c.createdAt,
         updatedAt: c.updatedAt,
@@ -200,7 +201,8 @@ const getAllCourses = async (req, res) => {
     });
 
     if (courses.length > 0) {
-      return res.status(200).send(courses);
+      const coursesActive = courses.filter((u) => u.active === true);
+      return res.status(200).send(coursesActive);
     }
     res.status(404).send({ message: "No se encontraron cursos" });
   } catch (error) {
@@ -242,10 +244,10 @@ const postReview = async (req, res) => {
 const getUsers = async (req, res) => {
   try {
     const users = await Users.findAll();
-    res.json(users);
-    // console.log("user api", users);
+    const userEnable = users.filter((u) => u.active === true);
+    res.json(userEnable);
   } catch (error) {
-    res.status(401).json(error.name);
+    res.status(401).json({ message: error.message });
   }
 };
 const createUser = async (req, res) => {
@@ -765,6 +767,45 @@ const editCourse = async (req, res) => {
   } catch (error) {
     res.status(404).send({ message: error.message });
     console.log('Error edit :', error.message)
+
+const disableCourse = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const course = await Courses.findByPk(id);
+    if (course) {
+      await Courses.update({ enabled: !course.enabled }, { where: { id: id } });
+      res
+        .status(200)
+        .json({ message: `estado admin del curso ${!course.enabled}` });
+    } else {
+      res.status(404).json({ message: "Curso no encontrado" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+ 
+};
+
+const deleteCourse = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    if (id) {
+      const course = await Courses.findByPk(id);
+
+      if (course) {
+        await Courses.update({ active: false }, { where: { id: id } });
+        await Courses.update({ enabled: false }, { where: { id: id } });
+        res.status(200).json({ message: "el curso ha sido eliminado" });
+      } else {
+        res.status(404).json({ message: "Curso no encontrado" });
+      }
+    } else {
+      res.status(404).json({ message: "Curso no encontrado" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -794,4 +835,6 @@ module.exports = {
   deleteUser,
   getUserEmail,
   editCourse,
+  disableCourse,
+  deleteCourse
 };
