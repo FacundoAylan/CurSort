@@ -242,10 +242,10 @@ const postReview = async (req, res) => {
 const getUsers = async (req, res) => {
   try {
     const users = await Users.findAll();
-    res.json(users);
-    // console.log("user api", users);
+    const userEnable = users.filter((u) => u.active === true);
+    res.json(userEnable);
   } catch (error) {
-    res.status(401).json(error.name);
+    res.status(401).json({ message: error.message });
   }
 };
 const createUser = async (req, res) => {
