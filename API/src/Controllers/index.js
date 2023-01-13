@@ -20,7 +20,6 @@ const postCourse = async (req, res) => {
     categoria,
   } = req.body;
 
-  // //console.log('categoria : ', categoria)
   let name,
     description,
     instructor,
@@ -252,7 +251,7 @@ const getUsers = async (req, res) => {
 const createUser = async (req, res) => {
   const user = req.body;
 
-  // //console.log(user.email);
+
 
   let name, lastname, email, email_verified, birthday;
 

@@ -28,6 +28,7 @@ function Information() {
     const dataLocalStore = window.localStorage.getItem("cart");
     const dataLocal = JSON.parse(dataLocalStore);
 
+    const userLoguin = useSelector((state) => state.userEmail);
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
@@ -57,7 +58,7 @@ function Information() {
 
         }
         catch(error){
-          //console.log(error);
+          console.log(error);
         }
     }
 
@@ -79,7 +80,7 @@ function Information() {
               
               <GridItem px={10} mb='5' >
                 <Center><Text>Name</Text></Center>
-                <Input type="text" name="name" defaultValue={user.given_name} />
+                <Input type="text" name="name" defaultValue={userLoguin.name} />
               </GridItem>
 
               <GridItem px={10} mb='5'>
@@ -87,7 +88,7 @@ function Information() {
                 <Input
                   type="text"
                   name="lastname"
-                  defaultValue={user.family_name}
+                  defaultValue={userLoguin.lastname}
                 />
               </GridItem>
 
@@ -97,33 +98,33 @@ function Information() {
                   type="text"
                   placeholder="Correo Electronico"
                   name="email"
-                  defaultValue={user.email}
+                  defaultValue={userLoguin.email}
                 />
               </GridItem>
 
               <GridItem px={10} mb='5'>
                 <Center><Text>Direction</Text></Center>
-                <Input type="text" name="address" />
+                <Input type="text" name="address" defaultValue={userLoguin.address} />
               </GridItem>
     
               <GridItem px={10} mb='5'>
                 <Center><Text>City</Text></Center>
-                <Input type="text" name="city" />
+                <Input type="text" name="city" defaultValue={userLoguin.city} />
               </GridItem>
 
               <GridItem px={10} mb='5'>
                 <Center><Text >Country</Text></Center>
-                <Input type="text" name="country" />
+                <Input type="text" name="country"  defaultValue={userLoguin.country}/>
               </GridItem>
 
               <GridItem px={10} mb='5'>
                 <Center><Text>P.C.</Text></Center>
-                <Input type="text" name="cp" />
+                <Input type="text" name="cp" defaultValue={userLoguin.postalCode} />
               </GridItem>
 
               <GridItem px={10} mb='5'>
                 <Center><Text>Phone</Text></Center>
-                <Input type="text" name="phone" />
+                <Input type="text" name="phone" defaultValue={userLoguin.phone}/>
               </GridItem>
             </Grid>
             </Flex>
