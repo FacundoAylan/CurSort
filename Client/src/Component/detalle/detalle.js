@@ -22,8 +22,6 @@ import {
   AccordionButton,
   AccordionIcon,
   AccordionPanel,
- 
-  Select,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -56,7 +54,7 @@ function Detalle() {
   useEffect(() => {
     dispatch(getDetail(id));
   }, [dispatch, id]);
-
+console.log('curso: ', course)
   //este useEffect para poder ver el carrito actualizado
   useEffect(() => {
     dispatch(getCourses(""));

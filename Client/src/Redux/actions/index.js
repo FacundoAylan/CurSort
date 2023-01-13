@@ -27,6 +27,8 @@ import {
   GET_USERS,
   GET_ADMIN_COURSES,
   GET_ORDERS,
+  EDIT_COURSE,
+  CLEAR_COURSE_DETAIL,
 } from "../action-types";
 
 export function getCourses(name) {
@@ -69,7 +71,7 @@ export function getFilterCategory(id) {
 
       dispatch({
         type: GET_FILTER_CATEGORY,
-        payload: response.data, //array de cursos
+        payload: response.data,
       });
     };
   }
@@ -80,7 +82,7 @@ export function getFilterCategory(id) {
     );
     dispatch({
       type: GET_FILTER_CATEGORY,
-      payload: response.data, //array de cursos
+      payload: response.data, 
     });
   };
 }
@@ -142,7 +144,6 @@ export function AllFilterDifficulty(payload) {
     });
   };
 }
-
 
 export function filterDifficulty(difficulty) {
   return {
@@ -287,6 +288,17 @@ export function putUser(payload) {
   };
 }
 
+export function putCourse(payload) {
+  return async function (dispatch) {
+    const res = await axios.put("https://cursort-api.onrender.com/courses", payload
+    );
+    dispatch({
+      type: EDIT_COURSE,
+      payload: res.data,
+    });
+  };
+}
+
 export function getOrders() {
   return async (dispatch) => {
     let order = await axios.get("https://cursort-api.onrender.com/checkout/orders");
@@ -308,4 +320,11 @@ export function getUserEmail(email) {
     });
   };
 }
+
+export function clearCourseDetail() {
+  return {
+    type: CLEAR_COURSE_DETAIL,
+  };
+}
+
 

@@ -191,6 +191,7 @@ const getAllCourses = async (req, res) => {
         rating: c.rating,
         image: c.image,
         active: c.active,
+        enabled: c.enabled,
         difficulty: c.difficulty,
         createdAt: c.createdAt,
         updatedAt: c.updatedAt,
@@ -200,7 +201,8 @@ const getAllCourses = async (req, res) => {
     });
 
     if (courses.length > 0) {
-      return res.status(200).send(courses);
+      const coursesActive = courses.filter((u) => u.active === true);
+      return res.status(200).send(coursesActive);
     }
     res.status(404).send({ message: "No se encontraron cursos" });
   } catch (error) {
@@ -242,10 +244,10 @@ const postReview = async (req, res) => {
 const getUsers = async (req, res) => {
   try {
     const users = await Users.findAll();
-    res.json(users);
-    // console.log("user api", users);
+    const userEnable = users.filter((u) => u.active === true);
+    res.json(userEnable);
   } catch (error) {
-    res.status(401).json(error.name);
+    res.status(401).json({ message: error.message });
   }
 };
 const createUser = async (req, res) => {
@@ -486,9 +488,6 @@ const getCoursesByDuration = async (duration) => {
 const filterCourses = async (req, res) => {
   const { id, difficulty, duration } = req.query;
 
-  // //console.log('duration', duration)
-  // //console.log('difficulty',difficulty)
-
   try {
     if (id) {
       const courses = await getCoursesByCategory(id);
@@ -524,20 +523,21 @@ const contactMail = (req, res) => {
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-      user: "cursort.2022@gmail.com", // generated ethereal user
-      pass: "cghynjlxmrlbasyt", // generated ethereal password
+      user: "cursort.2023@gmail.com", // generated ethereal user
+      pass: "ikjwuqrymddsitoe", // generated ethereal password
     },
   });
 
   let mailOption = {
     from: "Cursort contact", // sender address
-    to: "cursort.2022@gmail.com", // list of receivers
+    to: "cursort.2023@gmail.com", // list of receivers
     subject: "Cotact Form", // Subject line
     // text: newText, // plain text body
     html: html,
   };
   transporter.sendMail(mailOption, (error, info) => {
     if (error) {
+      console.log('error mensaje :',error.message )
       res.status(500).json(error.message);
     } else {
       res.status(200).json("Email enviado con exito");
@@ -553,19 +553,6 @@ const linkMail = async (req, res, next) => {
   //---- Esto recibe un [] con los id de los cursos pero no puedo incluirlos en el mail.
   //Igual recibe el mail de confirmacion simple
 
-  //   const cursosPay = id_cursos.map((id)=>{
-  //    return Courses.findByPk(id);
-  //   })
-  //   const promesas = await Promise.all(cursosPay)
-
-  //  const promesasListas =  promesas.map(p=>{
-  //   return {
-  //     nombre : p.name,
-  //     precio: p.price,
-  //     imagen : p.image
-  //   }
-  //  })
-
   if (!mail)
     res
       .status(500)
@@ -574,7 +561,7 @@ const linkMail = async (req, res, next) => {
   // Falta agregar el link a donde se van a renderizar los cursos.
   let html = `<div>
     <h3> ${name}! Gracias por confiar en Cursort \n ya está diponible tu curso, puedes ingresar en el siguiente link</h3>
-    <button><p> http://localhost:3000/cursos </p></button> 
+    <button><p> http://localhost:3000/course </p></button> 
   </div>`;
 
   //esto le da acceso a nodemailer al mail de cursort
@@ -583,8 +570,8 @@ const linkMail = async (req, res, next) => {
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-      user: "cursort.2022@gmail.com", // generated ethereal user
-      pass: "cghynjlxmrlbasyt", // generated ethereal password
+      user: "cursort.2023@gmail.com", // generated ethereal user
+      pass: "ikjwuqrymddsitoe", // generated ethereal password
     },
   });
 
@@ -737,6 +724,77 @@ const getUserEmail = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+const editCourse = async (req, res) => {
+  const {
+    id,
+    name,
+    description,
+    instructor,
+    duration,
+    price,
+    image,
+    difficulty,
+  } = req.body;
+  try {
+    const course = await Courses.findByPk(id)
+
+    await course.update({
+      name,
+      description,
+      instructor,
+      duration,
+      price,
+      image,
+      difficulty,
+    });
+    res.status(200).send('El curso fue editado con éxito');
+  } catch (error) {
+    res.status(404).send({ message: error.message });
+    console.log('Error edit :', error.message)
+  }}
+
+const disableCourse = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const course = await Courses.findByPk(id);
+    if (course) {
+      await Courses.update({ enabled: !course.enabled }, { where: { id: id } });
+      res
+        .status(200)
+        .json({ message: `estado admin del curso ${!course.enabled}` });
+    } else {
+      res.status(404).json({ message: "Curso no encontrado" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+ 
+};
+
+const deleteCourse = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    if (id) {
+      const course = await Courses.findByPk(id);
+
+      if (course) {
+        await Courses.update({ active: false }, { where: { id: id } });
+        await Courses.update({ enabled: false }, { where: { id: id } });
+        res.status(200).json({ message: "el curso ha sido eliminado" });
+      } else {
+        res.status(404).json({ message: "Curso no encontrado" });
+      }
+    } else {
+      res.status(404).json({ message: "Curso no encontrado" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 module.exports = {
   postCourse,
   getAllCourses,
@@ -762,4 +820,7 @@ module.exports = {
   disableAdmin,
   deleteUser,
   getUserEmail,
+  editCourse,
+  disableCourse,
+  deleteCourse
 };

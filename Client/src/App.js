@@ -16,10 +16,12 @@ import HomeFilter from './Component/Home/homeFilter';
 import project from './Component/landing/project/project';
 import ProfileEdit from './Component/Profile/profileEdit';
 import MyCourses from './Component/mycourses/Mycourses';
+import editCourse from './Component/admin/editCourse/editCourse';
 
 function App() {
   return (
     <Container background='#191E29' minH='100vh' maxW='100%' p={0} >
+
           <HashRouter>
             <Switch>
               <Route exact path="/" component={Landing} />
@@ -36,7 +38,7 @@ function App() {
               <Route path ="/project" component={project}/>
               <Route path ='/editprofile' component={ProfileEdit}/>
               <Route path ='/mycourses' component={MyCourses}/>
-
+              <Route path ="/editcourse/:id" component={editCourse}/>
              </Switch>
           </HashRouter>
     </Container>

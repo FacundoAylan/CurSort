@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  Box,
   IconButton,
+  Switch,
   Table,
   TableCaption,
   TableContainer,
@@ -12,9 +14,12 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { getCourses } from "../../../Redux/actions/index";
-import {EditIcon} from '@chakra-ui/icons';
+import { getCourses, getDetail } from "../../../Redux/actions/index";
+import {DeleteIcon, EditIcon} from '@chakra-ui/icons';
 import SearchAdmin from "./searchAdmin/searchAdmin";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useHistory, Link} from 'react-router-dom';
 
 function CoursesAdmin() {
   let info = useSelector(
@@ -22,12 +27,44 @@ function CoursesAdmin() {
     () => false
   );
 
+  const history = useHistory()
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCourses(""));
   }, [dispatch]);
 
-  console.log(info)
+  const handleOnClick = async (e, id)=>{
+    e.preventDefault()
+    await dispatch(getDetail(id)) 
+    history.push(`/editcourse/${id}`)
+  }
+
+  const handleDisable = async (id) => {
+    try {
+      await axios.put(`http://localhost:3001/courses/disable/${id}`);
+      dispatch(getCourses(""));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.put(`http://localhost:3001/courses/delete/${id}`);
+      dispatch(getCourses(""));
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Course Deleted',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <SearchAdmin/>
@@ -38,9 +75,11 @@ function CoursesAdmin() {
             <Tr>
               <Th>Course</Th>
               <Th>Instructor</Th>
-              <Th>Review</Th>
+              <Th>Rating</Th>
               <Th>Categories</Th>
               <Th>Price</Th>
+              <Th>Enable</Th>
+              <Th>Edit</Th>
               <Th></Th>
             </Tr>
           </Thead>
@@ -56,11 +95,50 @@ function CoursesAdmin() {
                     {/* visitas */}
                     <Td pl="3%">{value.rating}</Td>
                     {/* categoria */}
-                    <Td>Front End</Td>
+                    <Td>{value.categories[0]}</Td>
                     {/* precio */}
                     <Td>{`$${value.price} USD`}</Td>
+                     {/* admin*/}
+                     <Td>
+                      <Box>             
+                          <Switch
+                            isChecked={value.enabled}
+                            onChange={()=>handleDisable(value.id)}
+                          />
+                      </Box>
+                    </Td>
                     <Td>
-                      <IconButton
+                    {/* <Link to={`/editcourse/${value.id}`}> */}
+
+                        <IconButton
+                          flex={1}
+                          fontSize={"sm"}
+                          rounded={"full"}
+                          maxW="10px"
+                          bg={"blue.400"}
+                          color={"white"}
+                          boxShadow={
+                            "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)"
+                          }
+                          _hover={{
+                            bg: "blue.500",
+                          }}
+                          _focus={{
+                            bg: "blue.500",
+                          }}
+                          aria-label="Search database"
+                          icon={<EditIcon />}
+                          type="button"
+                          onClick={(e) => handleOnClick(e, value.id)}
+                        />
+
+                      {/* </Link> */}
+
+                    </Td>
+                    <Td>
+                        {/* boton para eliminar */}
+                        <IconButton
+                        onClick={()=>handleDelete(value.id)}
                         flex={1}
                         fontSize={"sm"}
                         rounded={"full"}
@@ -77,7 +155,7 @@ function CoursesAdmin() {
                           bg: "blue.500",
                         }}
                         aria-label="Search database"
-                        icon={<EditIcon />}
+                        icon={<DeleteIcon />}
                       />
                     </Td>
                   </Tr>

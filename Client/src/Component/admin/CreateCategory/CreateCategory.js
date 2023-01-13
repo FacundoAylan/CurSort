@@ -79,35 +79,6 @@ function CreateCategory() {
 	            Submit
 	        	</Button>
 					</Center>		
-
-	{/* 
-			<InputGroup size='md'>
-				<Input
-					id='categoryname'
-					type='text'
-					name='categoryname'
-					value={category.name}
-					pr='4.5rem'
-					placeholder='Name...'
-					onChange={(e) => onChange(e)}
-				/>
-				<InputRightElement width='4.5rem'>
-					<Button
-						colorScheme='blue'
-						size='sm'
-						onClick={(e) => handleOnSubmit(e)}
-						type='submit'
-					>
-						Create
-					</Button>
-				</InputRightElement>
-			</InputGroup>
-			{alerta && (
-				<Alert status='success'>
-					<AlertIcon />
-					Category created successfully!
-				</Alert>
-			)} */}
 			</Box>
 			</Container>
 		</Center>

@@ -69,10 +69,10 @@ const Form1 = ({ input, setInput, isError, setDisabledNext }) => {
             Instructor name:
           </FormLabel>
           <Input
-            id="instructor"
+            id="instuctor"
             onChange={handleInputChange}
             color='white'
-            value={input.instructor}
+            value={input.instuctor}
           />
           {!isError.instructor ? (
             <FormHelperText color={"green"}>✓</FormHelperText>
@@ -299,7 +299,7 @@ function CreateCursor() {
   const [progress, setProgress] = useState(33.33);
   const [input, setInput] = useState({
     nombre: "",
-    instructor: "",
+    instuctor: "",
     duracion: "",
     dificultad: "",
     imagen: "",

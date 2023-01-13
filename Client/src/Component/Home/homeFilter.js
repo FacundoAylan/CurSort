@@ -61,14 +61,15 @@ function HomeFilter({info, pagina, setPagina, maximo, porPagina}) {
                 .map((value) => {
                   return (
                     <GridItem>
-                      <Cards
-                        name={value.name}
-                        image={value.image}
-                        price={value.price}
-                        id={value.id}
-                        category={value.categories[0]}
-                        createdAt={value.createdAt}
-                      />
+                       <Cards
+                    name={value.name}
+                    image={value.image}
+                    price={value.price}
+                    id={value.id}
+                    categories={value.categories}
+                    rating={value.rating}
+                    createdAt={value.createdAt}
+                  />
                     </GridItem>
                   );
                 })}

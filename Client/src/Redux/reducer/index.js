@@ -1,5 +1,6 @@
 // import { filter } from "@chakra-ui/react";
 import {
+  CLEAR_COURSE_DETAIL,
   GET_DETAIL,
   GET_COURSES,
   GET_CATEGORIES,
@@ -25,7 +26,9 @@ import {
   SET_USER,
   SET_LOGUIN,
   GET_LOGUIN,
-  GET_ADMIN_COURSES
+  GET_ADMIN_COURSES,
+
+  EDIT_COURSE,
 } from "../action-types";
 
 let initialState = {
@@ -375,16 +378,26 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         orders: action.payload,
       };
-      case "GET_USER_EMAIL":
-        return{
-          ...state,
-          userEmail: action.payload
-        };
-        case "EDIT_USER":
-          return{
-            ...state,
-            userEmail: action.payload
-          }
+    case "GET_USER_EMAIL":
+      return{
+        ...state,
+        userEmail: action.payload
+      };
+    case "EDIT_USER":
+      return{
+        ...state,
+        userEmail: action.payload
+      }
+    case EDIT_COURSE:
+      return{
+        ...state,
+        courseDetail: action.payload
+      }
+    case CLEAR_COURSE_DETAIL:
+      return {
+        ...state,
+        courseDetail: {},
+      };
     default:
       return state;
   }

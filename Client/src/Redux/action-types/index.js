@@ -26,6 +26,8 @@ export const GET_ADMIN_COURSES = 'GET_ADMIN_COURSES';
 
 export const GET_ORDERS = 'GET_ORDERS'
 
+export const EDIT_COURSE = 'EDIT_COURSE'
+export const CLEAR_COURSE_DETAIL = 'CLEAR_COURSE_DETAIL'
 
 export const GET_USER = 'GET_USER'
 export const SET_USER = 'SET_USER'

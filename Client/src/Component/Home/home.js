@@ -8,17 +8,20 @@ import {
   Grid,
   Flex,
   Spinner,
-  // Image,
 } from "@chakra-ui/react";
+
 import NavBar from "../navBar/navBar";
 import Footer from "../landing/footer/footer";
 import CarouselHome from "./currucelHome";
 import Filter from "../navBar/filter/filter";
 import HomeFilter from "./homeFilter";
-import { getCategory, getCourses } from "../../Redux/actions";
+import { getCategory, getCourses, getUserEmail } from "../../Redux/actions";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { useAuth0 } from '@auth0/auth0-react';
-import { setUserLocalStore, getUserLocalStore } from '../../Redux/actions/index';
+import { useAuth0 } from "@auth0/auth0-react";
+import {
+  setUserLocalStore,
+  getUserLocalStore,
+} from "../../Redux/actions/index";
 
 function Home() {
   let info = useSelector(
@@ -27,12 +30,14 @@ function Home() {
   ); // el false, verifica el estado anterior
   const [ home, setHome ] =  useState(true);
 
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCourses(""));
     dispatch(getCategory());
   }, [dispatch]);
-  const categories = useSelector(state => state.categories)
+
+  const categories = useSelector((state) => state.categories);
 
   const [pagina, setPagina] = useState(1);
   const porPagina = 10;
@@ -49,40 +54,50 @@ function Home() {
     } else {
       dispatch(getUserLocalStore());
     }
-  }, [user])
-  
+  }, [user, dispatch]);
 
   return (
     <Container maxW="100%" p="0" heightMode="min">
       <Box>
-        <NavBar setOrder={setOrder} setPagina={setPagina} setHome={setHome}/>
+        <NavBar setOrder={setOrder} setPagina={setPagina} setHome={setHome} />
       </Box>
-      <Grid templateColumns="15% 85%" spacing="3px" pt='110px'>
-      <Filter
-              setPagina={setPagina}
-              setOrder={setOrder}
-              booleano={false}
-              setHome={setHome}
-            />
+
+      <Box bg="#3E4AB8" pt="6rem" h="100%" position="fixed">
+        <Filter
+          setPagina={setPagina}
+          setOrder={setOrder}
+          booleano={false}
+          setHome={setHome}
+        />
+      </Box>
       {info.length > 0 ?
-      <Box h="40%" maxW="100%" pl={3} pr={3}>
-        { home ?
+        <Flex pt="100px" ml="10rem">
+          <Box h="40%" width="100%" pl={3} pr={3}>
+          {home ? (
             categories &&
-            categories.slice(0,3).map((value) => {
+            categories.slice(0, 3).map((value) => {
               return (
                 <>
-                  <Center pt='10px'>
-                      <Text color='white'>{value.name.toUpperCase()}</Text>
+                  <Center pt="10px">
+                    <Text color="white">{value.name.toUpperCase()}</Text>
                   </Center>
-                  <CarouselHome categorie={value.name}/>
-        
+                  <CarouselHome categorie={value.name} />
                 </>
-              )
-            }
-            )
-        : <HomeFilter info={info} pagina={pagina} setPagina={setPagina} maximo={maximo} porPagina={porPagina} />}
-
-      </Box>
+              );
+            })
+          )  
+          : 
+          (
+            <HomeFilter
+              info={info}
+              pagina={pagina}
+              setPagina={setPagina}
+              maximo={maximo}
+              porPagina={porPagina}
+            />
+          )}
+        </Box>
+      </Flex>
         :
         <Box maxW="100%" h='100%' borderRadius={12}>
           <Center pt='10%'>
@@ -95,7 +110,7 @@ function Home() {
       }
       </Grid>
       <Box mt={7}>
-        <Footer/>
+        <Footer />
       </Box>
     </Container>
   );
