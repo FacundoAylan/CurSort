@@ -9,7 +9,6 @@ import { setUserLocalStore, setLoguinLocalStore, getUserLocalStore } from "../..
 
 const LogoutButton = () => {
   const { logout, user } = useAuth0();
-
   const dispatch = useDispatch();
   
   useEffect(()=>{
@@ -18,11 +17,10 @@ const LogoutButton = () => {
   },[user, dispatch])
   
   const userLocalStorage = JSON.parse(window.localStorage.getItem("user"))
-  console.log(userLocalStorage)
   
   const handleLogout = () => {
     logout({ returnTo: 'https://cursort.onrender.com/home' });
-    dispatch(setUserLocalStore([]));
+    dispatch(setUserLocalStore({}));
     dispatch(setLoguinLocalStore(false));
   };
 
