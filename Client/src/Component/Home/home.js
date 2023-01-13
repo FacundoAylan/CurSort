@@ -6,7 +6,7 @@ import {
   Center,
   Text,
   Grid,
-  // Image,
+  Flex
 } from "@chakra-ui/react";
 import NavBar from "../navBar/navBar";
 import Footer from "../landing/footer/footer";
@@ -59,17 +59,18 @@ function Home() {
       <Box>
         <NavBar setOrder={setOrder} setPagina={setPagina} setHome={setHome}/>
       </Box>
-      <Grid templateColumns="15% 85%" spacing="3px" pt='100px'>
-        <Box bg='#3E4AB8' mt={3} h='55vh' borderRadius={12}>
-          <Filter
-                  setPagina={setPagina}
-                  setOrder={setOrder}
-                  booleano={false}
-                  setHome={setHome}
-                />
+      <Box bg='#3E4AB8' pt='6rem' h='100%' position='fixed'>
+        <Filter
+          setPagina={setPagina}
+          setOrder={setOrder}
+          booleano={false}
+          setHome={setHome}
+        />
         </Box>
-      <Box h="40%" maxW="100%" pl={3} pr={3}>
-        { home ?
+      
+      <Flex pt='100px' ml='10rem'>
+        <Box h="40%" width="100%" pl={3} pr={3}>
+          { home ?
             categories &&
             categories.slice(0,3).map((value) => {
               return (
@@ -77,16 +78,20 @@ function Home() {
                   <Center pt='10px'>
                       <Text color='white'>{value.name.toUpperCase()}</Text>
                   </Center>
-                  <CarouselHome categorie={value.name}/>
-        
+                  <CarouselHome categorie={value.name}/>              
                 </>
               )
-            }
-            )
-        : <HomeFilter info={info} pagina={pagina} setPagina={setPagina} maximo={maximo} porPagina={porPagina} />}
+            }) : <HomeFilter 
+              info={info} 
+              pagina={pagina} 
+              setPagina={setPagina} 
+              maximo={maximo} 
+              porPagina={porPagina} 
+            />
+          }
+        </Box>
+      </Flex>
 
-      </Box>
-      </Grid>
       <Box mt={7}>
         <Footer/>
       </Box>
