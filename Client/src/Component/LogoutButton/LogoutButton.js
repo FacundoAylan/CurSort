@@ -20,7 +20,7 @@ const LogoutButton = () => {
   
   const handleLogout = () => {
 
-    logout({ returnTo: 'https://cursort.onrender.com/home' });
+    logout({ returnTo: 'https://cursort.onrender.com/#/home' });
     dispatch(setUserLocalStore({}));
     dispatch(setLoguinLocalStore(false));
   };
