@@ -20,7 +20,6 @@ const postCourse = async (req, res) => {
     categoria,
   } = req.body;
 
-
   let name,
     description,
     instructor,
@@ -64,7 +63,7 @@ const postCourse = async (req, res) => {
 };
 
 //loadCoursesToDB es solo para cargar los cursos del json a la DB
-//la ruta en Postman seria https://cursort-api.onrender.com/course/load
+//la ruta en Postman seria http://localhost:3001/course/load
 
 const loadCoursesToDB = async () => {
   const coursesDB = await Courses.findAll();
@@ -140,6 +139,7 @@ const getCourseById = async (req, res) => {
           },
         ],
       });
+      // console.log('curso con comentarios' , course)
       if (course) {
         res.status(200).json(course);
       } else {
@@ -212,12 +212,27 @@ const getAllCourses = async (req, res) => {
 const postReview = async (req, res) => {
   try {
     let { name, text, rating, courseId } = req.body;
+    if (!rating) rating = 0;
+
     const newReview = await Reviews.create({
       name,
       text,
       rating,
       courseId: courseId, //relacion con el curso
     });
+
+    const { count, rows } = await Reviews.findAndCountAll({
+      where: { courseId: courseId },
+    });
+
+    let total = 0;
+    let sumaRating = rows.map((r) => {
+      total = total + r.rating;
+    });
+    const ratingCourse = total / count;
+
+    await Courses.update({ rating: ratingCourse }, { where: { id: courseId } });
+
     res.status(200).send({ message: "Reseña creada con exito" });
   } catch (error) {
     res.status(400).send({ message: error.message });
@@ -228,6 +243,7 @@ const getUsers = async (req, res) => {
   try {
     const users = await Users.findAll();
     res.json(users);
+    // console.log("user api", users);
   } catch (error) {
     res.status(401).json(error.name);
   }
@@ -236,13 +252,14 @@ const createUser = async (req, res) => {
   const user = req.body;
 
 
+
   let name, lastname, email, email_verified, birthday;
 
   name = user.given_name || user.name;
   lastname = user.family_name || "";
   email = user.email;
   email_verified = user.email_verified;
-  (admin = false), (enabled = true);
+  (admin = false), (enabled = true), (active = true);
 
   try {
     const [usuario, craeted] = await Users.findOrCreate({
@@ -255,6 +272,7 @@ const createUser = async (req, res) => {
         birthday,
         admin,
         enabled,
+        active,
       },
     });
     res.status(200).json({ usuario, craeted });
@@ -265,22 +283,22 @@ const createUser = async (req, res) => {
 
 //Deshabilita el usuario por email
 const disableUser = async (req, res) => {
-
-  const { email } = req.query;
+  const { mail} = req.query;
 
   try {
-    const user = await Users.findOne({ where: { email } });
+    const user = await Users.findOne({ where: { email: mail } });
     if (user) {
-      await Users.update({ enabled: !user.enabled }, { where: { email } });
+      await Users.update({ enabled: !user.enabled }, { where: { email: mail } });
       res
         .status(200)
-        .json({ message: `estado enabled del usuario ${!user.enabled}` });
+        .json({ message: `estado admin del usuario ${!user.enabled}` });
     } else {
       res.status(404).json({ message: "Usuario no encontrado" });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
+ 
 };
 
 const disableAdmin = async (req, res) => {
@@ -302,41 +320,63 @@ const disableAdmin = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  const { email } = req.query;
+  const { mail } = req.query;
 
   try {
-    const user = await Users.destroy({ where: { email } });
+    if (mail) {
+      const user = await Users.findOne({ where: { email: mail } });
 
-    if (user) {
-      res.status(200).json({ message: "el usuario ha sido eliminado" });
+      if (user) {
+        await Users.update({ active: false }, { where: { email: mail } });
+        await Users.update({ enabled: false }, { where: { email: mail } });
+        res.status(200).json({ message: "el usuario ha sido eliminado" });
+      } else {
+        res.status(404).json({ message: "Usuario no encontrado" });
+      }
     } else {
       res.status(404).json({ message: "Usuario no encontrado" });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-}
-
+};
 
 //ruta para modificar un usuario
 const editUser = async (req, res) => {
-  const { name, lastname, birthday, country, gender } = req.body;
+  const {
+    name,
+    lastname,
+    email,
+    birthday,
+    phone,
+    address,
+    city,
+    country,
+    postalCode,
+    gender        
+  } = req.body;
   try {
-    if (!name || !lastname) return res.status(400).send("Faltan datos");
+    // if (!name || !lastname) return res.status(400).send("Faltan datos");
+
     const editUser = await Users.findOne({
-      where: { name: name },
+      where: { email: email },
     });
 
     const userEdit = await editUser.update({
       name,
       lastname,
       birthday,
+      phone,
+      address,
+      city,
       country,
-      gender, // acepta solo F o M
+      postalCode,
+      gender  // acepta solo F o M
     });
-    res.status(200).send({ message: "Usuario modificado con exito" });
+    res.status(200).send(userEdit);
   } catch (error) {
     res.status(404).send({ message: error.message });
+    console.log('Error edit :', error.message)
   }
 };
 
@@ -446,6 +486,8 @@ const getCoursesByDuration = async (duration) => {
 const filterCourses = async (req, res) => {
   const { id, difficulty, duration } = req.query;
 
+  // //console.log('duration', duration)
+  // //console.log('difficulty',difficulty)
 
   try {
     if (id) {
@@ -532,7 +574,7 @@ const linkMail = async (req, res, next) => {
   // Falta agregar el link a donde se van a renderizar los cursos.
   let html = `<div>
     <h3> ${name}! Gracias por confiar en Cursort \n ya está diponible tu curso, puedes ingresar en el siguiente link</h3>
-    <button><p> https://cursort.onrender.com/cursos </p></button> 
+    <button><p> http://localhost:3000/cursos </p></button> 
   </div>`;
 
   //esto le da acceso a nodemailer al mail de cursort
@@ -580,7 +622,7 @@ const validate = ({ mail, phone, address, city, postalCode, country }) => {
 
 // post para guardar los datos del comprador
 const postInformationBuyer = async (req, res, next) => {
-  const { mail, phone, address, city, postalCode, country } = req.body; 
+  const { mail, phone, address, city, postalCode, country } = req.body;
 
   const errors = validate({ mail, phone, address, city, postalCode, country });
 
@@ -626,7 +668,7 @@ const postPayment = async (req, res, next) => {
       where: { id: id_courses },
     });
 
-
+    //console.log(course)
 
     const newOrder = await Orders.create({
       status: "paid",
@@ -636,7 +678,7 @@ const postPayment = async (req, res, next) => {
 
     await newOrder.addCourse(course);
     await newOrder.addUser(buyer);
-
+    await buyer.addCourse(course) //agregue la relacion usuario => curso comprado
     res.send({ message: "success" });
 
     next();
@@ -650,7 +692,7 @@ const getOrders = async (req, res) => {
     const orders = await Orders.findAll({
       include: [
         {
-          model: Users,
+          model: Users, 
           attributes: ["name", "email"],
         },
         {
@@ -670,6 +712,31 @@ const getToken = (req, res) => {
   res.send(token);
 };
 
+const getUserEmail = async (req, res) => {
+  const { email } = req.query;
+  try {
+    const findUser = await Users.findOne({
+      where: { email: email },
+      include: [
+        {
+          model: Courses,
+          attributes: ["name", "description", "rating"],
+        },
+        {
+          model: Orders,
+          attributes: ["stripe_id", "status"],
+        },
+      ],
+    });
+    if (findUser) {     
+      res.status(200).json(findUser);
+    } else {
+      res.status(404).json({ message: "Usuario no encontrado" });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 module.exports = {
   postCourse,
   getAllCourses,
@@ -693,6 +760,6 @@ module.exports = {
   getToken,
   getUsers,
   disableAdmin,
-  deleteUser, 
+  deleteUser,
+  getUserEmail,
 };
-
