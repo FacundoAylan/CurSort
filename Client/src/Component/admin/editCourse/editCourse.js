@@ -27,7 +27,7 @@ const EditCourse = () => {
 
   useEffect(() => {
     dispatch(getDetail(id));
-    dispatch(clearCourseDetail())
+    // dispatch(clearCourseDetail())
   }, [dispatch, id]);
 
   const [input, setInput] = useState({
@@ -52,6 +52,7 @@ const EditCourse = () => {
       showConfirmButton: false,
       timer: 1500
     })
+    dispatch(getDetail(id));
     history.push("/Admin");
   }
 

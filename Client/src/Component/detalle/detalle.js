@@ -22,8 +22,6 @@ import {
   AccordionButton,
   AccordionIcon,
   AccordionPanel,
- 
-  Select,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import {

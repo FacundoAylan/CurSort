@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { addToCart } from "../../Redux/actions";
+import { Link,useHistory } from "react-router-dom";
+import { addToCart, getDetail } from "../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { FiShoppingCart } from "react-icons/fi";
 import {
@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import Swal from "sweetalert2";
+
 
 
 
@@ -68,6 +69,7 @@ function Cards({ name, image, price, id, categories, rating, createdAt }) {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.courses);
   const local = useSelector((state) => state.local);
+  const history = useHistory()
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -94,8 +96,13 @@ function Cards({ name, image, price, id, categories, rating, createdAt }) {
     })
   };
 
+  const handleRedirec = async (e)=>{
+    e.preventDefault()
+    await  dispatch(getDetail(id)) 
+    history.push(`/detalle/${id}`)}
+
   return (
-    <Link to={`/detalle/${id}`} className="linkStart">
+    <Link onClick={handleRedirec} className="linkStart">
       <Grid
         p={0}
         templateRows=" 45% 55%"
