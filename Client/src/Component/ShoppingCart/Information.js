@@ -152,7 +152,6 @@ function Information() {
             </Button>
           </Stack>
         </Box>
-
     </>
   );
 }

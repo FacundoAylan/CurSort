@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { getUsers } from "../../../Redux/actions/index";
 import {DeleteIcon} from '@chakra-ui/icons';
+import Swal from "sweetalert2";
 
 function ListUsers() {
   let users = useSelector(state => state.users);
@@ -34,7 +35,7 @@ function ListUsers() {
  
   const handle = async (email)=>{
   try {
-    await axios.put(`https://cursort-api.onrender.com/users/disable?email=${email}`);
+    await axios.put(`https://cursort-api.onrender.com/users/disable?mail=${email}`);
     dispatch(getUsers());
   } catch(error){
     console.log(error);
@@ -43,8 +44,15 @@ function ListUsers() {
 
   const handleClick = async email=>{
     try {
-      await axios.delete(`https://cursort-api.onrender.com/users/delete?email=${email}`);
+      await axios.put(`https://cursort-api.onrender.com/users/delete?mail=${email}`);
       dispatch(getUsers());
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'User Deleted',
+        showConfirmButton: false,
+        timer: 1500
+      })
     } catch(error){
       console.log(error);
     }

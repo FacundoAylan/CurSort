@@ -24,9 +24,9 @@ import {
   GET_USER,
   SET_LOGUIN,
   GET_LOGUIN,
-
-  GET_USERS
-
+  GET_USERS,
+  GET_ADMIN_COURSES,
+  GET_ORDERS,
 } from "../action-types";
 
 export function getCourses(name) {
@@ -60,7 +60,6 @@ export function getCategory() {
       payload: categories.data,
     });
   };
-  
 }
 
 export function getFilterCategory(id) {
@@ -219,12 +218,11 @@ export function postComment(value) {
   return async (dispatch) => {
     let response = await axios.post(`https://cursort-api.onrender.com/courses/review`,value);
     dispatch({
-      type: 'POST_REVIEWS',
+      type: "POST_REVIEWS",
       payload: response.data,
     });
   };
 }
-
 
 export function setUserLocalStore(payload) {
   return {
@@ -252,14 +250,62 @@ export function getLoguinLocalStore() {
   };
 }
 //develop se dejo por las dudas
-export function getUsers(){
+export function getUsers() {
   return async (dispatch) => {
+
     let response = await axios.get('https://cursort-api.onrender.com/users/getUsers');
     dispatch({
       type: GET_USERS,
-      payload : response.data
-    })
-  }
+      payload: response.data,
+    });
+  };
 }
 
 //develop
+
+export function getAdminCourses(name) {
+  return async (dispatch) => {
+    let response = await axios.get(
+      `https://cursort-api.onrender.com/courses?name=${name}`
+    );
+    dispatch({
+      type: GET_ADMIN_COURSES,
+      payload: response.data,
+    });
+  };
+}
+
+// pasado por juan
+export function putUser(payload) {
+  return async function (dispatch) {
+    const responseUser = await axios.put("https://cursort-api.onrender.com/users/edit",payload
+    );
+    dispatch({
+      type: "EDIT_USER",
+      payload: responseUser.data,
+    });
+  };
+}
+
+export function getOrders() {
+  return async (dispatch) => {
+    let order = await axios.get("https://cursort-api.onrender.com/checkout/orders");
+    return dispatch({
+      type: GET_ORDERS,
+      payload: order.data,
+    });
+  };
+}
+
+export function getUserEmail(email) {
+  return async (dispatch) => {
+    let userEmail = await axios.get(
+      `https://cursort-api.onrender.com/users/userEmail?email=${email}`
+    );
+    return dispatch({
+      type: "GET_USER_EMAIL",
+      payload: userEmail.data,
+    });
+  };
+}
+

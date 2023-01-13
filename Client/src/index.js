@@ -10,6 +10,9 @@ import {initializeApp} from "firebase/app"
 import store from './Redux/store/index.js';
 import { Provider } from 'react-redux';
 
+const domain = 'dev-k7vhqlkkakdbugkd.us.auth0.com';
+const client_id = 'nyrEheOVHcD4vKt3wv5MgVwiq2uSXkDR' ;
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAqUT6R11VU6V7IBJUpDDrHqtc_DEFDcJo",
@@ -23,9 +26,6 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 
-
-const domain = 'dev-k7vhqlkkakdbugkd.us.auth0.com';
-const client_id = 'nyrEheOVHcD4vKt3wv5MgVwiq2uSXkDR';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

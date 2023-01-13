@@ -1,5 +1,12 @@
 import React from 'react';
-import { Stack, Button, Text } from "@chakra-ui/react"
+import { 
+  Stack, 
+  Button, 
+  Text, 
+  Center,
+  Box,
+  Flex
+} from "@chakra-ui/react"
 import { useHistory } from "react-router-dom";
 
 function EmptyCart() {
@@ -11,14 +18,30 @@ function EmptyCart() {
   };
 
   return (
-    <Stack direction="row" spacing={4} align="center">
-      <Text fontSize="lg" fontWeight="bold" color='#f1faee'>
-        No hay cursos en el carrito
-      </Text>
-      <Button colorScheme="blue" variant="solid" onClick={handleClick}>
-        ELEGIR CURSO
-      </Button>
-    </Stack>
+    <Center>
+      <Box>
+        <Text 
+          fontSize="lg" 
+          fontWeight="bold" 
+          color='#f1faee'
+          mt='10rem'
+          >
+          No courses added to cart yet!
+        </Text>
+        
+        <Center>
+          <Button 
+            colorScheme="teal" 
+            variant="solid" 
+            onClick={handleClick}
+            mt='5rem'
+            mb='-5rem'
+            >
+              ADD COURSES
+          </Button>
+        </Center>
+      </Box>
+    </Center>  
   );
 }
 

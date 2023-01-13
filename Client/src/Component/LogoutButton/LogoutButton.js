@@ -19,6 +19,7 @@ const LogoutButton = () => {
   const userLocalStorage = JSON.parse(window.localStorage.getItem("user"))
   
   const handleLogout = () => {
+
     logout({ returnTo: 'https://cursort.onrender.com/home' });
     dispatch(setUserLocalStore({}));
     dispatch(setLoguinLocalStore(false));

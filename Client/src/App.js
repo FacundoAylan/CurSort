@@ -14,6 +14,9 @@ import Payment from './Component/ShoppingCart/Payment';
 import Compra from './Component/compra/compra';
 import HomeFilter from './Component/Home/homeFilter';
 import project from './Component/landing/project/project';
+import ProfileEdit from './Component/Profile/profileEdit';
+import MyCourses from './Component/mycourses/Mycourses';
+
 function App() {
   return (
     <Container background='#191E29' minH='100vh' maxW='100%' p={0} >
@@ -28,9 +31,12 @@ function App() {
               <Route exact path="/checkout" component={HomeCart} />
               <Route exact path="/checkout/information" component={Information} />
               <Route exact path="/checkout/payment" component={Payment} />
-              <Route path="/cursos" component={Compra} />
+              <Route path="/course" component={Compra} />
               <Route path="/homefilter" component={HomeFilter} />
               <Route path ="/project" component={project}/>
+              <Route path ='/editprofile' component={ProfileEdit}/>
+              <Route path ='/mycourses' component={MyCourses}/>
+
              </Switch>
           </HashRouter>
     </Container>

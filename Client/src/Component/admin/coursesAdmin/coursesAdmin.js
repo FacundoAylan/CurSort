@@ -14,10 +14,11 @@ import {
 } from "@chakra-ui/react";
 import { getCourses } from "../../../Redux/actions/index";
 import {EditIcon} from '@chakra-ui/icons';
+import SearchAdmin from "./searchAdmin/searchAdmin";
 
 function CoursesAdmin() {
   let info = useSelector(
-    (state) => state.courses,
+    (state) => state.admin,
     () => false
   );
 
@@ -26,8 +27,10 @@ function CoursesAdmin() {
     dispatch(getCourses(""));
   }, [dispatch]);
 
+  console.log(info)
   return (
     <>
+      <SearchAdmin/>
       <TableContainer color="white">
         <Table variant="simple">
           <TableCaption>Imperial to metric conversion factors</TableCaption>

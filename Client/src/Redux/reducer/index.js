@@ -1,4 +1,4 @@
-import { filter } from "@chakra-ui/react";
+// import { filter } from "@chakra-ui/react";
 import {
   GET_DETAIL,
   GET_COURSES,
@@ -25,19 +25,22 @@ import {
   SET_USER,
   SET_LOGUIN,
   GET_LOGUIN,
+  GET_ADMIN_COURSES
 } from "../action-types";
 
 let initialState = {
   courseDetail: {},
   allCourses: [],
   courses: [], //este se renderiza
+  admin: [],
   warnings: "",
   categories: [],
   filterCurses: [],
   cart: [],
   local: JSON.parse(window.localStorage.getItem("cart")) || [],
-  user: {},
+  user: [],
   loguin: JSON.parse(window.localStorage.getItem("loguin")) || false,
+  userEmail:[]
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -47,6 +50,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         allCourses: action.payload,
         courses: action.payload,
+        admin: action.payload,
       };
     case GET_DETAIL:
       return {
@@ -61,7 +65,7 @@ const rootReducer = (state = initialState, action) => {
           image: action.payload.image,
           difficulty: action.payload.difficulty,
           price: action.payload.price,
-          reviews:action.payload.reviews,
+          reviews: action.payload.reviews,
           released: action.payload.released,
         },
       };
@@ -72,16 +76,15 @@ const rootReducer = (state = initialState, action) => {
         categories: action.payload,
       };
     case ORDER_BY_RATING:
-      let orderRating = 
-        state.courses.sort((a, b) => {
-          if (a.rating > b.rating) {
-            return -1;
-          }
-          if (b.rating > a.rating) {
-            return 1;
-          }
-          return 0;
-        });
+      let orderRating = state.courses.sort((a, b) => {
+        if (a.rating > b.rating) {
+          return -1;
+        }
+        if (b.rating > a.rating) {
+          return 1;
+        }
+        return 0;
+      });
 
       return {
         ...state,
@@ -160,58 +163,63 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_DIFFICULTY:
-      const FilteredDifficulty = state.courses.filter((curse) => action.payload === curse.difficulty);
-      if( FilteredDifficulty.length > 0){
+      const FilteredDifficulty = state.courses.filter(
+        (curse) => action.payload === curse.difficulty
+      );
+      if (FilteredDifficulty.length > 0) {
         return {
           ...state,
           courses: FilteredDifficulty,
         };
-      }else{
+      } else {
         return {
           ...state,
-          warnings: 'no match found',
+          warnings: "no match found",
         };
       }
 
     case FILTER_DURATION:
-
-    if (action.payload === "1A50") {
-        let filter =state.courses.filter((course) => course.duration >= 1 && course.duration <= 50);
-        if(filter.length >0 ){
+      if (action.payload === "1A50") {
+        let filter = state.courses.filter(
+          (course) => course.duration >= 1 && course.duration <= 50
+        );
+        if (filter.length > 0) {
           return {
             ...state,
             courses: filter,
           };
-        }else{
+        } else {
           return {
             ...state,
-            warnings: 'no match found',
+            warnings: "no match found",
           };
         }
       } else if (action.payload === "51A100") {
-        let filter = state.courses.filter((course) => course.duration >= 51 && course.duration <= 100);
-        if(filter.length >0 ){
+        let filter = state.courses.filter(
+          (course) => course.duration >= 51 && course.duration <= 100
+        );
+        if (filter.length > 0) {
           return {
             ...state,
             courses: filter,
           };
-        }else{
+        } else {
           return {
             ...state,
-            warnings: 'no match found',
+            warnings: "no match found",
           };
         }
       } else if (action.payload === "100") {
         let filter = state.courses.filter((course) => course.duration >= 100);
-        if(filter.length >0 ){
+        if (filter.length > 0) {
           return {
             ...state,
             courses: filter,
           };
-        }else{
+        } else {
           return {
             ...state,
-            warnings: 'no match found',
+            warnings: "no match found",
           };
         }
       }
@@ -223,55 +231,67 @@ const rootReducer = (state = initialState, action) => {
 
     case FILTER_CATEGORY:
       let filteredCategory = state.courses.filter((course) =>
-          course.categories.includes(action.payload)
-        );
-        if (action.payload === "all"){
-          return {
-            ...state,
-            courses: state.allCourses,
-          };
-        }else if(filteredCategory.length > 0) {
-            return {
-              ...state,
-              courses: filteredCategory,
-            };
-        }else{
-          return {
-            ...state,
-            warnings: 'no match found',
-          };
-        }
-  
+        course.categories.includes(action.payload)
+      );
+      if (action.payload === "all") {
+        return {
+          ...state,
+          courses: state.allCourses,
+        };
+      } else if (filteredCategory.length > 0) {
+        return {
+          ...state,
+          courses: filteredCategory,
+        };
+      } else {
+        return {
+          ...state,
+          warnings: "no match found",
+        };
+      }
 
     case ADD_TO_CART:
       const newItem = state.allCourses.find(
         (item) => item.id === Number(action.payload)
       );
 
-      const itemRepeated = state.local?.find(
-        (item) => item.id === newItem.id
-      );
+      const itemRepeated = state.local?.find((item) => item.id === newItem.id);
 
-      if(!itemRepeated) {
-        window.localStorage.setItem('cart', JSON.stringify([...state.local, { ...newItem, quantity: 1 }]))
+
+      if (!itemRepeated) {
+        window.localStorage.setItem(
+          "cart",
+          JSON.stringify([...state.local, { ...newItem, quantity: 1 }])
+        );
+        //console.log('cart', JSON.parse(window.localStorage.getItem('cart')))
       }
 
       return itemRepeated
         ? {
             ...state,
           }
-        : { ...state, local: [JSON.parse(window.localStorage.getItem('cart'))].flat()};
+        : {
+            ...state,
+            local: [JSON.parse(window.localStorage.getItem("cart"))].flat(),
+          };
 
     case REMOVE_ONE_FROM_CART:
-      const data =  JSON.parse(window.localStorage.getItem('cart')).flat()
-      const itemToDelete = data.find(
-        (item) => item.id === action.payload
-      );
 
-      
-      if(itemToDelete) {
-        window.localStorage.setItem('cart', JSON.stringify(data.filter((item) => item.id !== Number(action.payload))))
-        state.local = JSON.parse(window.localStorage.getItem('cart'))
+      const data = JSON.parse(window.localStorage.getItem("cart")).flat();
+      //console.log('data', data)
+      const itemToDelete = data.find((item) => item.id === action.payload);
+
+      //console.log('itemToDelete', itemToDelete)
+
+      if (itemToDelete) {
+        window.localStorage.setItem(
+          "cart",
+          JSON.stringify(
+            data.filter((item) => item.id !== Number(action.payload))
+          )
+        );
+        state.local = JSON.parse(window.localStorage.getItem("cart"));
+        //console.log('state', state.local)
       }
 
       return itemToDelete.quantity > 1
@@ -285,7 +305,9 @@ const rootReducer = (state = initialState, action) => {
           }
         : {
             ...state,
-            local: state.local.filter((item) => item.id !== Number(action.payload)),
+            local: state.local.filter(
+              (item) => item.id !== Number(action.payload)
+            ),
           };
     case REMOVE_ALL_FROM_CART:
       return {
@@ -293,48 +315,76 @@ const rootReducer = (state = initialState, action) => {
         cart: state.cart.filter((item) => item.id !== Number(action.payload)),
       };
     case CLEAR_CART:
-
       return {
         ...state,
         local: [],
-      }
+      };
     case CLEAN_FILTERS:
       return {
         ...state,
-        courses: state.allCourses
+        courses: state.allCourses,
       };
     case GET_WARNING:
       return {
         ...state,
-        warnings: '',
+        warnings: "",
       };
 
     case SET_USER:
       return {
         ...state,
-        user: [window.localStorage.setItem('user', JSON.stringify(action.payload))]
+        user: [
+          window.localStorage.setItem("user", JSON.stringify(action.payload)),
+        ],
       };
     case GET_USER:
       return {
         ...state,
-        user: JSON.parse(window.localStorage.getItem('user')),
+        user: JSON.parse(window.localStorage.getItem("user")),
       };
     case SET_LOGUIN:
       return {
         ...state,
-        loguin: window.localStorage.setItem('loguin', JSON.stringify(action.payload))
+        loguin: window.localStorage.setItem(
+          "loguin",
+          JSON.stringify(action.payload)
+        ),
       };
     case GET_LOGUIN:
       return {
         ...state,
-        loguin: window.localStorage.getItem('loguin'),
-      }
+        loguin: window.localStorage.getItem("loguin"),
+      };
     case GET_USERS:
       return {
         ...state,
-        users : action.payload
-
+        users: action.payload,
       };
+    case GET_ADMIN_COURSES:
+      return {
+        ...state,
+        admin: action.payload,
+      };
+      // pasado por juan
+    case "PUT_USER":
+      return {
+        ...state,
+      };
+    case "GET_ORDERS":
+      return {
+        ...state,
+        orders: action.payload,
+      };
+      case "GET_USER_EMAIL":
+        return{
+          ...state,
+          userEmail: action.payload
+        };
+        case "EDIT_USER":
+          return{
+            ...state,
+            userEmail: action.payload
+          }
     default:
       return state;
   }

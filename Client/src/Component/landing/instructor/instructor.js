@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, Stack, Text, Button, Box, SimpleGrid, StackDivider, Flex, useColorModeValue, HStack, Center} from '@chakra-ui/react';
-
+import {Link} from 'react-router-dom'
 
 
 function Instructor() {
@@ -39,9 +39,11 @@ function Instructor() {
               <Text>We provide you with the necessary tools and skills to help you educate the next generation of programmers.</Text>
             </Box>
           </Stack>
+          <Link to='/contact'>
             <Button bg='#3E4AB8'>
               Start teaching now!
             </Button>
+          </Link>
 
         </Stack>
         <HStack
