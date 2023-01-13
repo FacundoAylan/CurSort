@@ -34,9 +34,9 @@ function CoursesAdmin() {
     dispatch(getCourses(""));
   }, [dispatch]);
 
-  const handleOnClick = (e, id)=>{
+  const handleOnClick = async (e, id)=>{
     e.preventDefault()
-    dispatch(getDetail(id)) 
+    await dispatch(getDetail(id)) 
     history.push(`/editcourse/${id}`)
   }
 
@@ -128,6 +128,7 @@ function CoursesAdmin() {
                           }}
                           aria-label="Search database"
                           icon={<EditIcon />}
+                          type="button"
                           onClick={(e) => handleOnClick(e, value.id)}
                         />
 

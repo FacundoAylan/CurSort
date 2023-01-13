@@ -11,13 +11,14 @@ const Profile = () => {
 	// const { user, isAuthenticated } = useAuth0();
 	//console.log('isAuthenticated', isAuthenticated)
 	//LocalStore
-	  const user = JSON.parse(window.localStorage.getItem("user"));
-	  const loguin = JSON.parse(window.localStorage.getItem("loguin"));
+  const user = JSON.parse(window.localStorage.getItem("user"));
+  const loguin = JSON.parse(window.localStorage.getItem("loguin"));
   const dispatch = useDispatch()
   const history = useHistory()
-  const handleOnClick = (e)=>{
+  
+  const handleOnClick = async(e)=>{
     e.preventDefault()
-    dispatch(getUserEmail(user.email)) 
+    await dispatch(getUserEmail(user.email)) 
     history.push('/editprofile')
   }
 

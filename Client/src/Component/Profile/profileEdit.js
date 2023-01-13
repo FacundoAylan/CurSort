@@ -21,9 +21,7 @@ import Swal from "sweetalert2";
 const ProfileEdit = () => {
   const dispatch = useDispatch();
   const newUser = useSelector((state) => state.userEmail);
-  const history = useHistory();
-
- 
+  const history = useHistory(); 
 
   const [input, setInput] = useState({
     name: newUser.name,
