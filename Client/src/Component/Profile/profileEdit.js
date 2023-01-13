@@ -22,7 +22,7 @@ const ProfileEdit = () => {
   const newUser = useSelector((state) => state.userEmail);
   const history = useHistory();
 
-  console.log("new user :", newUser);
+ 
 
   const [input, setInput] = useState({
     name: newUser.name,

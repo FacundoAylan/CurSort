@@ -29,6 +29,7 @@ function Information() {
     const dataLocal = JSON.parse(dataLocalStore);
 
     const userLoguin = useSelector((state) => state.userEmail);
+    console.log('user loguin : ', userLoguin)
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
