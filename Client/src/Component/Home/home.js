@@ -87,7 +87,7 @@ function Home() {
         <Box maxW="100%" h='100%' borderRadius={12}>
           <Center pt='10%'>
             <Flex flexDirection='column'>
-              <Text fontSize={36} color='white'>Loanding</Text>
+              <Text fontSize={36} color='white'>Loading</Text>
               <Spinner size='xl' color='white' ml='50px'/>
             </Flex>
           </Center>
