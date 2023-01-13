@@ -18,6 +18,7 @@ function CartItem(props) {
         p="1px"
         border="1px"
         minW='100%'
+        bg='#3E4AB8'
       >
       <Flex minWidth='100%' justifyContent='space-between' flexDirection="row">
 
