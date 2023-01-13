@@ -16,13 +16,14 @@ import {
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
 import { putCourse, getDetail, clearCourseDetail } from "../../../Redux/actions/index";
-//import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const EditCourse = () => {
   let { id } = useParams();
   const dispatch = useDispatch();
   const course = useSelector((state) => state.courseDetail);  
-  //  const history = useHistory();
+   const history = useHistory();
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -30,6 +31,7 @@ const EditCourse = () => {
   }, [dispatch, id]);
 
   const [input, setInput] = useState({
+    id:course.id,
     name: course.name,
     description: course.description,
     instructor: course.instructor,
@@ -42,8 +44,15 @@ const EditCourse = () => {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(putCourse(input));
-    alert("Course edit successfully!");
-    //history.push("/home");
+    Swal.fire({
+      position: 'top-center',
+      icon: 'success',
+      title: `successfully modified course`,
+      fontSize: '5px',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    history.push("/Admin");
   }
 
   function handleChange(e) {

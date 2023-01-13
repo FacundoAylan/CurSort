@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
 import { putUser } from "../../Redux/actions/index";
 import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ProfileEdit = () => {
   const dispatch = useDispatch();
@@ -53,7 +54,14 @@ const ProfileEdit = () => {
     postalCode: '',
     gender: '',
     });
-    alert("usuario modificado con exito");
+    Swal.fire({
+      position: 'top-center',
+      icon: 'success',
+      title: `successfully modified Profile`,
+      fontSize: '5px',
+      showConfirmButton: false,
+      timer: 1500
+    })
     history.push("/home");
   }
 
