@@ -27,6 +27,8 @@ import {
   GET_USERS,
   GET_ADMIN_COURSES,
   GET_ORDERS,
+  EDIT_COURSE,
+  CLEAR_COURSE_DETAIL,
 } from "../action-types";
 
 export function getCourses(name) {
@@ -142,24 +144,6 @@ export function AllFilterDifficulty(payload) {
     });
   };
 }
-
-// export function GetFilter (){
-
-//   const duration = useSelector(state=> state.filterDuration)
-//   const difficulty = useSelector(state=> state.filterDifficulty)
-
-//   // //console.log(difficulty.difficulty)
-//   //console.log(duration.duration)
-
-//   return async (dispatch)=>{
-//     const response = await axios.get(`http://localhost:3001/filter/?duration${duration.duration}`) // ==>no se como conseguir todos los query juntos
-//     //console.log('data', response.data)
-//     dispatch({
-//       type: 'GET_FILTER',
-//       payload: response.data,
-//     });
-//   }
-// }
 
 export function filterDifficulty(difficulty) {
   return {
@@ -307,6 +291,17 @@ export function putUser(payload) {
   };
 }
 
+export function putCourse(payload) {
+  return async function (dispatch) {
+    const res = await axios.put("http://localhost:3001/courses", payload
+    );
+    dispatch({
+      type: EDIT_COURSE,
+      payload: res.data,
+    });
+  };
+}
+
 export function getOrders() {
   return async (dispatch) => {
     let order = await axios.get("http://localhost:3001/checkout/orders");
@@ -328,6 +323,13 @@ export function getUserEmail(email) {
     });
   };
 }
+
+export function clearCourseDetail() {
+  return {
+    type: CLEAR_COURSE_DETAIL,
+  };
+}
+
 // const getUserEmail= async function (email){
 //   const userEmail = await axios.get(`http://localhost:3001/users/userEmail?email=${email}`)
 //   return userEmail.data

@@ -56,7 +56,7 @@ function Detalle() {
   useEffect(() => {
     dispatch(getDetail(id));
   }, [dispatch, id]);
-
+console.log('curso: ', course)
   //este useEffect para poder ver el carrito actualizado
   useEffect(() => {
     dispatch(getCourses(""));
