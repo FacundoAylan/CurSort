@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Grid, Button, MenuItem } from '@chakra-ui/react'
+import { Button, MenuItem, Box } from '@chakra-ui/react'
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getCategory, filterCategory, home } from "../../Redux/actions";
@@ -23,27 +23,23 @@ const FilterCategory = ({booleano, setPagina, setHome}) => {
 
   return (
     //deberia hacer un map de las categorias presentes en base de datos 
-    <>
-      {/* gridTemplateRows='repeat(3, 45px)'  */}
-      
-      
-      {/* <Button onClick={(e) => handleCategory(e)} key='all' value='all'>All</Button> */}
+    <Box borderRadius='14px'>
       {categories &&
         categories.map((e) => {
           if(!booleano){
             return(
               <MenuItem
-              // <Button 
+              display='flex' justifyContent='center' alingText='center'
                 onClick={(e) => handleCategory(e)} 
                 key={e.id} 
                 value={e.name}
-                bg='black'
+                bg='#3E4AB8'
                 color='white'
-                justifyContent='center'
-                _hover={{ bg: 'gray.600' }}
+                _hover={{ color: 'black'}}
+                fontFamily='text'
+                fontWeight='bold'
                 >
                   {e.name}
-              {/* </Button> */}
               </MenuItem>
             )
           }
@@ -55,7 +51,7 @@ const FilterCategory = ({booleano, setPagina, setHome}) => {
             )
           }
         })}
-    </>
+    </Box>
   );
 };
 

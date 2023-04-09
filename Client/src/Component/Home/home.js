@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Box, Center, Text, Grid, Flex } from "@chakra-ui/react";
-import NavBar from "../navBar/navBar";
+import NavBar from "../01-navBar/navBar";
 import Footer from "../landing/footer/footer";
 import CarouselHome from "./currucelHome";
-import Filter from "../navBar/filter/filter";
+import Filter from "../01-navBar/filter/filter";
 import HomeFilter from "./homeFilter";
 import { getCategory, getCourses, getUserEmail } from "../../Redux/actions";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
@@ -52,27 +52,26 @@ function Home() {
       <Box>
         <NavBar setOrder={setOrder} setPagina={setPagina} setHome={setHome} />
       </Box>
-      <Box bg="#3E4AB8" pt="6rem" h="100%" position="fixed">
+      <Box pt="5%" h="100%">
         <Filter
           setPagina={setPagina}
           setOrder={setOrder}
           booleano={false}
           setHome={setHome}
         />
-      </Box>
-
-      <Flex pt="100px" ml="10rem">
-        <Box h="40%" width="100%" pl={3} pr={3}>
+ 
+      <Flex>
+        <Box h="50%" width="100%" pl={3} pr={3}>
           {home ? (
             categories &&
             categories.slice(0, 3).map((value) => {
               return (
-                <>
+                <Box>
                   <Center pt="10px">
-                    <Text color="white">{value.name.toUpperCase()}</Text>
+                    <Text color="white" fontFamily='text' fontWeight='bold' fontSize='25px'>{value.name.toUpperCase()}</Text>
                   </Center>
                   <CarouselHome categorie={value.name} />
-                </>
+                </Box>
               );
             })
           ) : (
@@ -86,6 +85,7 @@ function Home() {
           )}
         </Box>
       </Flex>
+      </Box>
 
       <Box mt={7}>
         <Footer />

@@ -6,11 +6,13 @@ import {
   InputGroup,
   InputRightElement,
   Button,
+  Center,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { getCourses } from "../../../Redux/actions";
 import { useDispatch } from "react-redux";
 import {  Form, Formik } from "formik";
+import './search.css'
 
 function Search({ setPagina, setHome }) {
   const [name, setName] = useState("");
@@ -25,23 +27,21 @@ function Search({ setPagina, setHome }) {
   };
 
   return (
+    <Center>
     <Formik initialValues={{ name: "" }} onSubmit={onClick}>
       {(props) => (
-        <Form>
-          <InputGroup size="md">
+        <Form className="container">
+          <InputGroup>
             <Input
-              pr="8rem"
+              className="search"
               placeholder="Search your next course..."
               value={name}
               onChange={onChange}
-              background="white"
-              border="2px"
-              borderColor="black"
             />
             <InputRightElement>
               <Button  type="submit">
                 <IconButton
-                  colorScheme="blue"
+                  colorScheme="white"
                   aria-label="Search database"
                   icon={<SearchIcon />}
                   onClick={onClick}
@@ -52,6 +52,7 @@ function Search({ setPagina, setHome }) {
         </Form>
       )}
     </Formik>
+    </Center>
   );
 }
 

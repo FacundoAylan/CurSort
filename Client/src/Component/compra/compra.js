@@ -22,7 +22,7 @@ function Compra() {
       <Box pt="10px">
         <Link to="/home">
           <IconButton
-            colorScheme="blue"
+            colorScheme="white"
             aria-label="Search database"
             icon={<ArrowLeftIcon />}
           />

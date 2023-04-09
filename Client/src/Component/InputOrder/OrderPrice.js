@@ -8,10 +8,12 @@ const OrderPrice = ({handleOrderByPrice}) => {
       <MenuItem 
         onClick={(e)=>handleOrderByPrice(e)} 
         value="desc"
-        bg='black'
+        bg='#3E4AB8'
         color='white'
         justifyContent='center'
-        _hover={{ bg: 'gray.600' }}
+        _hover={{ color:'black' }}
+        fontFamily='text'
+        fontWeight='bold'
         >
           Higher price
       </MenuItem>
@@ -19,10 +21,12 @@ const OrderPrice = ({handleOrderByPrice}) => {
       <MenuItem 
         onClick={(e)=>handleOrderByPrice(e)} 
         value="asc"
-        bg='black'
+        bg='#3E4AB8'
         color='white'
         justifyContent='center'
-        _hover={{ bg: 'gray.600' }}
+        _hover={{ color:'black' }}
+        fontFamily='text'
+        fontWeight='bold'
         >
           Lower price
       </MenuItem>

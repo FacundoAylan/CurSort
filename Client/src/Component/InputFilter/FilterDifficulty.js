@@ -17,10 +17,12 @@ const FilterDifficulty = ({setPagina, setHome }) => {
       <MenuItem 
         onClick={(e) => handleDifficulty(e)} 
         value='Beginner'
-        bg='black'
+        bg='#3E4AB8'
         color='white'
         justifyContent='center'
-        _hover={{ bg: 'gray.600' }}
+        _hover={{ color:'black' }}
+        fontFamily='text'
+        fontWeight='bold'
         >
           Beginner
       </MenuItem>
@@ -28,10 +30,12 @@ const FilterDifficulty = ({setPagina, setHome }) => {
       <MenuItem 
         onClick={(e) => handleDifficulty(e)} 
         value='Middle'
-        bg='black'
+        bg='#3E4AB8'
         color='white'
         justifyContent='center'
-        _hover={{ bg: 'gray.600' }}
+        _hover={{ color:'black' }}
+        fontFamily='text'
+        fontWeight='bold'
         >
           Middle
       </MenuItem>
@@ -39,10 +43,12 @@ const FilterDifficulty = ({setPagina, setHome }) => {
       <MenuItem 
         onClick={(e) => handleDifficulty(e)} 
         value='Advanced'
-        bg='black'
+        bg='#3E4AB8'
         color='white'
         justifyContent='center'
-        _hover={{ bg: 'gray.600' }}
+        _hover={{ color:'black' }}
+        fontFamily='text'
+        fontWeight='bold'
         >
           Advanced
       </MenuItem>

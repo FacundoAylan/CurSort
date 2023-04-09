@@ -39,7 +39,7 @@ function Detalle() {
   const dispatch = useDispatch();
   const course = useSelector((state) => state.courseDetail);
   const history = useHistory();
-  const local = useSelector((state) => state.local);
+  // const local = useSelector((state) => state.local);
 
   const user = JSON.parse(window.localStorage.getItem("user"));
   const loguin = JSON.parse(window.localStorage.getItem("loguin"));
