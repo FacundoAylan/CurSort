@@ -8,12 +8,7 @@ import {
   Table,
   TableCaption,
   TableContainer,
-  Tbody,
-  Td,
   Text,
-  Tfoot,
-  Th,
-  Tr,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";

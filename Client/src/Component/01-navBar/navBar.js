@@ -4,10 +4,12 @@ import LoginButton from '../LoginButton/LoginButton'
 import LogoutButton from '../LogoutButton/LogoutButton'
 // import Profile from '../Profile/Profile'
 import { useAuth0 } from "@auth0/auth0-react";
+import './navbar.css'
 
 import {
   Box,
   Button,
+  Center,
   Flex,
   Grid,
   GridItem, 
@@ -53,27 +55,23 @@ function NavBar({ setPagina, setOrder, setHome}) {
 
   return (
     <>
-      <Grid templateColumns="25% 50% 25%" position="fixed" backgroundColor='#3E4AB8' zIndex='100'  w='100vw' h='105px'>
-        <GridItem mt="2%">
+      <Grid templateColumns="15% 60% 25%" position="fixed" backgroundColor='#3E4AB8' zIndex='100'  w='100vw' h='12%'>
+        <GridItem>
           {/* componente del titulo */}
           <Title />
         </GridItem>
-        <GridItem mt="2%">
+        <GridItem className='search'>
           {/* componente del search */}
 
           <Search setOrder={setOrder} setPagina={setPagina} setHome={setHome}/>
         </GridItem>
 
-        <GridItem mt="15%" ml="60%" pr='10px'>
-          <Flex >
-            <Box pt={1}>
+        <GridItem className='icons' >
+          <Center>
+          <Flex>
+            <Box pt={1} className='button'>
               <Link to="/checkout">
-                <Button
-                  color="white"
-                  border="2px"
-                  borderColor="white"
-                  borderRadius="12px"
-                >
+                <Button>
                   <IconButton size="1%" icon={<GrCart />} />
                   {local.length > 0 && (
                     <div>
@@ -100,6 +98,7 @@ function NavBar({ setPagina, setOrder, setHome}) {
               {/* {isAuthenticated && <Profile/>} */}
             </Box>
           </Flex>
+          </Center>
         </GridItem>
       </Grid>
     </>

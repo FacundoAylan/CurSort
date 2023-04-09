@@ -6,8 +6,6 @@ import {
   MenuButton,
   MenuList,
   Flex,
-  background,
-  MenuItem,
 } from "@chakra-ui/react";
 import FilterCategory from "../../InputFilter/FilterCategory";
 import FilterDifficulty from "../../InputFilter/FilterDifficulty";
@@ -15,7 +13,6 @@ import FilterDuration from "../../InputFilter/FilterDuration";
 import OrderPrice from "../../InputOrder/OrderPrice";
 import OrderPublished from "../../InputOrder/OrderPublished";
 import {
-  getCourses,
   orderByRating,
   orderByPrice,
   orderByPublished,
@@ -59,29 +56,28 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
   }
 
   return (
-    <Flex 
-      mt={booleano? 3.8 : 5} 
-      pl={3} 
-      pr={3} 
-      flexDirection={booleano? 'row':'column'}
-      >
+    <Flex gap={3} padding={2}>
       <Menu>
         <MenuButton 
-          background='black' 
+          ml={booleano? 3: 0} 
+          mt={booleano? '0':'10px'}
+          background='#3E4AB8' 
           color='white' 
+          _hover={{ border: '3px', borderColor:'green'}}
           border='2px' 
           borderColor='white' 
           borderRadius='12px' 
           w='100%'
           py='1.5'
           fontWeight='bold'
-          _hover={{ bg: 'gray.600' }}
           >
           Category  
         </MenuButton>
         <MenuList 
-          bg='black' 
-          minWidth='150px'
+        padding={0}
+        margin={0}
+        minWidth='170px'
+        borderRadius='14px'
           >
           <FilterCategory booleano={booleano} setPagina={setPagina} setHome={setHome}/>          
         </MenuList>
@@ -91,21 +87,23 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
         <MenuButton 
           ml={booleano? 3: 0} 
           mt={booleano? '0':'10px'}
-          background='black' 
+          background='#3E4AB8' 
           color='white' 
+          _hover={{ border: '3px', borderColor:'green'}}
           border='2px' 
           borderColor='white' 
           borderRadius='12px' 
           w='100%'
-          _hover={{ bg: 'gray.600' }}
           py='1.5'
           fontWeight='bold'
           >
           Difficulty
         </MenuButton>
         <MenuList
-          bg='black' 
-          minWidth='150px'
+          padding={0}
+          margin={0}
+          minWidth='170px'
+          borderRadius='14px'
           >
           <FilterDifficulty setPagina={setPagina} setHome={setHome}/>
         </MenuList>
@@ -115,21 +113,23 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
         <MenuButton 
           ml={booleano? 3: 0} 
           mt={booleano? '0':'10px'}
-          background='black' 
+          background='#3E4AB8' 
           color='white' 
+          _hover={{ border: '3px', borderColor:'green'}}
           border='2px' 
           borderColor='white' 
           borderRadius='12px' 
           w='100%'
-          _hover={{ bg: 'gray.600' }}
           py='1.5'
           fontWeight='bold'
           >
           Duration
         </MenuButton>
         <MenuList
-          bg='black' 
-          minWidth='150px'
+          padding={0}
+          margin={0}
+          minWidth='170px'
+          borderRadius='14px'
           >
           <FilterDuration setPagina={setPagina} setHome={setHome} />
         </MenuList>
@@ -139,21 +139,23 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
         <MenuButton 
           ml={booleano? 3: 0} 
           mt={booleano? '0':'10px'}
-          background='black' 
+          background='#3E4AB8' 
           color='white' 
+          _hover={{ border: '3px', borderColor:'green'}}
           border='2px' 
           borderColor='white' 
           borderRadius='12px' 
           w='100%'
-          _hover={{ bg: 'gray.600' }}
           py='1.5'
           fontWeight='bold'
           >
           Price
         </MenuButton>
         <MenuList
-          bg='black' 
-          minWidth='150px'
+          padding={0}
+          margin={0}
+          minWidth='170px'
+          borderRadius='14px'
           >
           <OrderPrice handleOrderByPrice={handleOrderByPrice}/>
         </MenuList>
@@ -163,21 +165,23 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
         <MenuButton 
           ml={booleano? 3: 0} 
           mt={booleano? '0':'10px'}
-          background='black' 
+          background='#3E4AB8' 
           color='white' 
+          _hover={{ border: '3px', borderColor:'green'}}
           border='2px' 
           borderColor='white' 
           borderRadius='12px' 
           w='100%'
-          _hover={{ bg: 'gray.600' }}
           py='1.5'
           fontWeight='bold'
           >
           Released Date
         </MenuButton>
         <MenuList
-          bg='black' 
-          minWidth='150px'
+          padding={0}
+          margin={0}
+          minWidth='170px'
+          borderRadius='14px'
           >
           <OrderPublished handleOrderByPublished={handleOrderByPublished}/>
         </MenuList>
@@ -186,14 +190,14 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
       <Menu >
         <Button 
           ml={booleano? 3: 0} mt={booleano? '0':'10px'}
-          background='black' 
+          background='#3E4AB8' 
           color='white' 
+          _hover={{ border: '3px', borderColor:'green'}}
           border='2px' 
           borderColor='white' 
           borderRadius='12px' 
           w='100%' 
           onClick={(e) => handleOrderByStar(e)}
-          _hover={{ bg: 'gray.600' }}
           >
             Best Rated
         </Button> 
@@ -202,14 +206,14 @@ function Filter({ setPagina, setOrder, booleano, setHome }) {
       <Menu >
         <Button 
           ml={booleano? 3: 0} mt={booleano? '0':'10px'}
-          background='black' 
+          background='#3E4AB8' 
           color='white' 
+          _hover={{ border: '3px', borderColor:'green'}}
           border='2px' 
           borderColor='white' 
           borderRadius='12px' 
           w='100%' 
           onClick={(e) => handleCleanFilters(e)}
-          _hover={{ bg: 'gray.600' }}
           >
             Clean Filters
         </Button> 

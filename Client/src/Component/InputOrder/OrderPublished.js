@@ -7,10 +7,12 @@ const OrderPublished = ({handleOrderByPublished}) => {
       <MenuItem 
         onClick={handleOrderByPublished} 
         value="desc"
-        bg='black'
+        bg='#3E4AB8'
         color='white'
         justifyContent='center'
-        _hover={{ bg: 'gray.600' }}
+        _hover={{ color:'black' }}
+        fontFamily='text'
+        fontWeight='bold'
         >
           Most recent
       </MenuItem>
@@ -18,10 +20,12 @@ const OrderPublished = ({handleOrderByPublished}) => {
       <MenuItem 
         onClick={handleOrderByPublished} 
         value="asc"
-        bg='black'
+        bg='#3E4AB8'
         color='white'
         justifyContent='center'
-        _hover={{ bg: 'gray.600' }}
+        _hover={{ color:'black' }}
+        fontFamily='text'
+        fontWeight='bold'
         >
           Oldest
       </MenuItem>

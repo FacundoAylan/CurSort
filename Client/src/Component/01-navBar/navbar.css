@@ -1,0 +1,22 @@
+.search {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  justify-items: center;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  justify-items: center;
+  padding-left: 55%;
+}
+
+.button {
+  color: white;
+  border-radius: 14px;
+  background-color: white;
+  height: 6%;
+  border: 1px solid black;
+}

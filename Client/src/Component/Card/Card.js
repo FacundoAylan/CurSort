@@ -8,9 +8,7 @@ import {
   GridItem,
   Box,
   Image,
-  // useColorModeValue,
   Icon,
-  // chakra,
   Tooltip,
   Center,
   Flex,
@@ -19,9 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import Swal from "sweetalert2";
-
-
-
 
 const data = {
   isNew: true,
@@ -44,21 +39,23 @@ function Rating({ rating }) {
             return (
               <BsStarFill
                 key={i}
-                color={i < rating ? "yellow" : "gray.300"}
+                size={25}
+                color={i < rating ? "yellow" : "white"}
+                style={{ marginLeft: "8px" }}
               />
             );
           }
           if (roundedRating - i === 0.5) {
             return (
               <BsStarHalf
-                background="white"
                 key={i}
-                style={{ marginLeft: "1" }}
+                size={25}
+                style={{ marginLeft: "8px" }}
               />
             );
           }
           return (
-            <BsStar background="white" key={i} style={{ marginLeft: "1" }} />
+            <BsStarFill color='white' size={25} key={i} style={{ marginLeft: "8px" }} />
           );
         })}
     </Flex>
@@ -110,6 +107,7 @@ function Cards({ name, image, price, id, categories, rating, createdAt }) {
         h="360px"
         color="black"
         borderRadius={12}
+        paddingBottom={3}
       >
         <GridItem>
           <Image
@@ -140,10 +138,10 @@ function Cards({ name, image, price, id, categories, rating, createdAt }) {
           {/* cursos nuevos   */}
 
           {/* nombre del course */}
-          <Center fontSize="100%" p={0} pt={ createdAt =='2019-03-25T20:00:00.000Z'? 0 : 4 }>
+          <Center fontSize="100%" p={0} pt={ createdAt =='2019-03-25T20:00:00.000Z'? 0 : 4 } fontFamily='text' fontWeight='bold' color='white'>
             {name}
           </Center>
-          <Center>{categories}</Center>
+          <Center color='white'>{categories}</Center>
           {/* nombre del course */}
 
           {/* puntuacion */}
@@ -154,14 +152,14 @@ function Cards({ name, image, price, id, categories, rating, createdAt }) {
             {/* puntuacion */}
 
             {/* precio */}
-            <Box mt='10px'>
+            <Box mt='3px'>
             <Center fontSize="40px" color="#03C139">
-              {`$${price.toFixed(2)}`}
+              {`$${price}`}
             </Center>
             {/* precio */}
 
             {/* boton de compra */}
-            <Center >
+            <Center>
               <Tooltip
                 label="Add to cart"
                 bg="#03C139"
@@ -171,13 +169,13 @@ function Cards({ name, image, price, id, categories, rating, createdAt }) {
                 onClick={handleClick}
               >
                 {/* <Link to="/cart"> */}
-                  <Button background="none">
+                  <Button _hover={{bg:'#03C139'}} bg='transparent'>
                     <Icon
                       as={FiShoppingCart}
                       h={7}
                       w={7}
                       alignSelf={"center"}
-                      color="black"
+                      color="white"
                       onClick={handleClick}
                     />
                   </Button>

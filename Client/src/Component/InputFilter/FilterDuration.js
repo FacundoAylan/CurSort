@@ -18,10 +18,12 @@ const FilterDuration = ({setPagina, setHome}) => {
         <MenuItem 
           onClick={(e) => handleDuration(e)} 
           value='1A50'
-          bg='black'
+          bg='#3E4AB8'
           color='white'
           justifyContent='center'
-          _hover={{ bg: 'gray.600' }}
+          _hover={{ color:'black' }}
+          fontFamily='text'
+          fontWeight='bold'
           >
             1hs - 50hs
         </MenuItem>
@@ -29,10 +31,12 @@ const FilterDuration = ({setPagina, setHome}) => {
         <MenuItem 
           onClick={(e) => handleDuration(e)} 
           value='51A100'
-          bg='black'
+          bg='#3E4AB8'
           color='white'
           justifyContent='center'
-          _hover={{ bg: 'gray.600' }}
+          _hover={{ color:'black' }}
+          fontFamily='text'
+          fontWeight='bold'
           >
             51hs - 100hs
         </MenuItem>
@@ -40,10 +44,12 @@ const FilterDuration = ({setPagina, setHome}) => {
         <MenuItem 
           onClick={(e) => handleDuration(e)} 
           value='100'
-          bg='black'
+          bg='#3E4AB8'
           color='white'
           justifyContent='center'
-          _hover={{ bg: 'gray.600' }}
+          _hover={{ color:'black' }}
+          fontFamily='text'
+          fontWeight='bold'
           >
             + 100hs
         </MenuItem>

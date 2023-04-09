@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { Link, useParams } from "react-router-dom";
 import { ArrowLeftIcon } from "@chakra-ui/icons";
-import { putCourse, getDetail, clearCourseDetail } from "../../../Redux/actions/index";
+import { putCourse, getDetail } from "../../../Redux/actions/index";
 import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 
