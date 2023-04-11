@@ -51,12 +51,13 @@ function Paginado({ pagina, setPagina, maximo }) {
     <>
       <ButtonGroup variant="outline" spacing="6">
         <Button
-          background="black"
+          background="#023e8a"
           color="white"
           border="2px"
           borderColor="white"
           borderRadius="12px"
           onClick={previusPage}
+          _hover={{border:0, background:"#023e8a"}}
         >
           Prev.
         </Button>
@@ -65,13 +66,14 @@ function Paginado({ pagina, setPagina, maximo }) {
         return (
           <ButtonGroup variant="outline" spacing="6" p={1}>
             <Button
-              background="black"
+              background="#023e8a"
               color="white"
               border="2px"
               borderColor="white"
               borderRadius="12px"
               onClick={onChange}
               value={value}
+              _hover={{border:0, background:"#023e8a"}}
             >
               {value}
             </Button>
@@ -79,12 +81,13 @@ function Paginado({ pagina, setPagina, maximo }) {
         );
       })}
       <Button
-        background="black"
+        background="#023e8a"
         color="white"
         border="2px"
         borderColor="white"
         borderRadius="12px"
         onClick={nextPage}
+        _hover={{border:0, background:"#023e8a"}}
       >
         Next
       </Button>

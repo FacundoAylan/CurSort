@@ -3,13 +3,13 @@
         
         {
             "id": 1,
-            "nombre": "Curso de Python",
-            "imagen": "https://i.ytimg.com/vi/tmrz4UuHjyQ/maxresdefault.jpg",
+            "nombre": "Desarrollo Web Avanzado",
+            "imagen": "https://edteam-media.s3.amazonaws.com/specialities/big/ca501a2f-673d-44b0-a319-a9f4ec52ca7d.png",
             "instructor": "Beto Quiroga",
             "precio": 65,
             "moneda": "USD",
             "duracion": 101,
-            "descripcion": "Aprende a programar en Python desde cero, conoce sus fundamentos y crea tus propios proyectos.",
+            "descripcion": "Este curso cubre temas avanzados de HTML, CSS y JavaScript, así como el uso de herramientas como React y Angular para crear aplicaciones web dinámicas.",
             "updated_at": "2019-03-25T20:00:00.000Z",
             "created_at": "2019-03-25T20:00:00.000Z",
             "rating": 3,
@@ -66,13 +66,13 @@
         },
         {
             "id": 2,
-            "nombre": "Curso de JavaScript",
-            "imagen": "https://i.ytimg.com/vi/k0kT6mwq7mY/maxresdefault.jpg",
+            "nombre": "CSS Avanzado",
+            "imagen": "https://edteam-media.s3.amazonaws.com/specialities/big/ca501a2f-673d-44b0-a319-a9f4ec52ca7d.png",
             "instructor": "Beti Benitez",
-            "precio": 20,
+            "precio": 100,
             "moneda": "USD",
             "duracion": 55,
-            "descripcion": "Aprende a programar en JavaScript desde cero, conoce sus fundamentos y crea tus propios proyectos.",
+            "descripcion": "Aprende a crear diseños complejos con CSS utilizando técnicas avanzadas y frameworks modernos.",
             "updated_at": "2019-03-25T20:00:00.000Z",
             "created_at": "2019-03-25T20:00:00.000Z",
             "rating": 1,
@@ -318,13 +318,13 @@
         },
         {
             "id": 6,
-            "nombre": "Curso de JavaScript",
+            "nombre": "Introducción a React",
             "imagen": "https://webtraining.zone/img/metadata-courses/curso-profesional-javascript-avanzado-2018.jpg",
             "instructor": "Pedro Piedra",
             "precio": 50,
             "moneda": "USD",
             "duracion": 30,
-            "descripcion": "Aprende a programar en JavaScript desde cero, conoce sus fundamentos y crea tus propios proyectos.",
+            "descripcion": "Aprende los fundamentos de React y cómo crear aplicaciones web modernas.",
             "updated_at": "2019-03-25T20:00:00.000Z",
             "created_at": "2019-03-25T20:00:00.000Z",
             "rating": 2,
@@ -507,13 +507,13 @@
       },
       {
           "id": 9,
-          "nombre": "Curso de JavaScript",
-          "imagen": "https://i.ytimg.com/vi/k0kT6mwq7mY/maxresdefault.jpg",
+          "nombre": "Desarrollo Web Completo",
+          "imagen": "https://edteam-media.s3.amazonaws.com/courses/original/440bf729-4f2b-49a6-a0c7-7cf65a8bd31b.png",
           "instructor": "Beti Benitez",
-          "precio": 15,
+          "precio": 200,
           "moneda": "USD",
           "duracion": 10,
-          "descripcion": "Aprende a programar en JavaScript desde cero, conoce sus fundamentos y crea tus propios proyectos.",
+          "descripcion": "Curso completo de desarrollo web, desde HTML y CSS hasta JavaScript y frameworks modernos.",
           "updated_at": "2019-03-25T20:00:00.000Z",
           "created_at": "2019-03-25T20:00:00.000Z",
           "rating": 0,
@@ -885,13 +885,13 @@
         },
               {
                 "id": 1,
-                "nombre": "Curso de Python",
-                "imagen": "https://i.ytimg.com/vi/tmrz4UuHjyQ/maxresdefault.jpg",
+                "nombre": "Introducción al Desarrollo Web",
+                "imagen": "https://prod-discovery.edx-cdn.org/media/course/image/2dcbd011-56c5-4e4a-80eb-aa2a080c1164-060866c24c0b.small.png",
                 "instructor": "Beto Quiroga",
                 "precio": 20,
                 "moneda": "USD",
                 "duracion": 10,
-                "descripcion": "Aprende a programar en Python desde cero, conoce sus fundamentos y crea tus propios proyectos.",
+                "descripcion": "Este curso cubre los fundamentos de HTML, CSS y JavaScript, así como la creación de sitios web estáticos básicos.",
                 "updated_at": "2019-03-25T20:00:00.000Z",
                 "created_at": "2019-03-25T20:00:00.000Z",
                 "rating": 0,
@@ -2211,15 +2211,15 @@
     "categorias":[
         {
             "id": 1,
-            "name": "front prueba" 
+            "name": "Front-End" 
         },
         {
             "id": 2,
-            "name": "Back prueba" 
+            "name": "Back-End" 
         },
         {
             "id":3,
-            "name": "desing prueba"
+            "name": "Desing(UX)"
         }
     ]
 
