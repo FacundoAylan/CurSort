@@ -15,7 +15,7 @@ import {
   Button,
   Badge,
 } from "@chakra-ui/react";
-import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import Swal from "sweetalert2";
 
 const data = {
@@ -40,7 +40,7 @@ function Rating({ rating }) {
               <BsStarFill
                 key={i}
                 size={25}
-                color={i < rating ? "yellow" : "white"}
+                color={i < rating ? "yellow" : "#D3D3D3"}
                 style={{ marginLeft: "8px" }}
               />
             );
@@ -55,7 +55,7 @@ function Rating({ rating }) {
             );
           }
           return (
-            <BsStarFill color='white' size={25} key={i} style={{ marginLeft: "8px" }} />
+            <BsStarFill color='#D3D3D3' size={25} key={i} style={{ marginLeft: "8px"}} />
           );
         })}
     </Flex>
@@ -102,12 +102,15 @@ function Cards({ name, image, price, id, categories, rating, createdAt }) {
     <Link onClick={handleRedirec} className="linkStart">
       <Grid
         p={0}
-        templateRows=" 45% 55%"
+        templateRows=" 40% 25% 50%"
         background="#3E4AB8"
         h="360px"
         color="black"
         borderRadius={12}
         paddingBottom={3}
+        border='2px'
+        borderColor='white'
+        _hover={{border: 0}}
       >
         <GridItem>
           <Image
@@ -121,7 +124,7 @@ function Cards({ name, image, price, id, categories, rating, createdAt }) {
           />
         </GridItem>
 
-        <GridItem w="100%" >
+        <GridItem w="100%" p={0} justifySelf='center' alignSelf='center'>
           {/* cursos nuevos  */}
           {
             createdAt =='2019-03-25T20:00:00.000Z'?
@@ -138,13 +141,15 @@ function Cards({ name, image, price, id, categories, rating, createdAt }) {
           {/* cursos nuevos   */}
 
           {/* nombre del course */}
-          <Center fontSize="100%" p={0} pt={ createdAt =='2019-03-25T20:00:00.000Z'? 0 : 4 } fontFamily='text' fontWeight='bold' color='white'>
+          <Box textAlign='center' fontSize="1rem" p={0} fontFamily='text' fontWeight='bold' color='white' letterSpacing={2}>
             {name}
-          </Center>
-          <Center color='white'>{categories}</Center>
+          </Box>
+          <Center color='#00FF00' fontFamily='text' fontWeight='bold' letterSpacing={2}>{categories}</Center>
           {/* nombre del course */}
 
           {/* puntuacion */}
+          </GridItem>
+          <GridItem>
           <Box>
             <Center ml="1%">
               <Rating rating={rating} />
@@ -153,7 +158,7 @@ function Cards({ name, image, price, id, categories, rating, createdAt }) {
 
             {/* precio */}
             <Box mt='3px'>
-            <Center fontSize="40px" color="#03C139">
+            <Center fontSize="40px" color="#D3D3D3">
               {`$${price}`}
             </Center>
             {/* precio */}
@@ -175,7 +180,7 @@ function Cards({ name, image, price, id, categories, rating, createdAt }) {
                       h={7}
                       w={7}
                       alignSelf={"center"}
-                      color="white"
+                      color="#D3D3D3"
                       onClick={handleClick}
                     />
                   </Button>
